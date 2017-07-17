@@ -1,0 +1,110 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+     <f:view>
+    <head>
+        <link href="estilos.css" rel="stylesheet" type="text/css/"/>
+        <f:loadBundle basename="com.resource.mensajes" var="msjs"/>
+        <title>
+            <h:outputText value="#{msjs.titulo}"/> 
+        </title>
+    </head>
+            <body>
+                <h:form>
+                    <center>
+                        
+                        <h:outputText value="#{msjs.bienvenida}" styleClass="enfasis"/>
+                        <h:graphicImage value="/duke.gif"/>
+                        
+                    </center>
+                  <table>
+                      <tr>
+                          <td><h:outputText value="#{msjs.nombre}"/></td>
+                          <td><h:inputText  value="#{cuestionario.correo}"/></td>
+                      </tr>
+                            <tr>
+                                <td> <h:outputText value="#{msjs.aficiones}"/></td>
+                                <td><h:outputText value="#{cuestionario.aficiones}"/></td>
+                            
+                            </tr>
+                      <tr>
+                                <h:selectManyCheckbox value="#{cuestionario.aficiones}">
+                                    <f:selectItem itemValue="musica" itemLabel="Musica"/>
+                                    <f:selectItem itemValue="cine" itemLabel="Cine" />
+                                    <f:selectItem itemValue="pesca" itemLabel="Pesca"/>
+                                    <f:selectItem itemValue="deporte" itemLabel="Deporte"/>
+                                    <f:selectItem itemValue="lectura" itemLabel="Lectura"/>
+                                    
+                                </h:selectManyCheckbox>
+                      </tr>
+                      <tr>
+                          <h:outputText value="#{msjs.tabaco}"/>
+                          <h:outputLink value="http://www.hoylodejo.com/">
+                          <h:outputText value="#{msjs.pinche}"/>    
+                          </h:outputLink>
+                       </tr> 
+                      <tr>
+                          <td> <h:outputText value="#{msjs.sistema}"/></td>
+                          <td> <h:selectOneMenu value="#{cuestionario.sistema}">
+                              <f:selectItem itemValue="window 98" itemLabel="Window98"/>
+                              <f:selectItem itemValue="window xp" itemLabel="Window Xp"/>
+                              <f:selectItem itemValue="suse" itemLabel="Suse"/>
+                              <f:selectItem itemValue="red hat" itemLabel="Red Hat"/>
+                              <f:selectItem itemValue="ubunt" itemLabel="Ubunt"/>
+                           </h:selectOneMenu> </td>
+                        </tr>
+                      <tr>
+                          <h:outputText value="#{msjs.comidas}"/>
+                          <h:selectManyMenu value="#{cuestionario.comidas}">
+                              <f:selectItem itemValue="carnes"    itemLabel="Carnes"/>
+                              <f:selectItem itemValue="pescados"  itemLabel="Pescados"/>
+                              <f:selectItem itemValue="legumbres" itemLabel="Pastas"/>
+                              <f:selectItem itemValue="pastas"    itemLabel="Patas"/>
+                              <f:selectItem itemValue="sopas"     itemLabel="Sopas"/>
+                          </h:selectManyMenu>
+                                   
+                      </tr>
+                      <tr>
+                          <h:outputText value="#{msjs.estado}"/>
+                          <h:selectManyListbox value="#{cuestionario.estado}">
+                              <f:selectItem itemValue="soltero" itemLabel="Soltero"/>
+                              <f:selectItem itemValue="casado" itemLabel="Casado" />
+                              <f:selectItem itemValue="divorsiado" itemLabel="Divorsiado"/>
+                              <f:selectItem itemValue="separado" itemLabel="Separado"/>
+                              
+                          </h:selectManyListbox>
+ 
+                      </tr>
+                       
+                      <tr>
+                          <h:outputText value="#{msjs.lenguajes}"/>
+                              <h:selectManyListbox  value="#{cuestionario.lenguajes}">
+                              <f:selectItem itemValue="c" itemLabel="c"/>
+                              <f:selectItem itemValue="c++" itemLabel="c++"/>
+                              <f:selectItem itemValue="java" itemLabel="java"/>
+                              <f:selectItem itemValue="visual basic" itemLabel="Visual basic"/>
+                              <f:selectItem itemValue="modula2" itemLabel="Modula 2"/>          
+                              </h:selectManyListbox>
+
+                      </tr>            
+                      <tr>
+                          <h:outputText value="#{msjs.comentario}" />
+                          <h:inputTextarea rows="10" cols="50" value="Escribir aqui..."/>                      
+                      </tr>
+                      <tr>
+                          <h:commandButton  value="#{msjs.aceptar}" action="#{cuestionario.opinar}"/>
+                          <h:commandButton  value="#{msjs.resetear}" type="reset"/>
+                          <h:selectBooleanCheckbox value="#{cuestionario.quieroOpinar}"/>
+                          <h:outputText value="#{msjs.opinar}"/>
+                      </tr>
+                      
+                      
+                    </table>  
+                        
+                  </h:form>             
+            </body>
+         
+        </f:view>
+   
+</html>

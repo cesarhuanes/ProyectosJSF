@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.1"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+<managed-bean>
+    <managed-bean-name>usuario</managed-bean-name>
+    <managed-bean-class>com.beans.UsuarioBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    
+    
+</managed-bean>
+
+<managed-bean>
+    <managed-bean-name>examen</managed-bean-name>
+    <managed-bean-class>ExamenBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    
+    <managed-property>
+        <property-name>problemas</property-name>
+            <list-entries>
+                <value-class>ProblemasBean</value-class>
+                <value>#{problema1}</value>
+                <value>#{problema2}</value>
+                <value>#{problema3}</value>
+                <value>#{problema4}</value>
+                <value>#{problema5}</value>
+            </list-entries>
+    </managed-property>
+</managed-bean>
+
+<managed-bean>
+    <managed-bean-name>problema1</managed-bean-name>
+    <managed-bean-class>ProblemaBean</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+        <property-name>sequence</property-name>
+        <list-entries>
+            <value-class>java.lang.Integer</value-class>
+            <value>3</value>
+            <value>1</value>
+            <value>4</value>
+        </list-entries>
+        
+    </managed-property>
+</managed-bean>
+
+
+<navigation-rule>
+    <from-view-id>/Login.xhtml</from-view-id>
+    <navigation-case>
+        <from-outcome>login</from-outcome>
+        <to-view-id>/hola.xhtml</to-view-id>
+    </navigation-case>
+    
+    
+</navigation-rule>
+
+</faces-config>

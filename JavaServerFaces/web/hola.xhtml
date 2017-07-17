@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <f:view>
+        <head>
+            <f:loadBundle basename="com.resource.mensajes" var="msj" /> 
+            <title>Una simple aplicacion de java server faces</title>
+            <body>
+                <h:form>
+                    
+                    <h3>Bienvenido Java server Faces
+                        <h:outputText   value="#{usuario.nombre}"/>
+                       
+                    </h3>
+                    <h:outputText value="#{msj.pregunta}" />
+                     <h:outputText value="#{msj.despedida}" />
+                 </h:form>
+            </body>
+        </head>
+    </f:view>
+        
+   
+</html>
