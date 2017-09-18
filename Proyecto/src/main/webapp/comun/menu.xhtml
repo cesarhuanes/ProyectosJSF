@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"   
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      >
+    <h:body>
+       
+        <ui:composition>
+         
+            <h:panelGrid columns="2">
+                    <h:form>
+                        <p:menu>
+                        <c:forEach items="#{menu.listaOpciones}" var="opcion">
+                            <c:if test="#{opcion.codigoPadre==0}">
+                                <p:submenu label="#{opcion.descripcion}" >
+                                    <c:forEach items="#{menu.listaOpciones}" var="child">
+                                        <c:choose>
+                                            <c:when test="#{opcion.codigoOpcion==child.codigoPadre and child.url!=menu.valor}">
+                                                <p:menuitem value="#{child.descripcion}"  actionListener="#{panelMenu.obtenerUrl}" action="#{panelMenu.redirecionar}"  >
+                                                 
+                                                     <f:attribute name="url" value="#{child.url}"/>
+                                                </p:menuitem>
+                                                
+                                            </c:when>
+                                            
+                                            <c:when test="#{opcion.codigoOpcion==child.codigoPadre and child.nivel ==1 and child.url==menu.valor}">
+                                                <p:submenu label="#{child.descripcion}"  >
+                                                    <c:forEach items="#{menu.listaOpciones}" var="nie">
+                                                        <c:if test="#{child.codigoOpcion == nie.codigoPadre}">
+                                                            <p:menuitem value="#{child.descripcion}"  actionListener="#{panelMenu.obtenerUrl}" action="#{panelMenu.redirecionar}"    >
+                                                                <f:attribute name="url" value="#{nie.url}"/>
+                                                          </p:menuitem>
+                                                        </c:if>
+                                                        
+                                                    </c:forEach>
+                                                    
+                                                </p:submenu>
+                                            </c:when>
+                                            
+                                        </c:choose>
+                                    
+                                    </c:forEach>
+                                </p:submenu>
+                                    
+                               
+                            </c:if>
+                            
+                        </c:forEach>
+                             </p:menu>
+                  <!--  <p:menu >
+                        <p:submenu label="Mantenimiento">
+                            <p:menuitem  value="Clientes" icon="ui-icon-home"/>
+                             <p:menuitem  value="Usuarios" icon="ui-icon-home"/>
+                        </p:submenu>
+                        
+                    </p:menu>-->
+               
+                </h:form>
+            </h:panelGrid>
+            
+        </ui:composition>
+    </h:body>
+</html>
+
+
+            
+
+            

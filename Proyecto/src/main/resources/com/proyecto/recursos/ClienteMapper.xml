@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ClienteMapper">
+    
+    <select id="getClientes" resultType="Cliente" parameterType="int" >
+     SELECT   codigo,
+            nombreCliente,
+            nombreContacto,
+            ruc,
+            email,
+            telefono,
+            estado FROM CLIENTES
+    </select>
+    <insert id="insertarCliente" useGeneratedKeys="true" keyProperty="codigo" parameterType="Cliente">
+        INSERT INTO CLIENTES(
+            nombreCliente,
+            nombreContacto,
+            ruc,
+            email,
+            telefono,
+            estado) VALUES(#{nombreCliente},#{nombreContacto},#{ruc},#{email},#{telefono},#{estado});
+    </insert>
+    <select id="selectCliente" resultType="Cliente" parameterType="int">
+         SELECT   codigo,
+            nombreCliente,
+            nombreContacto,
+            ruc,
+            email,
+            telefono,
+            estado FROM CLIENTES where codigo=#{codigo}
+        
+    </select>
+    <update id="actualizarCliente" parameterType="Cliente">
+        UPDATE CLIENTES
+        SET 
+            nombreCliente=#{nombreCliente},
+            nombreContacto=#{nombreContacto},
+            ruc=#{ruc},
+            email=#{email},
+            telefono=#{telefono},
+            estado=#{estado} WHERE codigo=#{codigo};
+    </update>
+</mapper>
