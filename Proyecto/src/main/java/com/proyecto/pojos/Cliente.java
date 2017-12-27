@@ -4,12 +4,12 @@ package com.proyecto.pojos;
 
 public class Cliente {
 private Integer codigo;
-private String nombreCliente;
-private String nombreContacto;
-private String ruc;
-private String email;
-private String telefono;
-private int estado;  
+private String nombreCliente="";
+private String nombreContacto="";
+private String ruc="";
+private String email="";
+private String telefono="";
+private int estado=0;  
     /**
      * @return the codigo
      */

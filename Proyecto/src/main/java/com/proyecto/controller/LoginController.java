@@ -22,10 +22,14 @@ public class LoginController implements Serializable{
     private String datosPersonales;
     UsuarioDao usuario=null;
     
-    @PostConstruct
-    public void init(){
-       usuario=new UsuarioDao(); 
+//    @PostConstruct
+//    public void init(){
+//       usuario=new UsuarioDao(); 
+//    }
+    public LoginController(){
+        usuario=new UsuarioDao();
     }
+    
     public String autenticar(){
              ResourceBundle rb = ResourceBundle.getBundle("com.proyecto.recursos.mensajes",
                 FacesContext.getCurrentInstance().getViewRoot().getLocale());

@@ -3,16 +3,74 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
     </h:head>
     <h:body>
-        <h:outputText value="Listado de Clientes"/>
+       
         <ui:composition template="/plantillas/layout.xhtml">
             <ui:define name="body">
-                <h:outputText value="Listado de Clientes"/>
-                
-                
+            <h:form id="formCliente">
+            <p:messages id="messages" showDetail="true"  autoUpdate="true" closable="true" />
+            <p:panelGrid id="panel"  styleClass="ui-panelgrid" columns="3">
+                <f:facet name="header" >
+                    <h:outputLabel value="Mantenimiento de Clientes"/>
+                </f:facet>
+            <p:outputLabel for="idCliente" value="Cliente"/>
+            <p:inputText id="idCliente" required="true" 
+                         />
+<!--            <p:ajax update="msgCliente" event="blur" />
+            </p:inputText>-->
+                <p:message id="msgCliente" for="idCliente" />
+             
+            <p:outputLabel for="idContacto" value="Contacto"/> 
+            <p:inputText id="idContacto" 
+                         required="true" />
+<!--            <p:ajax update="msgContacto" event="blur" />-->
+<!--            </p:inputText>-->
+            <p:message id="msgContacto" for="idContacto" />
+            
+            <p:outputLabel for="idRuc"  value="RUC"/>
+            <p:inputText  id="idRuc" required="true"  />
+<!--            <p:ajax update="msgRuc" event="blur" />-->
+<!--            </p:inputText>-->
+             <p:message id="msgRuc" for="idRuc" />
+            
+            <p:outputLabel for="idTelefono" value="Telefono"/>
+            <p:inputText id="idTelefono" required="true"  />
+<!--            <p:ajax update="msgTelefono" event="blur" />-->
+<!--            </p:inputText>-->
+             <p:message id="msgTelefono" for="idTelefono" />
+            
+            <p:outputLabel for="idEmail" value="Email" />
+            <p:inputText id="idEmail" required="true" />
+<!--            <p:ajax update="msgEmail" event="blur"  />-->
+<!--            </p:inputText>-->
+            <p:message id="msgEmail" for="idEmail" />
+            
+            <p:outputLabel for="idEstado" value="Estado" />
+            <p:selectOneMenu id="idEstado"  required="true"  value="#{clienteController.cliente.estado}">
+                <f:selectItems  value="#{clienteController.listaEstados}"/> 
+            </p:selectOneMenu>
+             <p:message id="msgEstado" for="idEstado" />
+             
+             <f:facet name="footer">
+                 <p:commandButton value="Grabar"  update="panel"  ajax="false"
+                                             />
+                 <p:commandButton value="Limpiar" 
+                                            update="panel" 
+                                             process="@this" 
+                                              >
+                                <p:resetInput target="panel" />
+                            </p:commandButton>
+                  <p:commandButton  
+                                             value="Regresar"
+                                           />
+             </f:facet>
+            </p:panelGrid>
+            </h:form>
             </ui:define>
             
         </ui:composition>

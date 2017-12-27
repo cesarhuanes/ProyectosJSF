@@ -16,18 +16,23 @@ import javax.faces.context.FacesContext;
 
 
 @ManagedBean(name="menu")
-@SessionScoped
+
 public class MenuController implements Serializable {
   private String valor="";
   private List<Menu>  listaOpciones;
  PanelMenuController panelMenuController;
  
- @PostConstruct
- void init(){
-     panelMenuController=new PanelMenuController();
-     panelMenuController.getUrl();
+// @PostConstruct
+// void init(){
+//     panelMenuController=new PanelMenuController();
+//     panelMenuController.getUrl();
+// }
+    
+ public MenuController(){
+    panelMenuController=new PanelMenuController();
+    panelMenuController.getUrl(); 
  }
-    /**
+ /**
      * @return the listaOpciones
      */
     public List<Menu> getListaOpciones() {
