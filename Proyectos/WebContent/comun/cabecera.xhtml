@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.org/ui">
+   
+
+        <ui:composition >
+              <f:view locale="#{facesContext.externalContext.requestLocale}">
+                  <h:form>
+                <p:layoutUnit position="center">
+                     
+               <h:panelGrid columns="3">
+                
+                
+                <h:graphicImage url="/imagenes/logoefitec.png"
+                                alt="EFICIENCIA TECNOLOGICA"
+                                height="100px"/>
+                   
+                <h:outputText style="text-align: center; font-size: 36px;"
+                              value="SISTEMA DE REGISTRO DE PROYECTOS"/>
+                <h:panelGroup>
+                   
+                    <h:outputFormat value="#{msjs.mensaje_bienvenida}"  style="text-align: right;">
+                        <f:param value="#{loginController.datosPersonales}"/>
+                     </h:outputFormat>
+                  
+                    <p:commandButton actionListener="#{menu.cerrarSesion()}" value="Cerrar Sesion" action="/login?faces-redirect=true" />
+               
+                </h:panelGroup>
+               
+           </h:panelGrid>
+          
+           </p:layoutUnit>
+                  </h:form> 
+              </f:view>
+        </ui:composition>
+
+
+</html>

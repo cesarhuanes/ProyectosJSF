@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/plantillas/layout.xhtml">
+            <ui:define name="body">
+            <h:form id="formListaCliente">
+                <p:dataTable value="#{clienteController.listaCliente()}" var="item" paginator="true" rows="10" sortMode="multiple"
+                selectionMode="single"
+				selection="#{clienteController.cliente}" rowKey="#{item.codigo}"  >
+					<f:facet name="header">Lista de Clientes
+					</f:facet>
+					<p:column sortBy="#{item.nombreCliente}" headerText="Nombre Cliente"> 
+<!--                 	<f:facet  name="header"> -->
+<!--                 	  <h:outputText value="Nombre Cliente"/> -->
+<!--                 	</f:facet> -->
+                    <h:outputText value="#{item.nombreCliente}"/>
+                </p:column>
+                <p:column  sortBy="#{item.nombreContacto}" headerText="Nombre Contacto">  
+<!--                 	<f:facet name="header"> -->
+<!--                 	  <h:outputText value="Nombre Contacto"/> -->
+<!--                 	</f:facet> -->
+                    <h:outputText value="#{item.nombreContacto}"/>
+                </p:column>
+                <p:column sortBy="item.ruc" headerText="RUC">  
+<!--                 	<f:facet name="header"> -->
+<!--                 	  <h:outputText value="RUC"/> -->
+<!--                 	</f:facet> -->
+                    <h:outputText value="#{item.ruc}"/>
+                </p:column>
+                <p:column sortBy="#{item.email}" headerText="Email">  
+<!--                 	<f:facet name="header"> -->
+<!--                 	  <h:outputText value="Email"/> -->
+<!--                 	</f:facet> -->
+                    <h:outputText value="#{item.email}"/>
+                </p:column >
+                <p:column sortBy="#{item.estado}" headerText="Estado">  
+<!--                 	<f:facet name="header"> -->
+<!--                 	  <h:outputText value="Estado"/> -->
+<!--                 	</f:facet> -->
+                    <h:outputText value="#{item.estado}"/>
+                </p:column>
+
+                <p:column headerText="Editar">
+					<p:commandButton action="#{clienteController.editarCliente}"  icon="ui-icon-pencil" >
+				   		<f:param name="codigo" value="#{item.codigo}" />
+				   </p:commandButton>
+				</p:column>
+				
+				 <p:column headerText="Eliminar">
+					 <p:commandButton action="#{clienteController.eliminarCliente}" icon="ui-icon-trash"  >
+					     <f:param name="codigo" value="#{item.codigo}" />
+					 </p:commandButton>
+				</p:column>
+                
+                <f:facet name="footer">
+			     En total hay #{clienteController.cantidadClientes()} clientes.
+				</f:facet>
+                </p:dataTable>
+            </h:form>
+            </ui:define>
+            
+        </ui:composition>
+        
+    </h:body>
+</html>

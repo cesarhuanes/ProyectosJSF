@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+<!--        <f:event type="preRenderView" listener="#{plantillaController.verificarSession()}"/>-->
+    </h:head>
+
+    <h:body>
+        <div id="contenedor">
+            <div id="cabecera">
+                <ui:insert name="header">
+                    <ui:include src="/comun/cabecera.xhtml"/>
+                </ui:insert>
+            </div>
+             <div id="menu"  style="float: left;">
+                <ui:insert  name="menus">
+           
+                    <ui:include src="/comun/menu.xhtml"/>
+               
+                </ui:insert>
+            </div>
+            <div id="cuerpo" style="margin-left: 250px;">
+                <ui:insert name="body">
+                    <ui:include  src="#{panelMenu.url}"/>
+                </ui:insert>
+            </div>
+            <div id="pie" style="float: inherit;" >
+                <ui:insert name="footer">
+                    <ui:include src="/comun/pie.xhtml"/>
+                </ui:insert>
+            </div>
+        </div>
+</h:body>
+</html>

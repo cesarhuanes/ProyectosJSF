@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UsuarioMapper">
+    <select id="getUsuario" resultType="Usuario" parameterType="Usuario">
+    SELECT  codigo,
+        usuario,
+        password,
+        apPaterno,
+        apMaterno,
+        nombres,
+        estado FROM usuarios where estado=1
+        and usuario=#{usuario} 
+    </select>
+</mapper>
