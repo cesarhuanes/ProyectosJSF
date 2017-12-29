@@ -7,13 +7,17 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import org.primefaces.context.RequestContext;
+
 import com.proyecto.dao.ClienteDao;
 import com.proyecto.pojos.Cliente;
+import com.proyecto.util.Constantes;
 
 @ManagedBean(name="clienteController")
 @ApplicationScoped
@@ -22,55 +26,81 @@ public class ClienteController {
 	private List<SelectItem> listaEstados;
 	private Cliente cliente;
 	private ClienteDao clienteDao;
-
+	private int codigoCliente;
+	private int tipoTransaccion = 0;// 0 insertar ,1 actualizar
 
 	@PostConstruct
 	public void init() {
-		cliente = new Cliente();
-		clienteDao=new ClienteDao();
+		clienteDao = new ClienteDao();
+		
 		listaCliente();
 		cantidadClientes();
-	
 		listaEstados = new ArrayList<SelectItem>();
 		listaEstados.add(new SelectItem("0", "Seleccionar"));
 		listaEstados.add(new SelectItem("1", "Activo"));
 		listaEstados.add(new SelectItem("2", "Inactivo"));
 	}
-	public String  editarCliente(){
+
+	public int cantidadClientes() {
+		return clienteDao.listaClientes().size();
+	}
+
+	public List<Cliente> listaCliente() {
+		return clienteDao.listaClientes();
+	}
+
+	public String editarCliente() {
 		String resultado = "";
-		FacesContext context = FacesContext.getCurrentInstance();
-		String codigo = context.getExternalContext().getRequestParameterMap().get("codigo");
-		System.out.println("codigo==>" + codigo);
-		if (codigo != null) {
-			cliente = clienteDao.obtenerCliente(Integer.parseInt(codigo));
-			resultado = "actualizaCliente";
+		setTipoTransaccion(Constantes.UNO);
+		cliente = new Cliente();
+		cliente = clienteDao.obtenerCliente(getCodigoCliente());
+		resultado = "actualizaCliente";
+		return resultado;
+	}
+
+	public void eliminarCliente() {
+		boolean flag = false;
+		flag = clienteDao.eliminaCliente(getCodigoCliente());
+	}
+	
+	public String nuevoCliente(){
+		cliente=new Cliente();
+		setTipoTransaccion(Constantes.CERO);
+		return "actualizaCliente";
+	}
+
+	public String saveCliente() {
+		String resultado = "listaCliente";
+		boolean flag = false;
+		clienteDao = new ClienteDao();
+		if (tipoTransaccion == Constantes.CERO) {
+			flag = clienteDao.insertarClientes(cliente);
+			if(flag){
+				FacesMessage message = new FacesMessage("Transacción con éxito.");
+			    FacesContext.getCurrentInstance().addMessage(null, message);
+			}else{
+				RequestContext.getCurrentInstance().showMessageInDialog(new
+						FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"", "Error al registrar."));
+			}
+		} else {
+			flag = clienteDao.actualizarCliente(cliente);
+			if(flag){
+				FacesMessage message = new FacesMessage("Registro actualizado.");
+			    FacesContext.getCurrentInstance().addMessage(null, message);
+			}else{
+				RequestContext.getCurrentInstance().showMessageInDialog(new
+						FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"", "Error al actualizar."));
+			}
 		}
 		return resultado;
 	}
-	public void eliminarCliente(){
-		FacesContext context = FacesContext.getCurrentInstance();
-		String codigo = context.getExternalContext().getRequestParameterMap().get("codigo");
-		System.out.println("codigo==>" + codigo);
-		if (codigo != null) {
 
-		}
+	public String returnCliente() {
+		return "listaCliente";
 	}
 	
-	public int cantidadClientes(){
-	return 	clienteDao.listaClientes().size();
-	}
-
-	public List<Cliente> listaCliente(){
-		return clienteDao.listaClientes();
-	}
-	@SuppressWarnings("unused")
-	public String saveCliente() {
-		logger.info("ingreso a grabar");
-		boolean flag = false;
-		clienteDao = new ClienteDao();
-		flag = clienteDao.insertarClientes(cliente);
-		return "";
-	}
 
 	public ClienteDao getClienteDao() {
 		return clienteDao;
@@ -108,6 +138,34 @@ public class ClienteController {
 	 */
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public int getCodigoCliente() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		String codigo = context.getExternalContext().getRequestParameterMap().get("codigo");
+		if (codigo != null) {
+			codigoCliente = Integer.parseInt(codigo);
+		}
+		return codigoCliente;
+	}
+
+	public void setCodigoCliente(int codigoCliente) {
+		this.codigoCliente = codigoCliente;
+	}
+
+	/**
+	 * @return the tipoTransaccion
+	 */
+	public int getTipoTransaccion() {
+		return tipoTransaccion;
+	}
+
+	/**
+	 * @param tipoTransaccion
+	 *            the tipoTransaccion to set
+	 */
+	public void setTipoTransaccion(int tipoTransaccion) {
+		this.tipoTransaccion = tipoTransaccion;
 	}
 
 }

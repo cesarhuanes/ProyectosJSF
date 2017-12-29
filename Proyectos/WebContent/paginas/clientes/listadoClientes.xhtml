@@ -2,72 +2,100 @@
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
-    <h:head>
-    </h:head>
-    <h:body>
-        <ui:composition template="/plantillas/layout.xhtml">
-            <ui:define name="body">
-            <h:form id="formListaCliente">
-                <p:dataTable value="#{clienteController.listaCliente()}" var="item" paginator="true" rows="10" sortMode="multiple"
-                selectionMode="single"
-				selection="#{clienteController.cliente}" rowKey="#{item.codigo}"  >
-					<f:facet name="header">Lista de Clientes
-					</f:facet>
-					<p:column sortBy="#{item.nombreCliente}" headerText="Nombre Cliente"> 
-<!--                 	<f:facet  name="header"> -->
-<!--                 	  <h:outputText value="Nombre Cliente"/> -->
-<!--                 	</f:facet> -->
-                    <h:outputText value="#{item.nombreCliente}"/>
-                </p:column>
-                <p:column  sortBy="#{item.nombreContacto}" headerText="Nombre Contacto">  
-<!--                 	<f:facet name="header"> -->
-<!--                 	  <h:outputText value="Nombre Contacto"/> -->
-<!--                 	</f:facet> -->
-                    <h:outputText value="#{item.nombreContacto}"/>
-                </p:column>
-                <p:column sortBy="item.ruc" headerText="RUC">  
-<!--                 	<f:facet name="header"> -->
-<!--                 	  <h:outputText value="RUC"/> -->
-<!--                 	</f:facet> -->
-                    <h:outputText value="#{item.ruc}"/>
-                </p:column>
-                <p:column sortBy="#{item.email}" headerText="Email">  
-<!--                 	<f:facet name="header"> -->
-<!--                 	  <h:outputText value="Email"/> -->
-<!--                 	</f:facet> -->
-                    <h:outputText value="#{item.email}"/>
-                </p:column >
-                <p:column sortBy="#{item.estado}" headerText="Estado">  
-<!--                 	<f:facet name="header"> -->
-<!--                 	  <h:outputText value="Estado"/> -->
-<!--                 	</f:facet> -->
-                    <h:outputText value="#{item.estado}"/>
-                </p:column>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+</h:head>
+<h:body>
+	<ui:composition template="/plantillas/layout.xhtml">
+		<ui:define name="body">
 
-                <p:column headerText="Editar">
-					<p:commandButton action="#{clienteController.editarCliente}"  icon="ui-icon-pencil" >
-				   		<f:param name="codigo" value="#{item.codigo}" />
-				   </p:commandButton>
-				</p:column>
-				
-				 <p:column headerText="Eliminar">
-					 <p:commandButton action="#{clienteController.eliminarCliente}" icon="ui-icon-trash"  >
-					     <f:param name="codigo" value="#{item.codigo}" />
-					 </p:commandButton>
-				</p:column>
-                
-                <f:facet name="footer">
+			<h:form id="formListaCliente">
+				<p:panel>
+					<p:growl id="messages" />
+					<h:panelGrid columns="1" rowClasses="1">
+						<p:commandButton id="idNuevoCliente" value="Nuevo Cliente"
+							action="#{clienteController.nuevoCliente}" />
+						<h:outputLabel value="" />
+					</h:panelGrid>
+					<p:dataTable id="idTableCliente"
+						value="#{clienteController.listaCliente()}" var="item"
+						paginator="true" rows="10" sortMode="multiple"
+						selectionMode="single" selection="#{clienteController.cliente}"
+						rowKey="#{item.codigo}">
+						<f:facet name="header">Lista de Clientes
+					</f:facet>
+						<p:column sortBy="#{item.nombreCliente}"
+							headerText="Nombre Cliente">
+							<!--                 	<f:facet  name="header"> -->
+							<!--                 	  <h:outputText value="Nombre Cliente"/> -->
+							<!--                 	</f:facet> -->
+							<h:outputText value="#{item.nombreCliente}" />
+						</p:column>
+						<p:column sortBy="#{item.nombreContacto}"
+							headerText="Nombre Contacto">
+							<!--                 	<f:facet name="header"> -->
+							<!--                 	  <h:outputText value="Nombre Contacto"/> -->
+							<!--                 	</f:facet> -->
+							<h:outputText value="#{item.nombreContacto}" />
+						</p:column>
+						<p:column sortBy="item.ruc" headerText="RUC">
+							<!--                 	<f:facet name="header"> -->
+							<!--                 	  <h:outputText value="RUC"/> -->
+							<!--                 	</f:facet> -->
+							<h:outputText value="#{item.ruc}" />
+						</p:column>
+						<p:column sortBy="#{item.email}" headerText="Email">
+							<!--                 	<f:facet name="header"> -->
+							<!--                 	  <h:outputText value="Email"/> -->
+							<!--                 	</f:facet> -->
+							<h:outputText value="#{item.email}" />
+						</p:column>
+						<p:column sortBy="#{item.estado}" headerText="Estado">
+							<!--                 	<f:facet name="header"> -->
+							<!--                 	  <h:outputText value="Estado"/> -->
+							<!--                 	</f:facet> -->
+							<h:outputText value="#{item.estado}" />
+						</p:column>
+
+						<p:column headerText="Editar">
+							<p:commandButton action="#{clienteController.editarCliente}"
+								icon="ui-icon-pencil">
+								<f:param name="codigo" value="#{item.codigo}" />
+							</p:commandButton>
+						</p:column>
+
+						<p:column headerText="Eliminar">
+							<p:commandButton action="#{clienteController.getCodigoCliente}"
+								icon="ui-icon-trash" onclick="PF('cd').show()">
+								<f:param name="codigo" value="#{item.codigo}" />
+							</p:commandButton>
+						</p:column>
+
+						<f:facet name="footer">
 			     En total hay #{clienteController.cantidadClientes()} clientes.
 				</f:facet>
-                </p:dataTable>
-            </h:form>
-            </ui:define>
-            
-        </ui:composition>
-        
-    </h:body>
+					</p:dataTable>
+
+					<p:confirmDialog
+						message="¿Desea eliminar el registro seleccionado?"
+						severity="alert" widgetVar="cd">
+						<p:commandButton value="Sí, seguro"
+							update="messages,idTableCliente"
+							action="#{clienteController.eliminarCliente}"
+							oncomplete="PF('cd').hide()" styleClass="ui-confirmdialog-yes"
+							icon="ui-icon-check" />
+						<p:commandButton value="No, aun" onclick="PF('cd').hide();"
+							type="button" styleClass="ui-confirmdialog-no"
+							icon="ui-icon-close" />
+					</p:confirmDialog>
+				</p:panel>
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
 </html>

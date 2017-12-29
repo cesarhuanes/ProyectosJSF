@@ -13,6 +13,14 @@
 		</navigation-case>
 		
 	</navigation-rule>
+	 <navigation-rule>
+		<from-view-id>paginas/clientes/mantenimientoClientes.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>listaCliente</from-outcome>
+			<to-view-id>paginas/clientes/listadoClientes.xhtml</to-view-id>
+		</navigation-case>
+		
+	</navigation-rule>
 <application>
         <message-bundle>com.proyecto.recursos.mensajes</message-bundle>
         <locale-config>

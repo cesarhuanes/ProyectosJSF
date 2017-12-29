@@ -41,4 +41,8 @@
             telefono=#{telefono},
             estado=#{estado} WHERE codigo=#{codigo};
     </update>
+    <delete id="deleteCliente" parameterType="int">
+			DELETE  FROM  CLIENTES WHERE codigo=#{codigo}
+		
+	</delete>
 </mapper>

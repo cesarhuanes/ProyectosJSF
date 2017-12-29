@@ -13,41 +13,32 @@
         <ui:composition template="/plantillas/layout.xhtml">
             <ui:define name="body">
             <h:form id="formCliente">
-            <p:messages id="messages" showDetail="true"  autoUpdate="true" closable="true" />
-            <p:panelGrid id="panel"  styleClass="ui-panelgrid" columns="2">
+            <p:panel>
+            <p:messages id="messages"  showDetail="true"  autoUpdate="true" closable="true" />
+            <p:panelGrid id="panel"  styleClass="ui-panelgrid" columns="6">
                 <f:facet name="header" >
                     <h:outputLabel value="Mantenimiento de Clientes"/>
                 </f:facet>
             <p:outputLabel for="idCliente" value="Cliente"/>
-            <p:inputText id="idCliente" value="#{clienteController.cliente.nombreCliente}" required="true" 
-                         />
-<!--            <p:ajax update="msgCliente" event="blur" />
-            </p:inputText>-->
-                <p:message id="msgCliente" for="idCliente" />
+            <p:inputText id="idCliente" value="#{clienteController.cliente.nombreCliente}" required="true"  />
+            <p:message id="msgCliente"   for="idCliente" />
              
             <p:outputLabel for="idContacto" value="Contacto"/> 
-            <p:inputText id="idContacto" value="#{clienteController.cliente.nombreContacto}"
-                         required="true" />
-<!--            <p:ajax update="msgContacto" event="blur" />-->
-<!--            </p:inputText>-->
+            <p:inputText id="idContacto" value="#{clienteController.cliente.nombreContacto}" required="true" />
             <p:message id="msgContacto" for="idContacto" />
             
             <p:outputLabel for="idRuc"  value="RUC"/>
             <p:inputText  id="idRuc" value="#{clienteController.cliente.ruc}" required="true"  />
-<!--            <p:ajax update="msgRuc" event="blur" />-->
-<!--            </p:inputText>-->
-             <p:message id="msgRuc" for="idRuc" />
+            <p:message id="msgRuc" for="idRuc" />
             
             <p:outputLabel for="idTelefono" value="Telefono"/>
             <p:inputText id="idTelefono" value="#{clienteController.cliente.telefono}" required="true"  />
-<!--            <p:ajax update="msgTelefono" event="blur" />-->
-<!--            </p:inputText>-->
-             <p:message id="msgTelefono" for="idTelefono" />
+            <p:message id="msgTelefono" for="idTelefono" />
             
             <p:outputLabel for="idEmail" value="Email" />
-            <p:inputText id="idEmail" value="#{clienteController.cliente.email}" required="true" />
-<!--            <p:ajax update="msgEmail" event="blur"  />-->
-<!--            </p:inputText>-->
+            <p:inputText id="idEmail" value="#{clienteController.cliente.email}" required="true" >
+           		 <f:validator validatorId="proyecto.emailValidator"/>
+          </p:inputText>
             <p:message id="msgEmail" for="idEmail" />
             
             <p:outputLabel for="idEstado" value="Estado" />
@@ -56,23 +47,15 @@
             </p:selectOneMenu>
              <p:message id="msgEstado" for="idEstado" />
              
-             <f:facet name="footer">
-                 <p:commandButton value="Grabar"   action="#{clienteController.saveCliente}" ajax="false"
-                                             />
-                 <p:commandButton value="Limpiar" 
-                                            update="panel" 
-                                             process="@this" 
-                                              >
-                                <p:resetInput target="panel" />
-                            </p:commandButton>
-                  <p:commandButton  
-                                             value="Regresar"
-                                           />
-             </f:facet>
+            <f:facet name="footer">
+                <p:commandButton value="Grabar"   action="#{clienteController.saveCliente}" ajax="false"/>
+                <p:commandButton  value="Cancelar"  action="listaCliente" />
+            </f:facet>
             </p:panelGrid>
+     
+            </p:panel>
             </h:form>
             </ui:define>
-            
         </ui:composition>
         
     </h:body>

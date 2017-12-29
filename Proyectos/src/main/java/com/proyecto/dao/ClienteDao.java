@@ -19,22 +19,23 @@ public class ClienteDao {
 		ssf = MyBatisUtil.getSQL_SESSION_FACTORY();
 		session = ssf.openSession();
 	}
-
+	public Cliente obtenerCliente(Integer codigo) {
+		Cliente cli = new Cliente();
+		cli = (Cliente) session.selectOne("ClienteMapper.selectCliente", codigo);
+		logger.info("Obtener Cliente");
+		return cli;
+	}
+	
 	public List<Cliente> listaClientes() {
-
 		List<Cliente> lista = null;
 		lista = session.selectList("ClienteMapper.getClientes");
-		
-		for (Cliente x : lista) {
-			logger.info("Nombre CLiente" + x.getNombreCliente());
-		}
+		logger.info("Lista de Clientes"+lista.size());
 		return lista;
 	}
 
 	public boolean insertarClientes(Cliente cliente) {
 		boolean insertoCliente = false;
 		try {
-			session = ssf.openSession();
 			session.insert("ClienteMapper.insertarCliente", cliente);
 			session.commit();
 			insertoCliente = true;
@@ -42,27 +43,45 @@ public class ClienteDao {
 				logger.info("Se guardo el cliente satisfatoriamente");
 			}
 		} catch (Exception e) {
+			logger.info(""+e);
 			session.rollback();
-			session.close();
-
 		}
-		session.close();
+		
 		return insertoCliente;
 	}
 
-	public Cliente obtenerCliente(Integer codigo) {
-		Cliente cliente = null;
-		
-		cliente = (Cliente) session.selectOne("ClienteMapper.selectCliente", codigo);
-		return cliente;
-	}
-
-	public void actualizarCliente(Integer codigo) {
-		Cliente cliente = obtenerCliente(codigo);
-		session = ssf.openSession();
+	public boolean actualizarCliente(Cliente cliente) {
+		boolean actualizaCliente=false;
+		try{
 		session.update("ClienteMapper.actualizarCliente", cliente);
 		session.commit();
-		session.close();
-
+		actualizaCliente=true;
+		if(actualizaCliente){
+		logger.info("Cliente Actualizado");
+		}
+		}catch(Exception e){
+			logger.info(""+e);
+			session.rollback();
+			session.close();
+		}
+		return actualizaCliente;
 	}
+	
+	public boolean eliminaCliente(int codigoCliente){
+		boolean deleteCliente=false;
+		try{
+		session.delete("ClienteMapper.deleteCliente", codigoCliente);
+		session.commit();
+		deleteCliente=true;
+		if(deleteCliente){
+			logger.info("Cliente Eliminado");
+		}
+		}catch(Exception e){
+			logger.info(""+e);
+			session.rollback();
+			session.close();
+		}
+		return deleteCliente;
+	}
+	
 }
