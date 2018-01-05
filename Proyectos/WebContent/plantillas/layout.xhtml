@@ -4,8 +4,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
+   <h:head>
 <!--        <f:event type="preRenderView" listener="#{plantillaController.verificarSession()}"/>-->
+    <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
     </h:head>
 
     <h:body>
@@ -15,19 +16,19 @@
                     <ui:include src="/comun/cabecera.xhtml"/>
                 </ui:insert>
             </div>
-             <div id="menu"  style="float: left;">
+             <div id="menu"  style="float:left;margin-top: 3px">
                 <ui:insert  name="menus">
            
                     <ui:include src="/comun/menu.xhtml"/>
                
                 </ui:insert>
             </div>
-            <div id="cuerpo" style="margin-left: 250px;">
-                <ui:insert name="body">
+            <div id="cuerpo" style="margin-left: 250px;margin-top:5px ;height: 300px">
+                <ui:insert name="body" >
                     <ui:include  src="#{panelMenu.url}"/>
                 </ui:insert>
             </div>
-            <div id="pie" style="float: inherit;" >
+            <div id="pie" style="float: inherit;margin-top: 150px" >
                 <ui:insert name="footer">
                     <ui:include src="/comun/pie.xhtml"/>
                 </ui:insert>

@@ -2,13 +2,17 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:body>
         <ui:composition>
-            <h:panelGrid columns="1">
-                <h:outputText style="text-align: center; font-size: 18px; background-color: #677777; width:100%; ; margin: 0 auto;"
-                              value="EFITEC"/>
-            </h:panelGrid>
+            <p:toolbar id="tb" >
+            <p:toolbarGroup style="margin-left: 500px" >
+            <p:outputLabel value="Eficiencia Tecnológica-Av.Chacarilla 190 of-301" style="text-aling:center;font-size:11px;font-weight:italic" >
+            </p:outputLabel>
+            </p:toolbarGroup>
+            </p:toolbar>
+
         </ui:composition>
     </h:body>
 </html>

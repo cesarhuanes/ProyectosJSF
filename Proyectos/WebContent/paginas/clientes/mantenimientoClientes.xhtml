@@ -9,51 +9,53 @@
     <h:head>
     </h:head>
     <h:body>
-       
         <ui:composition template="/plantillas/layout.xhtml">
             <ui:define name="body">
             <h:form id="formCliente">
-            <p:panel>
-            <p:messages id="messages"  showDetail="true"  autoUpdate="true" closable="true" />
-            <p:panelGrid id="panel"  styleClass="ui-panelgrid" columns="6">
+            <p:panel id="idPanelCliente">
+<!--             <p:messages id="messages"  showDetail="true"  autoUpdate="true" closable="true" /> -->
+            <p:panelGrid   styleClass="ui-panelgrid" columns="6">
                 <f:facet name="header" >
                     <h:outputLabel value="Mantenimiento de Clientes"/>
                 </f:facet>
             <p:outputLabel for="idCliente" value="Cliente"/>
-            <p:inputText id="idCliente" value="#{clienteController.cliente.nombreCliente}" required="true"  />
-            <p:message id="msgCliente"   for="idCliente" />
+            <p:inputText id="idCliente" value="#{clienteController.cliente.nombreCliente}" required="true" maxlength="50" />
+            <p:message id="msgCliente"   for="idCliente"   />
              
             <p:outputLabel for="idContacto" value="Contacto"/> 
-            <p:inputText id="idContacto" value="#{clienteController.cliente.nombreContacto}" required="true" />
-            <p:message id="msgContacto" for="idContacto" />
+            <p:inputText id="idContacto" value="#{clienteController.cliente.nombreContacto}" required="true" maxlength="50"/>
+            <p:message id="msgContacto" for="idContacto"  />
             
             <p:outputLabel for="idRuc"  value="RUC"/>
-            <p:inputText  id="idRuc" value="#{clienteController.cliente.ruc}" required="true"  />
+            <p:inputText  id="idRuc" value="#{clienteController.cliente.ruc}" required="true" maxlength="11" onkeypress="return valNumeros(event);"  />
             <p:message id="msgRuc" for="idRuc" />
             
             <p:outputLabel for="idTelefono" value="Telefono"/>
-            <p:inputText id="idTelefono" value="#{clienteController.cliente.telefono}" required="true"  />
-            <p:message id="msgTelefono" for="idTelefono" />
+            <p:inputText id="idTelefono" value="#{clienteController.cliente.telefono}"  required="true" maxlength="10"  onkeypress="return valNumeros(event);"/>
+            <p:message id="msgTelefono" for="idTelefono"   />
             
             <p:outputLabel for="idEmail" value="Email" />
-            <p:inputText id="idEmail" value="#{clienteController.cliente.email}" required="true" >
+            <p:inputText id="idEmail" value="#{clienteController.cliente.email}" required="true" maxlength="50" >
            		 <f:validator validatorId="proyecto.emailValidator"/>
           </p:inputText>
-            <p:message id="msgEmail" for="idEmail" />
+            <p:message id="msgEmail" for="idEmail"  />
             
             <p:outputLabel for="idEstado" value="Estado" />
             <p:selectOneMenu id="idEstado"  required="true"  value="#{clienteController.cliente.estado}">
                 <f:selectItems  value="#{clienteController.listaEstados}"/> 
             </p:selectOneMenu>
-             <p:message id="msgEstado" for="idEstado" />
+             <p:message id="msgEstado" for="idEstado"  />
              
             <f:facet name="footer">
-                <p:commandButton value="Grabar"   action="#{clienteController.saveCliente}" ajax="false"/>
-                <p:commandButton  value="Cancelar"  action="listaCliente" />
+                <p:commandButton id="idGrabar" value="Grabar"   action="#{clienteController.saveCliente}"  ajax="false"/>
+                <p:commandButton id="idCancelar" value="Cancelar"  action="listaCliente" />
             </f:facet>
             </p:panelGrid>
      
             </p:panel>
+<!--             <p:blockUI block="idPanelCliente" trigger="idGrabar,idCancelar"  > -->
+<!--           		  <p:graphicImage  value="/imagenes/loading.gif"/> -->
+<!--             </p:blockUI> -->
             </h:form>
             </ui:define>
         </ui:composition>
