@@ -6,6 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
    <h:head>
 <!--        <f:event type="preRenderView" listener="#{plantillaController.verificarSession()}"/>-->
+ <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/proyecto.css" />
     <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
     </h:head>
 
@@ -28,7 +29,7 @@
                     <ui:include  src="#{panelMenu.url}"/>
                 </ui:insert>
             </div>
-            <div id="pie" style="float: inherit;margin-top: 150px" >
+             <div id="pie" style="float: inherit;margin-top:160px" >
                 <ui:insert name="footer">
                     <ui:include src="/comun/pie.xhtml"/>
                 </ui:insert>
