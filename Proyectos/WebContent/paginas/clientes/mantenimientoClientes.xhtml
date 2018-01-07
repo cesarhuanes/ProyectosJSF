@@ -9,7 +9,7 @@
     <h:head>
     </h:head>
     <h:body>
-        <ui:composition template="/plantillas/layout.xhtml">
+       <ui:composition template="/plantillas/layout.xhtml">
             <ui:define name="body">
             <h:form id="formCliente">
             <p:panel id="idPanelCliente">
@@ -41,21 +41,21 @@
             <p:message id="msgEmail" for="idEmail"  />
             
             <p:outputLabel for="idEstado" value="Estado" />
-            <p:selectOneMenu id="idEstado"  required="true"  value="#{clienteController.cliente.estado}">
+            <p:selectOneMenu id="idEstado"  required="true"  value="#{clienteController.cliente.estado}"  >
                 <f:selectItems  value="#{clienteController.listaEstados}"/> 
             </p:selectOneMenu>
              <p:message id="msgEstado" for="idEstado"  />
              
             <f:facet name="footer">
-                <p:commandButton id="idGrabar" value="Grabar"   action="#{clienteController.saveCliente}"  ajax="false"/>
-                <p:commandButton id="idCancelar" value="Cancelar"  action="listaCliente" />
+                <p:commandButton id="idGrabar" value="Grabar"   action="#{clienteController.saveCliente}" ajax="false" />
+                <p:commandButton id="idCancelar" value="Cancelar"  action="listaCliente" process="@this" />
             </f:facet>
             </p:panelGrid>
      
             </p:panel>
-<!--             <p:blockUI block="idPanelCliente" trigger="idGrabar,idCancelar"  > -->
-<!--           		  <p:graphicImage  value="/imagenes/loading.gif"/> -->
-<!--             </p:blockUI> -->
+            <p:blockUI block="idPanelCliente" trigger="idGrabar" rendered="formCliente" >
+          		  <p:graphicImage  value="/imagenes/loading.gif"/>
+            </p:blockUI>
             </h:form>
             </ui:define>
         </ui:composition>
