@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+</h:head>
+<h:body>
+	<ui:composition template="/plantillas/layout.xhtml">
+		<ui:define name="body">
+			<h:form id="formUsuario">
+				<p:panel id="idPanelUsuario">
+					<p:messages id="messages" showDetail="true" autoUpdate="true"
+						closable="true" />
+					<p:panelGrid styleClass="ui-panelgrid" columns="6">
+						<f:facet name="header">
+            			Mantenimiento de Usuarios
+            			</f:facet>
+						<p:outputLabel for="idPaterno" value="Paterno" />
+						<p:inputText id="idPaterno" required="true" />
+
+						<p:outputLabel for="idMaterno" value="Materno" />
+						<p:inputText id="idMaterno" required="true" />
+
+						<p:outputLabel for="idNombres" value="Nombres" />
+						<p:inputText id="idNombres" required="true" />
+
+						<p:outputLabel for="idTipoDocumento" value="TipoDocumento" />
+						<p:selectOneMenu id="idTipoDocumento" required="true"
+							requiredMessage="Seleccionar Tipo Docum.">
+							<f:selectItems value="#{usuarioController.listaTipoDocumento}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="idDni" value="DNI" />
+						<p:inputText id="idDni" required="true" />
+
+						<p:outputLabel for="idEmail" value="Email" />
+						<p:inputText id="idEmail" required="true" />
+
+						<p:outputLabel for="idEstado" value="Estado" />
+						<p:selectOneMenu id="idEstado" required="true"
+							requiredMessage="Seleccionar estado">
+							<f:selectItems value="#{usuarioController.listaEstados}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="idTelefono" value="Telefono" />
+						<p:inputText id="idTelefono" required="true" />
+
+						<p:outputLabel for="idPerfil" value="Perfil" />
+						<p:selectOneMenu id="idPerfil" required="true"
+							requiredMessage="Seleccionar Perfil">
+							<f:selectItems value="#{usuarioController.listaPerfil}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="idUser" value="Usuario" />
+						<p:inputText id="idUser" required="true"  />
+
+						<p:outputLabel for="idContrasena" value="Contraseña" />
+						<p:password id="idContrasena" promptLabel="Ingrese contraseña"
+							inline="true" weakLabel="Debil" goodLabel="Medio"
+							strongLabel="Fuerte" feedback="true" required="true" />
+
+						<p:outputLabel for="idConfirmaContrasena"
+							value="Confirmar Contraseña" />
+						<p:password id="idConfirmaContrasena"
+							promptLabel="Confirmar contraseña" inline="true" weakLabel="Debil"
+							goodLabel="Medio" strongLabel="Fuerte" feedback="true"
+							required="true" />
+
+						<f:facet name="footer">
+							<p:commandButton id="idGrabar" value="Grabar" ajax="false" />
+							<p:commandButton id="idCancelar" value="Cancelar" process="@this" />
+						</f:facet>
+					</p:panelGrid>
+				</p:panel>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

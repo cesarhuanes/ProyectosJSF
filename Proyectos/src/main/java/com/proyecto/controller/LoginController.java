@@ -36,7 +36,7 @@ public class LoginController{
 			logger.info("Usuario 2=" + usu.getUsuario());
 			logger.info("Password=" + usu.getPassword());
 			if (usu.getUsuario().equals(username) && usu.getPassword().equals(password)) {
-				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usu);
+				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userName", usu.getUsuario());
 				setDatosPersonales(usu.getNombres().concat(" " + usu.getApPaterno()));
 				//return "principal";
 				return "/plantillas/layout";

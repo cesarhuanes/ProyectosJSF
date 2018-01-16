@@ -1,5 +1,5 @@
 ﻿# Host: localhost  (Version 5.5.28)
-# Date: 2017-10-15 22:50:02
+# Date: 2018-01-12 21:37:36
 # Generator: MySQL-Front 6.0  (Build 2.20)
 
 
@@ -24,4 +24,4 @@ CREATE TABLE `menu` (
 # Data for table "menu"
 #
 
-INSERT INTO `menu` VALUES (1,3,'Clientes','ListadoClientes.xhtml',2,1,b'1','chuanes','2017-09-09 00:00:00'),(2,3,'Usuario','ListadoUsuarios.xhtml',2,2,b'1','chuanes','2017-09-09 00:00:00'),(3,0,'Mantenimiento ','',1,0,b'1','chuanes','2017-09-09 00:00:00'),(4,6,'Rentabilidad','ListadoReportes.xhtml',2,1,b'1','chuanes','2017-09-09 00:00:00'),(5,6,'Ingresos','ListadoIngresos.xhtml',2,2,b'1','chuanes','2017-09-09 00:00:00'),(6,0,'Reportes','',1,0,b'1','chuanes','2017-09-09 00:00:00'),(7,0,'Marcaciòn','',1,0,b'1','chuanes','2017-09-09 00:00:00');
+INSERT INTO `menu` VALUES (1,3,'Clientes','/clientes/listadoClientes.xhtml',2,1,b'1','chuanes','2017-09-09 00:00:00'),(2,3,'Usuario','/usuarios/listadoUsuarios.xhtml',2,2,b'1','chuanes','2017-09-09 00:00:00'),(3,0,'Mantenimiento ','',1,0,b'1','chuanes','2017-09-09 00:00:00'),(4,6,'Rentabilidad','ListadoReportes.xhtml',2,1,b'1','chuanes','2017-09-09 00:00:00'),(5,6,'Ingresos','ListadoIngresos.xhtml',2,2,b'1','chuanes','2017-09-09 00:00:00'),(6,0,'Reportes','',1,0,b'1','chuanes','2017-09-09 00:00:00'),(7,0,'Marcaciòn','',1,0,b'1','chuanes','2017-09-09 00:00:00');

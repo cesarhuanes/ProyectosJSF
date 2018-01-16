@@ -3,6 +3,7 @@ package com.proyecto.controller;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -73,7 +74,11 @@ public class ClienteController {
 		String resultado = "listaCliente";
 		boolean flag = false;
 		clienteDao = new ClienteDao();
+		String useName=(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userName");
 		if (tipoTransaccion == Constantes.CERO) {
+			cliente.setUsuarioCreador(useName);
+			cliente.setFechaCreacion(new Date(System
+					.currentTimeMillis()));
 			flag = clienteDao.insertarClientes(cliente);
 			if(flag){
 				FacesMessage message = new FacesMessage("Transacción con éxito.");
@@ -84,6 +89,9 @@ public class ClienteController {
 						"", "Error al registrar."));
 			}
 		} else {
+			cliente.setUsuarioModificador(useName);
+			cliente.setFechaModificacion(new Date(System
+					.currentTimeMillis()));
 			flag = clienteDao.actualizarCliente(cliente);
 			if(flag){
 				FacesMessage message = new FacesMessage("Registro actualizado.");

@@ -1,14 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="UsuarioMapper">
-    <select id="getUsuario" resultType="Usuario" parameterType="Usuario">
-    SELECT  codigo,
-        usuario,
-        password,
-        apPaterno,
-        apMaterno,
-        nombres,
-        estado FROM usuarios where estado=1
-        and usuario=#{usuario} 
-    </select>
+
+    <select id="selectAllUsuarios" resultType="Usuario"
+		parameterType="int">
+   select idUsuario,
+	   apPaterno,
+	   appMaterno,
+	   nombres,
+	   idTipoDocumento,
+	   numDocumento,
+	   idEstado,
+	   idPerfil,
+	   usuario,
+	   password,
+	   email,
+	   telefono,
+	   usuarioCreacion,
+	   usuarioModificacion,
+	   fechaCreacion,
+	   fechaModificacion
+		FROM usuarios
+	</select>
+
+	<select id="selectByUsuario" resultType="Usuario" parameterType="String">
+		select 	 idUsuario,
+		 apPaterno,
+		 appMaterno,
+		 nombres,
+		 idTipoDocumento,
+		 numDocumento,
+		 idEstado,
+		 idPerfil,
+		 usuario,
+		 password,
+		 email,
+		 telefono,
+		 usuarioCreacion,
+		 usuarioModificacion,
+		 fechaCreacion,
+		 fechaModificacion FROM usuarios where idEstado=1
+		and usuario=#{usuario}
+	</select>
+
+	<select id="selectByPkUsuario" resultType="Usuario"
+		parameterType="int">
+		select	 idUsuario,
+		  apPaterno,
+		  appMaterno,
+		  nombres,
+		  idTipoDocumento,
+		  numDocumento,
+		  idEstado,
+		  idPerfil,
+		  usuario,
+		  password,
+		  email,
+		  telefono,
+		  usuarioCreacion,
+		  usuarioModificacion,
+		  fechaCreacion,
+		  fechaModificacion
+		FROM usuarios where idUsuario=#{idUsuario}
+	</select>
+
+	<insert id="insertarUsuario" parameterType="Usuario">
+<!-- 		<selectKey keyProperty="codigo" resultType="int" order="BEFORE"> -->
+<!-- 			SELECT NEXTVAL('usuarios_codigo_seq') -->
+<!-- 		</selectKey> -->
+		INSERT INTO usuarios(
+		 apPaterno, apMaterno, nombres, idTipoDocumento, 
+         codigoEstado, idPerfil, fechaCreacion,  
+         numDocumento, email, usuario, password, usuarioCreacion, 
+         telefono)
+		VALUES (#{apPaterno},#{apMaterno},#{nombres},#{idTipoDocumento},#{
+		codigoEstado},#{idPerfil},#{fechaCreacion},#{numDocumento},#{
+		email},#{usuario},#{password},#{usuarioCreacion},#{telefono})
+		
+	</insert>
+
+	<update id="actualizarUsuario" parameterType="Usuario">
+       
+		UPDATE usuarios
+		SET apPaterno=#{apPaterno}, 
+		apMaterno=#{apMaterno}, 
+		nombres=#{nombres},
+		idTipoDocumento=#{idTipoDocumento},
+		codigoEstado=#{codigoEstado}, 
+		telefono=#{telefono}, 
+		idPerfil=#{idPerfil}, 
+		password=#{password},
+		usuarioModificacion=#{usuarioModificacion},
+		fechaModificacion=#{fechaModificacion},
+		numDocumento=#{numDocumento}, 
+		email=#{email}, 
+		usuario=#{usuario}
+		WHERE idUsuario=#{idUsuario}
+	</update>
+
+	<delete id="deleteUsuario" parameterType="int">
+		DELETE FROM Usuario
+		WHERE  idUsuario=#{idUsuario}
+	</delete>
 </mapper>

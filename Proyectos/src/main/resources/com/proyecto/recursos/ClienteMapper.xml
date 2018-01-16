@@ -10,7 +10,7 @@
             ruc,
             email,
             telefono,
-            estado FROM CLIENTES
+            idEstado,usuarioCreador,fechaCreacion FROM CLIENTES
     </select>
     <insert id="insertarCliente" useGeneratedKeys="true" keyProperty="codigo" parameterType="Cliente">
         INSERT INTO CLIENTES(
@@ -19,7 +19,7 @@
             ruc,
             email,
             telefono,
-            estado) VALUES(#{nombreCliente},#{nombreContacto},#{ruc},#{email},#{telefono},#{estado});
+            idEstado,usuarioCreador,fechaCreacion) VALUES(#{nombreCliente},#{nombreContacto},#{ruc},#{email},#{telefono},#{idEstado},#{usuarioCreador},#{fechaCreacion});
     </insert>
     <select id="selectCliente" resultType="Cliente" parameterType="int">
          SELECT   codigo,
@@ -28,7 +28,7 @@
             ruc,
             email,
             telefono,
-            estado FROM CLIENTES where codigo=#{codigo}
+            idEstado,usuarioCreador,fechaCreacion FROM CLIENTES where codigo=#{codigo}
         
     </select>
     <update id="actualizarCliente" parameterType="Cliente">
@@ -39,7 +39,8 @@
             ruc=#{ruc},
             email=#{email},
             telefono=#{telefono},
-            estado=#{estado} WHERE codigo=#{codigo};
+            idEstado=#{idEstado},usuarioModificador=#{usuarioModificador},
+            fechaModificacion=#{fechaModificacion} WHERE codigo=#{codigo};
     </update>
     <delete id="deleteCliente" parameterType="int">
 			DELETE  FROM  CLIENTES WHERE codigo=#{codigo}

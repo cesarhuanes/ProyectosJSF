@@ -11,7 +11,6 @@
 			<from-outcome>actualizaCliente</from-outcome>
 			<to-view-id>paginas/clientes/mantenimientoClientes.xhtml</to-view-id>
 		</navigation-case>
-		
 	</navigation-rule>
 	 <navigation-rule>
 		<from-view-id>paginas/clientes/mantenimientoClientes.xhtml</from-view-id>
@@ -19,7 +18,20 @@
 			<from-outcome>listaCliente</from-outcome>
 			<to-view-id>paginas/clientes/listadoClientes.xhtml</to-view-id>
 		</navigation-case>
-		
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>paginas/usuarios/listadoUsuarios.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>updateUsuario</from-outcome>
+			<to-view-id>paginas/usuarios/mantenimientoUsuarios.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	 <navigation-rule>
+		<from-view-id>paginas/usuarios/mantenimientoUsuarios.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>listaUsuario</from-outcome>
+			<to-view-id>paginas/usuarios/listadoUsuarios.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 <application>
         <message-bundle>com.proyecto.recursos.mensajes</message-bundle>

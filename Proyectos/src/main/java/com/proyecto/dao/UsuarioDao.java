@@ -1,6 +1,7 @@
 
 package com.proyecto.dao;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.apache.ibatis.session.SqlSession;
@@ -20,9 +21,72 @@ public class UsuarioDao {
 		session = ssf.openSession();
 	}
 
-	public Usuario obtenerUsuario(String usu) {
-		Usuario usuario = null;
-		usuario = (Usuario) session.selectOne("UsuarioMapper.getUsuario", usu);
+	public Usuario obtenerUsuario(String user) {
+		Usuario usuario =new  Usuario();
+		usuario = (Usuario) session.selectOne("UsuarioMapper.selectByUsuario", user);
 		return usuario;
+	}
+	
+	public Usuario getUserByPrimaryKey(int pkUser){
+		Usuario usuario =null;
+		usuario = (Usuario) session.selectOne("UsuarioMapper.selectByPkUsuario", pkUser);
+		return usuario;
+	}
+	
+	public List<Usuario> listaUsuario(){
+		List<Usuario> lista = null;
+		lista = session.selectList("UsuarioMapper.selectAllUsuarios");
+		logger.info("Lista de Usuarios"+lista.size());
+		return lista;
+	}
+	public boolean insertarUsuario(Usuario usuario) {
+		boolean insertoUsuario = false;
+		try {
+			session.insert("UsuarioMapper.insertarUsuario", usuario);
+			session.commit();
+			insertoUsuario = true;
+			if (insertoUsuario) {
+				logger.info("Se guardo el Usuario satisfatoriamente");
+			}
+		} catch (Exception e) {
+			logger.info(""+e);
+			session.rollback();
+		}
+		
+		return insertoUsuario;
+	}
+
+	public boolean actualizarUsuario(Usuario usuario) {
+		boolean actualizarUsuario=false;
+		try{
+		session.update("UsuarioMapper.actualizarUsuario", usuario);
+		session.commit();
+		actualizarUsuario=true;
+		if(actualizarUsuario){
+		logger.info("Usuario  Actualizado");
+		}
+		}catch(Exception e){
+			logger.info(""+e);
+			session.rollback();
+			session.close();
+		}
+		return actualizarUsuario;
+	}
+	
+	public boolean eliminaUsuario(int codigoUsuario){
+		boolean deleteUsuario=false;
+		try{
+		session.delete("UsuarioMapper.deleteUsuario", codigoUsuario);
+		session.commit();
+		deleteUsuario=true;
+		if(deleteUsuario){
+			logger.info("Usuario Eliminado");
+		}
+		}catch(Exception e){
+			logger.info(""+e);
+			session.rollback();
+			session.close();
+		}
+		return deleteUsuario;
 	}
 }

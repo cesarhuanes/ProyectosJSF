@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/plantillas/layout.xhtml">
+            <ui:define name="body">
+             
+            <h:form id="formListaUsuarios">
+           <p:panel >
+           <p:growl id="messages" />
+			<h:panelGrid columns="1" rowClasses="1">           
+			         <p:commandButton id="idNuevoUsuario" value="Nuevo Usuario" />
+			         <h:outputLabel value=""/>
+			</h:panelGrid>
+               <p:dataTable id="idTableUsuario" value="#{usuarioController.listaUsuario()}" var="item" paginator="true" rows="10" 
+                selectionMode="single"
+				selection="#{usuarioController.usuario}" rowKey="#{item.idUsuario}"  scrollable="true" scrollHeight="200" 
+				widgetVar="userTable" filteredValue="#{usuarioController.filterListUsuario}">
+					<f:facet name="header">
+						<p:outputPanel>
+						<h:outputText value="Buscar todos:"/>
+						<p:inputText id="idFilter" onkeyup="PF('userTable').filter()">
+						<p:watermark for="idFilter" value="Ingrese dato"/>
+						</p:inputText>
+						</p:outputPanel>
+					</f:facet>
+<!-- 				<p:column  filterBy="#{item.idUsuario}" filterMatchMode="contains"  headerText="N°" filterStyle="#{item.idUsuario?'':'display: none; visibility: hidden;'}" style="width:30px">  -->
+<!--                     <h:outputText value="#{item.idUsuario}"/> -->
+<!--                 </p:column> -->
+                 <p:column filterBy="#{item.apPaterno}" headerText="Paterno" filterMatchMode="contains" filterStyle="#{item.apPaterno?'':'display: none; visibility: hidden;'}" style="width:80px">  
+                    <h:outputText value="#{item.apPaterno}"/>
+                </p:column>
+                <p:column  filterBy="#{item.apMaterno}" headerText="Materno" filterMatchMode="contains" filterStyle="#{item.apMaterno?'':'display: none; visibility: hidden;'}" style="width:80px">  
+                    <h:outputText value="#{item.apMaterno}"/>
+                </p:column>
+                <p:column filterBy="#{item.nombres}"  headerText="Nombres" filterMatchMode="contains" filterStyle="#{item.nombres?'':'display: none; visibility: hidden;'}" style="width:120px">  
+                    <h:outputText value="#{item.nombres}"/>
+                </p:column >
+                <p:column filterBy="#{item.numDocumento}"  headerText="DNI" filterMatchMode="contains" filterStyle="#{item.numDocumento?'':'display: none; visibility: hidden;'}" style="width:80px">  
+                    <h:outputText value="#{item.numDocumento}"/>
+                </p:column>
+               
+                <p:column filterBy="#{item.email}" headerText="Email" filterMatchMode="contains" filterStyle="#{item.email?'':'display: none; visibility: hidden;'}" style="width:120px">  
+                    <h:outputText value="#{item.email}"/>
+                </p:column >
+                <p:column filterBy="#{item.idEstado}"  headerText="Estado" filterMatchMode="contains" style="width:40px" filterStyle="#{item.idEstado?'':'display: none; visibility: hidden;'}">  
+                    <h:outputText value="#{item.idEstado}"/>
+                </p:column>
+                
+                <p:column headerText="Ver mas" style="width:50px">
+					<p:commandButton   icon="ui-icon-search"  action="#{usuarioController.verMasUsuario}">
+						<f:param name="idUsuario"  value="#{item.idUsuario}" />
+				   </p:commandButton>
+				</p:column>
+                
+                 <p:column headerText="Editar" style="width:50px"  >
+					<p:commandButton   icon="ui-icon-pencil" action="#{usuarioController.updateUsuario}" >
+						<f:param name="idUsuario"  value="#{item.idUsuario}" />
+				   </p:commandButton>
+				</p:column>
+                
+                </p:dataTable>
+				</p:panel>
+            </h:form>
+            </ui:define>
+            
+        </ui:composition>
+        
+    </h:body>
+</html>

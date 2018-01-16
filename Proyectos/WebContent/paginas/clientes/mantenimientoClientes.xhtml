@@ -41,7 +41,7 @@
             <p:message id="msgEmail" for="idEmail"  />
             
             <p:outputLabel for="idEstado" value="Estado" />
-            <p:selectOneMenu id="idEstado"  required="true"  value="#{clienteController.cliente.estado}"  >
+            <p:selectOneMenu id="idEstado"  required="true"  value="#{clienteController.cliente.idEstado}"  >
                 <f:selectItems  value="#{clienteController.listaEstados}"/> 
             </p:selectOneMenu>
              <p:message id="msgEstado" for="idEstado"  />

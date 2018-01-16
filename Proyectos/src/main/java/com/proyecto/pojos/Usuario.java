@@ -2,116 +2,159 @@
 package com.proyecto.pojos;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Usuario implements Serializable{
 private static final long serialVersionUID = -1205586036289464017L;
-private int codigo;
-private String usuario;
-private String password;
-private int estado;
+private int idUsuario;
 private String apPaterno;
 private String apMaterno;
 private String nombres;
-public Usuario(){
-    
+private int idTipoDocumento;
+private int codigoEstado;
+private String telefono;
+private int idPerfil;
+private String password;
+private String usuarioCreacion;
+private Date fechaCreacion;
+private String usuarioModificacion;
+private Date fechaModificacion;
+private String numDocumento;
+private String email;
+private String usuario;
+
+public Usuario() {
+
 }
 
-    /**
-     * @return the codigo
-     */
-    public int getCodigo() {
-        return codigo;
-    }
+public int getIdUsuario() {
+	return idUsuario;
+}
 
-    /**
-     * @param codigo the codigo to set
-     */
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
+public void setIdUsuario(int idUsuario) {
+	this.idUsuario = idUsuario;
+}
 
-    /**
-     * @return the usuario
-     */
-    public String getUsuario() {
-        return usuario;
-    }
+public String getApPaterno() {
+	return apPaterno;
+}
 
-    /**
-     * @param usuario the usuario to set
-     */
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
+public void setApPaterno(String apPaterno) {
+	this.apPaterno = apPaterno;
+}
 
-    /**
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
+public String getApMaterno() {
+	return apMaterno;
+}
 
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
+public void setApMaterno(String apMaterno) {
+	this.apMaterno = apMaterno;
+}
 
-    /**
-     * @return the estado
-     */
-    public int getEstado() {
-        return estado;
-    }
+public String getNombres() {
+	return nombres;
+}
 
-    /**
-     * @param estado the estado to set
-     */
-    public void setEstado(int estado) {
-        this.estado = estado;
-    }
+public void setNombres(String nombres) {
+	this.nombres = nombres;
+}
 
-    /**
-     * @return the apPaterno
-     */
-    public String getApPaterno() {
-        return apPaterno;
-    }
+public int getIdTipoDocumento() {
+	return idTipoDocumento;
+}
 
-    /**
-     * @param apPaterno the apPaterno to set
-     */
-    public void setApPaterno(String apPaterno) {
-        this.apPaterno = apPaterno;
-    }
+public void setIdTipoDocumento(int idTipoDocumento) {
+	this.idTipoDocumento = idTipoDocumento;
+}
 
-    /**
-     * @return the apMaterno
-     */
-    public String getApMaterno() {
-        return apMaterno;
-    }
+public int getCodigoEstado() {
+	return codigoEstado;
+}
 
-    /**
-     * @param apMaterno the apMaterno to set
-     */
-    public void setApMaterno(String apMaterno) {
-        this.apMaterno = apMaterno;
-    }
+public void setCodigoEstado(int codigoEstado) {
+	this.codigoEstado = codigoEstado;
+}
 
-    /**
-     * @return the nombres
-     */
-    public String getNombres() {
-        return nombres;
-    }
+public String getTelefono() {
+	return telefono;
+}
 
-    /**
-     * @param nombres the nombres to set
-     */
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
-    }
+public void setTelefono(String telefono) {
+	this.telefono = telefono;
+}
+
+public int getIdPerfil() {
+	return idPerfil;
+}
+
+public void setIdPerfil(int idPerfil) {
+	this.idPerfil = idPerfil;
+}
+
+public String getPassword() {
+	return password;
+}
+
+public void setPassword(String password) {
+	this.password = password;
+}
+
+
+public Date getFechaCreacion() {
+	return fechaCreacion;
+}
+
+public void setFechaCreacion(Date fechaCreacion) {
+	this.fechaCreacion = fechaCreacion;
+}
+
+public Date getFechaModificacion() {
+	return fechaModificacion;
+}
+
+public void setFechaModificacion(Date fechaModificacion) {
+	this.fechaModificacion = fechaModificacion;
+}
+
+public String getNumDocumento() {
+	return numDocumento;
+}
+
+public void setNumDocumento(String numDocumento) {
+	this.numDocumento = numDocumento;
+}
+
+public String getEmail() {
+	return email;
+}
+
+public void setEmail(String email) {
+	this.email = email;
+}
+
+public String getUsuario() {
+	return usuario;
+}
+
+public void setUsuario(String usuario) {
+	this.usuario = usuario;
+}
+
+public String getUsuarioCreacion() {
+	return usuarioCreacion;
+}
+
+public void setUsuarioCreacion(String usuarioCreacion) {
+	this.usuarioCreacion = usuarioCreacion;
+}
+
+public String getUsuarioModificacion() {
+	return usuarioModificacion;
+}
+
+public void setUsuarioModificacion(String usuarioModificacion) {
+	this.usuarioModificacion = usuarioModificacion;
+}
+
         
 }
