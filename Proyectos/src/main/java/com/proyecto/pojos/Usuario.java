@@ -11,7 +11,7 @@ private String apPaterno;
 private String apMaterno;
 private String nombres;
 private int idTipoDocumento;
-private int codigoEstado;
+private int idEstado;
 private String telefono;
 private int idPerfil;
 private String password;
@@ -67,13 +67,7 @@ public void setIdTipoDocumento(int idTipoDocumento) {
 	this.idTipoDocumento = idTipoDocumento;
 }
 
-public int getCodigoEstado() {
-	return codigoEstado;
-}
 
-public void setCodigoEstado(int codigoEstado) {
-	this.codigoEstado = codigoEstado;
-}
 
 public String getTelefono() {
 	return telefono;
@@ -154,6 +148,14 @@ public String getUsuarioModificacion() {
 
 public void setUsuarioModificacion(String usuarioModificacion) {
 	this.usuarioModificacion = usuarioModificacion;
+}
+
+public int getIdEstado() {
+	return idEstado;
+}
+
+public void setIdEstado(int idEstado) {
+	this.idEstado = idEstado;
 }
 
         

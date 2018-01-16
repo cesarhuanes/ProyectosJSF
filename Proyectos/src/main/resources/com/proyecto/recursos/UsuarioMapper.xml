@@ -6,7 +6,7 @@
 		parameterType="int">
    select idUsuario,
 	   apPaterno,
-	   appMaterno,
+	   apMaterno,
 	   nombres,
 	   idTipoDocumento,
 	   numDocumento,
@@ -26,7 +26,7 @@
 	<select id="selectByUsuario" resultType="Usuario" parameterType="String">
 		select 	 idUsuario,
 		 apPaterno,
-		 appMaterno,
+		 apMaterno,
 		 nombres,
 		 idTipoDocumento,
 		 numDocumento,
@@ -47,7 +47,7 @@
 		parameterType="int">
 		select	 idUsuario,
 		  apPaterno,
-		  appMaterno,
+		  apMaterno,
 		  nombres,
 		  idTipoDocumento,
 		  numDocumento,
