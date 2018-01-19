@@ -20,15 +20,16 @@
                <p:dataTable id="idTableUsuario" value="#{usuarioController.listaUsuario()}" var="item" paginator="true" rows="10" 
                 selectionMode="single"
 				selection="#{usuarioController.usuario}" rowKey="#{item.idUsuario}"  scrollable="true" scrollHeight="200" 
-				widgetVar="userTable" filteredValue="#{usuarioController.filterListUsuario}">
-					<f:facet name="header">
-						<p:outputPanel>
-						<h:outputText value="Buscar todos:"/>
-						<p:inputText id="idFilter" onkeyup="PF('userTable').filter()">
-						<p:watermark for="idFilter" value="Ingrese dato"/>
-						</p:inputText>
-						</p:outputPanel>
-					</f:facet>
+				widgetVar="userTable" >
+<!-- 				filteredValue="#{usuarioController.filterListUsuario}" -->
+<!-- 					<f:facet name="header"> -->
+<!-- 						<p:outputPanel> -->
+<!-- 						<h:outputText value="Buscar todos:"/> -->
+<!-- 						<p:inputText id="idFilter" onkeyup="PF('userTable').filter()"> -->
+<!-- 						<p:watermark for="idFilter" value="Ingrese dato"/> -->
+<!-- 						</p:inputText> -->
+<!-- 						</p:outputPanel> -->
+<!-- 					</f:facet> -->
 <!-- 				<p:column  filterBy="#{item.idUsuario}" filterMatchMode="contains"  headerText="N°" filterStyle="#{item.idUsuario?'':'display: none; visibility: hidden;'}" style="width:30px">  -->
 <!--                     <h:outputText value="#{item.idUsuario}"/> -->
 <!--                 </p:column> -->

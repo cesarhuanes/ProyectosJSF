@@ -16,8 +16,8 @@
 	   password,
 	   email,
 	   telefono,
-	   usuarioCreacion,
-	   usuarioModificacion,
+	   usuarioCreador,
+	   usuarioModificador,
 	   fechaCreacion,
 	   fechaModificacion
 		FROM usuarios
@@ -36,8 +36,8 @@
 		 password,
 		 email,
 		 telefono,
-		 usuarioCreacion,
-		 usuarioModificacion,
+		 usuarioCreador,
+		 usuarioModificador,
 		 fechaCreacion,
 		 fechaModificacion FROM usuarios where idEstado=1
 		and usuario=#{usuario}
@@ -57,8 +57,8 @@
 		  password,
 		  email,
 		  telefono,
-		  usuarioCreacion,
-		  usuarioModificacion,
+		  usuarioCreador,
+		  usuarioModificador,
 		  fechaCreacion,
 		  fechaModificacion
 		FROM usuarios where idUsuario=#{idUsuario}
@@ -70,12 +70,12 @@
 <!-- 		</selectKey> -->
 		INSERT INTO usuarios(
 		 apPaterno, apMaterno, nombres, idTipoDocumento, 
-         codigoEstado, idPerfil, fechaCreacion,  
-         numDocumento, email, usuario, password, usuarioCreacion, 
+         idEstado, idPerfil, fechaCreacion,  
+         numDocumento, email, usuario, password, usuarioCreador, 
          telefono)
 		VALUES (#{apPaterno},#{apMaterno},#{nombres},#{idTipoDocumento},#{
-		codigoEstado},#{idPerfil},#{fechaCreacion},#{numDocumento},#{
-		email},#{usuario},#{password},#{usuarioCreacion},#{telefono})
+		idEstado},#{idPerfil},#{fechaCreacion},#{numDocumento},#{
+		email},#{usuario},#{password},#{usuarioCreador},#{telefono})
 		
 	</insert>
 
@@ -86,11 +86,11 @@
 		apMaterno=#{apMaterno}, 
 		nombres=#{nombres},
 		idTipoDocumento=#{idTipoDocumento},
-		codigoEstado=#{codigoEstado}, 
+		idEstado=#{idEstado}, 
 		telefono=#{telefono}, 
 		idPerfil=#{idPerfil}, 
 		password=#{password},
-		usuarioModificacion=#{usuarioModificacion},
+		usuarioModificador=#{usuarioModificador},
 		fechaModificacion=#{fechaModificacion},
 		numDocumento=#{numDocumento}, 
 		email=#{email}, 

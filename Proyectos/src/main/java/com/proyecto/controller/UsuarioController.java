@@ -1,14 +1,18 @@
 package com.proyecto.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+
+import org.primefaces.context.RequestContext;
 
 import com.proyecto.dao.UsuarioDao;
 import com.proyecto.pojos.Usuario;
@@ -18,173 +22,225 @@ import com.proyecto.util.Constantes;
 @ApplicationScoped
 public class UsuarioController {
 	private static final Logger logger = Logger.getLogger(UsuarioController.class.getName());
-		private UsuarioDao usuarioDao;
-		private List<Usuario> filterListUsuario;
-		private int codigoUsuario;
-		private int tipoTransaccion=0;
-		private Usuario usuario;
-		private List<SelectItem> listaTipoDocumento;
-		private List<SelectItem> listaPerfil;
-		private List<SelectItem> listaEstados;
-		public boolean isDisableInputText;
-	
-		public boolean isDisableInputText() {
-			return isDisableInputText;
-		}
-	
-		public void setDisableInputText(boolean isDisableInputText) {
-			this.isDisableInputText = isDisableInputText;
-		}
-	
-		@PostConstruct
-		public void init() {
-			usuarioDao = new UsuarioDao();
-			listaUsuario();
-			filterListUsuario=new ArrayList<Usuario>();
-	        listaTipoDocumento();
-	        listaPerfil();
-	        listaEstados();
-	        setDisableInputText(false);
-		}
-		
-		private void listaTipoDocumento(){
-			listaTipoDocumento=new ArrayList<SelectItem>();
-			listaTipoDocumento.add(new SelectItem("","Seleccionar"));
-			listaTipoDocumento.add(new SelectItem("1","DNI"));
-			listaTipoDocumento.add(new SelectItem("2","Carnet Ext"));
-			listaTipoDocumento.add(new SelectItem("3","Passaporte"));
-		}
-		
-		private void listaPerfil(){
-			listaPerfil=new ArrayList<SelectItem>();
-			listaPerfil.add(new SelectItem("","Seleccionar"));
-			listaPerfil.add(new SelectItem("1","Super Administrador"));
-			listaPerfil.add(new SelectItem("2","Administrador"));
-			listaPerfil.add(new SelectItem("3","Operador"));
-		}
-		
-		private void listaEstados(){
-			listaEstados=new ArrayList<SelectItem>();
-			listaEstados.add(new SelectItem("","Seleccionar"));
-			listaEstados.add(new SelectItem("1","ACTIVO"));
-			listaEstados.add(new SelectItem("2","INACTIVO"));
-		}
-		public String updateUsuario(){
-			String resultado="";
-			setTipoTransaccion(Constantes.UNO);
-			usuario=new Usuario();
-			usuario=usuarioDao.getUserByPrimaryKey(getCodigoUsuario());
-			resultado="updateUsuario";
-			return resultado;
-		}
-		public String verMasUsuario(){
-			String resultado="";
-			setTipoTransaccion(Constantes.DOS);
-			usuario=new Usuario();
-			usuario=usuarioDao.getUserByPrimaryKey(getCodigoUsuario());
-			setDisableInputText(true);
-			resultado="updateUsuario";
-			return resultado;
-		}
-		public String nuevoUsuario(){
-			usuario=new  Usuario();
-			setTipoTransaccion(Constantes.CERO);
-			return "updateUsuario";
-		}
-		public int getCodigoUsuario(){
-			FacesContext context=FacesContext.getCurrentInstance();
-			String codigo=(String) context.getExternalContext().getRequestMap().get("idUsuario");
-			if(codigo!=null){
-				codigoUsuario=Integer.parseInt(codigo);
+	private UsuarioDao usuarioDao;
+	private List<Usuario> filterListUsuario;
+	private int codigoUsuario;
+	private int tipoTransaccion = 0;
+	private Usuario usuario;
+	private List<SelectItem> listaTipoDocumento;
+	private List<SelectItem> listaPerfil;
+	private List<SelectItem> listaEstados;
+	public boolean isDisableInputText;
+
+	public boolean isDisableInputText() {
+		return isDisableInputText;
+	}
+
+	public void setDisableInputText(boolean isDisableInputText) {
+		this.isDisableInputText = isDisableInputText;
+	}
+
+	@PostConstruct
+	public void init() {
+		usuarioDao = new UsuarioDao();
+		listaUsuario();
+		filterListUsuario = new ArrayList<Usuario>();
+		listaTipoDocumento();
+		listaPerfil();
+		listaEstados();
+		setDisableInputText(false);
+	}
+
+	private void listaTipoDocumento() {
+		listaTipoDocumento = new ArrayList<SelectItem>();
+		listaTipoDocumento.add(new SelectItem("", "Seleccionar"));
+		listaTipoDocumento.add(new SelectItem("1", "DNI"));
+		listaTipoDocumento.add(new SelectItem("2", "Carnet Ext"));
+		listaTipoDocumento.add(new SelectItem("3", "Passaporte"));
+	}
+
+	private void listaPerfil() {
+		listaPerfil = new ArrayList<SelectItem>();
+		listaPerfil.add(new SelectItem("", "Seleccionar"));
+		listaPerfil.add(new SelectItem("1", "Super Administrador"));
+		listaPerfil.add(new SelectItem("2", "Administrador"));
+		listaPerfil.add(new SelectItem("3", "Operador"));
+	}
+
+	private void listaEstados() {
+		listaEstados = new ArrayList<SelectItem>();
+		listaEstados.add(new SelectItem("", "Seleccionar"));
+		listaEstados.add(new SelectItem("1", "ACTIVO"));
+		listaEstados.add(new SelectItem("2", "INACTIVO"));
+	}
+
+	public String updateUsuario() {
+		String resultado = "";
+		setTipoTransaccion(Constantes.UNO);
+		usuario = new Usuario();
+		setDisableInputText(false);
+		usuario = usuarioDao.getUserByPrimaryKey(getCodigoUsuario());
+		resultado = "updateUsuario";
+		return resultado;
+	}
+
+	public String verMasUsuario() {
+		String resultado = "";
+		setTipoTransaccion(Constantes.DOS);
+		usuario = new Usuario();
+		usuario = usuarioDao.getUserByPrimaryKey(getCodigoUsuario());
+		setDisableInputText(true);
+		resultado = "updateUsuario";
+		return resultado;
+	}
+
+	public String nuevoUsuario() {
+		usuario = new Usuario();
+		setTipoTransaccion(Constantes.CERO);
+		setDisableInputText(false);
+		return "updateUsuario";
+	}
+
+	public String saveUsuario() {
+		String resultado = "listaUsuario";
+		boolean flag = false;
+		String userName = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.get("userName");
+		if (getTipoTransaccion() == Constantes.CERO) {
+			usuario.setUsuarioCreador(userName);
+			usuario.setFechaCreacion(new Date(System.currentTimeMillis()));
+			flag = usuarioDao.insertarUsuario(usuario);
+
+			if (flag) {
+				FacesMessage message = new FacesMessage("Transacción con éxito.");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+			} else {
+				RequestContext.getCurrentInstance()
+						.showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error al registrar."));
 			}
-			return codigoUsuario;
+		} else {
+			usuario.setUsuarioModificador(userName);
+			usuario.setFechaModificacion(new Date(System.currentTimeMillis()));
+			flag = usuarioDao.actualizarUsuario(usuario);
+			if (flag) {
+				FacesMessage message = new FacesMessage("Registro actualizado.");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+			} else {
+				RequestContext.getCurrentInstance()
+						.showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error al actualizar."));
+			}
 		}
-	
-		public List<Usuario> listaUsuario() {
-			return usuarioDao.listaUsuario();
+		return resultado;
+	}
+
+	public int getCodigoUsuario() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		String codigo = (String)context.getExternalContext().getRequestParameterMap().get("idUsuario");
+		if (codigo != null) {
+			codigoUsuario = Integer.parseInt(codigo);
 		}
-	
-		/**
-		 * @return the filterListUsuario
-		 */
-		public List<Usuario> getFilterListUsuario() {
-			return filterListUsuario;
-		}
-	
-		/**
-		 * @param filterListUsuario
-		 *            the filterListUsuario to set
-		 */
-		public void setFilterListUsuario(List<Usuario> filterListUsuario) {
-			this.filterListUsuario = filterListUsuario;
-		}
-	
-		public UsuarioDao getUsuarioDao() {
-			return usuarioDao;
-		}
-	
-		public void setUsuarioDao(UsuarioDao usuarioDao) {
-			this.usuarioDao = usuarioDao;
-		}
-	
-		public Usuario getUsuario() {
-			return usuario;
-		}
-	
-		public void setUsuario(Usuario usuario) {
-			this.usuario = usuario;
-		}
-	
-		/**
-		 * @param codigoUsuario the codigoUsuario to set
-		 */
-		public void setCodigoUsuario(int codigoUsuario) {
-			this.codigoUsuario = codigoUsuario;
-		}
-	
-		public int getTipoTransaccion() {
-			return tipoTransaccion;
-		}
-	
-		public void setTipoTransaccion(int tipoTransaccion) {
-			this.tipoTransaccion = tipoTransaccion;
-		}
-		/**
-		 * @return the listaTipoDocumento
-		 */
-		public List<SelectItem> getListaTipoDocumento() {
-			return listaTipoDocumento;
-		}
-		/**
-		 * @param listaTipoDocumento the listaTipoDocumento to set
-		 */
-		public void setListaTipoDocumento(List<SelectItem> listaTipoDocumento) {
-			this.listaTipoDocumento = listaTipoDocumento;
-		}
-		/**
-		 * @return the listaPerfil
-		 */
-		public List<SelectItem> getListaPerfil() {
-			return listaPerfil;
-		}
-		/**
-		 * @param listaPerfil the listaPerfil to set
-		 */
-		public void setListaPerfil(List<SelectItem> listaPerfil) {
-			this.listaPerfil = listaPerfil;
-		}
-		/**
-		 * @return the listaEstados
-		 */
-		public List<SelectItem> getListaEstados() {
-			return listaEstados;
-		}
-		/**
-		 * @param listaEstados the listaEstados to set
-		 */
-		public void setListaEstados(List<SelectItem> listaEstados) {
-			this.listaEstados = listaEstados;
-		}
-		
+		return codigoUsuario;
+	}
+
+	public String returnUsuario() {
+		return "listaUsuario";
+	}
+
+	public List<Usuario> listaUsuario() {
+		return usuarioDao.listaUsuario();
+	}
+
+	/**
+	 * @return the filterListUsuario
+	 */
+	public List<Usuario> getFilterListUsuario() {
+		return filterListUsuario;
+	}
+
+	/**
+	 * @param filterListUsuario
+	 *            the filterListUsuario to set
+	 */
+	public void setFilterListUsuario(List<Usuario> filterListUsuario) {
+		this.filterListUsuario = filterListUsuario;
+	}
+
+	public UsuarioDao getUsuarioDao() {
+		return usuarioDao;
+	}
+
+	public void setUsuarioDao(UsuarioDao usuarioDao) {
+		this.usuarioDao = usuarioDao;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	/**
+	 * @param codigoUsuario
+	 *            the codigoUsuario to set
+	 */
+	public void setCodigoUsuario(int codigoUsuario) {
+		this.codigoUsuario = codigoUsuario;
+	}
+
+	public int getTipoTransaccion() {
+		return tipoTransaccion;
+	}
+
+	public void setTipoTransaccion(int tipoTransaccion) {
+		this.tipoTransaccion = tipoTransaccion;
+	}
+
+	/**
+	 * @return the listaTipoDocumento
+	 */
+	public List<SelectItem> getListaTipoDocumento() {
+		return listaTipoDocumento;
+	}
+
+	/**
+	 * @param listaTipoDocumento
+	 *            the listaTipoDocumento to set
+	 */
+	public void setListaTipoDocumento(List<SelectItem> listaTipoDocumento) {
+		this.listaTipoDocumento = listaTipoDocumento;
+	}
+
+	/**
+	 * @return the listaPerfil
+	 */
+	public List<SelectItem> getListaPerfil() {
+		return listaPerfil;
+	}
+
+	/**
+	 * @param listaPerfil
+	 *            the listaPerfil to set
+	 */
+	public void setListaPerfil(List<SelectItem> listaPerfil) {
+		this.listaPerfil = listaPerfil;
+	}
+
+	/**
+	 * @return the listaEstados
+	 */
+	public List<SelectItem> getListaEstados() {
+		return listaEstados;
+	}
+
+	/**
+	 * @param listaEstados
+	 *            the listaEstados to set
+	 */
+	public void setListaEstados(List<SelectItem> listaEstados) {
+		this.listaEstados = listaEstados;
+	}
+
 }
 
