@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ProyectoMapper">
+	<resultMap type="Proyecto" id="proyectoModel">
+		<id column="idProyecto" property="idProyecto" />
+		<result column="codigoProyecto" property="codigoProyecto" />
+		<result column="fechainicioplan" property="fechaInicPlan" />
+		<result column="fechafinplan" property="fechaFinPlan" />
+		<result column="fechainicioreal" property="fechaInicReal" />
+		<result column="fechafinreal" property="fechaFinReal" />
+		<result column="nombreproyecto" property="nombreProyecto" />
+		<result column="descripcionproyecto" property="descripcionProyecto" />
+		<result column="usuariocreador" property="usuarioCreador" />
+		<result column="usuariomoficador" property="usuarioModificador" />
+		<result column="fechacreacion" property="fechaCreacion" />
+		<result column="fechamodificacion" property="fechaModificacion" />
+		<result column="totalcotizado" property="totalCotizado" />
+		
+		<association property="usuario" column="idUsuario"
+			javaType="Usuario">
+			<id column="idUsuario" property="idUsuario" />
+			<result column="apPaterno" property="apPaterno" />
+			<result column="apMaterno" property="apMaterno" />
+			<result column="nombres" property="nombres" />
+		</association>
+		<association property="cliente" column="codigo" javaType="Cliente">
+		    <id column="codigo" property="codigo" />
+			<result column="nombreCliente" property="nombreCliente" />
+			
+		</association>
+		<association property="lugarTrabajo" column="idLugarTrabajo"
+			javaType="LugarTrabajo">
+			<id column="idLugarTrabajo" property="idLugarTrabajo" />
+			<result column="descripcion" property="descripcion" />
+		</association>
+		<association property="TipoTrabajo" column="idTipoTrabajo"
+			javaType="TipoTrabajo">
+			<id column="idTipoTrabajo" property="idTipoTrabajo" />
+			<result column="descripcion" property="descripcion" />
+		</association>
+		<association property="tipoMoneda" column="idTipoMoneda"
+			javaType="TipoMoneda">
+			<id column="idTipoMoneda" property="idTipoMoneda" />
+			<result column="descripcion" property="descripcion" />
+		</association>
+		<association property="estado" column="codigoEstado"
+			javaType="Estado">
+			<id column="codigoEstado" property="idEstado" />
+			<result column="descEstado" property="descripcion" />
+		</association>
+	</resultMap>
+	<select id="getAllProyectos" resultMap="proyectoModel">
+		
+SELECT p.idProyecto,
+		p.codProyecto,
+		p.fechaInicPlan,
+        p.fechaFinplan,
+		p.fechaInicReal,p.fechaFinReal,
+		p.nomproyecto,p.descripcionproyecto,
+		p.usuariocreacion,p.usuariomodificacion,
+		p.fechacreacion,
+        p.fechamodificacion,p.totalCotizado,
+		u.idUsuario,
+        u.apPaterno, u.apMaterno, u.nombres,
+		c.codigo,c.nombreCliente,
+		lt.idLugarTrabajo,lt.descripcion,
+		tt.idTipoTrabajo,tt.descripcion ,
+		tm.idTipoMoneda,tm.descripcion,
+		e.idEstado,e.descripcion
+		FROM
+		proyecto p
+		inner join tipo_trabajo tt on p.idTipoTrabajo =
+		tt.idTipoTrabajo
+		inner join usuarios u on p.usuarioCreacion =
+		u.idUsuario
+		inner join lugar_trabajo lt on p.idLugarTrabajo =
+		lt.idLugarTrabajo
+		inner join tipo_moneda tm on p.idTipoMoneda =
+		tm.idTipoMoneda
+		inner join estado e on p.idEstado =
+		e.idEstado
+		inner join clientes c on p.idCliente = c.codigo
+	</select>
+	<select id="getProyectosByPk" resultMap="proyectoModel" parameterType="int">
+				
+SELECT p.idProyecto,
+		p.codProyecto,
+		p.fechaInicPlan,
+        p.fechaFinplan,
+		p.fechaInicReal,p.fechaFinReal,
+		p.nomproyecto,p.descripcionproyecto,
+		p.usuariocreacion,p.usuariomodificacion,
+		p.fechacreacion,
+        p.fechamodificacion,p.totalCotizado,
+		u.idUsuario,
+        u.apPaterno, u.apMaterno, u.nombres,
+		c.codigo,c.nombreCliente,
+		lt.idLugarTrabajo,lt.descripcion,
+		tt.idTipoTrabajo,tt.descripcion ,
+		tm.idTipoMoneda,tm.descripcion,
+		e.idEstado,e.descripcion
+		FROM
+		proyecto p
+		inner join tipo_trabajo tt on p.idTipoTrabajo =
+		tt.idTipoTrabajo
+		inner join usuarios u on p.usuarioCreacion =
+		u.idUsuario
+		inner join lugar_trabajo lt on p.idLugarTrabajo =
+		lt.idLugarTrabajo
+		inner join tipo_moneda tm on p.idTipoMoneda =
+		tm.idTipoMoneda
+		inner join estado e on p.idEstado =
+		e.idEstado
+		inner join clientes c on p.idCliente = c.codigo where p.idProyecto=#{idProyecto}
+	</select>
+	<insert id="insertarProyecto"  useGeneratedKeys="true" keyProperty="idProyecto" parameterType="Proyecto">
+		<!-- <selectKey keyProperty="idProyecto" resultType="int" order="BEFORE">
+			SELECT NEXTVAL('proyecto_codigo_seq')
+		</selectKey>-->
+	INSERT INTO proyecto(
+idCliente,
+idTipoTrabajo,
+idResponsable,
+idLugarTrabajo,
+codProyecto,
+nomProyecto,
+descripcionProyecto,
+idEstado,
+fechaInicPlan,
+fechaFinPlan,
+fechaInicReal,
+fechaFinReal,
+totalCotizado,
+idTipoMoneda,
+fechaCreacion,
+usuarioCreacion
+)
+
+    VALUES (#{cliente.codigo},
+	#{tipoTrabajo.idTipoTrabajo},
+	#{usuario.idUsuario},
+		#{lugarTrabajo.idLugarTrabajo},
+		#{codigoProyecto},
+		#{nombreProyecto},
+		#{descripcionProyecto} ,
+#{estado.idEstado},
+#{fechaInicPlan},
+#{fechaFinPlan},
+#{fechaInicReal},
+#{fechaFinReal}	,
+#{totalCotizado},
+#{tipoMoneda.idTipoMoneda},
+#{fechaCreacion},
+#{usuarioCreador})
+	
+	</insert>
+
+</mapper>
