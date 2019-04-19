@@ -18,6 +18,7 @@ import org.primefaces.context.RequestContext;
 
 import com.proyecto.dao.ClienteDao;
 import com.proyecto.pojos.Cliente;
+import com.proyecto.pojos.Estado;
 import com.proyecto.util.Constantes;
 
 @ManagedBean(name="clienteController")
@@ -29,25 +30,30 @@ public class ClienteController {
 	private ClienteDao clienteDao;
 	private int codigoCliente;
 	private int tipoTransaccion = 0;// 0 insertar ,1 actualizar
+	public List<Cliente> listaCliente;
 
 	@PostConstruct
 	public void init() {
 		clienteDao = new ClienteDao();
-		
-		listaCliente();
+
+		lstCliente();
 		cantidadClientes();
 		listaEstados = new ArrayList<SelectItem>();
-		listaEstados.add(new SelectItem("0", "Seleccionar"));
-		listaEstados.add(new SelectItem("1", "Activo"));
-		listaEstados.add(new SelectItem("2", "Inactivo"));
+		listaEstados.add(new SelectItem("", "Seleccionar"));
+		List<Estado> lstEstado=clienteDao.listaEstados();
+		for(Estado item:lstEstado){
+		listaEstados.add(new SelectItem(item.getIdEstado(), item.getDescripcion()));
+		
+		}
 	}
 
 	public int cantidadClientes() {
 		return clienteDao.listaClientes().size();
 	}
 
-	public List<Cliente> listaCliente() {
-		return clienteDao.listaClientes();
+	public List<Cliente> lstCliente() {
+		listaCliente = clienteDao.listaClientes();
+		return listaCliente;
 	}
 
 	public String editarCliente() {
@@ -63,9 +69,9 @@ public class ClienteController {
 		boolean flag = false;
 		flag = clienteDao.eliminaCliente(getCodigoCliente());
 	}
-	
-	public String nuevoCliente(){
-		cliente=new Cliente();
+
+	public String nuevoCliente() {
+		cliente = new Cliente();
 		setTipoTransaccion(Constantes.CERO);
 		return "actualizaCliente";
 	}
@@ -74,41 +80,38 @@ public class ClienteController {
 		String resultado = "listaCliente";
 		boolean flag = false;
 		clienteDao = new ClienteDao();
-		String useName=(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userName");
+		String useName = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.get("userName");
 		if (tipoTransaccion == Constantes.CERO) {
 			cliente.setUsuarioCreador(useName);
-			cliente.setFechaCreacion(new Date(System
-					.currentTimeMillis()));
+			cliente.setFechaCreacion(new Date(System.currentTimeMillis()));
 			flag = clienteDao.insertarClientes(cliente);
-			if(flag){
+			if (flag) {
 				FacesMessage message = new FacesMessage("Transacción con éxito.");
-			    FacesContext.getCurrentInstance().addMessage(null, message);
-			}else{
-				RequestContext.getCurrentInstance().showMessageInDialog(new
-						FacesMessage(FacesMessage.SEVERITY_ERROR,
-						"", "Error al registrar."));
+				FacesContext.getCurrentInstance().addMessage(null, message);
+			} else {
+				RequestContext.getCurrentInstance()
+						.showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error al registrar."));
 			}
 		} else {
 			cliente.setUsuarioModificador(useName);
-			cliente.setFechaModificacion(new Date(System
-					.currentTimeMillis()));
+			cliente.setFechaModificacion(new Date(System.currentTimeMillis()));
 			flag = clienteDao.actualizarCliente(cliente);
-			if(flag){
+			if (flag) {
 				FacesMessage message = new FacesMessage("Registro actualizado.");
-			    FacesContext.getCurrentInstance().addMessage(null, message);
-			}else{
-				RequestContext.getCurrentInstance().showMessageInDialog(new
-						FacesMessage(FacesMessage.SEVERITY_ERROR,
-						"", "Error al actualizar."));
+				FacesContext.getCurrentInstance().addMessage(null, message);
+			} else {
+				RequestContext.getCurrentInstance()
+						.showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error al actualizar."));
 			}
 		}
+		listaCliente= clienteDao.listaClientes();
 		return resultado;
 	}
 
 	public String returnCliente() {
 		return "listaCliente";
 	}
-	
 
 	public ClienteDao getClienteDao() {
 		return clienteDao;
@@ -176,4 +179,18 @@ public class ClienteController {
 		this.tipoTransaccion = tipoTransaccion;
 	}
 
+	/**
+	 * @return the listaCliente
+	 */
+	public List<Cliente> getListaCliente() {
+		return listaCliente;
+	}
+
+	/**
+	 * @param listaCliente
+	 *            the listaCliente to set
+	 */
+	public void setListaCliente(List<Cliente> listaCliente) {
+		this.listaCliente = listaCliente;
+	}
 }

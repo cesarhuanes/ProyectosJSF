@@ -13,8 +13,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 import com.proyecto.dao.UsuarioDao;
+import com.proyecto.pojos.Estado;
+import com.proyecto.pojos.Perfil;
+import com.proyecto.pojos.TipoDocumento;
 import com.proyecto.pojos.Usuario;
 import com.proyecto.util.Constantes;
 
@@ -31,47 +35,47 @@ public class UsuarioController {
 	private List<SelectItem> listaPerfil;
 	private List<SelectItem> listaEstados;
 	public boolean isDisableInputText;
-
-	public boolean isDisableInputText() {
-		return isDisableInputText;
-	}
-
-	public void setDisableInputText(boolean isDisableInputText) {
-		this.isDisableInputText = isDisableInputText;
-	}
-
+	public List<Usuario> listaUsuario;
+	private boolean habilitaContrato; 
+	
 	@PostConstruct
 	public void init() {
 		usuarioDao = new UsuarioDao();
-		listaUsuario();
+		lstUsuario();
 		filterListUsuario = new ArrayList<Usuario>();
 		listaTipoDocumento();
 		listaPerfil();
 		listaEstados();
 		setDisableInputText(false);
+		 setHabilitaContrato(true);
 	}
 
-	private void listaTipoDocumento() {
-		listaTipoDocumento = new ArrayList<SelectItem>();
-		listaTipoDocumento.add(new SelectItem("", "Seleccionar"));
-		listaTipoDocumento.add(new SelectItem("1", "DNI"));
-		listaTipoDocumento.add(new SelectItem("2", "Carnet Ext"));
-		listaTipoDocumento.add(new SelectItem("3", "Passaporte"));
+	private void listaTipoDocumento(){
+		listaTipoDocumento=new ArrayList<SelectItem>();
+		listaTipoDocumento.add(new SelectItem("","Seleccionar"));
+		List<TipoDocumento> lstTipoDocumento=usuarioDao.listaTipoDocumento();
+		for(TipoDocumento item:lstTipoDocumento){
+			listaTipoDocumento.add(new SelectItem(item.getIdTipoDocumento(), item.getDescripcion()));
+		}
 	}
-
-	private void listaPerfil() {
+	
+	private void listaPerfil(){
 		listaPerfil = new ArrayList<SelectItem>();
 		listaPerfil.add(new SelectItem("", "Seleccionar"));
-		listaPerfil.add(new SelectItem("1", "Super Administrador"));
-		listaPerfil.add(new SelectItem("2", "Administrador"));
-		listaPerfil.add(new SelectItem("3", "Operador"));
-	}
+		List<Perfil> lstPerfil = usuarioDao.listaPerfil();
+		for (Perfil item : lstPerfil) {
+			listaPerfil.add(new SelectItem(item.getIdPerfil(), item.getDescripcion()));
 
-	private void listaEstados() {
+		}
+	}
+	
+	private void listaEstados(){
 		listaEstados = new ArrayList<SelectItem>();
 		listaEstados.add(new SelectItem("", "Seleccionar"));
-		listaEstados.add(new SelectItem("1", "ACTIVO"));
-		listaEstados.add(new SelectItem("2", "INACTIVO"));
+		List<Estado> lstEstado = usuarioDao.listaEstados();
+		for (Estado item : lstEstado) {
+			listaEstados.add(new SelectItem(item.getIdEstado(), item.getDescripcion()));
+		}
 	}
 
 	public String updateUsuario() {
@@ -130,12 +134,25 @@ public class UsuarioController {
 						.showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error al actualizar."));
 			}
 		}
+		lstUsuario();
 		return resultado;
+	}
+	public void selectUsuario(SelectEvent selectEvent) {
+
+		Usuario userSelect = (Usuario) selectEvent.getObject();
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userId", userSelect.getIdUsuario());
+		setUsuario(userSelect);
+		if (userSelect != null) {
+			setHabilitaContrato(false);
+		} else {
+			setHabilitaContrato(true);
+		}
+
 	}
 
 	public int getCodigoUsuario() {
 		FacesContext context = FacesContext.getCurrentInstance();
-		String codigo = (String)context.getExternalContext().getRequestParameterMap().get("idUsuario");
+		String codigo = (String) context.getExternalContext().getRequestParameterMap().get("idUsuario");
 		if (codigo != null) {
 			codigoUsuario = Integer.parseInt(codigo);
 		}
@@ -146,8 +163,9 @@ public class UsuarioController {
 		return "listaUsuario";
 	}
 
-	public List<Usuario> listaUsuario() {
-		return usuarioDao.listaUsuario();
+	public List<Usuario> lstUsuario() {
+		listaUsuario = usuarioDao.listaUsuario();
+		return listaUsuario;
 	}
 
 	/**
@@ -242,5 +260,41 @@ public class UsuarioController {
 		this.listaEstados = listaEstados;
 	}
 
-}
+	/**
+	 * @return the listaUsuario
+	 */
+	public List<Usuario> getListaUsuario() {
+		return listaUsuario;
+	}
 
+	/**
+	 * @param listaUsuario
+	 *            the listaUsuario to set
+	 */
+	public void setListaUsuario(List<Usuario> listaUsuario) {
+		this.listaUsuario = listaUsuario;
+	}
+
+	public boolean isDisableInputText() {
+		return isDisableInputText;
+	}
+
+	public void setDisableInputText(boolean isDisableInputText) {
+		this.isDisableInputText = isDisableInputText;
+	}
+
+	/**
+	 * @return the habilitaContrato
+	 */
+	public boolean isHabilitaContrato() {
+		return habilitaContrato;
+	}
+
+	/**
+	 * @param habilitaContrato the habilitaContrato to set
+	 */
+	public void setHabilitaContrato(boolean habilitaContrato) {
+		this.habilitaContrato = habilitaContrato;
+	}
+
+}
