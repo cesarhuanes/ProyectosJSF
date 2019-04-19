@@ -7,12 +7,22 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
     <properties resource="com/proyecto/recursos/configuration.properties"/>
     
-    <typeAliases>
-        <typeAlias alias="Cliente" type="com.proyecto.pojos.Cliente"/>
-         <typeAlias alias="Menu" type="com.proyecto.pojos.Menu"/>
-          <typeAlias alias="Cliente" type="com.proyecto.pojos.Cliente"/>
-         <typeAlias alias="Usuario" type="com.proyecto.pojos.Usuario"/>
-    </typeAliases>
+ <typeAliases>
+	<typeAlias alias="Cliente" type="com.proyecto.pojos.Cliente" />
+	<typeAlias alias="Menu" type="com.proyecto.pojos.Menu" />
+	<typeAlias alias="Usuario" type="com.proyecto.pojos.Usuario" />
+	<typeAlias alias="Estado" type="com.proyecto.pojos.Estado" />
+	<typeAlias alias="TipoDocumento" type="com.proyecto.pojos.TipoDocumento" />
+	<typeAlias alias="Perfil" type="com.proyecto.pojos.Perfil" />
+	<typeAlias alias="HistorialContrato" type="com.proyecto.pojos.HistorialContrato" />
+	<typeAlias alias="Rol" type="com.proyecto.pojos.Rol" />
+	<typeAlias alias="TipoContrato" type="com.proyecto.pojos.TipoContrato" />
+    <typeAlias alias="TipoTrabajo" type="com.proyecto.pojos.TipoTrabajo" />
+    <typeAlias alias="LugarTrabajo" type="com.proyecto.pojos.LugarTrabajo" />
+	<typeAlias alias="TipoMoneda" type="com.proyecto.pojos.TipoMoneda" />
+	<typeAlias alias="Proyecto" type="com.proyecto.pojos.Proyecto" />
+
+</typeAliases>
     
     <environments default="proyectos">
         <environment id="proyectos">
@@ -27,8 +37,14 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     </environments>
     
     <mappers>
-        <mapper resource="com/proyecto/recursos/ClienteMapper.xml"/>
-         <mapper resource="com/proyecto/recursos/MenuMapper.xml"/>
-          <mapper resource="com/proyecto/recursos/UsuarioMapper.xml"/>
+		<mapper resource="com/proyecto/recursos/ClienteMapper.xml" />
+		<mapper resource="com/proyecto/recursos/MenuMapper.xml" />
+		<mapper resource="com/proyecto/recursos/UsuarioMapper.xml" />
+		<mapper resource="com/proyecto/recursos/EstadoMapper.xml" />
+
+		<mapper resource="com/proyecto/recursos/RolMapper.xml" />
+		<mapper resource="com/proyecto/recursos/PerfilMapper.xml" />
+		<mapper resource="com/proyecto/recursos/TipoContratoMapper.xml" />
+		<mapper resource="com/proyecto/recursos/TipoDocumentoMapper.xml" />
     </mappers>
   </configuration>

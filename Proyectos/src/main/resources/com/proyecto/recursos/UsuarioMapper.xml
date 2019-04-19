@@ -1,82 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="UsuarioMapper">
-
-    <select id="selectAllUsuarios" resultType="Usuario"
-		parameterType="int">
-   select idUsuario,
-	   apPaterno,
-	   apMaterno,
-	   nombres,
-	   idTipoDocumento,
-	   numDocumento,
-	   idEstado,
-	   idPerfil,
-	   usuario,
-	   password,
-	   email,
-	   telefono,
-	   usuarioCreador,
-	   usuarioModificador,
-	   fechaCreacion,
-	   fechaModificacion
-		FROM usuarios
+<resultMap id="usuarioModel" type="Usuario" >
+	    <id column="idUsuario" property="idUsuario"/>
+		<result column="apPaterno" property="apPaterno" />
+		<result column="apMaterno" property="apMaterno" />
+		<result column="nombres" property="nombres" />
+		<result column="fechaCreacion"  property="fechaCreacion" />
+		<result column="fechaModificacion"   property="fechaModificacion" />
+		<result column="numDocumento"   property="numDocumento" />
+		<result column="email"   property="email" />
+		<result column="usuario"  property="usuario" />
+		<result column="password"   property="password" />
+		<result column="usuarioCreador"  property="usuarioCreador" />
+		<result column="usuarioModificador"  property="usuarioModificador" />
+		<result column="telefono" property="telefono" />
+		
+		<association property="tipoDocumento" column="idTipoDocumento" javaType="TipoDocumento">
+			<id column="idTipoDocumento" property="idTipoDocumento" /> 
+			<result column="descripcion" property="descripcion" />
+		</association>
+		
+		<association property="estado" column="codigoEstado" javaType="Estado">
+				<id column="idEstado" property="idEstado" /> 
+				<result column="descEstado" property="descripcion" /> 
+		</association> 
+		
+		<association property="perfil" column="idPerfil" javaType="Perfil">
+			<id column="idPerfil" property="idPerfil" />
+			<result column="descripcion"  property="descripcion"/>
+		</association>
+    </resultMap>
+    <select id="selectAllUsuarios" resultType="Usuario" resultMap="usuarioModel">
+  	 select	
+		usu.idUsuario, usu.apPaterno,
+		usu.apMaterno, usu.nombres,
+		td.idTipoDocumento,td.descripcion, 
+		est.idEstado,est.descripcion as descEstado,
+		p.idPerfil,p.descripcion,
+		usu.fechaCreacion, usu.fechaModificacion, 
+		usu.numDocumento, usu.email, 
+		usu.usuario, usu.password, 
+		usu.usuarioCreador, usu.usuarioModificador, 
+		telefono
+		FROM usuarios usu 
+		inner join estado est on usu.idEstado=est.idEstado
+		inner join tipo_Documento td on usu.idTipoDocumento=td.idTipoDocumento
+		inner join perfil p on usu.idPerfil=p.idPerfil
 	</select>
 
 	<select id="selectByUsuario" resultType="Usuario" parameterType="String">
-		select 	 idUsuario,
-		 apPaterno,
-		 apMaterno,
-		 nombres,
-		 idTipoDocumento,
-		 numDocumento,
-		 idEstado,
-		 idPerfil,
-		 usuario,
-		 password,
-		 email,
-		 telefono,
-		 usuarioCreador,
-		 usuarioModificador,
-		 fechaCreacion,
-		 fechaModificacion FROM usuarios where idEstado=1
-		and usuario=#{usuario}
+		select	
+			usu.idUsuario, usu.apPaterno,
+			usu.apMaterno, usu.nombres,
+			td.idTipoDocumento,td.descripcion, 
+			est.idEstado,est.descripcion,
+			p.idPerfil,est.descripcion as descEstado,
+			usu.fechaCreacion, usu.fechaModificacion, 
+			usu.numDocumento, usu.email, 
+			usu.usuario, usu.password, 
+			usu.usuarioCreador, usu.usuarioModificador, 
+			telefono
+			FROM usuarios usu 
+			inner join estado est on usu.idEstado=est.idEstado
+			inner join tipo_Documento td on usu.idTipoDocumento=td.idTipoDocumento
+			inner join perfil p on usu.idPerfil=p.idPerfil
+			where usu.idEstado=1 and usu.usuario=#{usuario}
 	</select>
 
-	<select id="selectByPkUsuario" resultType="Usuario"
+	<select id="selectByPkUsuario" resultType="Usuario" resultMap="usuarioModel"
 		parameterType="int">
-		select	 idUsuario,
-		  apPaterno,
-		  apMaterno,
-		  nombres,
-		  idTipoDocumento,
-		  numDocumento,
-		  idEstado,
-		  idPerfil,
-		  usuario,
-		  password,
-		  email,
-		  telefono,
-		  usuarioCreador,
-		  usuarioModificador,
-		  fechaCreacion,
-		  fechaModificacion
-		FROM usuarios where idUsuario=#{idUsuario}
+		select	
+			usu.idUsuario, usu.apPaterno,
+			usu.apMaterno, usu.nombres,
+			td.idTipoDocumento,td.descripcion, 
+			est.idEstado,est.descripcion,
+			p.idPerfil,est.descripcion as descEstado,
+			usu.fechaCreacion, usu.fechaModificacion, 
+			usu.numDocumento, usu.email, 
+			usu.usuario, usu.password, 
+			usu.usuarioCreador, usu.usuarioModificador, 
+			telefono
+			FROM usuarios usu 
+			inner join estado est on usu.idEstado=est.idEstado
+			inner join tipo_Documento td on usu.idTipoDocumento=td.idTipoDocumento
+			inner join perfil p on usu.idPerfil=p.idPerfil where usu.idUsuario=#{idUsuario}
 	</select>
 
 	<insert id="insertarUsuario" parameterType="Usuario">
-<!-- 		<selectKey keyProperty="codigo" resultType="int" order="BEFORE"> -->
-<!-- 			SELECT NEXTVAL('usuarios_codigo_seq') -->
-<!-- 		</selectKey> -->
-		INSERT INTO usuarios(
-		 apPaterno, apMaterno, nombres, idTipoDocumento, 
-         idEstado, idPerfil, fechaCreacion,  
-         numDocumento, email, usuario, password, usuarioCreador, 
-         telefono)
-		VALUES (#{apPaterno},#{apMaterno},#{nombres},#{idTipoDocumento},#{
-		idEstado},#{idPerfil},#{fechaCreacion},#{numDocumento},#{
-		email},#{usuario},#{password},#{usuarioCreador},#{telefono})
-		
+	<!-- <selectKey keyProperty="codigo" resultType="int" order="BEFORE"> -->
+	<!-- SELECT NEXTVAL('usuarios_codigo_seq') -->
+	<!-- </selectKey> -->
+			INSERT INTO usuarios(
+			apPaterno, apMaterno, nombres, idTipoDocumento,
+			idEstado, idPerfil, fechaCreacion, numDocumento,
+			email, usuario, password, usuarioCreador, telefono)
+			VALUES (
+			#{apPaterno},#{apMaterno},#{nombres},#{tipoDocumento.idTipoDocumento},
+			#{estado.idEstado},#{perfil.idPerfil},#{fechaCreacion},#{numDocumento},
+			#{email},#{usuario},#{password},#{usuarioCreador},#{telefono})
+
 	</insert>
 
 	<update id="actualizarUsuario" parameterType="Usuario">
@@ -85,10 +108,10 @@
 		SET apPaterno=#{apPaterno}, 
 		apMaterno=#{apMaterno}, 
 		nombres=#{nombres},
-		idTipoDocumento=#{idTipoDocumento},
-		idEstado=#{idEstado}, 
+		idTipoDocumento=#{tipoDocumento.idTipoDocumento},
+		idEstado=#{estado.idEstado}, 
 		telefono=#{telefono}, 
-		idPerfil=#{idPerfil}, 
+		idPerfil=#{perfil.idPerfil}, 
 		password=#{password},
 		usuarioModificador=#{usuarioModificador},
 		fechaModificacion=#{fechaModificacion},

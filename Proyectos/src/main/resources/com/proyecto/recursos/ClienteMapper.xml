@@ -2,15 +2,29 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="ClienteMapper">
-    
-    <select id="getClientes" resultType="Cliente" parameterType="int" >
-     SELECT   codigo,
-            nombreCliente,
-            nombreContacto,
-            ruc,
-            email,
-            telefono,
-            idEstado,usuarioCreador,fechaCreacion FROM CLIENTES
+ 
+    <resultMap id="clienteModel" type="Cliente">
+	    <id column="codigo" property="codigo"/>
+		<result column="nombreCliente" property="nombreCliente" />
+		    <result column="nombreContacto" property="nombreContacto" />
+		        <result column="ruc" property="ruc" />
+		            <result column="email" property="email" />
+		                <result column="telefono" property="telefono" />
+		<association property="estado" column="idEstado" javaType="Estado">
+			<id column="idEstado" property="idEstado" />
+			<result column="descripcion" property="descripcion" />
+		</association>                
+    </resultMap>
+    <select id="getClientes" resultMap="clienteModel">
+      SELECT clie.codigo,
+            clie.nombreCliente,
+            clie.nombreContacto,
+            clie.ruc,
+            clie.email,
+            clie.telefono,
+            est.idEstado,
+            est.descripcion 
+            from clientes clie inner join estado est on clie.idEstado=est.idEstado
     </select>
     <insert id="insertarCliente" useGeneratedKeys="true" keyProperty="codigo" parameterType="Cliente">
         INSERT INTO CLIENTES(
@@ -19,16 +33,18 @@
             ruc,
             email,
             telefono,
-            idEstado,usuarioCreador,fechaCreacion) VALUES(#{nombreCliente},#{nombreContacto},#{ruc},#{email},#{telefono},#{idEstado},#{usuarioCreador},#{fechaCreacion});
+            idEstado,usuarioCreador,fechaCreacion) VALUES(#{nombreCliente},#{nombreContacto},#{ruc},#{email},#{telefono},#{estado.idEstado},#{usuarioCreador},#{fechaCreacion});
     </insert>
-    <select id="selectCliente" resultType="Cliente" parameterType="int">
-         SELECT   codigo,
-            nombreCliente,
-            nombreContacto,
-            ruc,
-            email,
-            telefono,
-            idEstado,usuarioCreador,fechaCreacion FROM CLIENTES where codigo=#{codigo}
+    <select id="selectCliente" resultType="Cliente" resultMap="clienteModel" parameterType="int">
+        SELECT clie.codigo,
+            clie.nombreCliente,
+            clie.nombreContacto,
+            clie.ruc,
+            clie.email,
+            clie.telefono,
+            est.idEstado,
+            est.descripcion  
+            from clientes clie inner join estado est on clie.idEstado=est.idEstado where clie.codigo=#{codigo}
         
     </select>
     <update id="actualizarCliente" parameterType="Cliente">
@@ -39,7 +55,7 @@
             ruc=#{ruc},
             email=#{email},
             telefono=#{telefono},
-            idEstado=#{idEstado},usuarioModificador=#{usuarioModificador},
+            idEstado=#{estado.idEstado},usuarioModificador=#{usuarioModificador},
             fechaModificacion=#{fechaModificacion} WHERE codigo=#{codigo};
     </update>
     <delete id="deleteCliente" parameterType="int">
