@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.proyecto.pojos.Cliente;
+import com.proyecto.pojos.Estado;
 import com.proyecto.util.MyBatisUtil;
 
 
@@ -31,6 +32,13 @@ public class ClienteDao {
 		lista = session.selectList("ClienteMapper.getClientes");
 		logger.info("Lista de Clientes"+lista.size());
 		return lista;
+	}
+	public List<Estado> listaEstados(){
+		List<Estado> lista=null;
+		lista = session.selectList("EstadoMapper.getAllEstados");
+		logger.info("Lista de Estado"+lista.size());
+		return lista;
+		
 	}
 
 	public boolean insertarClientes(Cliente cliente) {
