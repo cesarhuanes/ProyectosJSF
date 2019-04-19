@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+	 <h:head>
+    </h:head>
+   <h:body>
+	<ui:composition template="/plantillas/layout.xhtml">
+		<ui:define name="body">
+			<h:form id="formMantProyecto">
+			 <p:panel id="idPanelMantProyecto" rendered="true">
+			 
+
+			  <p:toolbar id="tbar" style="height:30px;">
+				<p:toolbarGroup style="text-align:center;" >
+				<p:outputLabel value="Mantenimiento de Proyectos" style="font:13px;"/>			
+				</p:toolbarGroup>
+				</p:toolbar>
+			 <p:panelGrid  id="idPanelGridMantProyecto"  styleClass="ui-panelgrid" rendered="true">
+			<p:row>
+				<p:column>
+					<p:outputLabel value="Cliente :"/>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu value="#{proyectoController.proyecto.cliente.codigo}" filter="true" filterMatchMode="contains"  >
+					<f:selectItems value="#{proyectoController.listaCliente}" />
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Codigo :"/>
+				</p:column>
+				<p:column>
+					<p:inputText value="#{proyectoController.proyecto.codigoProyecto}"/>
+				</p:column>
+				<p:column>
+				<p:outputLabel value="Fecha Inicio Planificado :"/>
+				</p:column>
+				<p:column>
+					<p:calendar id="idFechaInicioPlan" mode="popup" popupIconOnly="true"
+							required="true" 
+							value="#{proyectoController.proyecto.fechaInicPlan}"
+							navigator="true" pattern="dd/MM/yyyy" placeholder="dd/MM/yyyy"
+							styleClass="calendarClass" showOn="button" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel value="Tipo Trabajo :"/>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu  value="#{proyectoController.proyecto.tipoTrabajo.idTipoTrabajo}">
+					<f:selectItems value="#{proyectoController.listaTipoTrabajo}"/>
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Moneda :"/>
+				</p:column>
+				<p:column>	
+					<p:selectOneMenu  value="#{proyectoController.proyecto.tipoMoneda.idTipoMoneda}">
+					<f:selectItems value="#{proyectoController.listaTipoMoneda}"/>
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+				<p:outputLabel value="Fecha Fin Planificado :"/>
+				</p:column>
+				<p:column>
+					<p:calendar id="idFechaFinPlan" mode="popup" popupIconOnly="true"
+							required="true" 
+							value="#{proyectoController.proyecto.fechaFinPlan}"
+							navigator="true" pattern="dd/MM/yyyy" placeholder="dd/MM/yyyy"
+							styleClass="calendarClass" showOn="button" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel value="Responsable:"/>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu  value="#{proyectoController.proyecto.usuario.idUsuario}" filter="true" filterMatchMode="contains">
+					<f:selectItems value="#{proyectoController.listaResponsable}"/>
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Costo Total :"/>
+				</p:column>
+				<p:column>	
+					<p:inputText value="#{proyectoController.proyecto.totalCotizado}"/>
+				</p:column>
+				<p:column>
+				<p:outputLabel value="Fecha Inicio Real :"/>
+				</p:column>
+				<p:column>
+					<p:calendar id="idFechaInicioReal" mode="popup" popupIconOnly="true"
+							required="true" 
+							value="#{proyectoController.proyecto.fechaInicReal}"
+							navigator="true" pattern="dd/MM/yyyy" placeholder="dd/MM/yyyy"
+							styleClass="calendarClass" showOn="button" />
+				</p:column>
+			</p:row>
+				<p:row>
+				<p:column>
+					<p:outputLabel value="Lugar de Trabajo :"/>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu value="#{proyectoController.proyecto.lugarTrabajo.idLugarTrabajo}">
+					<f:selectItems value="#{proyectoController.listaLugarTrabajo}"/>
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Estado :"/>
+				</p:column>
+				<p:column>	
+					<p:selectOneMenu  value="#{proyectoController.proyecto.estado.idEstado}">
+					<f:selectItems value="#{proyectoController.listaEstado}"/>
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+				<p:outputLabel value="Fecha Fin Real :"/>
+				</p:column>
+				<p:column>
+					<p:calendar id="idFechaFinReal" mode="popup" popupIconOnly="true"
+							required="true" 
+							value="#{proyectoController.proyecto.fechaFinReal}"
+							navigator="true" pattern="dd/MM/yyyy" placeholder="dd/MM/yyyy"
+							styleClass="calendarClass" showOn="button" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel value="Proyecto :"/>
+				</p:column>
+				<p:column>
+					<p:inputText value="#{proyectoController.proyecto.nombreProyecto}"/>
+				</p:column>
+				<p:column >
+					<p:outputLabel value="Descripcion :"/>
+				</p:column>
+				<p:column colspan="3">	
+					<p:inputText value="#{proyectoController.proyecto.descripcionProyecto}"/>
+				</p:column>
+				
+			</p:row>
+			 <p:row >
+			 <p:column colspan="6">
+			  	
+			 </p:column>
+ 			</p:row>
+			 </p:panelGrid>
+			 <p:toolbar id="tb" style="height:30px;">
+				<p:toolbarGroup align="left" >
+				<p:commandButton  value="Guardar" action="#{proyectoController.saveProyecto}" icon="ui-icon-disk" ajax="false" />
+				<p:commandButton type="button" value="Cancelar" icon="ui-icon-folder-open"/>
+				
+				</p:toolbarGroup>
+				</p:toolbar>
+			 </p:panel>
+			</h:form>
+			
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

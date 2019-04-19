@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+    </h:head>
+	    <h:body>
+	    	<h:form>
+              <p:panel id="idPanelContrato" >
+              <p:panelGrid id="idPanel">
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Rol :" />
+						<p:selectOneMenu required="true">
+						</p:selectOneMenu>
+					</p:column>
+					<p:column colspan="2">
+						<p:outputLabel value="Tipo Contrato:" />
+						<p:selectOneMenu required="true">
+						</p:selectOneMenu>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="Sueldo Base:" />
+						<p:inputText value=""  required="true"  style="width:40px;"/>
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Otros Costos:" />
+						<p:inputText value="" />
+
+					</p:column>
+					<p:column>
+						<p:outputLabel value="Fecha Inicio:" />
+						<p:calendar mode="popup" showOn="button" popupIconOnly="true" style="width: 89px"
+							navigator="true" pattern="MM/dd/yyyy" />
+					</p:column>
+					<p:column style="width: 89px">
+						<p:outputLabel value="Fecha Fin:"  />
+						<p:calendar mode="popup" showOn="button" popupIconOnly="true" style="width: 89px;" 
+							navigator="true" pattern="MM/dd/yyyy" />
+
+					</p:column>
+					<p:column>
+						<p:outputLabel value="Estado" />
+						<p:selectOneMenu required="true">
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+				<p:row> 
+				<p:column>
+<!-- 					<f:facet name="footer"> -->
+						<p:commandButton id="idGrabar" type="button" value="Grabar" />
+						<p:commandButton id="idLimpiar" type="button" value="Limpiar" update=":idPanelContrato" process="@this"
+							resetValues="true" >
+							<p:resetInput target="idPanelContrato" />
+							</p:commandButton>
+<!-- 					</f:facet> -->
+				</p:column>
+				</p:row>
+			</p:panelGrid>
+              </p:panel>	    	
+	    	</h:form>
+	    </h:body>
+	</html>

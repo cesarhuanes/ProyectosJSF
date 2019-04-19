@@ -29,7 +29,7 @@
 
 						<p:outputLabel for="idTipoDocumento" value="TipoDocumento" />
 						<p:selectOneMenu id="idTipoDocumento" required="true"
-							requiredMessage="Seleccionar Tipo Docum." value="#{usuarioController.usuario.idTipoDocumento}" disabled="#{usuarioController.disableInputText}" >
+							requiredMessage="Seleccionar Tipo Docum." value="#{usuarioController.usuario.tipoDocumento.idTipoDocumento}" disabled="#{usuarioController.disableInputText}" >
 							<f:selectItems value="#{usuarioController.listaTipoDocumento}" />
 						</p:selectOneMenu>
 
@@ -43,7 +43,7 @@
 
 						<p:outputLabel for="idEstado" value="Estado" />
 						<p:selectOneMenu id="idEstado" required="true"
-							requiredMessage="Seleccionar estado" value="#{usuarioController.usuario.idEstado}" disabled="#{usuarioController.disableInputText}" >
+							requiredMessage="Seleccionar estado" value="#{usuarioController.usuario.estado.idEstado}" disabled="#{usuarioController.disableInputText}" >
 							<f:selectItems value="#{usuarioController.listaEstados}" />
 						</p:selectOneMenu>
 
@@ -52,7 +52,7 @@
 
 						<p:outputLabel for="idPerfil" value="Perfil" />
 						<p:selectOneMenu id="idPerfil" required="true"
-							requiredMessage="Seleccionar Perfil" value="#{usuarioController.usuario.idPerfil}" disabled="#{usuarioController.disableInputText}">
+							requiredMessage="Seleccionar Perfil" value="#{usuarioController.usuario.perfil.idPerfil}" disabled="#{usuarioController.disableInputText}">
 							<f:selectItems value="#{usuarioController.listaPerfil}" />
 						</p:selectOneMenu>
 

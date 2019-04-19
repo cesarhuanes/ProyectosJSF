@@ -13,26 +13,27 @@
             <h:form id="formListaUsuarios">
            <p:panel >
            <p:growl id="messages" />
-			<h:panelGrid columns="1" rowClasses="1">           
-			         <p:commandButton id="idNuevoUsuario" value="Nuevo Usuario" />
+			<h:panelGrid columns="2" rowClasses="1">           
+			         <p:commandButton id="idNuevoUsuario" value="Nuevo Usuario"  action="#{usuarioController.nuevoUsuario}"/>
+			          <p:commandButton id="idAsignarContrato" value="Asignar Contrato" actionListener="#{asignaContratoController.viewAsignaContrato}" disabled="#{usuarioController.habilitaContrato}"/>
 			         <h:outputLabel value=""/>
 			</h:panelGrid>
-               <p:dataTable id="idTableUsuario" value="#{usuarioController.listaUsuario()}" var="item" paginator="true" rows="10" 
+               <p:dataTable id="idTableUsuario" value="#{usuarioController.listaUsuario}" var="item" paginator="true" rows="10" 
                 selectionMode="single"
 				selection="#{usuarioController.usuario}" rowKey="#{item.idUsuario}"  scrollable="true" scrollHeight="200" 
 				widgetVar="userTable" >
-<!-- 				filteredValue="#{usuarioController.filterListUsuario}" -->
-<!-- 					<f:facet name="header"> -->
-<!-- 						<p:outputPanel> -->
-<!-- 						<h:outputText value="Buscar todos:"/> -->
-<!-- 						<p:inputText id="idFilter" onkeyup="PF('userTable').filter()"> -->
-<!-- 						<p:watermark for="idFilter" value="Ingrese dato"/> -->
-<!-- 						</p:inputText> -->
-<!-- 						</p:outputPanel> -->
-<!-- 					</f:facet> -->
-<!-- 				<p:column  filterBy="#{item.idUsuario}" filterMatchMode="contains"  headerText="N°" filterStyle="#{item.idUsuario?'':'display: none; visibility: hidden;'}" style="width:30px">  -->
-<!--                     <h:outputText value="#{item.idUsuario}"/> -->
-<!--                 </p:column> -->
+				filteredValue="#{usuarioController.filterListUsuario}"
+					<f:facet name="header">
+						<p:outputPanel>
+						<h:outputText value="Buscar todos:"/>
+						<p:inputText id="idFilter" onkeyup="PF('userTable').filter()">
+						<p:watermark for="idFilter" value="Ingrese dato"/>
+						</p:inputText>
+						</p:outputPanel>
+					</f:facet>
+				<p:column  filterBy="#{item.idUsuario}" filterMatchMode="contains"  headerText="N°" filterStyle="#{item.idUsuario?'':'display: none; visibility: hidden;'}" style="width:30px"> 
+                    <h:outputText value="#{item.idUsuario}"/>
+                </p:column>
                  <p:column filterBy="#{item.apPaterno}" headerText="Paterno" filterMatchMode="contains" filterStyle="#{item.apPaterno?'':'display: none; visibility: hidden;'}" style="width:80px">  
                     <h:outputText value="#{item.apPaterno}"/>
                 </p:column>
@@ -49,8 +50,8 @@
                 <p:column filterBy="#{item.email}" headerText="Email" filterMatchMode="contains" filterStyle="#{item.email?'':'display: none; visibility: hidden;'}" style="width:120px">  
                     <h:outputText value="#{item.email}"/>
                 </p:column >
-                <p:column filterBy="#{item.idEstado}"  headerText="Estado" filterMatchMode="contains" style="width:40px" filterStyle="#{item.idEstado?'':'display: none; visibility: hidden;'}">  
-                    <h:outputText value="#{item.idEstado}"/>
+                <p:column filterBy="#{item.estado.descripcion}"  headerText="Estado" filterMatchMode="contains" style="width:40px" filterStyle="#{item.idEstado?'':'display: none; visibility: hidden;'}">  
+                    <h:outputText value="#{item.estado.descripcion}"/>
                 </p:column>
                 
                 <p:column headerText="Ver mas" style="width:50px">
@@ -67,6 +68,12 @@
                 
                 </p:dataTable>
 				</p:panel>
+<!-- 				 <p:dialog widgetVar="idDialog"  header="Mantenimiento de Historial de Contrato"  draggable="false" modal="true"  resizable="false" -->
+<!--                  closeOnEscape="true" showEffect="scale" closable="true" width="870" height="500" > -->
+   
+<!--                      	  		<ui:include src="/paginas/usuarios/asignarContrato.xhtml" /> -->
+                  
+<!--                 </p:dialog> -->
             </h:form>
             </ui:define>
             

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+	 <h:head>
+    </h:head>
+   <h:body>
+	<ui:composition template="/plantillas/layout.xhtml">
+		<ui:define name="body">
+			<h:form id="formListadoProyecto">
+			 <p:panel id="idPanelListadotProyecto">
+			 <p:growl id="messages" />
+				<h:panelGrid columns="1" rowClasses="1">           
+				         <p:commandButton id="idNuevoProyecto" value="Nuevo Proyecto" action="#{proyectoController.nuevoProyecto}"/>
+				         <h:outputLabel value=""/>
+				</h:panelGrid>
+			  <p:dataTable 
+               paginator="true" rows="10"  selectionMode="single" value="#{proyectoController.listaProyecto}" var="item"
+			   scrollable="true" scrollHeight="200" widgetVar="usuarioTable"  selection="#{proyectoController.proyecto}" rowKey="#{item.idProyecto}"
+			   emptyMessage="No hay proyectos con este criterio" >
+			   <f:facet name="header" >Listado de Proyectos</f:facet>
+			   	<p:column  headerText="Proyecto"> 
+                    <h:outputText value="#{item.nombreProyecto}"/>
+                </p:column>
+                <p:column  headerText="Responsable"> 
+                    <h:outputText value="#{item.usuario.apPaterno} #{item.usuario.apMaterno} #{item.usuario.nombres} "/>
+                </p:column>
+                 <p:column  headerText="Inicio"> 
+                    <h:outputText value="#{item.fechaInicReal}  ">
+                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>      
+                </p:column>
+                <p:column  headerText="Fin"> 
+                    <h:outputText value=" #{item.fechaFinReal} ">
+                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText> 
+                </p:column>
+			   </p:dataTable>
+			 </p:panel>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
