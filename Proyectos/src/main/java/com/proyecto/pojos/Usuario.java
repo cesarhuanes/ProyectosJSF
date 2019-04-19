@@ -10,10 +10,10 @@ public class Usuario implements Serializable{
 	private String apPaterno;
 	private String apMaterno;
 	private String nombres;
-	private int idTipoDocumento;
-	private int idEstado;
+	private TipoDocumento tipoDocumento;
+	private Estado estado;
 	private String telefono;
-	private int idPerfil;
+	private Perfil perfil;
 	private String password;
 	private String usuarioCreador;
 	private Date fechaCreacion;
@@ -24,7 +24,9 @@ public class Usuario implements Serializable{
 	private String usuario;
 
 	public Usuario() {
-
+		estado = new Estado();
+		tipoDocumento = new TipoDocumento();
+		perfil = new Perfil();
 	}
 
 	/**
@@ -88,33 +90,33 @@ public class Usuario implements Serializable{
 	}
 
 	/**
-	 * @return the idTipoDocumento
+	 * @return the tipoDocumento
 	 */
-	public int getIdTipoDocumento() {
-		return idTipoDocumento;
+	public TipoDocumento getTipoDocumento() {
+		return tipoDocumento;
 	}
 
 	/**
-	 * @param idTipoDocumento
-	 *            the idTipoDocumento to set
+	 * @param tipoDocumento
+	 *            the tipoDocumento to set
 	 */
-	public void setIdTipoDocumento(int idTipoDocumento) {
-		this.idTipoDocumento = idTipoDocumento;
+	public void setTipoDocumento(TipoDocumento tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
 	}
 
 	/**
-	 * @return the idEstado
+	 * @return the estado
 	 */
-	public int getIdEstado() {
-		return idEstado;
+	public Estado getEstado() {
+		return estado;
 	}
 
 	/**
-	 * @param idEstado
-	 *            the idEstado to set
+	 * @param estado
+	 *            the estado to set
 	 */
-	public void setIdEstado(int idEstado) {
-		this.idEstado = idEstado;
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 
 	/**
@@ -133,18 +135,18 @@ public class Usuario implements Serializable{
 	}
 
 	/**
-	 * @return the idPerfil
+	 * @return the perfil
 	 */
-	public int getIdPerfil() {
-		return idPerfil;
+	public Perfil getPerfil() {
+		return perfil;
 	}
 
 	/**
-	 * @param idPerfil
-	 *            the idPerfil to set
+	 * @param perfil
+	 *            the perfil to set
 	 */
-	public void setIdPerfil(int idPerfil) {
-		this.idPerfil = idPerfil;
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
 	}
 
 	/**
@@ -190,6 +192,21 @@ public class Usuario implements Serializable{
 	 */
 	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
+	}
+
+	/**
+	 * @return the usuarioModificador
+	 */
+	public String getUsuarioModificador() {
+		return usuarioModificador;
+	}
+
+	/**
+	 * @param usuarioModificador
+	 *            the usuarioModificador to set
+	 */
+	public void setUsuarioModificador(String usuarioModificador) {
+		this.usuarioModificador = usuarioModificador;
 	}
 
 	/**
@@ -250,20 +267,6 @@ public class Usuario implements Serializable{
 	 */
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
-	}
-
-	/**
-	 * @return the usuarioModificador
-	 */
-	public String getUsuarioModificador() {
-		return usuarioModificador;
-	}
-
-	/**
-	 * @param usuarioModificador the usuarioModificador to set
-	 */
-	public void setUsuarioModificador(String usuarioModificador) {
-		this.usuarioModificador = usuarioModificador;
 	}
 
 }
