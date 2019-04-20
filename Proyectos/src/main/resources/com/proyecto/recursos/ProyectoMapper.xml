@@ -4,14 +4,14 @@
 	<resultMap type="Proyecto" id="proyectoModel">
 		<id column="idProyecto" property="idProyecto" />
 		<result column="codigoProyecto" property="codigoProyecto" />
-		<result column="fechainicioplan" property="fechaInicPlan" />
-		<result column="fechafinplan" property="fechaFinPlan" />
-		<result column="fechainicioreal" property="fechaInicReal" />
-		<result column="fechafinreal" property="fechaFinReal" />
+		<result column="fechaInicPlan" property="fechaInicPlan" />
+		<result column="fechaFinPlan" property="fechaFinPlan" />
+		<result column="fechaInicReal" property="fechaInicReal" />
+		<result column="fechaFinReal" property="fechaFinReal" />
 		<result column="nombreproyecto" property="nombreProyecto" />
 		<result column="descripcionproyecto" property="descripcionProyecto" />
-		<result column="usuariocreador" property="usuarioCreador" />
-		<result column="usuariomoficador" property="usuarioModificador" />
+		<result column="usuariocreacion" property="usuarioCreador" />
+		<result column="usuariomodificacion" property="usuarioModificador" />
 		<result column="fechacreacion" property="fechaCreacion" />
 		<result column="fechamodificacion" property="fechaModificacion" />
 		<result column="totalcotizado" property="totalCotizado" />
@@ -45,8 +45,8 @@
 		</association>
 		<association property="estado" column="codigoEstado"
 			javaType="Estado">
-			<id column="codigoEstado" property="idEstado" />
-			<result column="descEstado" property="descripcion" />
+			<id column="idEstado" property="idEstado" />
+			<result column="descripcion" property="descripcion" />
 		</association>
 	</resultMap>
 	<select id="getAllProyectos" resultMap="proyectoModel">
@@ -55,11 +55,15 @@ SELECT p.idProyecto,
 		p.codProyecto,
 		p.fechaInicPlan,
         p.fechaFinplan,
-		p.fechaInicReal,p.fechaFinReal,
-		p.nomproyecto,p.descripcionproyecto,
-		p.usuariocreacion,p.usuariomodificacion,
+		p.fechaInicReal,
+		p.fechaFinReal,
+		p.nomproyecto,
+		p.descripcionproyecto,
+		p.usuariocreacion,
+		p.usuariomodificacion,
 		p.fechacreacion,
-        p.fechamodificacion,p.totalCotizado,
+        p.fechamodificacion,
+        p.totalCotizado,
 		u.idUsuario,
         u.apPaterno, u.apMaterno, u.nombres,
 		c.codigo,c.nombreCliente,
@@ -71,7 +75,7 @@ SELECT p.idProyecto,
 		proyecto p
 		inner join tipo_trabajo tt on p.idTipoTrabajo =
 		tt.idTipoTrabajo
-		inner join usuarios u on p.usuarioCreacion =
+		inner join usuarios u on p.idResponsable =
 		u.idUsuario
 		inner join lugar_trabajo lt on p.idLugarTrabajo =
 		lt.idLugarTrabajo
@@ -87,7 +91,8 @@ SELECT p.idProyecto,
 		p.codProyecto,
 		p.fechaInicPlan,
         p.fechaFinplan,
-		p.fechaInicReal,p.fechaFinReal,
+		p.fechaInicReal,
+		p.fechaFinReal,
 		p.nomproyecto,p.descripcionproyecto,
 		p.usuariocreacion,p.usuariomodificacion,
 		p.fechacreacion,
@@ -103,7 +108,7 @@ SELECT p.idProyecto,
 		proyecto p
 		inner join tipo_trabajo tt on p.idTipoTrabajo =
 		tt.idTipoTrabajo
-		inner join usuarios u on p.usuarioCreacion =
+		inner join usuarios u on p.idResponsable =
 		u.idUsuario
 		inner join lugar_trabajo lt on p.idLugarTrabajo =
 		lt.idLugarTrabajo

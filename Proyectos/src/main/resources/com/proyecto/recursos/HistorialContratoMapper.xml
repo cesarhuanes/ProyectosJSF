@@ -34,39 +34,39 @@
 
 	<select id="selectByIdUser" resultMap="hcModel" parameterType="int">
 
-		SELECT
-		hc."idHistorialContrato",
+	SELECT
+		hc.idHistorialContrato,
 		hc.sueldo,
-		hc."otrosCostos",
-		hc."fechaInicio",
-		hc."fechaFin",
-		hc."usuarioCreador",
-		hc."fechaCreacion",
-		hc."usuarioModificador",
-		hc."fechaModificacion",
-		usu."idUsuario",
-		rol."idRol",
+		hc.otrosCostos,
+		hc.fechaInicio,
+		hc.fechaFin,
+		hc.usuarioCreador,
+		hc.fechaCreacion,
+		hc.usuarioModificador,
+		hc.fechaModificacion,
+		usu.idUsuario,
+		rol.idRol,
 		rol.descripcion,
-		tc."idTipoContrato",
+		tc.idTipoContrato,
 		tc.descripcion as descContrato,
-		est."codigoEstado",
-		est."descEstado"
+		est.idEstado as codigoEstado,
+		est.descripcion  as  descEstado
 		FROM historial_contrato hc
-		inner join usuarios usu on hc."idUsuario"=usu."idUsuario"
-		inner join rol rol on hc."idRol"=rol."idRol"
-		inner join tipo_contrato tc on hc."idTipoContrato"=tc."idTipoContrato"
-		inner join Estados est on hc."idEstado" =est."codigoEstado"
-		where usu."idUsuario"=#{idUsuario}
+		inner join usuarios usu on hc.idPersonal=usu.idUsuario
+		inner join rol rol on hc.idRol=rol.idRol
+		inner join tipo_contrato tc on hc.idTipoContrato=tc.idTipoContrato
+		inner join estado est on hc.idEstado =est.idEstado
+	   where usu.idUsuario=#{idUsuario}                       
 	</select>
-	<insert id="insertHC" parameterType="HistorialContrato">
-		<selectKey keyProperty="idHistorialContrato" resultType="int"
+	<insert id="insertHC"   useGeneratedKeys="true" keyProperty="idHistorialContrato" parameterType="HistorialContrato">
+		<!-- <selectKey keyProperty="idHistorialContrato" resultType="int"
 			order="BEFORE">
 			SELECT NEXTVAL('historialcontrato_sequence')
-		</selectKey>
+		</selectKey>-->
 		INSERT INTO historial_contrato(
-		"idHistorialContrato", "idUsuario", "idRol", "idTipoContrato",
-		sueldo, "otrosCostos", "fechaInicio", "fechaFin", "fechaCreacion",
-		"idEstado", "usuarioCreador")
+		idHistorialContrato, idPersonal, idRol, idTipoContrato,
+		sueldo, otrosCostos, fechaInicio, fechaFin, fechaCreacion,
+		idEstado, usuarioCreador)
 		VALUES (#{idHistorialContrato},#{usuario.idUsuario}, #{rol.idRol},
 		#{tipoContrato.idTipoContrato},
 		#{sueldo}, #{otrosCostos}, #{fechaInicio}, #{fechaFin},#{fechaCreacion},
@@ -77,37 +77,38 @@
 	<select id="selectByPkHc" 
 		resultMap="hcModel" parameterType="int">
 		SELECT
-		hc."idHistorialContrato",
+		hc.idHistorialContrato,
 		hc.sueldo,
-		hc."otrosCostos",
-		hc."fechaInicio",
-		hc."fechaFin",
-		hc."usuarioCreador",
-		hc."fechaCreacion",
-		hc."usuarioModificador",
-		hc."fechaModificacion",
-		usu."idUsuario",
-		rol."idRol",
+		hc.otrosCostos,
+		hc.fechaInicio,
+		hc.fechaFin,
+		hc.usuarioCreador,
+		hc.fechaCreacion,
+		hc.usuarioModificador,
+		hc.fechaModificacion,
+		usu.idUsuario,
+		rol.idRol,
 		rol.descripcion,
-		tc."idTipoContrato",
+		tc.idTipoContrato,
 		tc.descripcion as descContrato,
-		est."codigoEstado",
-		est."descEstado"
+		est.idEstado as codigoEstado,
+		est.descripcion  as  descEstado
 		FROM historial_contrato hc
-		inner join usuarios usu on hc."idUsuario"=usu."idUsuario"
-		inner join rol rol on hc."idRol"=rol."idRol"
-		inner join tipo_contrato tc on hc."idTipoContrato"=tc."idTipoContrato"
-		inner join Estados est on hc."idEstado" =est."codigoEstado"
-		where hc."idHistorialContrato"=#{idHistorialContrato}
+		inner join usuarios usu on hc.idPersonal=usu.idUsuario
+		inner join rol rol on hc.idRol=rol.idRol
+		inner join tipo_contrato tc on hc.idTipoContrato=tc.idTipoContrato
+		inner join estado est on hc.idEstado =est.idEstado
+		where hc.idHistorialContrato=#{idHistorialContrato}
 	</select>
 	<update id="actualizarHC" parameterType="HistorialContrato">
 		UPDATE historial_contrato
-		SET "idUsuario"=#{usuario.idUsuario}, "idRol"=#{rol.idRol},
-		"idTipoContrato"=#{tipoContrato.idTipoContrato},
-		sueldo=#{sueldo}, "otrosCostos"=#{otrosCostos},
-		"fechaInicio"=#{fechaInicio}, "fechaFin"=#{fechaFin},
-		"fechaModificacion"=#{fechaModificacion}, "usuarioModificador"=#{usuarioModificador},
-		"idEstado"=#{estado.idEstado}
-		where "idHistorialContrato"=#{idHistorialContrato}
+		SET idPersonal=#{usuario.idUsuario}, idRol=#{rol.idRol},
+		idTipoContrato=#{tipoContrato.idTipoContrato},
+		sueldo=#{sueldo}, 
+		otrosCostos=#{otrosCostos},
+		fechaInicio=#{fechaInicio}, fechaFin=#{fechaFin},
+		fechaModificacion=#{fechaModificacion}, usuarioModificador=#{usuarioModificador},
+		idEstado=#{estado.idEstado}
+		where idHistorialContrato=#{idHistorialContrato}
 	</update>
 </mapper>
