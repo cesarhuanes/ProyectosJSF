@@ -86,6 +86,11 @@
 			inner join tipo_Documento td on usu.idTipoDocumento=td.idTipoDocumento
 			inner join perfil p on usu.idPerfil=p.idPerfil where usu.idUsuario=#{idUsuario}
 	</select>
+	<select id="selectAllResponsable" resultType="Usuario" >
+		select usu.idUsuario, usu.apPaterno, usu.apMaterno, usu.nombres
+		FROM usuarios usu  where usu.idEstado=1 order by usu.apPaterno asc
+		
+	</select>
 
 	<insert id="insertarUsuario" parameterType="Usuario">
 	<!-- <selectKey keyProperty="codigo" resultType="int" order="BEFORE"> -->

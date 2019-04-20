@@ -6,4 +6,11 @@
          descripcion 
          from estado
     </select>
+    <select id="getAllEstadosProyecto" resultType="Estado">
+
+		 select   idEstado,
+         descripcion 
+         from estado where idEstado not in(1,2)
+
+	</select>
 </mapper>

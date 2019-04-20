@@ -26,6 +26,12 @@
             est.descripcion 
             from clientes clie inner join estado est on clie.idEstado=est.idEstado
     </select>
+    <select id="getAllClientesActivos" resultType="Cliente" >
+		SELECT clie.codigo,
+		clie.nombreCliente
+		from clientes clie 
+		where clie.idEstado=1 order by clie.nombreCliente  asc
+	</select>
     <insert id="insertarCliente" useGeneratedKeys="true" keyProperty="codigo" parameterType="Cliente">
         INSERT INTO CLIENTES(
             nombreCliente,
