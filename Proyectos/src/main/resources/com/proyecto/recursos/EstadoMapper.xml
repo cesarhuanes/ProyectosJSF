@@ -10,7 +10,7 @@
 
 		 select   idEstado,
          descripcion 
-         from estado where idEstado not in(1,2)
+         from estado where idEstado  in(3,4)
 
 	</select>
 </mapper>
