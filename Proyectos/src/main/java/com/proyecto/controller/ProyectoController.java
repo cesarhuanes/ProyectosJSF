@@ -102,6 +102,7 @@ public class ProyectoController {
 	}
 	public String nuevoProyecto(){
 		String resultado="mantProyectos";
+		proyecto=new Proyecto();
 		proyectoDao = new ProyectoDao();
 		getLstCliente();
 		getLstResponsable();
@@ -218,9 +219,11 @@ public class ProyectoController {
 	public String saveProyecto(){
 		String resultado="listaProyecto";
 		boolean flag=false;
-		Usuario usu = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+		
+		String useName = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.get("userName");
 		proyecto.setFechaCreacion(new Date(System.currentTimeMillis()));
-		proyecto.setUsuarioCreador(usu.getUsuario());
+		proyecto.setUsuarioCreador(useName);
 		flag=proyectoDao.insertarProyecto(proyecto);
 		if(flag){
 			FacesMessage message = new FacesMessage("Transacción con éxito.");
