@@ -3,12 +3,12 @@
 <mapper namespace="ProyectoMapper">
 	<resultMap type="Proyecto" id="proyectoModel">
 		<id column="idProyecto" property="idProyecto" />
-		<result column="codigoProyecto" property="codigoProyecto" />
+		<result column="codProyecto" property="codigoProyecto" />
 		<result column="fechaInicPlan" property="fechaInicPlan" />
 		<result column="fechaFinPlan" property="fechaFinPlan" />
 		<result column="fechaInicReal" property="fechaInicReal" />
 		<result column="fechaFinReal" property="fechaFinReal" />
-		<result column="nombreproyecto" property="nombreProyecto" />
+		<result column="nomproyecto" property="nombreProyecto" />
 		<result column="descripcionproyecto" property="descripcionProyecto" />
 		<result column="usuariocreacion" property="usuarioCreador" />
 		<result column="usuariomodificacion" property="usuarioModificador" />
@@ -33,7 +33,7 @@
 			<id column="idLugarTrabajo" property="idLugarTrabajo" />
 			<result column="descripcion" property="descripcion" />
 		</association>
-		<association property="TipoTrabajo" column="idTipoTrabajo"
+		<association property="tipoTrabajo" column="idTipoTrabajo"
 			javaType="TipoTrabajo">
 			<id column="idTipoTrabajo" property="idTipoTrabajo" />
 			<result column="descripcion" property="descripcion" />
