@@ -41,17 +41,17 @@
 		</navigation-case>
 	</navigation-rule>
 	 <navigation-rule>
-		<from-view-id>/paginas/proyectos/listadoProyectos.xhtml</from-view-id>
+		<from-view-id>paginas/proyectos/listadoProyectos.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>mantProyectos</from-outcome>
-			<to-view-id>/paginas/proyectos/mantenimientoProyectos.xhtml</to-view-id>
+			<to-view-id>paginas/proyectos/mantenimientoProyectos.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<from-view-id>/paginas/proyectos/mantenimientoProyectos.xhtml</from-view-id>
+		<from-view-id>paginas/proyectos/mantenimientoProyectos.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>listaProyecto</from-outcome>
-			<to-view-id>/paginas/proyectos/listadoProyectos.xhtml</to-view-id>
+			<to-view-id>paginas/proyectos/listadoProyectos.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 <application>
