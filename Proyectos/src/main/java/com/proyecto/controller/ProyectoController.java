@@ -19,6 +19,7 @@ import com.proyecto.pojos.Proyecto;
 import com.proyecto.pojos.TipoMoneda;
 import com.proyecto.pojos.TipoTrabajo;
 import com.proyecto.pojos.Usuario;
+import com.proyecto.util.Constantes;
 
 @ManagedBean(name="proyectoController")
 @ApplicationScoped
@@ -32,6 +33,8 @@ public class ProyectoController {
 	private List<SelectItem> listaTipoTrabajo;
 	private List<SelectItem> listaLugarTrabajo;
 	private List<SelectItem> listaEstado;
+	private int codigoProyecto;
+	private int tipoTransaccion = 0;// 0 insertar ,1 actualizar
 
 	@PostConstruct
 	public void init() {
@@ -231,5 +234,34 @@ public class ProyectoController {
 		}
 		listaProyecto=proyectoDao.listaProyecto();
 		return resultado;
+	}
+
+	public int getCodigoProyecto() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		String codigo = context.getExternalContext().getRequestParameterMap().get("codigo");
+		if (codigo != null) {
+			codigoProyecto = Integer.parseInt(codigo);
+		}
+		return codigoProyecto;
+	}
+	public String editarProyecto(){
+		String resultado = "";
+		setTipoTransaccion(Constantes.UNO);
+		proyecto = new Proyecto();
+		proyecto = proyectoDao.obtenerProyecto(getCodigoProyecto());
+		resultado = "mantProyectos";
+		return resultado;
+	}
+
+	public void setCodigoProyecto(int codigoProyecto) {
+		this.codigoProyecto = codigoProyecto;
+	}
+
+	public int getTipoTransaccion() {
+		return tipoTransaccion;
+	}
+
+	public void setTipoTransaccion(int tipoTransaccion) {
+		this.tipoTransaccion = tipoTransaccion;
 	}
 }

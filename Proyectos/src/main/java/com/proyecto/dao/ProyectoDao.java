@@ -84,4 +84,10 @@ public class ProyectoDao {
 		
 		return insertoProyecto;
 	}
+	public Proyecto obtenerProyecto(Integer codigo) {
+		Proyecto proyecto = new Proyecto();
+		proyecto = (Proyecto) session.selectOne("ProyectoMapper.getProyectosByPk", codigo);
+		logger.info("Obtener Proyecto");
+		return proyecto;
+	}
 }

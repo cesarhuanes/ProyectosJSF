@@ -22,11 +22,23 @@
 			   scrollable="true" scrollHeight="200" widgetVar="usuarioTable"  selection="#{proyectoController.proyecto}" rowKey="#{item.idProyecto}"
 			   emptyMessage="No hay proyectos con este criterio" >
 			   <f:facet name="header" >Listado de Proyectos</f:facet>
+			   	<p:column  headerText="Cliente"> 
+                    <h:outputText value="#{item.cliente.nombreCliente}"/>
+                </p:column>
 			   	<p:column  headerText="Proyecto"> 
                     <h:outputText value="#{item.nombreProyecto}"/>
                 </p:column>
+                 	<p:column  headerText="Tipo"> 
+                    <h:outputText value="#{item.tipoTrabajo.descripcion}"/>
+                </p:column>
+                 	<p:column  headerText="Lugar"> 
+                    <h:outputText value="#{item.lugarTrabajo.descripcion}"/>
+                </p:column>
                 <p:column  headerText="Responsable"> 
                     <h:outputText value="#{item.usuario.apPaterno} #{item.usuario.apMaterno} #{item.usuario.nombres} "/>
+                </p:column>
+                <p:column  headerText="Estado"> 
+                    <h:outputText value="#{item.estado.descripcion} "/>
                 </p:column>
                  <p:column  headerText="Inicio"> 
                     <h:outputText value="#{item.fechaInicReal}  ">
@@ -38,6 +50,17 @@
                     <f:convertDateTime pattern="dd/MM/yyyy" />
                     </h:outputText> 
                 </p:column>
+                 <p:column headerText="Editar" style="width:50px">
+					<p:commandButton action="#{proyectoController.editarProyecto}"  icon="ui-icon-pencil" >
+				   		<f:param name="codigo" value="#{item.idProyecto}" />
+				   </p:commandButton>
+				</p:column>
+				
+				 <p:column headerText="Eliminar" style="width:70px">
+					 <p:commandButton action="#{proyectoController.getCodigoProyecto}" icon="ui-icon-trash"  onclick="PF('cd').show()"  >
+					     <f:param name="codigo" value="#{item.idProyecto}" />
+					 </p:commandButton>
+				</p:column>
 			   </p:dataTable>
 			 </p:panel>
 			</h:form>
