@@ -11,6 +11,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import org.primefaces.context.RequestContext;
+
 import com.proyecto.dao.ProyectoDao;
 import com.proyecto.pojos.Cliente;
 import com.proyecto.pojos.Estado;
@@ -40,7 +42,14 @@ public class ProyectoController {
 	public void init() {
 		proyecto=new Proyecto();
 		proyectoDao = new ProyectoDao();
+		getLstCliente();
+		getLstResponsable();
+		getLstTipoMoneda();
+		getLstTipoTrabajo();
+		getLstLugarTrabajo();
+		getLstEstado();
 		getLstProyecto();
+		
 		
 	}
 
@@ -107,12 +116,8 @@ public class ProyectoController {
 		String resultado="mantProyectos";
 		proyecto=new Proyecto();
 		proyectoDao = new ProyectoDao();
-		getLstCliente();
-		getLstResponsable();
-		getLstTipoMoneda();
-		getLstTipoTrabajo();
-		getLstLugarTrabajo();
-		getLstEstado();
+		
+		setTipoTransaccion(Constantes.CERO);
 		return resultado;
 	}
 	
@@ -225,12 +230,22 @@ public class ProyectoController {
 		
 		String useName = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("userName");
+		if(tipoTransaccion==Constantes.CERO){
 		proyecto.setFechaCreacion(new Date(System.currentTimeMillis()));
 		proyecto.setUsuarioCreador(useName);
 		flag=proyectoDao.insertarProyecto(proyecto);
-		if(flag){
-			FacesMessage message = new FacesMessage("Transacción con éxito.");
-		    FacesContext.getCurrentInstance().addMessage(null, message);
+			if(flag){
+				FacesMessage message = new FacesMessage("Transacción con éxito.");
+			    FacesContext.getCurrentInstance().addMessage(null, message);
+			}
+		}else{
+			proyecto.setFechaModificacion(new Date(System.currentTimeMillis()));
+			proyecto.setUsuarioModificador(useName);
+			flag=proyectoDao.actualizaProyecto(proyecto);
+			if(flag){
+				FacesMessage message = new FacesMessage("Registro Actualizado.");
+			    FacesContext.getCurrentInstance().addMessage(null, message);
+			}
 		}
 		listaProyecto=proyectoDao.listaProyecto();
 		return resultado;
@@ -250,6 +265,21 @@ public class ProyectoController {
 		proyecto = new Proyecto();
 		proyecto = proyectoDao.obtenerProyecto(getCodigoProyecto());
 		resultado = "mantProyectos";
+		return resultado;
+	}
+	public String eliminarProyecto() {
+		String resultado = "listaProyecto";
+		boolean eliminaProyecto = false;
+		eliminaProyecto = proyectoDao.eliminarProyecto(getCodigoProyecto());
+		if (eliminaProyecto) {
+			FacesMessage message = new FacesMessage("Registro Eliminado.");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		} else {
+			RequestContext.getCurrentInstance()
+					.showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error al registrar."));
+		}
+		listaProyecto=proyectoDao.listaProyecto();
+
 		return resultado;
 	}
 
