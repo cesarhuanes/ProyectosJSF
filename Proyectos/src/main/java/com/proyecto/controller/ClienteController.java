@@ -65,9 +65,19 @@ public class ClienteController {
 		return resultado;
 	}
 
-	public void eliminarCliente() {
-		boolean flag = false;
-		flag = clienteDao.eliminaCliente(getCodigoCliente());
+	public String eliminarCliente() {
+		String resultado = "listaCliente";
+		boolean eliminaCliente = false;
+		eliminaCliente = clienteDao.eliminaCliente(getCodigoCliente());
+		if (eliminaCliente) {
+			FacesMessage message = new FacesMessage("Registro Eliminado.");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		} else {
+			RequestContext.getCurrentInstance()
+					.showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Error al registrar."));
+		}
+		listaCliente= clienteDao.listaClientes();
+		return resultado;
 	}
 
 	public String nuevoCliente() {

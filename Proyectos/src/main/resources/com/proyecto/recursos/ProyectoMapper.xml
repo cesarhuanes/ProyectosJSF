@@ -148,9 +148,9 @@ usuarioCreacion
 	#{tipoTrabajo.idTipoTrabajo},
 	#{usuario.idUsuario},
 		#{lugarTrabajo.idLugarTrabajo},
-		#{codigoProyecto},
-		#{nombreProyecto},
-		#{descripcionProyecto} ,
+		UPPER(#{codigoProyecto}),
+		UPPER(#{nombreProyecto}),
+		UPPER(#{descripcionProyecto}) ,
 #{estado.idEstado},
 #{fechaInicPlan},
 #{fechaFinPlan},
@@ -162,5 +162,29 @@ usuarioCreacion
 #{usuarioCreador})
 	
 	</insert>
+	
+	 <update id="actualizarProyecto" parameterType="Proyecto">
+        UPDATE PROYECTO
+      SET idCliente=#{cliente.codigo},
+idTipoTrabajo=#{tipoTrabajo.idTipoTrabajo},
+idResponsable=#{usuario.idUsuario},
+idLugarTrabajo=#{lugarTrabajo.idLugarTrabajo},
+codProyecto=UPPER(#{codigoProyecto}),
+nomProyecto=UPPER(#{nombreProyecto}),
+descripcionProyecto=UPPER(#{descripcionProyecto}),
+idEstado=#{estado.idEstado},
+fechaInicPlan=#{fechaInicPlan},
+fechaFinPlan=#{fechaFinPlan},
+fechaInicReal=#{fechaInicReal},
+fechaFinReal=#{fechaFinReal},
+totalCotizado=#{totalCotizado},
+idTipoMoneda=#{tipoMoneda.idTipoMoneda},
+fechaModificacion=#{fechaModificacion},
+usuarioModificacion=#{usuarioModificador} where idProyecto=#{idProyecto}
+    </update>
+    <delete id="deleteProyecto" parameterType="int">
+			DELETE  FROM  PROYECTO WHERE idProyecto=#{idProyecto}
+		
+	</delete>
 
 </mapper>

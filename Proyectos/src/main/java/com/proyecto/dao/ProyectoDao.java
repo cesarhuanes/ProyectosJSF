@@ -84,6 +84,38 @@ public class ProyectoDao {
 		
 		return insertoProyecto;
 	}
+	public boolean actualizaProyecto(Proyecto proyecto){
+		boolean actualizaProyecto=false;
+		try{
+			session.update("ProyectoMapper.actualizarProyecto", proyecto);
+			session.commit();
+			actualizaProyecto=true;
+			if(actualizaProyecto){
+				logger.info("Se actualizo el Proyecto satisfatoriamente");
+			}
+			
+		}catch(Exception e){
+			logger.info(""+e);
+			session.rollback();
+		}
+		return actualizaProyecto;
+	}
+	public boolean eliminarProyecto(int codigoProyecto){
+		boolean eliminaProyecto=false;
+		try{
+			session.delete("ProyectoMapper.deleteProyecto", codigoProyecto);
+			session.commit();
+			eliminaProyecto=true;
+			if(eliminaProyecto){
+				logger.info("Se elimino el Proyecto satisfatoriamente");
+			}
+		}catch(Exception e){
+			logger.info(""+e);
+			session.rollback();
+		}
+		return eliminaProyecto;
+	}
+	
 	public Proyecto obtenerProyecto(Integer codigo) {
 		Proyecto proyecto = new Proyecto();
 		proyecto = (Proyecto) session.selectOne("ProyectoMapper.getProyectosByPk", codigo);

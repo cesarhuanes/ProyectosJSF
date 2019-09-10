@@ -17,7 +17,7 @@
 				         <p:commandButton id="idNuevoProyecto" value="Nuevo Proyecto" action="#{proyectoController.nuevoProyecto}"/>
 				         <h:outputLabel value=""/>
 				</h:panelGrid>
-			  <p:dataTable 
+			  <p:dataTable  id="idTableProyecto"
                paginator="true" rows="10"  selectionMode="single" value="#{proyectoController.listaProyecto}" var="item"
 			   scrollable="true" scrollHeight="200" widgetVar="usuarioTable"  selection="#{proyectoController.proyecto}" rowKey="#{item.idProyecto}"
 			   emptyMessage="No hay proyectos con este criterio" >
@@ -57,11 +57,21 @@
 				</p:column>
 				
 				 <p:column headerText="Eliminar" style="width:70px">
-					 <p:commandButton action="#{proyectoController.getCodigoProyecto}" icon="ui-icon-trash"  onclick="PF('cd').show()"  >
+					 <p:commandButton action="#{proyectoController.getCodigoProyecto}" icon="ui-icon-trash"  onclick="PF('cp').show()"  >
 					     <f:param name="codigo" value="#{item.idProyecto}" />
 					 </p:commandButton>
 				</p:column>
 			   </p:dataTable>
+			     <p:confirmDialog message="¿Desea eliminar el registro seleccionado?" header="Eliminar Proyecto"
+						 severity="alert" 
+						widgetVar="cp" >
+						<p:commandButton value="Sí, seguro"  update="messages,idTableProyecto"   action="#{proyectoController.eliminarProyecto}"
+						 oncomplete="PF('cp').hide()" styleClass="ui-confirmdialog-yes"
+							icon="ui-icon-check"/>
+						<p:commandButton value="No, aun" onclick="PF('cp').hide();" type="button"  
+						styleClass="ui-confirmdialog-no"
+						icon="ui-icon-close" />
+				</p:confirmDialog>
 			 </p:panel>
 			</h:form>
 		</ui:define>
