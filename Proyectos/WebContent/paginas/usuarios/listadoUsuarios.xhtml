@@ -13,14 +13,14 @@
             <h:form id="formListaUsuarios">
            <p:panel >
            <p:growl id="messages" />
-			<h:panelGrid columns="2" rowClasses="1">           
+			<h:panelGrid  columns="2" rowClasses="1">           
 			         <p:commandButton id="idNuevoUsuario" value="Nuevo Usuario"  action="#{usuarioController.nuevoUsuario}"/>
-			          <p:commandButton id="idAsignarContrato" value="Asignar Contrato" actionListener="#{asignaContratoController.viewAsignaContrato}" disabled="#{usuarioController.habilitaContrato}"/>
+			        
 			         <h:outputLabel value=""/>
 			</h:panelGrid>
                <p:dataTable id="idTableUsuario" value="#{usuarioController.listaUsuario}" var="item" paginator="true" rows="10" 
-                selectionMode="single"
-				selection="#{usuarioController.usuario}" rowKey="#{item.idUsuario}"  scrollable="true" scrollHeight="200" 
+                selectionMode="single" selection="#{usuarioController.usuario}"
+				 rowKey="#{item.idUsuario}"  scrollable="true" scrollHeight="200" 
 				widgetVar="userTable" >
 				filteredValue="#{usuarioController.filterListUsuario}"
 					<f:facet name="header">
@@ -31,6 +31,7 @@
 						</p:inputText>
 						</p:outputPanel>
 					</f:facet>
+				<p:ajax event="rowSelect"  listener="#{usuarioController.selectUsuario}" oncomplete="PF('historialDialog').show()"/>
 				<p:column  filterBy="#{item.idUsuario}" filterMatchMode="contains"  headerText="N°" filterStyle="#{item.idUsuario?'':'display: none; visibility: hidden;'}" style="width:30px"> 
                     <h:outputText value="#{item.idUsuario}"/>
                 </p:column>
@@ -68,12 +69,12 @@
                 
                 </p:dataTable>
 				</p:panel>
-<!-- 				 <p:dialog widgetVar="idDialog"  header="Mantenimiento de Historial de Contrato"  draggable="false" modal="true"  resizable="false" -->
-<!--                  closeOnEscape="true" showEffect="scale" closable="true" width="870" height="500" > -->
+				 <p:dialog id="idDialog" widgetVar="historialDialog"  header="Mantenimiento de Historial de Contrato"  draggable="false" modal="true"  resizable="false"
+                 closeOnEscape="true" showEffect="scale" closable="true" width="870" height="500" >
    
-<!--                      	  		<ui:include src="/paginas/usuarios/asignarContrato.xhtml" /> -->
+                     	  		<ui:include src="/paginas/usuarios/asignarContrato.xhtml" />
                   
-<!--                 </p:dialog> -->
+                </p:dialog>
             </h:form>
             </ui:define>
             

@@ -36,7 +36,7 @@ public class UsuarioController {
 	private List<SelectItem> listaEstados;
 	public boolean isDisableInputText;
 	public List<Usuario> listaUsuario;
-	private boolean habilitaContrato; 
+	
 	
 	@PostConstruct
 	public void init() {
@@ -47,7 +47,7 @@ public class UsuarioController {
 		listaPerfil();
 		listaEstados();
 		setDisableInputText(false);
-		 setHabilitaContrato(true);
+
 	}
 
 	private void listaTipoDocumento(){
@@ -140,13 +140,8 @@ public class UsuarioController {
 	public void selectUsuario(SelectEvent selectEvent) {
 
 		Usuario userSelect = (Usuario) selectEvent.getObject();
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userId", userSelect.getIdUsuario());
-		setUsuario(userSelect);
-		if (userSelect != null) {
-			setHabilitaContrato(false);
-		} else {
-			setHabilitaContrato(true);
-		}
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idUsuario", userSelect.getIdUsuario());
+		
 
 	}
 
@@ -283,18 +278,5 @@ public class UsuarioController {
 		this.isDisableInputText = isDisableInputText;
 	}
 
-	/**
-	 * @return the habilitaContrato
-	 */
-	public boolean isHabilitaContrato() {
-		return habilitaContrato;
-	}
-
-	/**
-	 * @param habilitaContrato the habilitaContrato to set
-	 */
-	public void setHabilitaContrato(boolean habilitaContrato) {
-		this.habilitaContrato = habilitaContrato;
-	}
-
+	
 }
