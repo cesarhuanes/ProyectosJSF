@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cardif.satelite.tesoreria.dao.FirmanteMapper">
+
+	<insert id="insertarFirmanteTemporal" parameterType="com.cardif.satelite.tesoreria.model.Firmante">
+		insert into dbo.FIRMANTE_TEMP (
+		COD_FIRMANTE, USU_FIRMANTE, NOM_FIRMANTE,
+		APE_FIRMANTE,
+		CORREO_FIRMANTE, FIR_FIRMANTE,
+		EST_REGISTRO, NOM_ACCION, MOT_ACCION, EST_ACCION)
+		values
+		(#{codigo,jdbcType=BIGINT},#{usuario,jdbcType=VARCHAR},#{nombres,jdbcType=VARCHAR},
+		#{apellidos,jdbcType=VARCHAR},
+		#{correo,jdbcType=VARCHAR},#{firma,jdbcType=LONGVARBINARY},
+		#{estado,jdbcType=CHAR},#{nombreAccion,jdbcType=VARCHAR},#{motivoAccion,jdbcType=VARCHAR},
+		#{estadoAccion,jdbcType=CHAR})
+	</insert>
+
+	<insert id="eliminarFirmanteTemporal" parameterType="com.cardif.satelite.tesoreria.model.Firmante">
+		delete dbo.FIRMANTE_TEMP
+		where COD_TEMP=#{temporal,jdbcType=BIGINT}
+	</insert>
+
+	<insert id="rechazarFirmanteTemporal" parameterType="com.cardif.satelite.tesoreria.model.Firmante">
+		update dbo.FIRMANTE_TEMP
+		set MOT_RECHAZO=#{motivoRechazo,jdbcType=VARCHAR},
+		EST_ACCION=#{estadoAccion,jdbcType=CHAR}
+		where COD_TEMP=#{temporal,jdbcType=BIGINT}
+	</insert>
+
+	<insert id="aprobarFirmanteTemporal" parameterType="com.cardif.satelite.tesoreria.model.Firmante">
+		update dbo.FIRMANTE_TEMP
+		set EST_ACCION=#{estadoAccion,jdbcType=CHAR}
+		where
+		COD_TEMP=#{temporal,jdbcType=BIGINT}
+	</insert>
+
+	<insert id="insertarFirmante" parameterType="com.cardif.satelite.tesoreria.model.Firmante">
+		insert into dbo.FIRMANTE (USU_FIRMANTE, NOM_FIRMANTE,
+		APE_FIRMANTE,
+		CORREO_FIRMANTE,FIR_FIRMANTE,EST_REGISTRO )
+		values (#{usuario,jdbcType=VARCHAR}, #{nombres,jdbcType=VARCHAR},
+		#{apellidos,jdbcType=VARCHAR},
+		#{correo,jdbcType=VARCHAR}, #{firma,jdbcType=LONGVARBINARY}, #{estado,jdbcType=CHAR})
+	</insert>
+
+	<insert id="actualizarFirmante" parameterType="com.cardif.satelite.tesoreria.model.Firmante">
+		UPDATE dbo.FIRMANTE SET
+		USU_FIRMANTE=#{usuario,jdbcType=VARCHAR},
+		NOM_FIRMANTE=#{nombres,jdbcType=VARCHAR},
+		APE_FIRMANTE=#{apellidos,jdbcType=VARCHAR},
+		CORREO_FIRMANTE=#{correo,jdbcType=VARCHAR},
+		FIR_FIRMANTE=#{firma,jdbcType=LONGVARBINARY}
+		WHERE COD_FIRMANTE=#{codigo,jdbcType=BIGINT}
+	</insert>
+
+	<insert id="eliminarFirmante" parameterType="com.cardif.satelite.tesoreria.model.Firmante">
+		UPDATE dbo.FIRMANTE SET
+		EST_REGISTRO=#{estado,jdbcType=CHAR},
+		MOT_ELIMINACION=#{motivoEliminacion,jdbcType=VARCHAR}
+		WHERE COD_FIRMANTE=#{codigo,jdbcType=BIGINT}
+	</insert>
+
+
+</mapper>

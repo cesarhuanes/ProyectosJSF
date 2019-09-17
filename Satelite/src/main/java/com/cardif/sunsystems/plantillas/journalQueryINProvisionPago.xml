@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SSC>
+	<SunSystemsContext>
+		<BusinessUnit>E01</BusinessUnit>
+		<BudgetCode>A</BudgetCode>
+	</SunSystemsContext>
+	<Payload>
+		<Filter>
+			<Expr operator="AND">
+				<Item name="/Ledger/Line/AccountingPeriod" operator="BETWEEN" minvalue="0MMYYYY" maxvalue="0MMYYYY" />
+				<Item name="/Ledger/Line/AccountCode" operator="BETWEEN" minvalue="Px|42x" maxvalue="Px|42x" />
+				<Item name="/Ledger/Line/AllocationMarker" operator="NEQU" value="W" />
+				<Item name="/Ledger/Line/AllocationMarker" operator="NEQU" value="P" />
+				<Item name="/Ledger/Line/AllocationMarker" operator="NEQU" value="0" />
+				<Item name="/Ledger/Line/JournalType" operator="NEQU" value="PGOSI" />
+				<Item name="/Ledger/Line/JournalType" operator="NEQU" value="VPAY1" />
+				<Item name="/Ledger/Line/JournalType" operator="NEQU" value="VPAY2" />
+				<Item name="/Ledger/Line/JournalType" operator="NEQU" value="VPAY3" />
+				<Item name="/Ledger/Line/JournalType" operator="NEQU" value="VPAY4" />
+				<Item name="/Ledger/Line/JournalType" operator="NEQU" value="VPAY5" />
+				<Item name="/Ledger/Line/JournalType" operator="NEQU" value="ZPAY1" />
+			</Expr>
+		</Filter>
+		<Select>
+			<Ledger>
+				<Line>
+					<AccountCode />
+					<TransactionDate />
+					<TransactionReference />
+					<CurrencyCode />
+					<BaseAmount />
+					<AllocationMarker />
+					<TransactionAmount />
+					<Base2ReportingAmount />
+					<Description />
+					<AccountingPeriod />
+					<AnalysisCode1 />
+					<AnalysisCode2 />
+					<AnalysisCode3 />
+					<AnalysisCode4 />
+					<AnalysisCode5 />
+					<AnalysisCode6 />
+					<AnalysisCode7 />
+					<AnalysisCode8 />
+					<AnalysisCode9 />
+					<AnalysisCode10 />
+					<JournalNumber />
+					<JournalType/>
+					<DebitCredit />
+					<JournalLineNumber />
+					<BaseRate />
+					<Base2ReportingRate />
+					<Accounts>
+						<Description />
+						<LookupCode />
+						<LongDescription />
+					</Accounts>
+					<DetailLad>
+						<GeneralDescription1></GeneralDescription1>
+						<GeneralDescription2></GeneralDescription2>
+						<GeneralDescription3></GeneralDescription3>
+					</DetailLad>
+				</Line>
+			</Ledger>
+		</Select>
+	</Payload>
+</SSC>

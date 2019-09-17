@@ -1,0 +1,406 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:richfaces="http://richfaces.ajax4jsf.org/rich"
+      xmlns:ajax="https://ajax4jsf.dev.java.net/ajax"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+      
+<a4j:keepAlive beanName="repParametroController" />
+<head>
+<script type="text/javascript"  src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+</head>	
+	
+<body>
+<h:form id="formulario" >
+    <rich:panel id="panelMantParametros" height="100%">
+		<f:facet name="header">
+		  <h:outputText value="Reportes SBS > Mantenimiento de Paràmetros" />
+		</f:facet>
+		<fieldset>
+	
+		  	<table>
+		  	 <tr>
+			  	 <td align="right" width="10%"><h:outputText  value="Empresa" /></td>
+			  	 <td align="left" colspan="2">
+			  	 <a4j:region ajaxSingle="true">
+			  	 <h:selectOneMenu id="empresa2"   value="#{repParametroController.proceso.codEmpresa}" 
+			  	 valueChangeListener="#{repParametroController.buscarCodigoSBs}"
+			  	  disabled="#{repParametroController.readonlyMostrar}" 
+			  	  style="width:170px; #{repParametroController.styleVerParametro}"
+			  	  required="true" requiredMessage="Obligatorio">
+							<f:selectItems value="#{repParametroController.empresaItems2}"/> 
+							<a4j:support event="onchange" reRender="codSbs" />
+					</h:selectOneMenu>
+				</a4j:region>
+				<h:column>
+								<rich:message for="empresa2" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message>
+							</h:column>
+			    </td>
+			  	 
+				  	 
+			  	 <td width="15%" align="right"><h:outputText value="Codigo SBS:" /></td>
+			  	 <td width="20%" align="left"> 
+			  	  <h:inputText id="codSbs"  value="#{repParametroController.proceso.codSbs}" 
+			  	   readonly="true" 
+			  	   disabled="true"
+			  	   style="width:170px; background:#ddd; color:black;" 
+			  	    required="true" requiredMessage="Obligatorio"
+			  	    onkeypress="return valNumeros(event);" maxlength="38"/>
+			  	   <h:column>
+								<rich:message for="codSbs" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message>
+							</h:column>
+			  	  </td>
+			  	  
+				  	 <td width="10%" align="right"><h:outputText value="Socio:" /></td>
+			  	 <td width="20%" align="left"> 
+			  	 <h:selectOneMenu id="socio2" value="#{repParametroController.proceso.codSocio}"
+			  	  disabled="#{repParametroController.readonlyMostrar}" 
+			  	  style="width:170px; #{repParametroController.styleVerParametro}"
+			  	    required="true" requiredMessage="Obligatorio" >
+							<f:selectItems value="#{repParametroController.socioItems2}"/>
+													
+				</h:selectOneMenu>
+				<h:column>
+								<rich:message for="socio2" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message>
+							</h:column>
+			  	 </td>
+			  	 
+		  	 </tr>
+		  	
+		  	 <tr>
+		  	 	 <td width="10%" align="right"
+		  	 	 ><h:outputText value="Tipo Contrato:" /></td>
+			  	 <td width="20%" align="left" colspan="2">
+			  	  <h:selectOneMenu id="tipoContrato2" value="#{repParametroController.proceso.codTipoContrato}"
+			  	   style="width:170px; #{repParametroController.styleOtros}"
+			      disabled="#{repParametroController.readonlyOtros}"
+			       required="true" requiredMessage="Obligatorio">
+					<f:selectItems value="#{repParametroController.tipoContratoItems2}"/>	
+								</h:selectOneMenu>
+				<h:column>
+								<rich:message for="tipoContrato2" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message>
+							</h:column>
+			  	 </td>
+				  	 
+			  	 <td width="15%" align="right"><h:outputText value="Producto:" /></td>
+			  	 <td width="20%" align="left">
+			  	  <h:selectOneMenu id="producto2" value="#{repParametroController.proceso.codProducto}"
+			  	  style="width:170px; #{repParametroController.styleOtros}"
+			      disabled="#{repParametroController.readonlyOtros}"
+			       required="true" requiredMessage="Obligatorio" >
+						     <f:selectItems value="#{repParametroController.productoItems2}"/>
+						 							
+				</h:selectOneMenu>
+				<h:column>
+								<rich:message for="producto2" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message>
+							</h:column>
+			  	 </td>
+			  	 
+		  	 
+		  	 </tr>
+		  	 <tr>
+		  	 	
+		  	 	<td width="10%" align="right"><h:outputText value="Detalle Cuenta:" /></td>
+			  	 <td width="10%" align="left">
+			  	 <a4j:region>
+			  	  <h:selectOneMenu id="idTipoCuenta"  value="#{repParametroController.proceso.codTipoCuenta}"
+			  	  valueChangeListener="#{repParametroController.detalleCuentaChangeListener}"
+			  	   style="width:90px; #{repParametroController.styleOtros}"
+			       disabled="#{repParametroController.readonlyOtros}"
+			       required="true" requiredMessage="Obligatorio" >
+							     <f:selectItems value="#{repParametroController.detalleCuentaItems}"/>
+							
+							<a4j:support event="onchange"   reRender="detalle"/>
+				</h:selectOneMenu>
+				</a4j:region>
+				<h:column>
+					<rich:message for="idTipoCuenta" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message>
+				</h:column>
+			  	 </td>
+			  	 <td  align="left">
+			  	  <h:inputText id="detalle" value="#{repParametroController.proceso.detalleCuenta}"
+			  	  readonly="#{repParametroController.readonlyDetalle}" 
+			  	  style="width:100px; #{repParametroController.stryleDetalle}"  maxlength="30"
+			  	  onkeyup="value=value.toUpperCase()"/>
+			  	  </td>
+			  	 
+				  	 <td width="15%" align="right"><h:outputText value="Riesgo:" /></td>
+			  	 <td width="20%" align="left">
+			  	  <h:inputText id="idRiesgo" value="#{repParametroController.proceso.riesgo}" 
+			  	  style="width:170px;#{repParametroController.styleOtros}"
+			      disabled="#{repParametroController.readonlyOtros}"
+			      onkeyup="value=value.toUpperCase()"
+			      required="true" requiredMessage="Obligatorio"  maxlength="10" > 
+			       
+			       </h:inputText>
+			       <h:column>
+							<rich:message for="idRiesgo" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+							</rich:message>
+				 </h:column>
+			     
+			  	 </td>
+			  	
+		  	 </tr>
+		  	 <tr>
+		  	   	 <td width="10%" align="right"><h:outputText value="Tipo :" /></td>
+			  	 <td width="20%" align="left" colspan="2">
+			      
+			     <h:selectOneRadio id="radioTipoSeguro" layout="pageDirection"  styleClass="borderverde" 
+			    
+			      value="#{repParametroController.proceso.codTipoSeguro}"
+			      style="#{repParametroController.styleOtros}"
+			    disabled="#{repParametroController.readonlyOtros}" 
+			  	  required="true" requiredMessage="Obligatorio">
+			     	<f:selectItems  value="#{repParametroController.tipoSeguroItems2}"/>
+			     	
+			     </h:selectOneRadio>
+			     <h:column>
+								<rich:message for="radioTipoSeguro" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message>
+							</h:column>
+			  	 </td>
+			  	 
+			  	       
+		  	     <td width="15%" align="right"><h:outputText value="Tipo Reaseguro:" /></td>
+			  	 <td width="20%" align="left">
+			     <h:selectOneRadio id="radioTipoReaseguro" layout="pageDirection"  styleClass="borderverde" 
+			     value="#{repParametroController.proceso.codTipoReaseguro}"
+			    style="#{repParametroController.styleOtros}"
+			    disabled="#{repParametroController.readonlyOtros}" 
+			  	  required="true" requiredMessage="Obligatorio">
+			     	<f:selectItems  value="#{repParametroController.tipoReaseguroItems2}"/>
+			     
+			     </h:selectOneRadio>
+			      <h:column>
+								<rich:message for="radioTipoReaseguro" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message>
+							</h:column>
+			  	 </td> 
+			  	 
+			  	     <td width="10%" align="right"><h:outputText value="Tipo Movimiento:" /></td>
+			  	 <td width="20%" align="left">
+			      <h:selectOneRadio id="radioTipoMovimiento" layout="pageDirection"  styleClass="borderverde" 
+			     style="#{repParametroController.styleOtros}"
+			      value="#{repParametroController.proceso.codTipoMovimiento}"
+			      disabled="#{repParametroController.readonlyOtros}" 
+			  	   required="true" requiredMessage="Obligatorio">
+			     	<f:selectItems  value="#{repParametroController.tipoMovimientoItems2}"/>
+			     
+			     </h:selectOneRadio>
+			       <h:column>
+								<rich:message for="radioTipoMovimiento" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message>
+							</h:column>
+			  	 </td> 
+		  	       
+		  	 
+		  	 </tr>
+		  	 
+		  	 <tr>
+					<td colspan="2" height="10px"></td>
+			</tr>
+		
+		  	</table>
+		  
+		  	</fieldset>
+            <fieldset>
+            <legend>Cuentas</legend>
+          
+              
+              <fieldset>
+                 <legend>SOLES</legend>
+                 <table>
+                 <tr>
+                
+                 <td width="15%" align="right"><h:outputText value="Total:" /></td>
+			  	 <td width="20%" align="left">
+			  	  <h:inputText id="idTotalSoles" value="#{repParametroController.proceso.cuentaSaldoSoles}" 
+			  	  readonly="#{repParametroController.readonlyOtros}" 
+			  	  style="#{repParametroController.styleOtros}"
+			  	  onkeypress="return valNumeros(event);"
+			  	  maxlength="15"  validatorMessage="Cuenta no valida" >
+			  	   <f:validator validatorId="NumberValidator"></f:validator>
+			  	   </h:inputText>
+			  	    <rich:message for="idTotalSoles" style="color: red;">
+					<f:facet name="errorMarker">
+						<h:graphicImage url="../imagenes/error.png" />
+					</f:facet>
+				 </rich:message>
+					
+			  	     
+			  	  
+			  	 </td>
+			  	  <td width="5%" align="center"></td>
+                 
+                 <td width="15%" align="right"><h:outputText value="Prima:" /></td>
+			  	 <td width="20%" align="left">
+			  	  <h:inputText id="idPrimaSoles" value="#{repParametroController.proceso.cuentaPrimaSoles}" 
+			  	   readonly="#{repParametroController.readonlyOtros}" 
+			  	  style="#{repParametroController.styleOtros}"
+			  	  onkeypress="return valNumeros(event);" maxlength="15"  validatorMessage="Cuenta no valida">
+			  	  <f:validator validatorId="NumberValidator"></f:validator>
+			  	   </h:inputText>
+			  	    <rich:message for="idPrimaSoles" style="color: red;">
+					<f:facet name="errorMarker">
+						<h:graphicImage url="../imagenes/error.png" />
+					</f:facet>
+				 </rich:message> 
+                 </td>
+                 
+                 <td width="5%" align="center"></td>
+                 
+                 <td width="15%" align="right"><h:outputText value="Descuento:" /></td>
+			  	 <td width="20%" align="left">
+			  	  <h:inputText id="idDescSoles" value="#{repParametroController.proceso.cuentaDescuentoSoles}"
+			  	   readonly="#{repParametroController.readonlyOtros}" 
+			  	  style="#{repParametroController.styleOtros}"
+			  	  onkeypress="return valNumeros(event);" maxlength="15" validatorMessage="Cuenta no valida"> 
+			  	  <f:validator validatorId="NumberValidator"></f:validator>
+			  	   </h:inputText>
+			  	    <rich:message for="idDescSoles" style="color: red;">
+					<f:facet name="errorMarker">
+						<h:graphicImage url="../imagenes/error.png" />
+					</f:facet>
+				 </rich:message>
+				
+                 </td>
+                 
+                 </tr>
+                 
+                 </table>
+              
+              </fieldset>
+             <fieldset>
+                 <legend>DOLARES</legend>
+             
+            
+             <table>
+                 <tr>
+                
+                 <td width="15%" align="right"><h:outputText value="Total:" /></td>
+			  	 <td width="20%" align="left">
+			  	  <h:inputText id="idTotalDolar" value="#{repParametroController.proceso.cuentaSaldoDolares}"
+			  	   readonly="#{repParametroController.readonlyOtros}" 
+			  	  style="#{repParametroController.styleOtros}"
+			  	  onkeypress="return valNumeros(event);" maxlength="15"  validatorMessage="Cuenta no valida"> 
+			  	  <f:validator validatorId="NumberValidator"></f:validator>
+			  	   </h:inputText>
+			  	    <rich:message for="idTotalDolar" style="color: red;">
+					<f:facet name="errorMarker">
+						<h:graphicImage url="../imagenes/error.png" />
+					</f:facet>
+				 </rich:message> 
+			  	 </td>
+			  	  <td width="5%" align="center"></td>
+                 
+                 <td width="15%" align="right"><h:outputText value="Prima:" /></td>
+			  	 <td width="20%" align="left">
+			  	  <h:inputText  id="idPrimaDolar" value="#{repParametroController.proceso.cuentaPrimaDolares}"
+			  	   readonly="#{repParametroController.readonlyOtros}" 
+			  	  style="#{repParametroController.styleOtros}"
+			  	 onkeypress="return valNumeros(event);" maxlength="15" validatorMessage="Cuenta no valida" >
+			  	 <f:validator validatorId="NumberValidator"></f:validator>
+			  	   </h:inputText>
+			  	    <rich:message for="idPrimaDolar" style="color: red;">
+					<f:facet name="errorMarker">
+						<h:graphicImage url="../imagenes/error.png" />
+					</f:facet>
+				 </rich:message>  
+                 </td>
+                 
+                 <td width="5%" align="center"></td>
+                 
+                 <td width="15%" align="right"><h:outputText value="Descuento:" /></td>
+			  	 <td width="20%" align="left">
+			  	  <h:inputText id="idDescDolar" value="#{repParametroController.proceso.cuentaDescuentoDolares}"
+			  	   readonly="#{repParametroController.readonlyOtros}" 
+			  	  style="#{repParametroController.styleOtros}" 
+			  	  onkeypress="return valNumeros(event);" maxlength="15" validatorMessage="Cuenta no valida"> 
+			  	  <f:validator validatorId="NumberValidator"></f:validator>
+			  	   </h:inputText>
+			  	    <rich:message for="idDescDolar" style="color: red;">
+					<f:facet name="errorMarker">
+						<h:graphicImage url="../imagenes/error.png" />
+					</f:facet>
+				 </rich:message> 
+                 </td>
+                 
+                 </tr>
+                 
+                 </table>
+            
+             </fieldset>
+            
+       
+            
+            </fieldset>
+
+				
+				
+				
+		  	
+		    </rich:panel>
+		   <table align="center">
+				<tr>
+					<td colspan="9">
+					
+						 
+						<a4j:commandButton id="btnCancelar" value="Cancelar" action="#{repParametroController.cancelarRegistro}" immediate="true" style="width:90px">
+
+						</a4j:commandButton> 
+						<rich:spacer width="18">
+						</rich:spacer>
+						 <a4j:commandButton id="btnGuardar"  value="Guardar" 
+						  action="#{repParametroController.guardarRegistro}" 
+						  disabled="#{repParametroController.readonlyOtros}" 
+						  style="width:90px" reRender="empresa2,codSbs,producto2,socio2,tipoContrato2,idTipoCuenta,radioTipoMovimiento,radioTipoReaseguro,radioTipoSeguro">
+						</a4j:commandButton>
+						</td>
+				</tr>
+			</table>
+	
+		
+	
+		</h:form>
+		<h:message for="idTotalSoles"></h:message>
+	</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<a4j:keepAlive beanName="manActReaseguroController" />
+<head>
+<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+<style type="text/css">
+.celda {
+	width: 170px;
+	color: #000;
+}
+
+.datatable {
+	padding-top: 10px;
+}
+
+body {
+	font-family: Monaco, Georgia, Times, serif;
+}
+
+.separador {
+	padding: 10px 9px;
+}
+</style>
+</head>
+<body>
+	<h:form>
+		<rich:panel id="consultar" height="100%" reRender="lista">
+			<f:facet name="header">
+				<h:outputText value="Actuarial > Mantenimiento Reaseguro" />
+			</f:facet>
+			<center>
+				<a4j:region ajaxSingle="true">
+					<div style="text-align: center;">
+						<table style="margin: 0 auto;">
+							<tr>
+								<td style="text-align: right;"><rich:message for="tipoSistema" style="color: red;">
+										<f:facet name="errorMarker">
+											<h:graphicImage url="../imagenes/error.png" />
+										</f:facet>
+									</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Sistema:" /></td>
+								<td style="text-align: left;"><h:selectOneMenu id="tipoSistema" class="celda" value="#{manActReaseguroController.codSistema}"
+										required="true" requiredMessage="Obligatorio" valueChangeListener="#{manActReaseguroController.buscarSocio}">
+										<f:selectItems value="#{manActReaseguroController.sistemaItems}" />
+										<a4j:support event="onchange" ajaxOnly="true" reRender="selectSocio" />
+									</h:selectOneMenu></td>
+							</tr>
+							<tr>
+								<td style="text-align: right;"><rich:message for="selectSocio" style="color: red;">
+										<f:facet name="errorMarker">
+											<h:graphicImage url="../imagenes/error.png" />
+										</f:facet>
+									</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Seleccionar Socio:" /></td>
+								<td style="text-align: left;"><h:selectOneMenu id="selectSocio" class="celda" value="#{manActReaseguroController.codSocio}"
+										valueChangeListener="#{manActReaseguroController.buscarProducto}" required="true" requiredMessage="Obligatorio">
+										<f:selectItems value="#{manActReaseguroController.socioItems}" />
+										<a4j:support event="onchange" ajaxOnly="true" reRender="selectProducto" />
+									</h:selectOneMenu></td>
+							</tr>
+							<tr>
+								<td style="text-align: right;"><rich:message for="selectProducto" style="color: red;">
+										<f:facet name="errorMarker">
+											<h:graphicImage url="../imagenes/error.png" />
+										</f:facet>
+									</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Producto:" /></td>
+								<td style="text-align: left;"><h:selectOneMenu id="selectProducto" class="celda" value="#{manActReaseguroController.codProducto}"
+										required="true" requiredMessage="Obligatorio">
+										<f:selectItems value="#{manActReaseguroController.productoItems}" />
+										<a4j:support event="onchange" ajaxOnly="true" reRender="lista" />
+									</h:selectOneMenu></td>
+							</tr>
+							<tr>
+								<td colspan="7" height="10px"></td>
+							</tr>
+						</table>
+					</div>
+				</a4j:region>
+				<span class="separador"> <a4j:commandButton action="#{manActReaseguroController.consultar}" reRender="lista,btnEditar,btnEliminar"
+						value="Consultar" />
+				</span> <span class="separador"> <h:commandButton action="#{manActReaseguroController.limpiar}" immediate="true" value="Limpiar" />
+				</span>
+				<a4j:region ajaxSingle="true">
+					<div class="datatable">
+						<rich:extendedDataTable id="lista" var="actReaseguro" value="#{manActReaseguroController.listaActReaseguro}" width="900px" rows="12"
+							height="330px" selection="#{manActReaseguroController.selection}" selectionMode="single" reRender="true">
+							<a4j:support id="selectionlista" action="#{manActReaseguroController.cambiarEstado}" event="onselectionchange" reRender="btnEditar,btnEliminar" />
+							<rich:column id="colSocio" headerClass="dataTableHeader" width="180px" sortable="true" sortBy="#{actReaseguro.socio}"
+								sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Socio" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{actReaseguro.socio}" />
+
+								</center>
+							</rich:column>
+							<rich:column id="colProducto" headerClass="dataTableHeader" width="180px" sortable="true" sortBy="#{actReaseguro.producto}"
+								sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Producto" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{actReaseguro.producto}" />
+								</center>
+							</rich:column>
+							<rich:column id="colFecIniReaseguro" headerClass="dataTableHeader" width="180px" sortable="true" sortBy="#{actReaseguro.fecIniReaseguro}"
+								sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Fecha Inicio Reaseguro" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{actReaseguro.fecIniReaseguro}">
+										<f:convertDateTime pattern="yyyy-MM-dd" />
+									</h:outputText>
+								</center>
+							</rich:column>
+							<rich:column id="colfecFinReaseguro" headerClass="dataTableHeader" width="180px" sortable="true" sortBy="#{actReaseguro.fecFinReaseguro}"
+								sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Fecha Fin Reaseguro" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{actReaseguro.fecFinReaseguro}">
+										<f:convertDateTime pattern="yyyy-MM-dd" />
+									</h:outputText>
+								</center>
+							</rich:column>
+							<rich:column id="colPorcentaje" headerClass="dataTableHeader" width="180px" sortable="true" sortBy="#{actReaseguro.pctReaseguro}"
+								sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="%Reaseguro" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{actReaseguro.pctReaseguro}" />
+								</center>
+							</rich:column>
+							<f:facet name="footer">
+								<rich:datascroller id="ds" for="lista" maxPages="10"></rich:datascroller>
+							</f:facet>
+						</rich:extendedDataTable>
+
+						<span class="separador"> <a4j:commandButton action="#{manActReaseguroController.insertar}"
+								oncomplete="#{facesContext.maximumSeverity == null ? 'Richfaces.showModalPanel(\'panelEdicion\')' : ';'}" value="Registrar"
+								reRender="panelEdicion, eliminar" />
+						</span> <span class="separador"> <a4j:commandButton id="btnEditar" action="#{manActReaseguroController.obtener}"
+								oncomplete="#{facesContext.maximumSeverity == null ? 'Richfaces.showModalPanel(\'panelEdicion\')' : ';'}"
+								disabled="#{!manActReaseguroController.estadoEditar}" value="Editar" reRender="panelEdicion" />
+						</span> <span class="separador"> <a4j:commandButton id="btnEliminar" action="#{manActReaseguroController.eliminar}" value="Eliminar"
+								reRender="lista,btnEliminar,btnEditar" disabled="#{!manActReaseguroController.estadoEliminar}"
+								onclick="if(!confirm('Esta seguro que desea eliminar?')){return false;}" />
+						</span>
+					</div>
+				</a4j:region>
+			</center>
+		</rich:panel>
+
+	</h:form>
+</body>
+
+<rich:modalPanel id="panelEdicion" autosized="true">
+	<f:facet name="header">
+		<h:outputText value="Registrar Reaseguro" />
+	</f:facet>
+	<f:facet name="controls">
+		<h:panelGroup>
+			<h:graphicImage value="/imagenes/close.gif" styleClass="hidelink" id="hidelink" />
+			<rich:componentControl for="panelEdicion" attachTo="hidelink" operation="hide" event="onclick" />
+		</h:panelGroup>
+	</f:facet>
+	<h:form>
+		<a4j:region>
+			<a4j:include viewId="/paginas/actuarial/manReaseguro.xhtml" />
+		</a4j:region>
+	</h:form>
+</rich:modalPanel>
+
+</html>

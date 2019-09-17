@@ -1,0 +1,305 @@
+<SSC>
+	<User>
+		<Name>BCO</Name>
+	</User>
+	<SunSystemsContext>
+		<BusinessUnit>E01</BusinessUnit>
+		<BudgetCode>A</BudgetCode>
+	</SunSystemsContext>
+	<Payload>
+		<Ledger>
+			<Line>
+				<AccountCode>P20401882BRI100</AccountCode>
+				<AccountingPeriod>0072016</AccountingPeriod>
+				<AllocationMarker>
+				</AllocationMarker>
+				<AnalysisCode1>50500</AnalysisCode1>
+				<AnalysisCode2>00035004501</AnalysisCode2>
+				<AnalysisCode9>01</AnalysisCode9>
+				<Base2ReportingAmount>27.020</Base2ReportingAmount>
+				<Base2ReportingRate>3.898000000</Base2ReportingRate>
+				<BaseAmount>105.330</BaseAmount>
+				<BaseRate>1.000000000</BaseRate>
+				<CurrencyCode>PEN</CurrencyCode>
+				<DebitCredit>C</DebitCredit>
+				<Description>PRESTACION DE SERVICIOS</Description>
+				<JournalLineNumber>2</JournalLineNumber>
+				<JournalNumber>283935</JournalNumber>
+				<TransactionAmount>105.330</TransactionAmount>
+				<TransactionDate>01072016</TransactionDate>
+				<TransactionReference>002-059478</TransactionReference>
+				<Accounts>
+					<Description>CLINICA SANTO DOMINGO S.C.R.LTDA.</Description>
+					<LongDescription>CLINICA SANTO DOMINGO S.C.R.LTDA.</LongDescription>
+					<LookupCode>20401882741</LookupCode>
+				</Accounts>
+			</Line>
+			<Line>
+				<AccountCode>P20401882BRI100</AccountCode>
+				<AccountingPeriod>0072016</AccountingPeriod>
+				<AllocationMarker>
+				</AllocationMarker>
+				<AnalysisCode1>50500</AnalysisCode1>
+				<AnalysisCode2>00035004501</AnalysisCode2>
+				<AnalysisCode9>01</AnalysisCode9>
+				<Base2ReportingAmount>130.050</Base2ReportingAmount>
+				<Base2ReportingRate>3.898000000</Base2ReportingRate>
+				<BaseAmount>506.930</BaseAmount>
+				<BaseRate>1.000000000</BaseRate>
+				<CurrencyCode>PEN</CurrencyCode>
+				<DebitCredit>C</DebitCredit>
+				<Description>PRESTACION DE SERVICIOS</Description>
+				<JournalLineNumber>3</JournalLineNumber>
+				<JournalNumber>283936</JournalNumber>
+				<TransactionAmount>506.930</TransactionAmount>
+				<TransactionDate>01072016</TransactionDate>
+				<TransactionReference>002-059479</TransactionReference>
+				<Accounts>
+					<Description>CLINICA SANTO DOMINGO S.C.R.LTDA.</Description>
+					<LongDescription>CLINICA SANTO DOMINGO S.C.R.LTDA.</LongDescription>
+					<LookupCode>20401882741</LookupCode>
+				</Accounts>
+			</Line>
+			<Line>
+				<AccountCode>P20401882BRI100</AccountCode>
+				<AccountingPeriod>0072016</AccountingPeriod>
+				<AllocationMarker>
+				</AllocationMarker>
+				<AnalysisCode1>50500</AnalysisCode1>
+				<AnalysisCode2>00035004501</AnalysisCode2>
+				<AnalysisCode9>01</AnalysisCode9>
+				<Base2ReportingAmount>125.420</Base2ReportingAmount>
+				<Base2ReportingRate>3.898000000</Base2ReportingRate>
+				<BaseAmount>488.870</BaseAmount>
+				<BaseRate>1.000000000</BaseRate>
+				<CurrencyCode>PEN</CurrencyCode>
+				<DebitCredit>C</DebitCredit>
+				<Description>FARMACIA</Description>
+				<JournalLineNumber>2</JournalLineNumber>
+				<JournalNumber>283937</JournalNumber>
+				<TransactionAmount>488.870</TransactionAmount>
+				<TransactionDate>01072016</TransactionDate>
+				<TransactionReference>002-059480</TransactionReference>
+				<Accounts>
+					<Description>CLINICA SANTO DOMINGO S.C.R.LTDA.</Description>
+					<LongDescription>CLINICA SANTO DOMINGO S.C.R.LTDA.</LongDescription>
+					<LookupCode>20401882741</LookupCode>
+				</Accounts>
+			</Line>
+			<Line>
+				<AccountCode>P20401882BRI100</AccountCode>
+				<AccountingPeriod>0072016</AccountingPeriod>
+				<AllocationMarker>
+				</AllocationMarker>
+				<AnalysisCode1>50500</AnalysisCode1>
+				<AnalysisCode2>00035004501</AnalysisCode2>
+				<AnalysisCode9>01</AnalysisCode9>
+				<Base2ReportingAmount>18.160</Base2ReportingAmount>
+				<Base2ReportingRate>3.898000000</Base2ReportingRate>
+				<BaseAmount>70.800</BaseAmount>
+				<BaseRate>1.000000000</BaseRate>
+				<CurrencyCode>PEN</CurrencyCode>
+				<DebitCredit>C</DebitCredit>
+				<Description>PRESTACION DE SERVICIOS</Description>
+				<JournalLineNumber>3</JournalLineNumber>
+				<JournalNumber>283938</JournalNumber>
+				<TransactionAmount>70.800</TransactionAmount>
+				<TransactionDate>01072016</TransactionDate>
+				<TransactionReference>002-059481</TransactionReference>
+				<Accounts>
+					<Description>CLINICA SANTO DOMINGO S.C.R.LTDA.</Description>
+					<LongDescription>CLINICA SANTO DOMINGO S.C.R.LTDA.</LongDescription>
+					<LookupCode>20401882741</LookupCode>
+				</Accounts>
+			</Line>
+			<Line>
+				<AccountCode>P20401882BRI100</AccountCode>
+				<AccountingPeriod>0072016</AccountingPeriod>
+				<AllocationMarker>
+				</AllocationMarker>
+				<AnalysisCode1>50500</AnalysisCode1>
+				<AnalysisCode2>00035004501</AnalysisCode2>
+				<AnalysisCode9>01</AnalysisCode9>
+				<Base2ReportingAmount>92.910</Base2ReportingAmount>
+				<Base2ReportingRate>3.898000000</Base2ReportingRate>
+				<BaseAmount>362.180</BaseAmount>
+				<BaseRate>1.000000000</BaseRate>
+				<CurrencyCode>PEN</CurrencyCode>
+				<DebitCredit>C</DebitCredit>
+				<Description>PRESTACION DE SERVICIOS</Description>
+				<JournalLineNumber>3</JournalLineNumber>
+				<JournalNumber>283939</JournalNumber>
+				<TransactionAmount>362.180</TransactionAmount>
+				<TransactionDate>01072016</TransactionDate>
+				<TransactionReference>002-059482</TransactionReference>
+				<Accounts>
+					<Description>CLINICA SANTO DOMINGO S.C.R.LTDA.</Description>
+					<LongDescription>CLINICA SANTO DOMINGO S.C.R.LTDA.</LongDescription>
+					<LookupCode>20401882741</LookupCode>
+				</Accounts>
+			</Line>
+			<Line>
+				<AccountCode>P20401882BRI100</AccountCode>
+				<AccountingPeriod>0072016</AccountingPeriod>
+				<AllocationMarker>
+				</AllocationMarker>
+				<AnalysisCode1>50500</AnalysisCode1>
+				<AnalysisCode2>00035004501</AnalysisCode2>
+				<AnalysisCode9>01</AnalysisCode9>
+				<Base2ReportingAmount>82.350</Base2ReportingAmount>
+				<Base2ReportingRate>3.898000000</Base2ReportingRate>
+				<BaseAmount>321.000</BaseAmount>
+				<BaseRate>1.000000000</BaseRate>
+				<CurrencyCode>PEN</CurrencyCode>
+				<DebitCredit>C</DebitCredit>
+				<Description>PRESTACION DE SERVICIOS</Description>
+				<JournalLineNumber>3</JournalLineNumber>
+				<JournalNumber>283932</JournalNumber>
+				<TransactionAmount>321.000</TransactionAmount>
+				<TransactionDate>02072016</TransactionDate>
+				<TransactionReference>002-059470</TransactionReference>
+				<Accounts>
+					<Description>CLINICA SANTO DOMINGO S.C.R.LTDA.</Description>
+					<LongDescription>CLINICA SANTO DOMINGO S.C.R.LTDA.</LongDescription>
+					<LookupCode>20401882741</LookupCode>
+				</Accounts>
+			</Line>
+			<Line>
+				<AccountCode>P20401882BRI100</AccountCode>
+				<AccountingPeriod>0072016</AccountingPeriod>
+				<AllocationMarker>
+				</AllocationMarker>
+				<AnalysisCode1>50500</AnalysisCode1>
+				<AnalysisCode2>00035004501</AnalysisCode2>
+				<AnalysisCode9>09</AnalysisCode9>
+				<Base2ReportingAmount>-75.580</Base2ReportingAmount>
+				<Base2ReportingRate>3.925000000</Base2ReportingRate>
+				<BaseAmount>-296.640</BaseAmount>
+				<BaseRate>1.000000000</BaseRate>
+				<CurrencyCode>PEN</CurrencyCode>
+				<DebitCredit>D</DebitCredit>
+				<Description>PRESTACION DE SERVICIOS SINIESTROS BCO.RIPLEY SOAT</Description>
+				<JournalLineNumber>3</JournalLineNumber>
+				<JournalNumber>283930</JournalNumber>
+				<TransactionAmount>-296.640</TransactionAmount>
+				<TransactionDate>03072016</TransactionDate>
+				<TransactionReference>001-003609</TransactionReference>
+				<Accounts>
+					<Description>CLINICA SANTO DOMINGO S.C.R.LTDA.</Description>
+					<LongDescription>CLINICA SANTO DOMINGO S.C.R.LTDA.</LongDescription>
+					<LookupCode>20401882741</LookupCode>
+				</Accounts>
+			</Line>
+			<Line>
+				<AccountCode>P20401882BRI100</AccountCode>
+				<AccountingPeriod>0072016</AccountingPeriod>
+				<AllocationMarker>
+				</AllocationMarker>
+				<AnalysisCode1>50500</AnalysisCode1>
+				<AnalysisCode2>00035004501</AnalysisCode2>
+				<AnalysisCode9>09</AnalysisCode9>
+				<Base2ReportingAmount>-75.580</Base2ReportingAmount>
+				<Base2ReportingRate>3.925000000</Base2ReportingRate>
+				<BaseAmount>-296.640</BaseAmount>
+				<BaseRate>1.000000000</BaseRate>
+				<CurrencyCode>PEN</CurrencyCode>
+				<DebitCredit>D</DebitCredit>
+				<Description>PRESTACION DE SERVICIOS SINIESTROS BCO.RIPLEY SOAT</Description>
+				<JournalLineNumber>3</JournalLineNumber>
+				<JournalNumber>283931</JournalNumber>
+				<TransactionAmount>-296.640</TransactionAmount>
+				<TransactionDate>03072016</TransactionDate>
+				<TransactionReference>001-003609</TransactionReference>
+				<Accounts>
+					<Description>CLINICA SANTO DOMINGO S.C.R.LTDA.</Description>
+					<LongDescription>CLINICA SANTO DOMINGO S.C.R.LTDA.</LongDescription>
+					<LookupCode>20401882741</LookupCode>
+				</Accounts>
+			</Line>
+			<Line>
+				<AccountCode>P20401882BRI100</AccountCode>
+				<AccountingPeriod>0072016</AccountingPeriod>
+				<AllocationMarker>
+				</AllocationMarker>
+				<AnalysisCode1>50500</AnalysisCode1>
+				<AnalysisCode2>00035004501</AnalysisCode2>
+				<AnalysisCode9>01</AnalysisCode9>
+				<Base2ReportingAmount>18.040</Base2ReportingAmount>
+				<Base2ReportingRate>3.925000000</Base2ReportingRate>
+				<BaseAmount>70.800</BaseAmount>
+				<BaseRate>1.000000000</BaseRate>
+				<CurrencyCode>PEN</CurrencyCode>
+				<DebitCredit>C</DebitCredit>
+				<Description>PRESTACION DE SERVICIOS</Description>
+				<JournalLineNumber>3</JournalLineNumber>
+				<JournalNumber>283933</JournalNumber>
+				<TransactionAmount>70.800</TransactionAmount>
+				<TransactionDate>03072016</TransactionDate>
+				<TransactionReference>002-059476</TransactionReference>
+				<Accounts>
+					<Description>CLINICA SANTO DOMINGO S.C.R.LTDA.</Description>
+					<LongDescription>CLINICA SANTO DOMINGO S.C.R.LTDA.</LongDescription>
+					<LookupCode>20401882741</LookupCode>
+				</Accounts>
+			</Line>
+			<Line>
+				<AccountCode>P20401882BRI100</AccountCode>
+				<AccountingPeriod>0072016</AccountingPeriod>
+				<AllocationMarker>
+				</AllocationMarker>
+				<AnalysisCode1>50500</AnalysisCode1>
+				<AnalysisCode2>00035004501</AnalysisCode2>
+				<AnalysisCode9>01</AnalysisCode9>
+				<Base2ReportingAmount>-18.000</Base2ReportingAmount>
+				<Base2ReportingRate>3.933333333</Base2ReportingRate>
+				<BaseAmount>-70.800</BaseAmount>
+				<BaseRate>1.000000000</BaseRate>
+				<CurrencyCode>PEN</CurrencyCode>
+				<DebitCredit>D</DebitCredit>
+				<Description>GGGGGGGGGGGGGGGGGGGGGGGGGGGG</Description>
+				<JournalLineNumber>1</JournalLineNumber>
+				<JournalNumber>283954</JournalNumber>
+				<TransactionAmount>-70.800</TransactionAmount>
+				<TransactionDate>03082016</TransactionDate>
+				<TransactionReference>002-059477</TransactionReference>
+				<Accounts>
+					<Description>CLINICA SANTO DOMINGO S.C.R.LTDA.</Description>
+					<LongDescription>CLINICA SANTO DOMINGO S.C.R.LTDA.</LongDescription>
+					<LookupCode>20401882741</LookupCode>
+				</Accounts>
+				<DetailLad>
+					<GeneralDescription2>R001-00000003</GeneralDescription2>
+				</DetailLad>
+			</Line>
+			<Line>
+				<AccountCode>P20401882BRI100</AccountCode>
+				<AccountingPeriod>0072016</AccountingPeriod>
+				<AllocationMarker>
+				</AllocationMarker>
+				<AnalysisCode1>50500</AnalysisCode1>
+				<AnalysisCode2>00035004501</AnalysisCode2>
+				<AnalysisCode9>01</AnalysisCode9>
+				<Base2ReportingAmount>-0.160</Base2ReportingAmount>
+				<Base2ReportingRate>0.000000000</Base2ReportingRate>
+				<BaseAmount>0.000</BaseAmount>
+				<BaseRate>0.000000000</BaseRate>
+				<CurrencyCode>PEN</CurrencyCode>
+				<DebitCredit>D</DebitCredit>
+				<Description>Diferencia de Cambio</Description>
+				<JournalLineNumber>3</JournalLineNumber>
+				<JournalNumber>283954</JournalNumber>
+				<TransactionAmount>0.000</TransactionAmount>
+				<TransactionDate>03082016</TransactionDate>
+				<TransactionReference>002-059477</TransactionReference>
+				<Accounts>
+					<Description>CLINICA SANTO DOMINGO S.C.R.LTDA.</Description>
+					<LongDescription>CLINICA SANTO DOMINGO S.C.R.LTDA.</LongDescription>
+					<LookupCode>20401882741</LookupCode>
+				</Accounts>
+				<DetailLad>
+					<GeneralDescription2>R001-00000003</GeneralDescription2>
+				</DetailLad>
+			</Line>
+		</Ledger>
+	</Payload>
+</SSC>

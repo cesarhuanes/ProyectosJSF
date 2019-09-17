@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SSC>
+	<ErrorContext>
+		<ErrorOutput>3</ErrorOutput>
+	</ErrorContext>
+	<User>
+		<Name>PK2</Name>
+	</User>
+	<SunSystemsContext>
+		<BusinessUnit>E01</BusinessUnit>
+		<BudgetCode>A</BudgetCode>
+	</SunSystemsContext>
+	<Payload>
+		<AllocationMarkers>
+			<AllocationMarker>W</AllocationMarker>
+			<JournalLineNumber>5</JournalLineNumber>
+			<JournalNumber>165103</JournalNumber>
+		</AllocationMarkers>
+	</Payload>
+</SSC>

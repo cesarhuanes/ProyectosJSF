@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardif.satelite.soat.ripley.dao.ModeloVehiculoMapper">
+	
+	<resultMap id="BaseResultMap" type="com.cardif.satelite.soat.model.ModeloVehiculo">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="NOMBRE_MODELOVEHICULO" property="nombreModelovehiculo" jdbcType="VARCHAR" />
+		<result column="VERSION" property="version" jdbcType="DECIMAL" />
+		<result column="MARCA_VEHICULO" property="marcaVehiculo" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID, NOMBRE_MODELOVEHICULO, VERSION, MARCA_VEHICULO
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal">
+		select
+		<include refid="Base_Column_List" />
+		from MODELO_VEHICULO
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	
+	<insert id="insertSelective" parameterType="com.cardif.satelite.soat.model.ModeloVehiculo">
+		<selectKey keyProperty="id" order="BEFORE" resultType="java.math.BigDecimal">
+			SELECT MODELO_VEHICULO_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		insert into MODELO_VEHICULO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="null != id">
+				ID,
+			</if>
+			<if test="null != nombreModelovehiculo">
+				NOMBRE_MODELOVEHICULO,
+			</if>
+			<if test="null != version">
+				VERSION,
+			</if>
+			<if test="null != marcaVehiculo">
+				MARCA_VEHICULO,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id, jdbcType=DECIMAL},
+			</if>
+			<if test="nombreModelovehiculo != null">
+				#{nombreModelovehiculo, jdbcType=VARCHAR},
+			</if>
+			<if test="version != null">
+				#{version, jdbcType=DECIMAL},
+			</if>
+			<if test="marcaVehiculo != null">
+				#{marcaVehiculo, jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+</mapper>

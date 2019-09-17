@@ -1,0 +1,406 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+<a4j:keepAlive beanName="siniestroController" />
+<head>
+<STYLE type="text/css">
+.barraHerramientasAmarilla {
+	background-color: #EAF0F8;
+	border-bottom-color: #C0C0C0;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+}
+</STYLE>
+</head>
+<body>
+	<fieldset>
+		<legend>Asegurado</legend>
+		<table>
+			<tr>
+				<td><h:outputText style="font-size:11px;" value="Tipo de Doc.:" /></td>
+				<td><h:selectOneMenu id="productoT" value="#{siniestroController.siniSiniestro.tipDocumAsegurado}" required="true" requiredMessage=""
+						disabled="#{siniestroController.readonlyMostrar}" style="#{siniestroController.styleVerSiniestro}">
+						<f:selectItems value="#{siniestroController.listaTipoDocItem}" />
+					</h:selectOneMenu> <rich:message for="productoT" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message></td>
+				<td><h:outputText style="font-size:11px;" value="N° Documento:" /></td>
+				<td><h:inputText id="nroDocumento" maxlength="20" value="#{siniestroController.siniSiniestro.nroDocumAsegurado}" required="true"
+						requiredMessage="" readonly="#{siniestroController.readonlyMostrar}" style="#{siniestroController.styleVerSiniestro}" /> <rich:message
+						for="nroDocumento" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message></td>
+				<td><h:outputText style="font-size:11px;" value="Nacionalidad:" /></td>
+				<td><h:inputText id="nacionalidad" maxlength="20" value="#{siniestroController.siniSiniestro.nacionalidad}"
+						onkeyup="value=value.toUpperCase()" required="true" requiredMessage="" readonly="#{siniestroController.readonlyMostrar}"
+						style="#{siniestroController.styleVerSiniestro}" /> <rich:message for="nacionalidad" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message></td>
+				<td><h:outputText style="font-size:11px;" value="Sexo:" /></td>
+				<td><h:selectOneMenu id="sexo" value="#{siniestroController.siniSiniestro.codGenero}" required="true" requiredMessage=""
+						disabled="#{siniestroController.readonlyMostrar}" style="#{siniestroController.styleVerSiniestro}">
+						<f:selectItems value="#{siniestroController.listaGenerosItem}" />
+					</h:selectOneMenu> <rich:message for="sexo" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message></td>
+			</tr>
+			<tr>
+				<td><h:outputText style="font-size:11px;" value="Nombres:" /></td>
+				<td><h:inputText id="nombres" maxlength="30" value="#{siniestroController.siniSiniestro.nomAsegurado}" onkeyup="value=value.toUpperCase()"
+						required="true" requiredMessage="" readonly="#{siniestroController.readonlyMostrar}" style="#{siniestroController.styleVerSiniestro}" /> <rich:message
+						for="nombres" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message></td>
+				<td><h:outputText style="font-size:11px;" value="Ape. Paterno:" /></td>
+				<td><h:inputText id="apePaternho" maxlength="30" value="#{siniestroController.siniSiniestro.apePatAsegurado}"
+						onkeyup="value=value.toUpperCase()" required="true" requiredMessage="" readonly="#{siniestroController.readonlyMostrar}"
+						style="#{siniestroController.styleVerSiniestro}" /> <rich:message for="apePaternho" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message></td>
+				<td><h:outputText style="font-size:11px;" value="Ape. Materno:" /></td>
+				<td><h:inputText id="apeMaterno" maxlength="30" value="#{siniestroController.siniSiniestro.apeMatAsegurado}"
+						onkeyup="value=value.toUpperCase()" required="true" requiredMessage="" readonly="#{siniestroController.readonlyMostrar}"
+						style="#{siniestroController.styleVerSiniestro}" /> <rich:message for="apeMaterno" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message></td>
+
+			</tr>
+			<tr>
+				<td><h:outputText style="font-size:11px;" value="Fec. Nacimiento:" /></td>
+				<td><rich:calendar id="fechaNacimiento" style=" width : 130px; background:#bbb; " enableManualInput="true" datePattern="dd/MM/yyyy"
+						value="#{siniestroController.siniSiniestro.fecNacimiento}" showWeeksBar="false"
+						valueChangeListener="#{siniestroController.validarFecNacimiento}" required="valEdadIngreso,valEdadPermanencia,valCarencia,edadFecOcurrencia"
+						requiredMessage="" disabled="#{siniestroController.readonlyMostrar}">
+						<a4j:support event="onchanged" ajaxSingle="true" reRender="edadFecOcurrencia,valCarencia,valEdadIngreso,valEdadPermanencia,true" />
+					</rich:calendar> <rich:message for="fechaNacimiento" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message></td>
+				<td><h:outputText style="font-size:11px;" value="Edad Fec. Ocurrencia:" /></td>
+				<td><h:inputText id="edadFecOcurrencia" maxlength="10" style="background:#ddd;" value="#{siniestroController.siniSiniestro.edaFecOcurrencia}"
+						onkeypress="return valNumeros(event);" readonly="true" required="true" requiredMessage="" /> <rich:message for="edadFecOcurrencia"
+						style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message></td>
+				<td><h:outputText style="font-size:11px;" value="Parentesco Asegurado:" /></td>
+				<td><h:selectOneMenu id="parenAsegurado" value="#{siniestroController.siniSiniestro.codParAsegurado}" required="true" requiredMessage=""
+						disabled="#{siniestroController.readonlyMostrar}" style="#{siniestroController.styleVerSiniestro}">
+						<f:selectItems value="#{siniestroController.listaParentescoItem}" />
+					</h:selectOneMenu> <rich:message for="parenAsegurado" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message></td>
+			</tr>
+		</table>
+	</fieldset>
+	<a4j:region>
+		<fieldset>
+			<legend>Póliza</legend>
+			<table>
+				<tr>
+					<td width="70"><h:outputText style="font-size:11px;" value="Socio:" /></td>
+					<td><h:selectOneMenu id="socio" style="width:140px; #{siniestroController.styleVerSiniestro} "
+							value="#{siniestroController.siniPoliza.codSocio}" valueChangeListener="#{siniestroController.validarSocio}" required="true" requiredMessage=""
+							disabled="#{siniestroController.readonlyMostrar}">
+							<f:selectItems value="#{siniestroController.listaSocioItem}" />
+							<a4j:support event="onchange" ajaxOnly="true" reRender="valEdadIngreso,valEdadPermanencia,valCarencia,productoP" />
+						</h:selectOneMenu> <rich:message for="socio" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message></td>
+
+					<td><h:outputText style="font-size:11px;" value="Cod. Ramo:" /></td>
+					<td width="160"><h:selectOneMenu id="ramo" style="width:140px; #{siniestroController.styleVerSiniestro}"
+							value="#{siniestroController.codRamo_m1}" valueChangeListener="#{siniestroController.buscarProductos}" required="true" requiredMessage=""
+							disabled="#{siniestroController.readonlyProducto}">
+							<f:selectItems value="#{siniestroController.listaRamosItems}" />
+
+							<a4j:support event="onchange" reRender="productoP,valEdadIngreso,valEdadPermanencia,valCarencia" />
+						</h:selectOneMenu> <rich:message for="ramo" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message></td>
+					<td><h:outputText style="font-size:11px;" value="Producto:" /></td>
+					<td width="160"><h:selectOneMenu id="productoP" style="width:140px; #{siniestroController.styleVerSiniestro} "
+							value="#{siniestroController.siniPoliza.nroProducto}" valueChangeListener="#{siniestroController.validarProducto}" required="true"
+							requiredMessage="" disabled="#{siniestroController.readonlyProducto}">
+							<f:selectItems value="#{siniestroController.listaProductoItem2}" />
+							<a4j:support event="onchange" reRender="valEdadIngreso,valEdadPermanencia,valCarencia,cantSiniestros,diaPendientes,diasHospitalizacion" />
+						</h:selectOneMenu> <rich:message for="productoP" style="color: red; height : 26px;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message></td>
+
+					<td><h:outputText style="font-size:11px;" value="Plan:" /></td>
+					<td><h:inputText id="plan" maxlength="30" value="#{siniestroController.siniPoliza.planPoliza}" onkeyup="value=value.toUpperCase()"
+							readonly="#{siniestroController.readonlyMostrar}" style="#{siniestroController.styleVerSiniestro}" /></td>
+					<td></td>
+					<td></td>
+				</tr>
+
+				<tr>
+					<td><h:outputText style="font-size:11px;" value="N° Póliza:" /></td>
+					<td><h:inputText id="nroPoliza" maxlength="20" value="#{siniestroController.siniPoliza.nroPoliza}" onkeyup="value=value.toUpperCase()"
+							required="true" requiredMessage="" readonly="#{siniestroController.readonlyMostrar}" style="#{siniestroController.styleVerSiniestro}" /> <rich:message
+							for="nroPoliza" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message></td>
+					<td><h:outputText style="font-size:11px;" value="N° Certificado:" /></td>
+					<td><h:inputText id="nroCertificado" maxlength="20" value="#{siniestroController.siniPoliza.nroCertificado}"
+							onkeyup="value=value.toUpperCase()" required="true" requiredMessage="" readonly="#{siniestroController.readonlyMostrar}"
+							style="#{siniestroController.styleVerSiniestro}" /> <rich:message for="nroCertificado" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message></td>
+					<td><h:outputText style="font-size:11px;" value="Fec. Ini. Vigencia:" /></td>
+					<td><rich:calendar id="fecIniVigencia" style=" width : 130px;" enableManualInput="true" datePattern="dd/MM/yyyy"
+							value="#{siniestroController.siniPoliza.fecIniVigencia}" valueChangeListener="#{siniestroController.validarCarencia}" showWeeksBar="false"
+							required="true" requiredMessage="" reRender="valCarencia" disabled="#{siniestroController.readonlyMostrar}">
+							<a4j:support event="onchanged" ajaxOnly="true" ajaxSingle="true"
+								reRender="edadFecOcurrencia,valCarencia,valEdadIngreso,valEdadPermanencia,true" />
+						</rich:calendar> <rich:message for="fecIniVigencia" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message></td>
+					<td><h:outputText style="font-size:11px;" value="Fec. Fin Vigencia:" /></td>
+					<td width="150" style="width: 186px;"><rich:calendar id="fecFinVigencia" style=" width : 130px;" enableManualInput="true"
+							datePattern="dd/MM/yyyy" value="#{siniestroController.siniPoliza.fecFinVigencia}" showWeeksBar="false"
+							disabled="#{siniestroController.readonlyMostrar}">
+						</rich:calendar></td>
+				</tr>
+			</table>
+		</fieldset>
+
+	</a4j:region>
+	<fieldset>
+		<legend>Siniestros</legend>
+		<table id="tblSiniestros">
+			<tr>
+				<td><h:outputText style="font-size:11px;" value="Cobertura Afectada:" /></td>
+				<td><h:selectOneMenu id="coberturaAfec" style="width:150px; #{siniestroController.styleVerSiniestro}"
+						value="#{siniestroController.siniSiniestro.codCobertura}" required="true" requiredMessage="" disabled="#{siniestroController.readonlyMostrar}">
+						<f:selectItems value="#{siniestroController.listaCoberturaAfecItem}" />
+					</h:selectOneMenu> <rich:message for="coberturaAfec" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message></td>
+				<td><h:outputText style="font-size:11px;" value="País:" /></td>
+				<td><a4j:region ajaxSingle="true">
+						<h:selectOneMenu id="pais" style="width:150px; #{siniestroController.styleVerSiniestro}" value="#{siniestroController.siniSiniestro.codPais}"
+							valueChangeListener="#{siniestroController.buscarDepartamento}" requiredMessage="" disabled="#{siniestroController.readonlyMostrar}">
+							<f:selectItems value="#{siniestroController.listaPaisItem}" />
+							<a4j:support event="onchange" reRender="ubicacion" />
+						</h:selectOneMenu>
+					</a4j:region> <rich:message for="pais" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message></td>
+				<td><h:outputText style="font-size:11px;" value="Ubicación:" /></td>
+				<td><a4j:region ajaxSingle="true">
+						<h:selectOneMenu id="ubicacion" style="width:150px; #{siniestroController.styleVerSiniestro}"
+							value="#{siniestroController.siniSiniestro.codUbicacion}" requiredMessage="Seleccione departamento"
+							disabled="#{siniestroController.readonlyMostrar}" required="#{siniestroController.obligatorio}">
+							<f:selectItems value="#{siniestroController.listaDepartamentoPaisItem}" />
+
+						</h:selectOneMenu>
+					</a4j:region> <rich:message for="ubicacion" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message></td>
+				<td><h:outputText style="font-size:11px;" value="Estado:" /></td>
+				<td><h:selectOneMenu id="estado" style="width:150px;  #{siniestroController.styleVerSiniestro}"
+						value="#{siniestroController.siniSiniestro.codEstado}" required="true" requiredMessage="" disabled="#{siniestroController.readonlyMostrar}"
+						valueChangeListener="#{siniestroController.cambiarEstadoFecha}" immediate="true">
+						<f:selectItems value="#{siniestroController.listaEstadoItem}" />
+						<a4j:support event="onchange" reRender="pagos,diaPendientes" />
+					</h:selectOneMenu> <rich:message for="estado" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message></td>
+			</tr>
+			<tr>
+				<td><h:outputText style="font-size:11px;" value=" Est. Legajo:" /></td>
+				<td><h:selectOneMenu id="estadoLegajo" value="#{siniestroController.siniSiniestro.codEstLegajo}" required="true" requiredMessage=""
+						disabled="#{siniestroController.readonlyMostrar}" style="#{siniestroController.styleVerSiniestro}">
+						<f:selectItems value="#{siniestroController.listaEstadoLegajoItem}" />
+						<a4j:support event="onchange" ajaxOnly="true" />
+					</h:selectOneMenu> <rich:message for="estadoLegajo" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message></td>
+				<td><h:outputText style="font-size:11px;" value="Motivo Rechazo Agr.:" /></td>
+				<td><h:selectOneMenu id="motRechazoAgr" style="width:150px; #{siniestroController.styleVerSiniestro}"
+						value="#{siniestroController.siniSiniestro.codMotRechazoAgr}" disabled="#{siniestroController.readonlyMostrar}">
+						<f:selectItems value="#{siniestroController.listaRechazosAgItem}" />
+					</h:selectOneMenu></td>
+				<td><h:outputText style="font-size:11px;" value="Motivo Rechazo:" /></td>
+				<td><h:selectOneMenu id="motRechazo" style="width:150px; #{siniestroController.styleVerSiniestro} "
+						value="#{siniestroController.siniSiniestro.codMotRechazo}" disabled="#{siniestroController.readonlyMostrar}">
+						<f:selectItems value="#{siniestroController.listaRechazosItem}" />
+					</h:selectOneMenu></td>
+				<td><h:outputText style="font-size:11px;" value="Resumen:" /></td>
+				<td><h:selectOneMenu id="resumen" style="width:150px; #{siniestroController.styleVerSiniestro}"
+						value="#{siniestroController.siniSiniestro.codResumen}" required="true" requiredMessage="" disabled="#{siniestroController.readonlyMostrar}">
+						<f:selectItems value="#{siniestroController.listaResumenItem}" />
+					</h:selectOneMenu> <rich:message for="resumen" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message></td>
+
+			</tr>
+			<tr>
+				<td><h:outputText style="font-size:11px;" value="Cie 10:" /></td>
+				<td><h:inputText id="cie10" maxlength="30" value="#{siniestroController.siniSiniestro.cie10}" onkeyup="value=value.toUpperCase()"
+						readonly="#{siniestroController.readonlyMostrar}" style="#{siniestroController.styleVerSiniestro}" /></td>
+				<td><h:outputText style="font-size:11px;" value="Diagnóstico:" /></td>
+				<td><h:inputText id="diagnostico" maxlength="50" value="#{siniestroController.siniSiniestro.diagnostico}" onkeyup="value=value.toUpperCase()"
+						readonly="#{siniestroController.readonlyMostrar}" style="#{siniestroController.styleVerSiniestro}" /></td>
+				<td><h:outputText style="font-size:11px;" value="N° Carta:" /></td>
+				<td colspan="4"><h:inputText id="nrocarta" maxlength="50" value="#{siniestroController.siniSiniestro.nroCarta}"
+						onkeyup="value=value.toUpperCase()" readonly="#{siniestroController.readonlyMostrar}"
+						style="#{siniestroController.styleVerSiniestro};width:310px;" /></td>
+
+
+			</tr>
+			<tr>
+				<td><h:outputText style="font-size:11px;" value="Fec. Aprob./Rechazo:" /></td>
+				<td><rich:calendar id="fecAproboRechazo" enableManualInput="true" style=" width : 130px;" datePattern="dd/MM/yyyy"
+						valueChangeListener="#{siniestroController.validarDiasAprobRechazo}" value="#{siniestroController.siniSiniestro.fecAprobRechazo}"
+						showWeeksBar="false" required="#{siniestroController.requiredFecAproRechazo}" requiredMessage=""
+						disabled="#{siniestroController.readonlyMostrar}">
+						<a4j:support event="onchanged" ajaxSingle="true" reRender="diaPendientes,diasLiquidacionRechazo,true" />
+					</rich:calendar> <rich:message for="fecAproboRechazo" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message></td>
+
+				<td><h:outputText style="font-size:11px;" value="Días Liq. o Rechazo:" /></td>
+				<td><h:inputText id="diasLiquidacionRechazo" maxlength="4" style="background:#ddd;"
+						value="#{siniestroController.siniSiniestro.canDiasLiquiRecha}" onkeypress="return valNumeros(event);" readonly="true" /></td>
+				<td><h:outputText style="font-size:11px;" value="Días Trans. de Plazo:" /></td>
+				<td><h:inputText id="diaPendientes" maxlength="4" style="background:#ddd;" readonly="true"
+						value="#{siniestroController.siniSiniestro.canDiasPendientes}" onkeypress="return valNumeros(event);" /></td>
+			</tr>
+			<tr>
+				<td><h:outputText style="font-size:11px;" value="Val. Edad Ingreso:" /></td>
+				<td><h:inputText id="valEdadIngreso" maxlength="6" readonly="true" style="background:#ddd;"
+						value="#{siniestroController.siniSiniestro.valEdadIngreso}" /></td>
+				<td><h:outputText style="font-size:11px;" value="Val. Edad Permanencia:" /></td>
+				<td><h:inputText id="valEdadPermanencia" maxlength="6" style="background:#ddd;"
+						value="#{siniestroController.siniSiniestro.valEdadPermanencia}" onkeypress="return valNumeros(event);" readonly="true" /></td>
+				<td><h:outputText style="font-size:11px;" value="Val. Carencia:" /></td>
+				<td><h:inputText id="valCarencia" maxlength="6" style="background:#ddd;" readonly="true"
+						value="#{siniestroController.siniSiniestro.valCarencia}" onkeypress="return valNumeros(event);" /></td>
+				<td><h:outputText style="font-size:11px;" value="Cant. Siniestros:" /></td>
+				<td><h:inputText id="cantSiniestros" maxlength="6" style="background:#ddd;" value="#{siniestroController.siniSiniestro.canSiniestro}"
+						onkeypress="return valNumeros(event);" readonly="true" /></td>
+
+			</tr>
+		</table>
+
+		<h:outputText style="font-size:11px;" value="Observaciones:" />
+		<h:inputTextarea id="cajaTextoObservaciones" maxlength="2000" value="#{siniestroController.siniSiniestro.observaciones}"
+			style="height : 45px; width : 900px; #{siniestroController.styleVerSiniestro} " rows="10" onblur="value=value.toUpperCase()" required="true"
+			requiredMessage="" readonly="#{siniestroController.readonlyMostrar}" />
+		<rich:message for="cajaTextoObservaciones" style="color: red;">
+			<f:facet name="errorMarker">
+				<h:graphicImage url="../imagenes/error.png" />
+			</f:facet>
+		</rich:message>
+
+	</fieldset>
+
+	<fieldset>
+		<legend>Pagos</legend>
+		<table>
+			<tr>
+
+
+				<td><h:outputText style="font-size:11px;" value="Pagos:" /></td>
+				<td width="150"><h:inputText id="pagos" maxlength="10" value="#{siniestroController.siniSiniestro.impPagos}"
+						styleClass="#{siniestroController.obligatorioEstado}" onkeypress="return valDecimales(event);" readonly="#{siniestroController.readonlyMostrar}"
+						required="#{siniestroController.obligatorioEstado}" requiredMessage="El monto de pago debe ser mayor a cero"
+						style="#{siniestroController.styleVerSiniestro}" /> <rich:message for="pagos" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message></td>
+				<td><h:outputText style="font-size:11px;" value="Reservas:" /></td>
+				<td width="155"><h:inputText id="saldoReservas" maxlength="10" value="#{siniestroController.siniSiniestro.impReserva}" required="true"
+						requiredMessage="" onkeypress="return valDecimales(event);" readonly="#{siniestroController.readonlyMostrar}"
+						style="#{siniestroController.styleVerSiniestro}" /> <rich:message for="saldoReservas" style="color: red;" showSummary="false">
+						<f:facet name="errorMarker">
+							<h:outputText value="Formato no válido"></h:outputText>
+							<h:graphicImage url="../imagenes/error.png" />
+
+						</f:facet>
+					</rich:message></td>
+				<td><h:outputText style="font-size:11px;" value="Moneda:" /></td>
+				<td><h:selectOneMenu id="moneda" value="#{siniestroController.siniSiniestro.codMoneda}" required="true" requiredMessage=""
+						disabled="#{siniestroController.readonlyMostrar}" style="#{siniestroController.styleVerSiniestro}">
+						<f:selectItems value="#{siniestroController.listaMonedaItem}" />
+					</h:selectOneMenu> <rich:message for="moneda" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message></td>
+				<td><h:outputText style="font-size:11px;" value="N° Planilla:" /></td>
+				<td><h:inputText id="nroPlanilla" maxlength="20" style="background:#ddd;" value="#{siniestroController.siniSiniestro.nroPlanilla}"
+						readonly="true" /></td>
+			</tr>
+			<tr>
+				<td><h:outputText style="font-size:11px;" value="Fec. Entrega Op. Cont:" /></td>
+				<td><rich:calendar id="fecEntregaLiquidacio" enableManualInput="true" style=" width : 130px;" datePattern="dd/MM/yyyy"
+					valueChangeListener="#{siniestroController.validarFecOperCont}" value="#{siniestroController.siniSiniestro.fecEntregaOpCont}" showWeeksBar="false" disabled="#{siniestroController.readonlyMostrar}">
+					<a4j:support event="onchanged" ajaxSingle="true" reRender="diaPendientes" />
+					</rich:calendar></td>
+				<td><h:outputText style="font-size:11px;" value="Fec. Emi. Cheque:" /></td>
+				<td><rich:calendar id="fecEmiCheque" style=" width : 130px;" enableManualInput="true" datePattern="dd/MM/yyyy"
+						value="#{siniestroController.siniSiniestro.fecEmiCheque}" showWeeksBar="false" disabled="#{siniestroController.readonlyMostrar}">
+					</rich:calendar></td>
+				<td><h:outputText style="font-size:11px;" value="Fec. Entrega Cheque:" /></td>
+				<td width="150"><rich:calendar id="fechaEntregaCheque_m1" enableManualInput="true" style=" width : 130px;" datePattern="dd/MM/yyyy"
+						value="#{siniestroController.siniSiniestro.fecEntCheque}" showWeeksBar="false" disabled="#{siniestroController.readonlyMostrar}">
+					</rich:calendar></td>
+			</tr>
+
+
+		</table>
+	</fieldset>
+
+
+
+	<!-- </h:form>  -->
+</body>
+</html>

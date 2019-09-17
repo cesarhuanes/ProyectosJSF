@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<a4j:keepAlive beanName="consultarPagosController" />
+<head>
+</head>
+<style>
+.scrolls {
+	width: 300px;
+	height: 200px;
+	overflow: auto;
+}
+</style>
+<body>
+	<rich:panel id="consultarErrorAsientos" height="100%">
+		<f:facet name="header">
+			<h:outputText value="Modulo de Pagos > Mensajes de Validacion" />
+		</f:facet>
+		<fieldset id="formContratante">
+			<legend>Datos Fijos del Asiento</legend>
+			<h:outputText value="Tipo de Error Generado : " />
+			<h:outputText value="#{consultarPagosController.tipoPagoAsiento}" />
+		</fieldset>
+		<fieldset id="formVehiculo">
+			<legend>Errores Generados</legend>
+			<!-- Aqui va la tabla -->
+			<rich:extendedDataTable id="listaErroresAsientoContable" rowKeyVar="rkv" frozenColCount="1" height="400px" width="1200px" columnClasses="col"
+				var="proc" value="#{consultarPagosController.resultadoErroresContable}" selection="#{consultarPagosController.selectionErrorAsiento}"
+				selectionMode="single">
+
+				<rich:column id="tipoCuenta" headerClass="dataTableHeader" width="20%" sortable="true" sortBy="#{proc.lineaAsientoError}"
+					sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+					<f:facet name="header">
+						<h:outputText value="Linea de Orden Asiento Contable/Diario" />
+					</f:facet>
+					<center>
+						<h:outputText value="#{proc.lineaAsientoError}" style="color : red" />
+					</center>
+				</rich:column>
+
+				<rich:column id="nombreLibro" headerClass="dataTableHeader" width="60%" sortable="true" sortBy="#{proc.mensajeAsientoError}"
+					sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+					<f:facet name="header">
+						<h:outputText value="Mensaje de Error Asociado" />
+					</f:facet>
+					<center>
+						<h:outputText value="#{proc.mensajeAsientoError}" style="color : red" />
+					</center>
+				</rich:column>
+				<rich:column id="procedenciaError" headerClass="dataTableHeader" width="20%" sortable="true" sortBy="#{proc.procedenciaError}"
+					sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+					<f:facet name="header">
+						<h:outputText value="Origen del Error" />
+					</f:facet>
+					<center>
+						<h:outputText value="#{proc.procedenciaError}" style="color : red" />
+					</center>
+				</rich:column>
+			</rich:extendedDataTable>
+		</fieldset>
+		<center>
+			<a4j:commandButton id="aceptar" action="#{consultarPagosController.retornarAsientos}" value="Aceptar" />
+		</center>
+	</rich:panel>
+</body>
+</html>

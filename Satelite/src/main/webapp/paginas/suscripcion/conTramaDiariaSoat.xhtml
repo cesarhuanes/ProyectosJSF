@@ -1,0 +1,342 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://richfaces.org/a4j">
+<a4j:keepAlive beanName="cargTramaDiariaSoatController" />
+<head>
+<style type="text/css">
+.celda {
+	width: 150px;
+	color: #000;
+}
+
+.datatable {
+	padding-top: 10px;
+}
+
+body {
+	font-family: Monaco, Georgia, Times, serif;
+}
+</style>
+<script type="text/javascript"
+	src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+
+</head>
+<body>
+	
+		<rich:panel id="reporte" height="100%" reRender="lista">
+			<f:facet name="header">
+				<h:outputText value="Suscripción > SOAT > Carga Trama Diaria SOAT">
+				</h:outputText>
+			</f:facet>
+			<center>
+			
+				<fieldset id="formVehiculo">
+				
+				<h:form>
+					<table border="0" width="800px">
+						<tr>
+							<td height="30" width="120" style="text-align: right;">
+								<rich:message
+									for="socio" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message> <h:outputText value=" * Canal:" /></td>
+
+							<td height="30" width="160">
+							
+								<h:selectOneMenu id="socio"
+									value="#{cargTramaDiariaSoatController.codCanal}"
+									valueChangeListener="#{cargTramaDiariaSoatController.canalChangeListener}"
+									style=" width : 160px;" required="true"
+									requiredMessage="Obligatorio">
+									<f:selectItems value="#{cargTramaDiariaSoatController.tipoCanalItems}" />
+									<a4j:support reRender="selectCanal" ajaxSingle="true" event="onchange"  />
+								</h:selectOneMenu>
+								
+								</td>
+
+							<td height="30" width="80" style="text-align: right;">
+								<rich:message
+									for="selectCanal" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message> <h:outputText value=" * Socio:" /></td>
+
+							<td height="30" width="210" style="text-align: left;">
+								<h:selectOneMenu
+									id="selectCanal"
+									value="#{cargTramaDiariaSoatController.codSocio}"
+									valueChangeListener="#{cargTramaDiariaSoatController.socioChangeListener}"
+									style=" width : 180px;" required="true"
+									requiredMessage="Obligatorio">
+									<f:selectItems	value="#{cargTramaDiariaSoatController.tipoSocioItems}" />
+									<a4j:support reRender="correlativo" ajaxSingle="true" event="onchange" />
+								</h:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<td height="30" width="120" style="text-align: right;"><rich:message
+									for="fechaCarga" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message> <h:outputText value=" * Fecha de Registro de Venta:" /></td>
+							<td height="30" width="170" style="text-align: left;">
+							<rich:calendar
+									id="fechaCarga" enableManualInput="false"
+									datePattern="dd/MM/yyyy"
+									value="#{cargTramaDiariaSoatController.fecCarga}"
+									showWeeksBar="false" 
+									
+									required="true"
+									requiredMessage="Obligatorio" />
+							</td>
+							<td height="30" width="80" style="text-align: right;"><rich:message
+									for="correlativo" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message> <h:outputText value=" * Correlativo Serie:" /></td>
+							<td height="30" width="210"><h:inputText id="correlativo"
+									onkeypress="return valNumeros(event);" required="true"
+									requiredMessage="Obligatorio"
+									value="#{cargTramaDiariaSoatController.correlativoSerie}" />
+							</td>
+
+						</tr>
+					</table>
+					<table border="0" width="800px">
+						<tr>
+							<td width="250" height="30" style="text-align: right;"></td>
+
+							<td width="460px" height="30" style="text-align: left;">
+							<rich:fileUpload
+									id="uploader" align="left"
+									disabled="#{cargTramaDiariaSoatController.upload}"
+									fileUploadListener="#{cargTramaDiariaSoatController.listener}"
+									autoclear="false" acceptedTypes="txt,xlsx,xls" maxFilesQuantity="1"
+									allowFlash="false"
+									addControlLabel="Seleccionar Archivo .txt .xlsx .xls"
+									clearAllControlLabel="Limpiar" clearControlLabel=""
+									stopEntryControlLabel="Detener Proceso"
+									uploadControlLabel="Cargar Archivo"
+									value="{_MB}MB from {MB}MB cargando --- {mm}:{ss}"
+									listHeight="50px" listWidth="460px" required="true"
+									requiredMessage="Ingrese">
+									<a4j:support event="onclear" reRender="uploader" />
+									<a4j:support event="onuploadcomplete" />
+									<!-- <a4j:support event="onclear" action="#{cargTramaDiariaSoatController.clear}" reRender="uploader" />
+									<a4j:support event="onuploadcomplete" /> -->
+								</rich:fileUpload>
+								</td>
+
+							<td width="200px"></td>
+						</tr>
+					</table>
+					<table border="0" width="800px">
+						<tr>
+							<td height="30" width="200" style="text-align: right;"></td>
+							<td height="30" width="170" style="text-align: right;"></td>
+							<td height="30" width="120" style="text-align: right;"></td>
+							<td height="30" width="190" style="text-align: right;">
+							<a4j:commandButton  id="btnSiguienteCarga" 
+									action="#{cargTramaDiariaSoatController.cargarTramaDiaria}"
+									style="text-align: right;" 
+									value="Registrar Trama Diaria" />
+								<!-- 	oncomplete="#{facesContext.maximumSeverity == null ? 'Richfaces.showModalPanel(\'panel\');this.disabled=false;' : 'this.disabled=false;'}"  /> -->
+							</td>
+							<td height="30" width="160" />
+						</tr>
+					</table> 
+				</h:form>
+				<h:form>
+					<table border="0" width="800px">
+						<tr>
+							<td colspan="6">
+								<div
+									style="width: 100%; border-top: 1px solid #C0C0C0; margin: 5px 0;"></div>
+							</td>
+						</tr>
+						<tr>
+							<td><h:outputText value="Consulta de Trama Diaria: "
+									style="text-align: left;font-weight:bold" /></td>
+
+							<td height="30" width="100" style="text-align: right;"><rich:message
+									for="cstasocio" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message> <h:outputText value=" * Canal:" /></td>
+
+							<td height="30" width="170"><h:selectOneMenu id="cstasocio"
+									value="#{cargTramaDiariaSoatController.codCanal}"
+									valueChangeListener="#{cargTramaDiariaSoatController.canalChangeListener}"
+									 required="true"
+										style=" width : 140px;" 
+									requiredMessage="Obligatorio">
+									<f:selectItems
+										value="#{cargTramaDiariaSoatController.tipoCanalItems}" />
+									<a4j:support reRender="cstaselectCanal" ajaxSingle="true"
+										event="onchange" />
+								</h:selectOneMenu></td>
+
+							<td height="30" width="80" style="text-align: right;"><rich:message
+									for="cstaselectCanal" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message> <h:outputText value=" * Socio:" /></td>
+
+							<td height="30"  width="210" style="text-align: left;"><h:selectOneMenu
+									id="cstaselectCanal"
+									value="#{cargTramaDiariaSoatController.codSocio}"
+									style=" width : 210px;" required="true"
+									requiredMessage="Obligatorio">
+									<f:selectItems
+										value="#{cargTramaDiariaSoatController.tipoSocioItems}" />
+								</h:selectOneMenu></td>
+							<td><a4j:commandButton
+									action="#{cargTramaDiariaSoatController.buscar}" value="Buscar"
+									reRender="lista" style="margin:0 10px;" /></td>
+
+						</tr>
+					</table>
+					<rich:spacer width="5" />
+					<div style="width: 800px; border: 0px solid white;">
+						<rich:extendedDataTable id="lista" var="listaArchivos"
+							value="#{cargTramaDiariaSoatController.listaArchivos}"
+							width="800px" height="300px" rows="10"
+							selection="#{cargTramaDiariaSoatController.selection}"
+							selectionMode="single" reRender="true">
+							<a4j:support id="selectionBtnEliminar"
+								action="#{cargTramaDiariaSoatController.cambiarEstado}"
+								event="onselectionchange" reRender="btnEliminar" />
+								
+							<rich:column id="colId" headerClass="dataTableHeader" width="40"
+								sortable="true" sortBy="#{listaArchivos.secArchivo}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Id" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{listaArchivos.secArchivo}" />
+								</center>
+							</rich:column>
+							<rich:column id="colArchivo" headerClass="dataTableHeader"
+								width="250" sortable="true" sortBy="#{listaArchivos.nomArchivo}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Archivo" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{listaArchivos.nomArchivo}" />
+								</center>
+							</rich:column>
+							<rich:column id="colFecCarga" headerClass="dataTableHeader"
+								width="150" sortable="true" sortBy="#{listaArchivos.fecCarga}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Fecha de Carga" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{listaArchivos.fecCarga}">
+										<f:convertDateTime pattern="yyyy-MM-dd" />
+									</h:outputText>
+								</center>
+							</rich:column>
+							<rich:column id="colRegistros" headerClass="dataTableHeader"
+								width="160" sortable="true"
+								sortBy="#{listaArchivos.numRegistros}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Cant. Registros" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{listaArchivos.numRegistros}">
+									</h:outputText>
+								</center>
+							</rich:column>
+							
+							<rich:column id="colEstado" headerClass="dataTableHeader"
+								width="200" sortable="true"
+								sortBy="#{listaArchivos.estadoConsolidado}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Estado" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{listaArchivos.estadoConsolidado}" />
+								</center>
+							</rich:column>
+							
+							
+							<rich:column id="colUsuario" headerClass="dataTableHeader"
+								width="200" sortable="true"
+								sortBy="#{listaArchivos.usuCreacion}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Usuario" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{listaArchivos.usuCreacion}" />
+								</center>
+							</rich:column>
+							
+							<f:facet name="footer">
+								<rich:datascroller id="ds" for="lista" maxPages="10"></rich:datascroller>
+							</f:facet>
+						</rich:extendedDataTable>
+						
+						<rich:modalPanel id="panel" width="250" height="150">
+							<f:facet name="header">
+								<h:outputText value="Mensaje" />
+							</f:facet>
+							<h:panelGroup>
+								<center>
+									<h5>
+										<h:outputText value="La carga finalizó correctamente!" />
+									</h5>
+									<a4j:commandButton value="Aceptar"
+										onclick="#{rich:component('panel')}.hide(); #{rich:component('panel')}.hide(); return false"
+										oncomplete="#{facesContext.maximumSeverity == null ? 'Richfaces.hideModalPanel(\'panel\')' : ';'}"
+										reRender="lista" />
+									<rich:componentControl for="panel" attachTo="hidelink"
+										operation="hide" event="onclick" />
+								</center>
+							</h:panelGroup>
+						</rich:modalPanel>
+						</div>
+						<table border="0" width="800px">
+							<tr>
+								<td width="300"></td>
+								<td width="200">
+									<a4j:commandButton id="btnEliminar"
+									action="#{cargTramaDiariaSoatController.eliminar}"
+									value="Eliminar" reRender="lista, btnEliminar"
+									disabled="#{!cargTramaDiariaSoatController.flagBtnEliminar}"
+									onclick="if(!confirm('Esta seguro que desea eliminar?')){return false;}" />
+								</td>
+								<td width="300">
+										<!-- <a4j:commandButton  id="btnSiguienteCarga"  action="#{cargTramaDiariaSoatController.btnSiguiente}"  value="Siguiente >>"/> -->
+								</td>
+							</tr>
+						</table>
+					</h:form>
+				</fieldset>
+			</center>
+		</rich:panel>	
+</body>
+</html>

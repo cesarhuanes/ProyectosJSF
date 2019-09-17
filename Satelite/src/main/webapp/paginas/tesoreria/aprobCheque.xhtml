@@ -1,0 +1,319 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<a4j:keepAlive beanName="aprobacionController" />
+<head>
+
+<style type="text/css">
+body {
+	font-size: 11px;
+	color: #000;
+	font-family: Arial, Verdana, sans-serif;
+}
+
+.extdt-menu-div-out, .extdt-menu-div-on {
+	display: none !important;
+}
+
+td {
+	vertical-align: top;
+}
+</style>
+
+
+<script type="text/javascript">
+
+
+function validar(){
+
+	var length=document.querySelectorAll('.rich-message-marker').length;
+	console.info(length);
+	return length==0;
+}
+
+
+
+</script>
+
+</head>
+<body>
+
+	<rich:panel id="reporte" height="100%" reRender="lista">
+		<f:facet name="header">
+
+			<h:form id="frmActualizar">
+				<h:outputText value="Tesorería > Aprobación de cheques">
+				</h:outputText>
+
+				<a4j:commandLink action="#{aprobacionController.inicio}" reRender="principal" style="text-decoration:none; margin-left:10px">
+					<img src="#{facesContext.externalContext.requestContextPath}/imagenes/refresh.png" width="15" height="15" style="margin: 0; padding: 0" />
+				</a4j:commandLink>
+			</h:form>
+
+		</f:facet>
+
+
+
+		<fieldset id="pendientes" style="width: 1050px">
+			<legend>Lista de cheques pendientes</legend>
+
+			<h:form id="formAprobacion">
+				<rich:extendedDataTable id="tblChequesPendientes" var="cheque" value="#{aprobacionController.chequesPendientes}" width="900px" height="350px"
+					rows="10" selectedClass="dataTableSelectedRow" sortMode="single" selectionMode="none">
+					<!-- <rich:column id="colSel" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{cheque.seleccionado}">
+						<f:facet name="header">
+							<h:outputText value="Seleccionar" />
+						</f:facet>
+						<center>
+							<h:selectBooleanCheckbox value="#{cheque.seleccionado}">
+							</h:selectBooleanCheckbox>
+						</center>
+					</rich:column> -->
+					<rich:column id="colSel" headerClass="dataTableHeader" width="100" sortable="true">
+						<f:facet name="header">
+							<h:panelGroup style="width:100px;" layout="block">
+
+								<script type="text/javascript">
+	                        //<![CDATA[
+	                            function checkAllCheckboxesInTable( inputId, state ){
+	                              var commonIdPart = inputId.substr(0, inputId.lastIndexOf(':'));
+	                              var tableId = commonIdPart + ':tu'
+	                              var tableElement = document.getElementById( tableId );
+	                              var inputs = tableElement.getElementsByTagName('input');
+	                              for (var i = 0; i <= inputs.length; i++){
+	                                  var input = inputs[i];
+	                                  if( input.getAttribute('type') == 'checkbox' && state){
+	                                    input.setAttribute('checked', state);
+	                                  }else{
+	                                    input.removeAttribute('checked');
+	                                  }
+	                              }
+	                            }
+	                            //]]>
+	                          </script>
+								<h:selectBooleanCheckbox id="checkAll" title="#seleccionar" onclick="checkAllCheckboxesInTable( this.id, this.checked );">
+									<a4j:support event="onchange" reRender="IdList" />
+								</h:selectBooleanCheckbox>
+								<h:outputText value="Seleccionar" />
+							</h:panelGroup>
+						</f:facet>
+						<h:selectBooleanCheckbox id="checkEntry" value="#{cheque.seleccionado}" disabled="false" />
+					</rich:column>
+					<rich:column id="colNumero" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{cheque.numero}">
+						<f:facet name="header">
+							<h:outputText value="N° cheque" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{cheque.numero}" />
+						</center>
+					</rich:column>
+					<rich:column id="colBanco" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{cheque.banco}">
+						<f:facet name="header">
+							<h:outputText value="Banco" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{cheque.banco}" />
+						</center>
+					</rich:column>
+					<rich:column id="colBeneficiario" headerClass="dataTableHeader" width="200" sortable="true" sortBy="#{cheque.nombreBeneficiario}">
+						<f:facet name="header">
+							<h:outputText value="Nombre beneficiario" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{cheque.nombreBeneficiario}" />
+						</center>
+					</rich:column>
+					<rich:column id="colMoneda" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{cheque.tipoMoneda}">
+						<f:facet name="header">
+							<h:outputText value="Moneda" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{cheque.tipoMoneda}" />
+						</center>
+					</rich:column>
+					<rich:column id="colImporte" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{cheque.importe}">
+						<f:facet name="header">
+							<h:outputText value="Importe" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{cheque.importe}" />
+						</center>
+					</rich:column>
+
+
+
+					<rich:column id="colEstado" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{cheque.estadoCheque}">
+						<f:facet name="header">
+							<h:outputText value="Estado" />
+						</f:facet>
+						<center>
+							<h:outputText value="Rechazado" rendered="#{cheque.estadoCheque eq 'R'}"></h:outputText>
+							<h:outputText value="Pendiente" rendered="#{cheque.estadoCheque eq 'P'}"></h:outputText>
+						</center>
+					</rich:column>
+
+					<f:facet name="footer">
+						<rich:datascroller id="ds" for="tblChequesPendientes" maxPages="10"></rich:datascroller>
+					</f:facet>
+				</rich:extendedDataTable>
+
+
+
+				<h:panelGrid columns="2" cellspacing="5">
+
+
+					<a4j:commandButton id="btnAprobar" action="#{aprobacionController.prepararAprobacion}" value="Aprobar" reRender="popupAprobar"
+						oncomplete="if(#{aprobacionController.mostrar})#{rich:component('popupAprobar')}.show(); return false;"></a4j:commandButton>
+					<a4j:commandButton id="btnRechazar" action="#{aprobacionController.prepararRechazo}" value="Rechazar" reRender="popupRechazar"
+						oncomplete="if(#{aprobacionController.mostrar})#{rich:component('popupRechazar')}.show(); return false;"></a4j:commandButton>
+				</h:panelGrid>
+			</h:form>
+		</fieldset>
+
+		<fieldset id="rechazados" style="width: 1050px">
+			<legend>Lista de cheques rechazados</legend>
+
+			<h:form id="formRechazo">
+				<rich:extendedDataTable id="tblChequesRechazados" var="cheque" value="#{aprobacionController.chequesRechazados}" width="1000px" height="350px"
+					rows="10" selectedClass="dataTableSelectedRow" sortMode="single" selectionMode="none">
+
+					<rich:column id="colNumero" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{cheque.numero}">
+						<f:facet name="header">
+							<h:outputText value="N° cheque" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{cheque.numero}" />
+						</center>
+					</rich:column>
+					<rich:column id="colBanco" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{cheque.banco}">
+						<f:facet name="header">
+							<h:outputText value="Banco" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{cheque.banco}" />
+						</center>
+					</rich:column>
+					<rich:column id="colBeneficiario" headerClass="dataTableHeader" width="200" sortable="true" sortBy="#{cheque.nombreBeneficiario}">
+						<f:facet name="header">
+							<h:outputText value="Nombre beneficiario" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{cheque.nombreBeneficiario}" />
+						</center>
+					</rich:column>
+					<rich:column id="colMoneda" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{cheque.tipoMoneda}">
+						<f:facet name="header">
+							<h:outputText value="Moneda" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{cheque.tipoMoneda}" />
+						</center>
+					</rich:column>
+					<rich:column id="colImporte" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{cheque.importe}">
+						<f:facet name="header">
+							<h:outputText value="Importe" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{cheque.importe}" />
+						</center>
+					</rich:column>
+
+
+
+					<rich:column id="colEstado" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{cheque.estadoCheque}">
+						<f:facet name="header">
+							<h:outputText value="Estado" />
+						</f:facet>
+						<center>
+							<h:outputText value="Rechazado" rendered="#{cheque.estadoCheque eq 'R'}"></h:outputText>
+							<h:outputText value="Pendiente" rendered="#{cheque.estadoCheque eq 'P'}"></h:outputText>
+						</center>
+					</rich:column>
+
+					<rich:column id="colMotivo" headerClass="dataTableHeader" width="300" sortable="true" sortBy="#{cheque.motivoRechazo}">
+						<f:facet name="header">
+							<h:outputText value="Motivo de Rechazo" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{cheque.motivoRechazo}" />
+						</center>
+					</rich:column>
+
+					<f:facet name="footer">
+						<rich:datascroller id="ds" for="tblChequesRechazados" maxPages="10"></rich:datascroller>
+					</f:facet>
+				</rich:extendedDataTable>
+			</h:form>
+		</fieldset>
+
+	</rich:panel>
+
+	<rich:modalPanel id="popupAprobar" width="300" height="200">
+		<f:facet name="header">
+			<h:panelGroup>
+				<h:outputText value="Mensaje de confirmación"></h:outputText>
+			</h:panelGroup>
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/imagenes/close.gif" styleClass="hidelink" id="hidelink" />
+				<rich:componentControl for="popupAprobar" attachTo="hidelink" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<h:form>
+			<center>
+				<h:outputText value="#{aprobacionController.textoAprobacion}"></h:outputText>
+				<h:panelGrid columns="2" cellspacing="5">
+					<a4j:commandButton value="Aprobar" reRender="tblChequesRechazados,tblChequesPendientes" action="#{aprobacionController.aprobar}"
+						oncomplete="#{rich:component('popupAprobar')}.hide(); return false;">
+
+					</a4j:commandButton>
+					<a4j:commandButton value="Cancelar">
+						<rich:componentControl for="popupAprobar" operation="hide" event="onclick" />
+					</a4j:commandButton>
+				</h:panelGrid>
+			</center>
+		</h:form>
+	</rich:modalPanel>
+
+	<rich:modalPanel id="popupRechazar" width="300" height="200">
+		<f:facet name="header">
+			<h:panelGroup>
+				<h:outputText value="Mensaje de confirmación"></h:outputText>
+			</h:panelGroup>
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/imagenes/close.gif" styleClass="hidelink" id="hidelinkRechazar" />
+				<rich:componentControl for="popupRechazar" attachTo="hidelinkRechazar" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<h:form>
+			<center>
+				<h:outputText value="#{aprobacionController.textoRechazo}"></h:outputText>
+				<br></br>
+				<h:inputTextarea id="txtMotivo" value="#{aprobacionController.motivoRechazo}" required="true" requiredMessage="Obligatorio"></h:inputTextarea>
+				<rich:message for="txtMotivo" style="color: red;">
+					<f:facet name="errorMarker">
+						<h:graphicImage url="../imagenes/error.png" />
+					</f:facet>
+				</rich:message>
+				<h:panelGrid columns="2" cellspacing="5">
+					<a4j:commandButton value="Rechazar" reRender="tblChequesRechazados,tblChequesPendientes" action="#{aprobacionController.rechazar}"
+						oncomplete="if(validar()){#{rich:component('popupRechazar')}.hide(); return false;}">
+
+					</a4j:commandButton>
+					<a4j:commandButton value="Cancelar">
+						<rich:componentControl for="popupRechazar" operation="hide" event="onclick" />
+					</a4j:commandButton>
+				</h:panelGrid>
+			</center>
+		</h:form>
+	</rich:modalPanel>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,194 @@
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" 
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" >
+	
+	<a4j:keepAlive beanName="buscarLoteController" />
+	
+	<head>
+		<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+		<style type="text/css">
+			.contadorRegistros {
+				width: 1020px;
+				text-align: right;
+				font-weight:bold;
+				padding: 0px 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<h:form id="formBuscarLoteStep1_A">
+			<div style="text-align: center;">
+				<table style="margin: auto;" border="0">
+					<tr>
+						<td style="text-align: right; width: 12%;">
+							<rich:message for="idProductoSocio" style="color: red;">
+								<f:facet name="errorMarker">
+									<h:graphicImage url="../imagenes/error.png" />
+								</f:facet>
+							</rich:message>
+							<rich:spacer width="5" /><h:outputText value="* Socio: " />
+						</td>
+						<td style="text-align: left; width: 15%;">
+							<h:selectOneMenu id="idProductoSocio" value="#{buscarLoteController.idProducto}" style="width: 150px;" required="true" requiredMessage="">
+								<f:selectItems value="#{buscarLoteController.comboListaProductos}" />
+							</h:selectOneMenu>
+						</td>
+						<td style="text-align: right; width: 12%;">
+							<h:outputText value="Estado del Lote: " />
+						</td>
+						<td style="text-align: left; width: 15%">
+							<h:selectOneMenu id="idEstadoLote" value="#{buscarLoteController.idEstadoLote}" style=" width: 150px;">
+								<f:selectItems value="#{buscarLoteController.comboListaEstadosLote}" />
+							</h:selectOneMenu>
+						</td>
+						<td style="text-align: right; width: 12%">
+							<h:outputText value="Número de Lote: " />
+						</td>
+						<td style="text-align: left;">
+							<h:inputText id="numLote" value="#{buscarLoteController.numeroLote}" required="false" maxlength="10" 
+								onkeypress="return valNumeros(event);" style=" width: 145px;float: left;" />
+						</td>
+					</tr>
+					<tr>
+						<td colspan="6">
+							<div class="separatorLine" />
+						</td>
+					</tr>							
+					<tr>
+						<td>
+							<h:outputText value="Fecha de Creación" style="text-align: left;font-weight:bold"/>
+						</td>
+						<td>&nsp;</td>
+						<td>&nsp;</td>
+						<td>&nsp;</td>
+						<td>&nsp;</td>
+						<td>&nsp;</td>
+					</tr>
+					<tr>
+						<td style="text-align: right; width: 12%;">
+							<h:outputText value="Desde " />
+						</td>  
+						<td style="text-align: left; width: 15%;">
+							<rich:calendar id="fecCreacionDesde" enableManualInput="false" showWeeksBar="false" datePattern="yyyy-MM-dd"
+								value="#{buscarLoteController.fecCreacionDesde}" required="false" inputStyle="width: 125px;" />
+						</td>
+						<td style="text-align: right; width: 12%;">
+							<h:outputText value="Hasta " />
+						</td>
+						<td style="text-align: left; width: 15%;">
+							<rich:calendar id="fecCreacionHasta" enableManualInput="false" showWeeksBar="false" datePattern="yyyy-MM-dd"
+								value="#{buscarLoteController.fecCreacionHasta}" required="false" inputStyle="width: 125px;" />
+						</td>
+						<td>&nbsp;</td>
+						<td style="text-align: left;">
+							<a4j:commandButton action="#{buscarLoteController.procesarBusqueda}" value="Buscar" reRender="pnlLista" />
+						</td>
+					</tr>
+				</table>
+			</div>
+		</h:form>
+		
+		<h:form id="formBuscarLoteStep1_B">
+			<div class="datatable">
+				<rich:panel id="pnlLista">
+					<div class="extendedDTableContenido">
+						<rich:extendedDataTable id="lista" var="itemLoteImpresion" value="#{buscarLoteController.listaLoteImpresion}" width="1018px" height="285px"
+							selectionMode="single" rows="10" keppSaved="false">
+							<rich:column headerClass="dataTableHeader" width="12%" sortable="true" sortBy="#{itemLoteImpresion.numLote}"
+								sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Nª de Lote" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemLoteImpresion.numLote}" >
+										<f:convertNumber pattern="0000000000"/>
+									</h:outputText>
+								</center>
+							</rich:column>
+							<rich:column headerClass="dataTableHeader" width="15%" sortable="true" sortBy="#{itemLoteImpresion.estado}"
+								sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Estado del Lote" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemLoteImpresion.estado}" />
+								</center>
+							</rich:column>
+							<rich:column headerClass="dataTableHeader" width="16%" sortable="true" sortBy="#{itemLoteImpresion.fecCreacion}"
+								sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Fecha de Creación" />
+								</f:facet>
+								<center>
+								
+									<h:outputText value="#{itemLoteImpresion.fechaCreacion}">
+									</h:outputText>							
+									
+								</center>
+							</rich:column>
+							<rich:column headerClass="dataTableHeader" width="15%" sortable="true" sortBy="#{itemLoteImpresion.usuario}"
+								sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Usuario Creador" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemLoteImpresion.usuario}" />
+								</center>
+							</rich:column>
+							<rich:column headerClass="dataTableHeader" width="13%" sortable="false">
+								<f:facet name="header">
+									<h:outputText value="PDF Lote" />
+								</f:facet>
+								<center>
+									
+									<h:commandLink action="#{buscarLoteController.descargarPDFLoteImpresion}" value="Descargar"   >
+										<f:param value="#{itemLoteImpresion.numLote}" name="opcionDI" />
+										
+									</h:commandLink>
+									
+								</center>
+							</rich:column>
+							<rich:column  headerClass="dataTableHeader" width="31%" sortable="false">
+								<f:facet name="header">
+									<h:outputText value="Generación de Archivo Despacho/Impresión" />
+								</f:facet>
+								<center>
+									
+								
+								<h:commandLink action="#{buscarLoteController.generarDocumentoCourier}" value="#{itemLoteImpresion.visible}"   >
+										<f:param value="#{itemLoteImpresion.numLote}" name="opcionDC" />
+										<f:param value="#{itemLoteImpresion.visible}" name="opcionCI_L"/>
+								</h:commandLink>
+									
+								</center>
+							</rich:column>
+							<!-- 
+							<rich:column headerClass="dataTableHeader" width="31%" sortable="false">
+								<f:facet name="header">
+									<h:outputText value="Generación de Archivo Despacho/Impresión" />
+								</f:facet>
+								<center>
+								
+									<h:commandLink action="#{buscarLoteController.generarDocumentoCourier}" value="#{itemLoteImpresion.visible}" >
+										<f:param value="#{itemLoteImpresion.numLote}" name="opcionDC" />
+									</h:commandLink>
+								</center>
+							</rich:column>-->
+							<f:facet name="footer">
+								<rich:datascroller id="dsLista" rows="10" for="lista" />
+							</f:facet>
+						</rich:extendedDataTable>
+					</div>
+					<table class="contadorRegistros">
+						<tr>
+							<td style="width: 30%;">
+								<h:outputText id="numRegEncontrados" value="N° de Registros encontrados: #{buscarLoteController.listaLoteImpresionInter}" />
+							</td>
+							<td style="width: 10%;"/>
+						</tr>
+					</table>
+				</rich:panel>
+			</div>
+		</h:form>
+	</body>
+</html>

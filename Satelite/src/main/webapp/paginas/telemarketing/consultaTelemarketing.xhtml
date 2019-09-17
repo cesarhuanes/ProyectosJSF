@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<a4j:keepAlive beanName="consultaTLMKController" />
+<head>
+</head>
+<body>
+	<h:form>
+		<rich:panel id="reporte" height="100%" reRender="lista">
+			<f:facet name="header">
+				<h:outputText value=" Telemarketing > Reporte Clientes">
+				</h:outputText>
+			</f:facet>
+			<center>
+				<table border="0" width="1050">
+					<tr>
+						<td colspan="8" align="left"><b><i><h:outputText value="Campos obligatorios(*) "></h:outputText></i></b></td>
+					</tr>
+					<tr>
+						<td height="40" width="60"><h:outputText value="* Socio : "></h:outputText></td>
+						<td height="40" width="195"><h:selectOneMenu id="selectSocio" style=" width : 146px;" value="#{consultaTLMKController.socio}"
+								valueChangeListener="#{consultaTLMKController.buscarProducto}" required="true" requiredMessage="">
+								<f:selectItems value="#{consultaTLMKController.socioItems}" />
+								<a4j:support event="onchange" ajaxOnly="true" reRender="selectProduct" />
+							</h:selectOneMenu> <rich:spacer width="2"></rich:spacer> <rich:message for="selectSocio" style="color: red;">
+								<f:facet name="errorMarker">
+									<h:graphicImage url="../imagenes/error.png" />
+								</f:facet>
+							</rich:message></td>
+						<td height="40" width="60"><h:outputText value="* Producto : "></h:outputText></td>
+						<td height="40" width="195"><h:selectOneMenu id="selectProduct" style=" width : 146px;" width="100%"
+								value="#{consultaTLMKController.producto}">
+								<f:selectItems value="#{consultaTLMKController.productoItems}" />
+								<a4j:support event="onchange" ajaxOnly="true" />
+							</h:selectOneMenu></td>
+						<td height="40" width="60"><h:outputText value="Segmento : ">
+							</h:outputText></td>
+						<td height="40" width="195"><h:selectOneMenu id="selectSegment" style=" width : 146px;" value="#{consultaTLMKController.segmento}">
+								<f:selectItems value="#{consultaTLMKController.segmentoItems}" />
+								<a4j:support event="onchange" ajaxOnly="true" />
+							</h:selectOneMenu></td>
+						<td height="40" width="60"></td>
+						<td height="40" width="195"></td>
+					</tr>
+					<tr>
+						<td width="80" height="40"><h:outputText value="Fecha Inicial :">
+							</h:outputText></td>
+						<td width="195" height="40"><rich:calendar id="fechaInicial" style=" width : 146px;" enableManualInput="false" datePattern="yyyy-MM-dd"
+								value="#{consultaTLMKController.fechaInicial}" showWeeksBar="false">
+							</rich:calendar></td>
+						<td width="80"><h:outputText value="Fecha Final :">
+							</h:outputText></td>
+						<td width="195" height="40"><rich:calendar id="fechaFinal" style=" width : 146px;" enableManualInput="false" datePattern="yyyy-MM-dd"
+								value="#{consultaTLMKController.fechaFinal}" showWeeksBar="false">
+							</rich:calendar></td>
+						<td width="130"><h:outputText value="Nro Cuotas Impagas : ">
+							</h:outputText></td>
+						<td width="195" height="40"><h:inputText id="cuotaDe" style=" width : 146px;" disabled="false" maxlength="100"
+								value="#{consultaTLMKController.cuotade}">
+							</h:inputText></td>
+						<td width="80"><h:outputText value="Hasta : ">
+							</h:outputText></td>
+						<td width="195" height="40"><h:inputText id="cuotaHasta" style=" width : 146px;" disabled="false" maxlength="100"
+								value="#{consultaTLMKController.cuotaa}">
+							</h:inputText></td>
+					</tr>
+					<tr>
+						<td colspan="8" align="center" valign="middle" height="40"><a4j:commandButton action="#{consultaTLMKController.procesar}" reRender="lista"
+								value="Consultar" style="width:100px;height: 20px;">
+							</a4j:commandButton> <rich:spacer width="5"></rich:spacer> <h:commandButton action="#{consultaTLMKController.limpiar}" immediate="true" value="Limpiar"
+								style="width:100px;height: 20px;" /></td>
+					</tr>
+					<tr>
+						<td colspan="8">
+							<div style="scrollbar-base-color: #3d8a3d; width: 1030px; border: 0px solid white; overflow-x: scroll">
+								<rich:extendedDataTable id="lista" var="reporteTLMK" value="#{consultaTLMKController.listaReporteTLMK}" width="2390px" rows="18"
+									height="330px" selection="#{consultaTLMKController.selection}" selectionMode="single" reRender="true">
+									<rich:column id="colProducto" headerClass="dataTableHeader" width="132" sortable="true" sortBy="#{reporteTLMK.producto}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="PRODUCTO" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{reporteTLMK.producto}" />
+										</center>
+									</rich:column>
+									<rich:column id="colNroPoliza" headerClass="dataTableHeader" width="99" sortable="true" sortBy="#{reporteTLMK.numPoliza}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="NRO POLIZA" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{reporteTLMK.numPoliza}">
+											</h:outputText>
+										</center>
+									</rich:column>
+									<!--
+									<rich:column id="colCodCli" headerClass="dataTableHeader" width="90" sortable="true" sortBy="#{reporteTLMK.codPersona}" sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="COD CLIENTE" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{reporteTLMK.codPersona}" />
+										</center>
+									</rich:column>
+									-->
+									<rich:column id="colDni" headerClass="dataTableHeader" width="69" sortable="true" sortBy="#{reporteTLMK.docIdentidad}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="DNI" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{reporteTLMK.docIdentidad}" />
+										</center>
+									</rich:column>
+									<rich:column id="colNom" headerClass="dataTableHeader" width="131" sortable="true" sortBy="#{reporteTLMK.nombreCliente}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="NOMBRE" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{reporteTLMK.nombreCliente}" />
+										</center>
+									</rich:column>
+									<rich:column id="colApePat" headerClass="dataTableHeader" width="113" sortable="true" sortBy="#{reporteTLMK.nombreCliente}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="APELLIDO PATER" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{reporteTLMK.apellidoPaterno}" />
+										</center>
+									</rich:column>
+									<rich:column id="colApeMat" headerClass="dataTableHeader" width="112" sortable="true" sortBy="#{reporteTLMK.nombreCliente}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="APELLIDO MATER" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{reporteTLMK.apellidoMaterno}" />
+										</center>
+									</rich:column>
+									<rich:column id="colFecIniVig" headerClass="dataTableHeader" width="122" sortable="true" sortBy="#{reporteTLMK.fecIniVigencia}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="FEC INICIO VIGENCIA" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{reporteTLMK.fecIniVigencia}">
+												<f:convertDateTime pattern="yyyy-MM-dd" />
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="colFecFinVig" headerClass="dataTableHeader" width="122" sortable="true" sortBy="#{reporteTLMK.fecFinVigencia}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="FEC FIN VIGENCIA" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{reporteTLMK.fecFinVigencia}">
+												<f:convertDateTime pattern="yyyy-MM-dd" />
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="colPermanencia" headerClass="dataTableHeader" width="95" sortable="true" sortBy="#{reporteTLMK.permanencia}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="PERMANENCIA" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{reporteTLMK.permanencia}" />
+										</center>
+									</rich:column>
+									<rich:column id="colDireccion" headerClass="dataTableHeader" width="215" sortable="true" sortBy="#{reporteTLMK.dirPersona}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="DIRECCION" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{reporteTLMK.dirPersona}" />
+										</center>
+									</rich:column>
+									<rich:column id="colDistrito" headerClass="dataTableHeader" width="151" sortable="true" sortBy="#{reporteTLMK.descDistrito}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="DISTRITO" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{reporteTLMK.descDistrito}" />
+										</center>
+									</rich:column>
+									<rich:column id="colProvincia" headerClass="dataTableHeader" width="103" sortable="true" sortBy="#{reporteTLMK.descProvincia}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="PROVINCIA" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{reporteTLMK.descProvincia}" />
+										</center>
+									</rich:column>
+									<rich:column id="colDepartamento" headerClass="dataTableHeader" width="110" sortable="true" sortBy="#{reporteTLMK.descDepartamento}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="DEPARTAMENTO" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{reporteTLMK.descDepartamento}" />
+										</center>
+									</rich:column>
+									<rich:column id="colPrimaSegVig" headerClass="dataTableHeader" width="170" sortable="true" sortBy="#{reporteTLMK.importePrimaEmitida}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="PRIMA DEL SEGURO VIGENTE" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{reporteTLMK.importePrimaEmitida}" />
+										</center>
+									</rich:column>
+									<!-- 									<rich:column id="colCardif" headerClass="dataTableHeader" width="85" sortable="true" sortBy="#{reporteTLMK.producto}" sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon"> -->
+									<!-- 										<f:facet name="header"> -->
+									<!-- 											<h:outputText value="COD CARDIF" /> -->
+									<!-- 										</f:facet> -->
+									<!-- 										<center> -->
+									<!-- 											<h:outputText value="#{reporteTLMK.producto}" /> -->
+									<!-- 										</center> -->
+									<!-- 									</rich:column> -->
+									<rich:column id="colTelefono" headerClass="dataTableHeader" width="226" sortable="true" sortBy="#{reporteTLMK.telefonoMovil}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="TELEFONO" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{reporteTLMK.telefono}" />
+										</center>
+									</rich:column>
+
+									<rich:column id="colCuotasImpagas" headerClass="dataTableHeader" width="122" sortable="true" sortBy="#{reporteTLMK.cuotasImpagas}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="CUOTAS IMPAGAS" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{reporteTLMK.cuotasImpagas}" />
+										</center>
+									</rich:column>
+									<rich:column id="colOtrosProductos" headerClass="dataTableHeader" width="208" sortable="true" sortBy="#{reporteTLMK.otrosProductos}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="OTROS PROD" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{reporteTLMK.otrosProductos}" />
+										</center>
+									</rich:column>
+									<f:facet name="footer">
+										<rich:datascroller id="ds" for="lista" maxPages="10"></rich:datascroller>
+									</f:facet>
+								</rich:extendedDataTable>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="8" align="center" valign="middle" height="40"><h:commandButton action="#{consultaTLMKController.exportar}"
+								value="       Exportar       ">
+							</h:commandButton></td>
+					</tr>
+				</table>
+			</center>
+		</rich:panel>
+	</h:form>
+</body>
+</html>

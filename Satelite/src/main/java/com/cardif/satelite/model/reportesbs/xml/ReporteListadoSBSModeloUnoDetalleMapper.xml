@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.cardif.satelite.reportesbs.dao.ReporteListadoSBSModeloUnoDetalleMapper">
+
+
+	<resultMap id="BaseResultMap"
+		type="com.cardif.satelite.model.reportesbs.ReportesGeneradosSBSModeloUnoDetalle">
+		<id column="COD_REPORTE" property="codReporte" jdbcType="DECIMAL" />
+		<result column="ESTADO" property="estado" jdbcType="DECIMAL" />
+		<result column="COD_TIPO_REPORTE" property="codTipoReporte"
+			jdbcType="NVARCHAR" />
+		<result column="NOM_FIRMANTE_1" property="nomFirmante1"
+			jdbcType="NVARCHAR" />
+		<result column="NOM_FIRMANTE_2" property="nomFirmante2"
+			jdbcType="NVARCHAR" />
+		<result column="CARGO_FIRMANTE_1" property="cargoFirmante1"
+			jdbcType="NVARCHAR" />
+		<result column="CARGO_FIRMANTE_2" property="cargoFirmante2"
+			jdbcType="NVARCHAR" />
+		<result column="PERIODO_ANIO" property="periodoAnio" jdbcType="NVARCHAR" />
+		<result column="PERIODO_TRIMESTRE" property="periodoTrimestre"
+			jdbcType="NVARCHAR" />
+		<result column="TIPO_CAMBIO" property="tipoCambio" jdbcType="DECIMAL" />
+		<result column="USUARIO_CREADOR" property="usuarioCreador"
+			jdbcType="NVARCHAR" />
+		<result column="USUARIO_MODIFICADO" property="usuarioModificado"
+			jdbcType="NVARCHAR" />
+		<result column="FECHA_CREADO" property="fechaRegistro"
+			jdbcType="DATE" />
+	</resultMap>
+
+	<resultMap id="BaseResultMapParametro"
+		type="com.cardif.satelite.model.reportesbs.Parametro">
+
+		<result column="COD_PARAMETRO" property="codParametro"
+			jdbcType="NVARCHAR" />
+		<result column="COD_VALOR" property="codValor" jdbcType="NVARCHAR" />
+		<result column="DESCRIPCION_VALOR" property="descripcion"
+			jdbcType="NVARCHAR" />
+		<result column="ESTADO" property="estado" jdbcType="DECIMAL" />
+		<result column="NUM_ORDEN" property="numOrden" jdbcType="DECIMAL" />
+
+	</resultMap>
+
+
+</mapper>

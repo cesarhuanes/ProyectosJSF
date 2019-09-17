@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardif.satelite.configuracion.dao.ProvinciaMapper">
+	
+	<resultMap id="BaseResultMap" type="com.cardif.satelite.model.Provincia">
+		<id column="COD_PROVINCIA" property="codProvincia" jdbcType="VARCHAR" />
+		<result column="NOMBRE_PROVINCIA" property="nombreProvincia" jdbcType="VARCHAR" />
+		<result column="DEPARTAMENTO" property="departamento" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		COD_PROVINCIA, NOMBRE_PROVINCIA, DEPARTAMENTO
+	</sql>
+	
+	<select id="selectAllProvincias" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from PROVINCIA
+	</select>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from PROVINCIA
+		where COD_PROVINCIA = #{codProvincia,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectByCodDepartamento" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from PROVINCIA
+		where DEPARTAMENTO = #{departamento,jdbcType=VARCHAR}
+	</select>
+</mapper>

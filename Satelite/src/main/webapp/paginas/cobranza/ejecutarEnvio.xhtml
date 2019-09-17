@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<!-- <a4j:keepAlive beanName="procesosController" /> -->
+<head>
+<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+</head>
+<body>
+	<h:form>
+		<rich:panel id="panel1" height="100%">
+			<f:facet name="header">
+				<h:outputText value="Cobranzas > Generar archivos de envio" />
+			</f:facet>
+			<table align="center">
+				<tr>
+					<td colspan="2" align="center">
+						<h3>
+							<h:outputText value="Envio de Cobranza" />
+						</h3>
+					</td>
+				</tr>
+				<tr>
+					<td align="right"><h:outputText value="* Via de Cobro: " /></td>
+					<td align="left"><h:selectOneMenu id="viaCobro" value="#{procesosController.codVia}" required="true"
+							requiredMessage="La via de cobro es obligatoria">
+							<f:selectItems value="#{procesosController.viasCobroItems}" />
+							<a4j:support event="onchange" reRender="listaEnvio" action="#{procesosController.cargarAuditEnvio}" />
+						</h:selectOneMenu> <rich:message for="viaCobro" style="color:RED;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message></td>
+				</tr>
+				<tr>
+					<td colspan="2" height="20px"></td>
+				</tr>
+				<tr>
+					<td align="center" colspan="2"><a4j:commandButton value="Ejecutar" action="#{procesosController.ejecutarEnvio}"
+							oncomplete="#{facesContext.maximumSeverity == null ? 'Richfaces.showModalPanel(\'panel\');this.disabled=false;' : 'this.disabled=false;'}"
+							onclick=" if (!confirm('¿Confirmar Ejecucion del Envio?')) return false;" reRender="listaEnvio" /></td>
+				</tr>
+				<tr>
+					<td colspan="2" height="20px"></td>
+				</tr>
+				<tr>
+					<td colspan="2" height="20px"><rich:extendedDataTable id="listaEnvio" var="audit" value="#{procesosController.listaAuditEnvio}"
+							width="550px" height="300px">
+							<rich:column id="pk">
+								<f:facet name="header">
+									<h:outputText value="Secuencia" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{audit.pk}" />
+								</center>
+							</rich:column>
+							<rich:column id="tipProceso">
+								<f:facet name="header">
+									<h:outputText value="Tipo Proceso" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{audit.tipProceso}" />
+								</center>
+							</rich:column>
+							<rich:column id="viaCobro">
+								<f:facet name="header">
+									<h:outputText value="Via de Cobro" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{audit.viaCobro}" />
+								</center>
+							</rich:column>
+							<rich:column id="fecEjecucion" width="150">
+								<f:facet name="header">
+									<h:outputText value="Fecha Ejecucion" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{audit.fecEjecucion}">
+										<f:convertDateTime timeZone="America/Lima" pattern="dd/MM/yyyy HH:mm:ss"></f:convertDateTime>
+									</h:outputText>
+								</center>
+							</rich:column>
+							<rich:column id="usuEjecucion">
+								<f:facet name="header">
+									<h:outputText value="Usuario" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{audit.usuEjecucion}" />
+								</center>
+							</rich:column>
+						</rich:extendedDataTable></td>
+				</tr>
+			</table>
+		</rich:panel>
+		<rich:modalPanel id="panel" width="250" height="130">
+			<f:facet name="header">Informativo</f:facet>
+			<h:panelGroup>
+				<center>
+					<h5>El proceso se está ejecutando, consulte en la tabla de procesos.</h5>
+					<a4j:commandButton value="Aceptar" onclick="#{rich:component('panel')}.hide();return false" />
+					<rich:componentControl for="panel" attachTo="hidelink" operation="hide" event="onclick"></rich:componentControl>
+				</center>
+			</h:panelGroup>
+		</rich:modalPanel>
+	</h:form>
+</body>
+</html>
+

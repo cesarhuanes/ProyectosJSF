@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
+<!-- 2017-03-21T08:41:32 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PlantillaLiquidacion" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="069d27c4-4801-420f-b20d-65d950f234f0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="img" class="java.lang.String"/>
+	<parameter name="nSiniestro" class="java.lang.String"/>
+	<parameter name="nPlantilla" class="java.lang.String"/>
+	<parameter name="fLiquidacion" class="java.lang.String"/>
+	<parameter name="fUltimaNotificacion" class="java.lang.String"/>
+	<parameter name="socio" class="java.lang.String"/>
+	<parameter name="nroPoliza" class="java.lang.String"/>
+	<parameter name="contExp" class="java.lang.String"/>
+	<parameter name="cobertura" class="java.lang.String"/>
+	<parameter name="plan" class="java.lang.String"/>
+	<parameter name="inicioVig" class="java.lang.String"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="dni" class="java.lang.String"/>
+	<parameter name="nacionalidad" class="java.lang.String"/>
+	<parameter name="fOcurrencia" class="java.lang.String"/>
+	<parameter name="parentesco" class="java.lang.String"/>
+	<parameter name="diagnostico" class="java.lang.String"/>
+	<parameter name="beneficiario" class="java.lang.String"/>
+	<parameter name="parentescoBeneficiario" class="java.lang.String"/>
+	<parameter name="importeIndemnizar" class="java.lang.String"/>
+	<parameter name="totalIndemnizar" class="java.lang.String"/>
+	<parameter name="fSiniestro" class="java.lang.String"/>
+	<parameter name="moneda" class="java.lang.String"/>
+	<parameter name="producto" class="java.lang.String"/>
+	<parameter name="cie10" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="51" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="140" height="30" uuid="778db60a-b2f5-4fdc-a043-3f3dccef7a56"/>
+				<imageExpression><![CDATA[$P{img}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement key="" x="210" y="0" width="140" height="20" uuid="6ec2a06b-4136-4473-8c1f-ed5668c328e4"/>
+				<textElement>
+					<font isBold="true" isUnderline="false" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[LIQUIDACIÓN DE SINIESTRO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="20" width="280" height="20" uuid="93cc82ea-9f20-4b5d-a2b6-36ba7df7f392"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{producto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="121" splitType="Stretch">
+			<staticText>
+				<reportElement x="-1" y="4" width="71" height="15" uuid="0499a8a9-084f-4ae2-970f-2440a64f849b">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[N° Siniestro:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="70" y="4" width="160" height="15" uuid="1e52a91c-31eb-4816-808d-8ba09dcb7a9a">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{nSiniestro}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="20" width="71" height="15" uuid="44907c74-7c02-4047-8c1d-ead76a74aaf0">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[N° Planilla:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="70" y="20" width="159" height="15" uuid="bbdb3bdc-ad58-4571-8b65-dc4adce3f020">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{nPlantilla}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="284" y="25" width="146" height="20" uuid="cc5e8ce6-7ba4-4941-b5f7-6a85467294df"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Última Notificación:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="284" y="5" width="146" height="20" uuid="2f17a9a2-6300-4576-89d9-5359b917e7f0"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Liquidación:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="430" y="5" width="125" height="20" uuid="b0d2cff4-1c06-4661-8c9c-23bf04c14b40"/>
+				<textFieldExpression><![CDATA[$P{fLiquidacion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="430" y="25" width="125" height="20" uuid="b4260b5e-8a44-49ce-94ce-c18ed142f5c9"/>
+				<textFieldExpression><![CDATA[$P{fUltimaNotificacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="156" height="14" uuid="6fa64cbd-6e7f-4502-843f-908b9c9d9ca3"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[INFORMACIÓN DE LA PÓLIZA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="54" width="70" height="15" uuid="8ee442c5-8c13-40bf-ac7d-5706ce42648f">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[SOCIO:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="70" y="69" width="500" height="15" uuid="f436411c-1ea2-4f69-b39d-05bd75a20a4f">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{cobertura}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="69" width="70" height="15" uuid="28742042-11b5-4f23-97d2-d3350736aba3">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[COBERTURA:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="70" y="54" width="484" height="15" uuid="88c97ea3-b42c-4e92-b639-16fa22dcaa3d">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{socio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="284" y="89" width="75" height="15" uuid="5cb2e7bf-11c7-4ad2-a3e8-6858e7a6a4f8">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[PLAN:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="359" y="89" width="195" height="15" uuid="eb9512e3-c67f-469e-ab84-f0401f114be1">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{plan}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="284" y="103" width="75" height="15" uuid="c0d8a224-e8da-4695-a5ae-61982e8a1db5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[INICIO DE VIG.:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="359" y="103" width="195" height="15" uuid="6dba8311-6b12-4d89-b826-8663f59a2e3b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{inicioVig}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="104" width="70" height="15" uuid="8400473a-26f0-4804-aaf4-4b91255c46b6">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Cont./Exp.:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="70" y="104" width="190" height="15" uuid="9943781c-df95-4ac8-a89e-897f9b5542d9">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{contExp}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="89" width="70" height="15" uuid="696c87b1-8ed6-44de-ac21-f5dc60a6fc0f">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[N° PÓLIZA:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="70" y="89" width="190" height="15" uuid="2766d779-068a-4a06-ba60-6578f237203a">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{nroPoliza}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="454" splitType="Stretch">
+			<staticText>
+				<reportElement x="-1" y="26" width="130" height="13" uuid="e40265ca-29f3-481e-9638-786ca2174b04"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="39" width="130" height="13" uuid="0ed2e53b-cef5-4fe8-8e06-66aefd3562d9"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[DNI:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="129" y="26" width="271" height="13" uuid="27c144a1-16ab-47a8-8e9b-e0c3c5d7db72"/>
+				<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="358" y="39" width="195" height="17" uuid="ca311ac2-22a4-40f5-bff5-d050a88b6cab"/>
+				<textFieldExpression><![CDATA[$P{parentesco}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="129" y="39" width="121" height="13" uuid="f9b102a2-aaea-4c55-b33c-263aef2021cb"/>
+				<textFieldExpression><![CDATA[$P{dni}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="281" y="39" width="75" height="17" uuid="02fcfb16-b459-4faf-96b6-b148d1dbeb8b"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[PARENTESCO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="6" width="156" height="20" uuid="e233ace7-2bbd-4d1f-b5ca-dcadde65b745"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[INFORMACIÓN DEL SINIESTRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="65" width="130" height="13" uuid="e5684836-0ed0-4f08-b74c-d4e61dea5eee"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[F. DE OCURRENCIA:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="65" width="121" height="13" uuid="647e8d13-23a3-4cea-b896-0d14d8eeff6e"/>
+				<textFieldExpression><![CDATA[$P{fOcurrencia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="90" width="130" height="13" uuid="e4a052c1-9c85-42f9-808e-8a231b5e93ec"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE BENEFICIARIO:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="129" y="90" width="425" height="13" uuid="766b3aa6-d888-4f36-a35d-d328a045e982"/>
+				<textFieldExpression><![CDATA[$P{beneficiario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="281" y="53" width="75" height="13" uuid="820869f5-447b-4c04-bdfc-4f8c782ac8c6"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[DIAGNÓSTICO:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="358" y="53" width="195" height="13" uuid="ec10d3ca-51f1-45de-b156-1578719f1401"/>
+				<textFieldExpression><![CDATA[$P{cie10}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="129" y="103" width="251" height="13" uuid="7d76058e-704c-4a96-b214-ef41d27870f3"/>
+				<textFieldExpression><![CDATA[$P{parentescoBeneficiario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="103" width="130" height="13" uuid="7e333514-aa8a-4ab2-a345-6a8b25df7001"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[PARENTESCO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="120" width="156" height="13" uuid="46cc1977-0045-418a-811f-6fba267573d6"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[DETALLE DE LA LIQUIDACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="445" y="121" width="110" height="13" uuid="6b001575-77b8-41ac-97d5-a22124223558"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Importe a Indemnizar]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="445" y="134" width="110" height="20" uuid="d5906de7-39a6-4961-af21-49ddf5680551"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{importeIndemnizar}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="445" y="161" width="110" height="20" uuid="c5902225-625c-48e5-89cc-94eebb3b8ff1"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$P{totalIndemnizar}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="-1" y="161" width="160" height="20" uuid="216bcde3-2bf1-4019-b7e0-6272c8436fab"/>
+				<textElement verticalAlignment="Bottom">
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL A INDEMNIZAR]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="161" width="555" height="1" uuid="208bbeb7-d7f1-4179-87ac-4a52504e2d91">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<rectangle>
+				<reportElement x="0" y="181" width="555" height="1" backcolor="#A8A5A3" uuid="405ba110-3b8b-4413-87ca-9cdc7c86a58a"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="191" width="554" height="30" uuid="a1302f62-1a3e-404c-8e4c-f0794491a23b"/>
+				<text><![CDATA[Hemos recibido de BNP Paribas Cardif S.A. Compañía de Seguros y Reaseguros, por concepto de indemnización Total y definitiva, la suma arriba indicada, en relación al siniestro del día:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="221" width="555" height="44" uuid="36fdd077-8091-41be-a7e3-61b619d2e4dc"/>
+				<text><![CDATA[Y dejamos expresa constancia que con este pago, queda liberada BNP Paribas Cardif S.A. Compañía de Seguros y Reaseguros, de cualquier reclamación futura que pudiera formular el suscrito o quien sus derechos represente. Quedando el mismo liquidado bajo todo concepto o seguimiento.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="265" width="556" height="66" uuid="7c4b71d2-ca80-401b-a10a-ca8c8fe15514"/>
+				<text><![CDATA[Nota importante: El cheque debe ser cobrado dentro de los 90 días de emitido, en caso exceda el plazo el cheque será anulado y deberá conectarse al Servicio de Atención al Cliente para el trámite correspondiente de emisión de nuevo cheque, a los siguientes contactos: Central de Servicio al Cliente: 615-5700, correo electrónico servicioalcliente@cardif.com.pe, o en nuestras oficinas ubicadas en Av. Canaval y Moreyra No. 380 piso 11, distrito de San Isidro, departamento de Lima, en el horario de Lunes a Viernes de 09:00 a 13:00 y de 15:00 a 18:00 hrs.]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="300" y="201" width="145" height="20" uuid="c285c396-6a0c-45f2-8e9e-8bfbd031c42f"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fSiniestro}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="380" y="161" width="65" height="20" uuid="5828f3bd-b948-474b-b91a-84ae45bd0f57"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$P{moneda}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="384" width="100" height="50" uuid="33f9c3d9-02f5-4108-8770-f631a297af4c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="450" y="384" width="104" height="50" uuid="1cdb6ae4-0298-4316-8d89-1a42f3c7b805"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="100" y="384" width="140" height="50" uuid="fa676484-5df6-41ca-8e0c-830c65853540"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="434" width="100" height="20" uuid="85e1b565-f5c7-4fa5-8cbf-cd4fd319b35d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Analista de Siniestros]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="340" y="384" width="110" height="50" uuid="ad2d829b-736b-415b-b94b-c5157d9cd140"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="450" y="434" width="104" height="20" uuid="563f2ba6-d4e6-4bd0-89f8-6ba066ebe780"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Otros]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="434" width="110" height="20" uuid="ea9a2bcd-de5c-4684-a3b1-fa9be389a9ca"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Tesorería]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="434" width="140" height="20" uuid="fac030af-8d36-47c0-81b2-e3fcc8bd0d17"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Operaciones]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="240" y="384" width="100" height="50" uuid="f914f1ba-4b7e-4c8a-a7c8-3644b22b9208"/>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="363" width="115" height="1" uuid="a0bd43f9-ca2e-4340-befa-28b544e46fc4">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="10" y="364" width="100" height="20" uuid="3ea0cb32-0bb2-4857-934a-4a689539cced"/>
+				<text><![CDATA[RECIBÍ CONFORME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="434" width="100" height="20" uuid="a5892046-3a26-4611-a707-3b90682ca600"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[OP Contable]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="134" width="445" height="20" uuid="7504e3a7-6b89-4bec-9d8f-10d28764a6ee"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{cobertura}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="52" width="130" height="13" uuid="1d108cc7-6dcf-4c57-806e-d6124f7f9f84"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[NACIONALIDAD:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="129" y="52" width="121" height="13" uuid="f5a46ab0-55f0-46af-be2c-381c08c48803"/>
+				<textFieldExpression><![CDATA[$P{nacionalidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

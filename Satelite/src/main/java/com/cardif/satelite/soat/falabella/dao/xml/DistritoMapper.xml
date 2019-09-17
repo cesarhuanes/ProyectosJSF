@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cardif.satelite.soat.falabella.dao.DistritoMapper">
+	<resultMap id="BaseResultMap" type="com.cardif.satelite.soat.model.Distrito">
+		<id column="COD_DISTRITO" jdbcType="VARCHAR" property="codDistrito" />
+		<result column="NOMBRE_DISTRITO" jdbcType="VARCHAR" property="nombreDistrito" />
+		<result column="VERSION" jdbcType="DECIMAL" property="version" />
+		<result column="PROVINCIA" jdbcType="VARCHAR" property="provincia" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		COD_DISTRITO, NOMBRE_DISTRITO, VERSION, PROVINCIA
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from DISTRITO
+		where COD_DISTRITO = #{codDistrito,jdbcType=VARCHAR}
+	</select>
+
+	<insert id="insert" parameterType="com.cardif.satelite.soat.model.Distrito">
+		insert into DISTRITO (COD_DISTRITO, NOMBRE_DISTRITO, VERSION,
+		PROVINCIA)
+		values (#{codDistrito,jdbcType=VARCHAR}, #{nombreDistrito,jdbcType=VARCHAR}, #{version,jdbcType=DECIMAL},
+		#{provincia,jdbcType=VARCHAR})
+	</insert>
+
+	<update id="updateByPrimaryKey" parameterType="com.cardif.satelite.soat.model.Distrito">
+		update DISTRITO
+		set NOMBRE_DISTRITO = #{nombreDistrito,jdbcType=VARCHAR},
+		VERSION = #{version,jdbcType=DECIMAL},
+		PROVINCIA = #{provincia,jdbcType=VARCHAR}
+		where COD_DISTRITO = #{codDistrito,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

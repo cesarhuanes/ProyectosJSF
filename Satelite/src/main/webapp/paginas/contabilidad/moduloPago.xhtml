@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<a4j:keepAlive beanName="consultarPagosController" />
+<body>
+	<h:form id="formPagos">
+		<fieldset>
+
+			<table>
+				<tr>
+					<td><h:outputText style="font-size:11px;" value="Proveedor:" /></td>
+					<td><h:inputText id="idProveedorFrom" maxlength="20" value="#{consultarPagosController.idProveedorFrom}" /></td>
+					<td><h:outputText style="font-size:11px;" value="o" /></td>
+					<td><h:inputText id="idProveedorTo" maxlength="20" value="#{consultarPagosController.idProveedorTo}" /></td>
+					<td><h:outputText style="font-size:11px;" value="Periodo" /></td>
+					<td><h:inputText id="idPeriodoFrom" maxlength="10" value="#{consultarPagosController.fecPeriodoInicio}" /></td>
+					<td><h:outputText style="font-size:11px;" value="o" /></td>
+					<td><h:inputText id="idPeriodoTo" maxlength="10" value="#{consultarPagosController.fecPeriodoFin}" /></td>
+
+				</tr>
+				<tr>
+					<td colspan="8"></td>
+					<td><a4j:commandButton id="btnBuscar" action="#{consultarPagosController.consultarProcesos}" style="width:125px" reRender="listaPago"
+							value="Buscar" execute="@this" /></td>
+					<td><a4j:commandButton id="btnLimpiar" action="#{consultarPagosController.limpiarFiltros}" style="width:125px" value="Limpiar"
+							reRender="idProveedorFrom,idProveedorTo,idGlosaPago,idReferencia,idPeriodoFrom,idPeriodoTo,idFechaPago,listaPago" /></td>
+				</tr>
+			</table>
+		</fieldset>
+
+		<fieldset>
+			<legend>Tipo de Cambio del Dia</legend>
+			<table>
+				<tr>
+					<td><h:outputText>EUR-PEN</h:outputText></td>
+					<td><h:inputText id="idEuroSoles" maxlength="6" value="#{consultarPagosController.valEuroSoles}" style="background:#ddd;" readonly="true" /></td>
+					<td><h:outputText>USD-PEN</h:outputText></td>
+					<td><h:inputText id="idDolarSoles" maxlength="6" value="#{consultarPagosController.valDolarSoles}" style="background:#ddd;" readonly="true" /></td>
+					<td><h:outputText>EUR-USD</h:outputText></td>
+					<td><h:inputText id="idEurosDolares" maxlength="6" value="#{consultarPagosController.valEuroDolares}" style="background:#ddd;"
+							readonly="true" /></td>
+				</tr>
+			</table>
+		</fieldset>
+
+		<fieldset>
+			<legend>Datos del Pago</legend>
+			<table border="0px" style="border-collapse: collapse;">
+				<tr>
+					<td><h:outputText style="font-size:11px;" value="Fecha de Pago:" /></td>
+					<td><rich:calendar id="idFechaPago" requiredMessage="Obligatorio" enableManualInput="true" datePattern="yyyy-MM-dd"
+							value="#{consultarPagosController.fecPago}">
+						</rich:calendar></td>
+
+					<td><h:outputText style="font-size:11px;" value="Cta Banco:" /></td>
+					<td><h:selectOneMenu id="tipoCtaBanco" value="#{consultarPagosController.numCuentaBanco}" requiredMessage="Obligatorio">
+							<f:selectItems value="#{consultarPagosController.listaCtaBanco}" />
+						</h:selectOneMenu></td>
+					<td><h:outputText style="font-size:11px;" value="Tipo Pago:" /></td>
+					<td><h:selectOneMenu id="tipoPago" value="#{consultarPagosController.idTipoPago}" requiredMessage="Obligatorio">
+							<f:selectItems value="#{consultarPagosController.tipoPagoItems}" />
+						</h:selectOneMenu></td>
+
+				</tr>
+				<tr>
+					<td><h:outputText style="font-size:11px;" value="Fecha de Transaccion:" /></td>
+					<td><rich:calendar id="idFechaTransaccion" requiredMessage="Obligatorio" enableManualInput="true" datePattern="yyyy-MM-dd"
+							value="#{consultarPagosController.fecTransaccion}">
+							<a4j:support event="onchanged" reRender="idEuroSoles,idDolarSoles,idEurosDolares" action="#{consultarPagosController.actualizarTiposCambio}"
+								ajxSingle="true" />
+						</rich:calendar></td>
+					<td><h:outputText style="font-size:11px;" value="Marcador" /></td>
+					<td><rich:message for="tipoMarcador" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message> <h:selectOneMenu id="tipoMarcador" value="#{consultarPagosController.idMarcador}" requiredMessage="Obligatorio">
+							<f:selectItems value="#{consultarPagosController.marcadorItems}" />
+						</h:selectOneMenu></td>
+					<td><h:outputText style="font-size:11px;" value="Medio Pago:" /></td>
+					<td><h:selectOneMenu id="medioPago" value="#{consultarPagosController.idMedioPago}" requiredMessage="Obligatorio">
+							<f:selectItems value="#{consultarPagosController.medioPagoItems}" />
+						</h:selectOneMenu></td>
+				</tr>
+				<tr>
+					<td><h:outputText style="font-size:11px;" value="Glosa Pago:" /></td>
+					<td colspan="1"><h:inputText id="idGlosaPago" maxlength="100" value="#{consultarPagosController.glosaPago}" style=" width : 369px;" /></td>
+					<td><h:outputText style="font-size:11px;" value="Referencia: " /></td>
+					<td><h:inputText id="idReferencia" maxlength="100" value="#{consultarPagosController.referencia}"></h:inputText></td>
+
+				</tr>
+			</table>
+		</fieldset>
+		<div align="right">
+			<a4j:commandButton id="btnEditar" action="#{consultarPagosController.actualizar}" style="width:125px" value="Editar"
+				reRender="panelRegistroContable" oncomplete="#{rich:component('panelRegistroContable')}.show()" />
+
+		</div>
+		<fieldset>
+			<!-- Aqui va la tabla -->
+			<rich:extendedDataTable id="listaPago" var="proc" value="#{consultarPagosController.listaProcesos}" width="1020" height="330px"
+				selection="#{consultarPagosController.selection}" selectionMode="single">
+
+				<rich:column id="tipoCuenta" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.codigoCuenta}" sortIconAscending="dataTableAscIcon"
+					sortIconDescending="dataTableDescIcon">
+					<f:facet name="header">
+						<h:outputText value="Cuenta" />
+					</f:facet>
+					<center>
+						<h:outputText value="#{proc.codigoCuenta}" />
+					</center>
+				</rich:column>
+
+				<rich:column id="nombProveedor" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.nombreProveedor}"
+					sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+					<f:facet name="header">
+						<h:outputText value="Nombre Proveedor" />
+					</f:facet>
+					<center>
+						<h:outputText value="#{proc.nombreProveedor}" />
+					</center>
+				</rich:column>
+
+				<rich:column id="nroConstancia" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.numeroConstancia}"
+					sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+					<f:facet name="header">
+						<h:outputText value="Nro Constancia" />
+					</f:facet>
+					<center>
+						<h:outputText value="#{proc.numeroConstancia}" />
+					</center>
+				</rich:column>
+
+				<rich:column id="numeroCuenta" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.numeroCuenta}" sortIconAscending="dataTableAscIcon"
+					sortIconDescending="dataTableDescIcon">
+					<f:facet name="header">
+						<h:outputText value="RUC" />
+					</f:facet>
+					<center>
+						<h:outputText value="#{proc.ruc}" />
+					</center>
+				</rich:column>
+				<rich:column id="centroCostos" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.centroCosto}" sortIconAscending="dataTableAscIcon"
+					sortIconDescending="dataTableDescIcon">
+					<f:facet name="header">
+						<h:outputText value="Centro de Costos" />
+					</f:facet>
+					<center>
+						<h:outputText value="#{proc.centroCosto}" />
+					</center>
+				</rich:column>
+
+				<rich:column id="socioProducto" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.socioProducto}" sortIconAscending="dataTableAscIcon"
+					sortIconDescending="dataTableDescIcon">
+					<f:facet name="header">
+						<h:outputText value="Socio Producto" />
+					</f:facet>
+					<center>
+						<h:outputText value="#{proc.socioProducto}" />
+					</center>
+				</rich:column>
+
+				<rich:column id="referencia" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.referencia}" sortIconAscending="dataTableAscIcon"
+					sortIconDescending="dataTableDescIcon">
+					<f:facet name="header">
+						<h:outputText value="Referencia" />
+					</f:facet>
+					<center>
+						<h:outputText value="#{proc.referencia}" />
+					</center>
+				</rich:column>
+				<rich:column id="impTransaccionAmount" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.impTransaccionAmount}"
+					sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+					<f:facet name="header">
+						<h:outputText value="impTransaccionAmount" />
+					</f:facet>
+					<center>
+						<h:outputText value="#{proc.impTransaccionAmount}" />
+					</center>
+				</rich:column>
+				<rich:column id="impSoles" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.impSoles}" sortIconAscending="dataTableAscIcon"
+					sortIconDescending="dataTableDescIcon">
+					<f:facet name="header">
+						<h:outputText value="impSoles" />
+					</f:facet>
+					<center>
+						<h:outputText value="#{proc.impSoles}" />
+					</center>
+				</rich:column>
+				<rich:column style="text-align: center;" styleClass="taskCheckBoxWidth" headerClass="dataTableHeader" sortable="true"
+					sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon" sortBy="#{proc.flagPago}">
+					<f:facet name="header">
+						<h:outputText value="Marcador de pago provision " />
+					</f:facet>
+					<center>
+						<h:selectBooleanCheckbox value="#{proc.bFlagPago}" valueChangeListener="#{consultarPagosController.editarReg}">
+							<a4j:support event="onchange" />
+						</h:selectBooleanCheckbox>
+					</center>
+
+				</rich:column>
+				<!-- <rich:column>
+                <a4j:commandLink styleClass="no-decor" render="editGrid" execute="@this" action ="#{consultarPagosController.actualizar}"
+                    oncomplete="#{rich:component('panelRegistroContable')}.show()">
+                    <h:graphicImage value="/imagenes/edit.gif" alt="edit" />
+                    <f:setPropertyActionListener target="#{consultarPagosController.beanEditable}" value="#{proc}" /> 
+                </a4j:commandLink>
+            </rich:column> -->
+			</rich:extendedDataTable>
+		</fieldset>
+		<fieldset>
+			<table>
+				<tr>
+					<td colspan="1"></td>
+					<td style="width: 643px;"></td>
+					<td><a4j:commandButton id="btnProcesar" action="#{consultarPagosController.obtenerAsiento}" style="width:125px"
+							oncomplete="#{rich:component('panelAsientoContable')}.show()" value="Procesar Asientos" reRender="listaAsientoContable" /></td>
+				</tr>
+			</table>
+		</fieldset>
+
+	</h:form>
+	<rich:modalPanel id="panelRegistroContable" autosized="true">
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/imagenes/close.gif" styleClass="hidelink" id="hidelink2" />
+				<rich:componentControl for="panelRegistroContable" attachTo="hidelink2" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<h:form>
+			<a4j:region>
+				<a4j:include viewId="/paginas/contabilidad/manRegistroContable.xhtml" />
+			</a4j:region>
+		</h:form>
+	</rich:modalPanel>
+
+
+	<rich:modalPanel id="panelAsientoContable" autosized="true">
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/imagenes/close.gif" styleClass="hidelink" id="hidelink" />
+				<rich:componentControl for="panelAsientoContable" attachTo="hidelink" operation="hide" event="onclick"
+					action="#{consultarPagosController.retornarAsientos}" />
+			</h:panelGroup>
+		</f:facet>
+		<h:form>
+			<a4j:region>
+				<a4j:include viewId="/paginas/contabilidad/manAsientosContables.xhtml" />
+			</a4j:region>
+		</h:form>
+	</rich:modalPanel>
+	<!-- <rich:messages></rich:messages> -->
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<a4j:keepAlive beanName="postVentaSOATController" />
+	
+	<head>
+		<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+		<style type="text/css">
+			body, html {
+				font-family: Monaco, Georgia, Times, serif;
+			}
+			
+			#panelPrincipal {
+				text-align: left;
+			}
+			
+			#imgReiniciar {
+				width: 12px;
+				height: 12px;
+				margin: 0;
+				padding: 0;
+			}
+			
+			.reiniciarLink {
+				text-decoration: none;
+				margin-left: 10px;
+				display: inline;
+			}
+			
+			#formPostVentaSOATPrincipal {
+				width: 97%;
+				margin: 0 auto;
+			}
+			
+			.datatable {
+				padding-top: 25px;
+			}
+			
+			.extendedDTableContenido {
+				scrollbar-base-color: #3d8a3d; 
+				border: 0px solid white;
+				overflow-x: scroll;
+				width: 1020px;
+			}
+			
+			.separatorLine {
+				width: 100%; 
+				border-top: 1px solid #C0C0C0; 
+				margin: 5px 0;
+			}
+			
+			.separatorLine2 {
+				width: 100%; 
+				border-top: 1px solid #C0C0C0; 
+				margin: 12px 0;
+			}
+		</style>
+	</head>
+	<body>
+		<rich:panel id="panelPrincipal">
+			<f:facet name="header">
+				<h:form>
+					<h:outputText id="tituloCabecera" value=" Suscripción > Consulta Post Venta #{postVentaSOATController.tituloCabecera}" />
+					<a4j:commandLink id="reiniciar" action="#{postVentaSOATController.inicio}" reRender="principal" styleClass="reiniciarLink">
+						<img id="imgReiniciar" src="#{facesContext.externalContext.requestContextPath}/imagenes/refresh.png" />
+					</a4j:commandLink>
+				</h:form>
+			</f:facet>
+			<center>
+				<fieldset id="formPostVentaSOATPrincipal">
+					<h:panelGrid id="panelStep1" columns="1" style="display: #{postVentaSOATController.panelStep1Flag ? 'block' : 'none'};">
+						<ui:include src="../suscripcion/postVentaSOATModSuscripcionStep1.xhtml" />
+					</h:panelGrid>
+					<h:panelGrid id="panelStep2" columns="1" style="display: #{postVentaSOATController.panelStep2Flag ? 'block' : 'none'};">
+						<ui:include src="../suscripcion/postVentaSOATModSuscripcionStep2.xhtml" />
+					</h:panelGrid>
+				</fieldset>
+			</center>
+		</rich:panel>
+	</body>
+</html>

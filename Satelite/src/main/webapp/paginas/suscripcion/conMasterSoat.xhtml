@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<a4j:keepAlive beanName="conMasterSOATController" />
+	
+	<head>
+		<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+		<style type="text/css">
+			body, html {
+				font-family: Monaco, Georgia, Times, serif;
+			}
+			
+			#panelPrincipal {
+				text-align: left;
+			}
+			
+			#imgReiniciar {
+				width: 12px;
+				height: 12px;
+				margin: 0;
+				padding: 0;
+			}
+			
+			#formConMasterSOAT {
+				width: 97%;
+				margin: 0 auto;
+			}
+			
+			.datatable {
+				padding-top: 10px;
+			}
+			
+			.extendedDTableContenido {
+				scrollbar-base-color: #3d8a3d; 
+				border: 0px solid white;
+				overflow-x: scroll;
+				width: 1020px;
+			}
+			
+			.contadorRegistros {
+				text-align: center;
+				padding-top: 15px;
+				margin: auto;
+				font-weight:bold;
+			}
+		</style>
+	</head>
+	<body>
+		<rich:panel id="panelPrincipal">
+			<f:facet name="header">
+				<h:form>
+					<h:outputText id="tituloCabecera" value="Suscripción > Consulta Master SOAT" />
+					<a4j:commandLink id="reiniciar"	action="#{conMasterSOATController.inicio}" reRender="principal" style="text-decoration: none; margin-left: 10px; display: inline;">
+						<img id="imgReiniciar" src="#{facesContext.externalContext.requestContextPath}/imagenes/refresh.png" />
+					</a4j:commandLink>
+				</h:form>
+			</f:facet>
+			<center>
+				<fieldset id="formConMasterSOAT">
+					<h:form>
+						<div style="text-align: center;">
+							<table style="width: 100%; margin: auto; padding: 15px 0px 35px;" border="0">
+								<tr>
+									<td style="text-align: right; width: 8%;">
+										<h:outputText value="Socio: " />
+									</td>					
+									<td style="text-align: left; width: 18%;">
+										<h:selectOneMenu id="idSocio" value="#{conMasterSOATController.idSocio}" style=" width:150px;">
+											<f:selectItems value="#{conMasterSOATController.comboListaSocios}" />
+										</h:selectOneMenu>
+									</td>
+									<td style="text-align: right; width: 10%;">
+										<h:outputText value="Fecha Ini. Vigencia: " />								
+									</td>
+									<td style="text-align: left; width: 18%;">
+										<rich:calendar id="fecIniVigencia" enableManualInput="false" showWeeksBar="false" datePattern="yyyy-MM-dd"
+											value="#{conMasterSOATController.fecIniVigencia}" inputStyle="width: 126px;">
+										</rich:calendar>
+									</td>
+									<td style="text-align: right; width: 8%;">
+										<h:outputText value="Fecha Carga: " />								
+									</td>
+									<td style="text-align: left; width: 20%;">
+										<rich:calendar id="fecCarga" enableManualInput="false" showWeeksBar="false" datePattern="yyyy-MM-dd"
+											value="#{conMasterSOATController.fecCarga}" inputStyle="width: 126px;">
+										</rich:calendar>
+									</td>
+									<td style="text-align: left;">
+										<a4j:commandButton action="#{conMasterSOATController.procesarBusqueda}" value="Buscar" 
+											render="true" reRender="pnlLista, nroRegistros" />
+									</td>
+								</tr>
+							</table>
+						</div>
+						
+						<div class="datatable">
+							<rich:panel id="pnlLista" style="width: 98%;">
+								<div class="extendedDTableContenido">
+									<rich:extendedDataTable id="lista" var="itemCabTramaMaster" value="#{conMasterSOATController.listaCabTramaMaster}" width="1200px" height="400px"
+										selectionMode="single" rows="10" keppSaved="false">
+										<rich:column headerClass="dataTableHeader" width="16%" sortable="true" sortBy="#{itemCabTramaMaster.labelSocio}"
+											sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+											<f:facet name="header">
+												<h:outputText value="Socio" />
+											</f:facet>
+											<center>
+												<h:outputText value="#{itemCabTramaMaster.labelSocio}" />
+											</center>
+										</rich:column>
+										<rich:column headerClass="dataTableHeader" width="13%" sortable="true" sortBy="#{itemCabTramaMaster.fechaInicio}"
+											sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+											<f:facet name="header">
+												<h:outputText value="Fec. Inicio Vigencia" />
+											</f:facet>
+											<center>
+												<h:outputText value="#{itemCabTramaMaster.fechaInicio}">
+													<f:convertDateTime pattern="yyyy-MM-dd"/>
+												</h:outputText>
+											</center>
+										</rich:column>
+										<rich:column headerClass="dataTableHeader" width="13%" sortable="true" sortBy="#{itemCabTramaMaster.fechaFin}"
+											sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+											<f:facet name="header">
+												<h:outputText value="Fec. Fin Vigencia" />
+											</f:facet>
+											<center>
+												<h:outputText value="#{itemCabTramaMaster.fechaFin}">
+													<f:convertDateTime pattern="yyyy-MM-dd"/>
+												</h:outputText>
+											</center>
+										</rich:column>
+										<rich:column headerClass="dataTableHeader" width="15%" sortable="true" sortBy="#{itemCabTramaMaster.fechaCreacion}"
+											sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+											<f:facet name="header">
+												<h:outputText value="Fecha Carga" />
+											</f:facet>
+											<center>
+												<h:outputText value="#{itemCabTramaMaster.fechaCreacion}">
+													<f:convertDateTime pattern="yyyy-MM-dd hh:mm:ss"/>
+												</h:outputText>
+											</center>
+										</rich:column>
+										<rich:column headerClass="dataTableHeader" width="12%" sortable="true" sortBy="#{itemCabTramaMaster.usuarioCreacion}"
+											sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+											<f:facet name="header">
+												<h:outputText value="Usuario Carga" />
+											</f:facet>
+											<center>
+												<h:outputText value="#{itemCabTramaMaster.usuarioCreacion}" />
+											</center>
+										</rich:column>
+										<rich:column headerClass="dataTableHeader" width="11%" sortable="true" sortBy="#{itemCabTramaMaster.numRegistros}" 
+											sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+											<f:facet name="header">
+												<h:outputText value="Nro. Registros" />
+											</f:facet>
+											<center>
+												<h:outputText value="#{itemCabTramaMaster.numRegistros}"/>
+											</center>
+										</rich:column>
+										<rich:column headerClass="dataTableHeader" width="11%" sortable="true" sortBy="#{itemCabTramaMaster.estadoMaster}"
+											sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+											<f:facet name="header">
+												<h:outputText value="Estado" />
+											</f:facet>
+											<center>
+												<h:outputText value="#{itemCabTramaMaster.estadoMaster}" />
+											</center>
+										</rich:column>
+										<rich:column headerClass="dataTableHeader" width="9%" sortable="true" sortBy="#{itemPolizasParaLote.nombreProducto}"
+											sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+											<f:facet name="header">
+												<h:outputText value="Acciones" />
+											</f:facet>
+											<center>
+												<h:commandLink action="#{conMasterSOATController.exportarDetalleMasterSOAT}" value="Exportar Detalle" >	
+												<f:param name="idMasterEXP"  value="#{itemCabTramaMaster.idMaster}" />
+												</h:commandLink>										
+											</center>
+										</rich:column>
+										<f:facet name="footer">
+											<rich:datascroller id="dsLista" rows="10" for="lista" />
+										</f:facet>
+									</rich:extendedDataTable>
+								</div>
+								<div class="contadorRegistros">
+									<h:outputText id="nroRegistros" value="N° de Registros encontrados: #{conMasterSOATController.numeroCargaMaster}" />
+								</div>
+							</rich:panel>
+						</div>
+					</h:form>
+				</fieldset>
+			</center>
+		</rich:panel>						
+	</body>
+</html>

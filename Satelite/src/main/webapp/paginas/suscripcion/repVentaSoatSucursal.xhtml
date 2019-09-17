@@ -1,0 +1,218 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+<a4j:keepAlive beanName="repVentaSoatSucursalController" />
+
+<style type="text/css">
+.ipt {
+	/* 	margin: 0px 8px 0px 8px; */
+	padding: 0px;
+	width: 186px;
+}
+
+.boton {
+	font-size: 10px;
+	font-family: Verdana, Helvetica;
+	font-weight: bold;
+	color: white;
+	background: #638cb5;
+	border: 0px;
+	width: 80px;
+	height: 19px;
+}
+
+.extdt-menu-div-on {
+	display: none;
+}
+
+.custom-input-file .input-file {
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	font-size: 10000px;
+	border: 10000px solid transparent;
+	opacity: 0;
+	filter: alpha(opacity =   0);
+	position: absolute;
+	right: -1000px;
+	top: -1000px;
+	cursor: pointer;
+}
+</style>
+<head>
+</head>
+<body>
+	<h:form>
+
+		<rich:panel id="palista" height="100%">
+			<f:facet name="header">
+				<h:outputText value="Suscripcion > SOAT > Reporte de Ventas Soat Sucursal" />
+			</f:facet>
+
+			<fieldset>
+				<legend>Filtros</legend>
+
+
+				<table>
+					<tr>
+						<td width="200" align="right" colspan="2"><h:outputText style="font-size:11px;" value="Socio" /></td>
+
+						<td align="left" width="200"><h:selectOneMenu id="socio" value="#{repVentaSoatSucursalController.socio}" style=" width : 180px;"
+								valueChangeListener="#{repVentaSoatSucursalController.buscarSucursal}" required="true" requiredMessage="">
+								<f:selectItems value="#{repVentaSoatSucursalController.listaSocioItem}" />
+
+								<a4j:support event="onchange" ajaxOnly="true" reRender="sucursal" />
+							</h:selectOneMenu> <rich:message for="socio" style="color: red;">
+								<f:facet name="errorMarker">
+									<h:graphicImage url="../imagenes/error.png" />
+								</f:facet>
+							</rich:message></td>
+
+						<td width="40"><h:outputText style="font-size:11px;" value="Sucursal" /></td>
+						<td width="200"><h:selectOneMenu id="sucursal" value="#{repVentaSoatSucursalController.sucursal}" style=" width : 200px;"
+								valueChangeListener="#{repVentaSoatSucursalController.procesarSucursal}">
+								<f:selectItems value="#{repVentaSoatSucursalController.listaSucursalItem}" />
+								<a4j:support event="onchange" ajaxOnly="true" />
+							</h:selectOneMenu></td>
+
+					</tr>
+				</table>
+				<br></br>
+				<table>
+					<tr>
+						<td align="right" width="200"><h:outputText style="font-size:11px;" value="Fecha de Venta: Desde" /></td>
+						<td width="185"><rich:calendar id="desde" style=" width : 140px;" enableManualInput="false" datePattern="dd/MM/yyyy"
+								value="#{repVentaSoatSucursalController.fecDesde}" showWeeksBar="false" required="true" requiredMessage="">
+							</rich:calendar> <rich:message for="desde" style="color: red;">
+								<f:facet name="errorMarker">
+									<h:graphicImage url="../imagenes/error.png" />
+								</f:facet>
+							</rich:message></td>
+						<td align="right" width="60"><h:outputText style="font-size:11px;" value="Hasta" /></td>
+
+						<td width="350" colspan="3"><rich:calendar id="hasta" style=" width : 140px;" enableManualInput="false" datePattern="dd/MM/yyyy"
+								value="#{repVentaSoatSucursalController.fecHasta}" showWeeksBar="false" required="true" requiredMessage="">
+							</rich:calendar> <rich:message for="hasta" style="color: red;">
+								<f:facet name="errorMarker">
+									<h:graphicImage url="../imagenes/error.png" />
+								</f:facet>
+							</rich:message></td>
+
+						<td><a4j:commandButton id="btnConsultar" reRender="listaReporte" value="Consultar" style=" width : 117px;"
+								action="#{repVentaSoatSucursalController.consultar}" /> <rich:spacer width="18"></rich:spacer></td>
+					</tr>
+				</table>
+
+			</fieldset>
+
+			<fieldset>
+				<legend>Resultado</legend>
+
+
+				<center>
+
+					<rich:extendedDataTable id="listaReporte" var="varlista" value="#{repVentaSoatSucursalController.lista}" width="1000px" rows="15" height="400px"
+						selectionMode="none">
+
+
+						<rich:column id="fecha" width="160" sortable="false">
+							<f:facet name="header">
+								<h:outputText value="Socio" />
+							</f:facet>
+							<h:outputText value="#{varlista.dscSocio}">
+							</h:outputText>
+
+						</rich:column>
+
+						<rich:column id="monto" width="100" sortable="false">
+
+							<f:facet name="header">
+								<h:outputText value="Póliza" />
+							</f:facet>
+							<h:outputText value="#{varlista.nroPolizaPe}" />
+						</rich:column>
+
+						<rich:column id="tipDoc" width="70" sortable="false">
+							<f:facet name="header">
+								<h:outputText value="Tip. Doc." />
+							</f:facet>
+
+							<h:outputText value="#{varlista.tipoDoc}" />
+
+						</rich:column>
+
+						<rich:column id="nroDocPropietario" width="90" sortable="false">
+							<f:facet name="header">
+								<h:outputText value="Nro. Doc. Propietario" />
+							</f:facet>
+
+							<h:outputText value="#{varlista.dniPropietario}" />
+
+						</rich:column>
+
+						<rich:column id="fechaVenta" width="90" sortable="false">
+							<f:facet name="header">
+								<h:outputText value="Fec. Venta" />
+							</f:facet>
+							<h:outputText value="#{varlista.fecha}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</rich:column>
+
+						<rich:column id="fec_inicio_vig" width="90" sortable="false">
+							<f:facet name="header">
+								<h:outputText value="Fec. Inicio Vig." />
+							</f:facet>
+							<h:outputText value="#{varlista.fecVigenciaDesde}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+
+						</rich:column>
+
+						<rich:column id="cliente" width="90" sortable="false">
+							<f:facet name="header">
+								<h:outputText value="Fec. Fin Vig." />
+							</f:facet>
+							<h:outputText value="#{varlista.fecVigenciaHasta}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+
+						</rich:column>
+						<rich:column id="vendedor" width="100" sortable="false">
+							<f:facet name="header">
+								<h:outputText value="Vendedor" />
+							</f:facet>
+							<h:outputText value="#{varlista.vendedor} " />
+						</rich:column>
+						<rich:column id="cajero" width="100" sortable="false">
+							<f:facet name="header">
+								<h:outputText value="Cajero" />
+							</f:facet>
+							<h:outputText value="#{varlista.cajero} " />
+						</rich:column>
+						<rich:column id="placa" width="120" sortable="false">
+							<f:facet name="header">
+								<h:outputText value="Placa" />
+							</f:facet>
+							<h:outputText value="#{varlista.placa} " />
+						</rich:column>
+						<f:facet name="footer">
+							<rich:datascroller id="ds" for="listaReporte" maxPages="10"></rich:datascroller>
+						</f:facet>
+					</rich:extendedDataTable>
+
+
+				</center>
+			</fieldset>
+
+			<table align="center">
+				<tr>
+					<td><h:commandButton id="btnExportar" value="Exportar" style="width:125px" action="#{repVentaSoatSucursalController.exportar}">
+						</h:commandButton></td>
+				</tr>
+			</table>
+
+		</rich:panel>
+	</h:form>
+</body>
+
+</html>

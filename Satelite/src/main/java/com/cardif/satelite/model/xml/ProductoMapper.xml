@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardif.satelite.configuracion.dao.ProductoMapper">
+	
+	<resultMap id="BaseResultMap" type="com.cardif.satelite.model.Producto">
+		<id column="ID" property="id" jdbcType="NUMERIC" />
+		<result column="ID_SOCIO" property="idSocio" jdbcType="NUMERIC" />
+		<result column="NOMBRE_PRODUCTO" property="nombreProducto" jdbcType="VARCHAR" />
+		<result column="SERIE_PRODUCTO" property="serieProducto" jdbcType="VARCHAR" />
+		<result column="TRAMA_DIARIA" property="tramaDiaria" jdbcType="NUMERIC" />
+		<result column="TRAMA_MENSUAL" property="tramaMensual" jdbcType="NUMERIC" />
+		<result column="TIPO_ARCHIVO" property="tipoArchivo" jdbcType="VARCHAR" />
+		<result column="NOMBRE_CANAL" property="canal" jdbcType="VARCHAR" />
+		<result column="MOD_SUSCRIPCION" property="modSuscripcion" jdbcType="NUMERIC" />
+		<result column="MOD_IMPRESION" property="modImpresion" jdbcType="NUMERIC" />
+		<result column="ID_CANAL" property="idcanal" jdbcType="NUMERIC" />
+		<result column="SEPARADOR" property="separador" jdbcType="VARCHAR" />
+		<result column="ESTADO" property="estado" jdbcType="NUMERIC" />
+		<result column="FECHA_CREACION" property="fechaCreacion"  jdbcType="TIMESTAMP" />
+		<result column="FECHA_MODIFICACION"  property="fechaModificacion"  jdbcType="TIMESTAMP"  />
+		<result column="USUARIO_CREACION" property="usuarioCreacion"  jdbcType="VARCHAR" />
+		<result column="USUARIO_MODIFICACION"  property="usuarioModificacion"  jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="JoinResultMap" type="com.cardif.satelite.suscripcion.bean.SocioProductoBean" >
+		<result column="ID_SOCIO" property="idSocio" jdbcType="DECIMAL" />
+	    <result column="NOMBRE_SOCIO" property="nombreSocio" jdbcType="VARCHAR" />			
+		<result column="ID" property="idProducto" jdbcType="DECIMAL" />
+		<result column="NOMBRE_PRODUCTO" property="nombreProducto" jdbcType="VARCHAR" />
+		<result column="TRAMA_DIARIA" property="tramaDiaria" jdbcType="NUMERIC" />
+		<result column="TRAMA_MENSUAL" property="tramaMensual" jdbcType="NUMERIC" />
+		<result column="TIPO_ARCHIVO" property="tipoArchivo" jdbcType="VARCHAR" />
+		<result column="SEPARADOR" property="separador" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	
+	<resultMap id="TipoArchivoResultMap" type="com.cardif.satelite.suscripcion.bean.TipoArchivoBean">
+		<result	column="TIPO_ARCHIVO" property="tipoArchivo" jdbcType="VARCHAR"	/>
+	</resultMap>
+	
+	<resultMap id="ConsultaProductoSocioResultMap" type="com.cardif.satelite.moduloimpresion.bean.ConsultaProductoSocio">
+		<result column="ID" property="id" jdbcType="NUMERIC" />
+		<result column="ID_SOCIO" property="idSocio" jdbcType="NUMERIC" />
+		<result column="NOMBRE_PRODUCTO" property="nombreProducto" jdbcType="VARCHAR" />
+		<result column="NOMBRE_SOCIO" property="nombreSocio" jdbcType="VARCHAR" />
+		<result column="TRAMA_DIARIA" property="tramaDiaria" jdbcType="NUMERIC" />
+		<result column="TRAMA_MENSUAL" property="tramaMensual" jdbcType="NUMERIC" />
+		<result column="TIPO_ARCHIVO" property="tipoArchivo" jdbcType="VARCHAR" />
+		<result column="MOD_SUSCRIPCION" property="modSuscripcion" jdbcType="NUMERIC" />
+		<result column="MOD_IMPRESION" property="modImpresion" jdbcType="NUMERIC" />
+		<result column="ESTADO" property="estado" jdbcType="NUMERIC" />
+		<result column="INDICADOR_REGVENTA" property="indicadorRegVenta" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID, 
+		ID_SOCIO, 
+		NOMBRE_PRODUCTO, 
+		TRAMA_DIARIA, 
+		TRAMA_MENSUAL, 
+		TIPO_ARCHIVO, 
+		MOD_SUSCRIPCION, 
+		MOD_IMPRESION, 
+		ESTADO,
+		SEPARADOR
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from PRODUCTO
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from PRODUCTO where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	
+	<insert id="insert" parameterType="com.cardif.satelite.model.Producto">
+	
+		insert into PRODUCTO (	ID, 
+								ID_SOCIO, 
+								NOMBRE_PRODUCTO, 
+								TRAMA_DIARIA, 
+								TRAMA_MENSUAL, 
+								TIPO_ARCHIVO, 
+								MOD_SUSCRIPCION, 
+								MOD_IMPRESION,	
+								ESTADO,
+								ID_CANAL,
+								SEPARADOR,
+								FECHA_CREACION,
+								USUARIO_CREACION)
+		VALUES (				#{id,jdbcType=DECIMAL}, 
+								#{idSocio,jdbcType=DECIMAL}, 
+								#{nombreProducto,jdbcType=VARCHAR}, 
+								#{tramaDiaria,jdbcType=NUMERIC}, 
+								#{tramaMensual,jdbcType=NUMERIC},
+								#{tipoArchivo,jdbcType=VARCHAR}, 
+								#{modSuscripcion,jdbcType=NUMERIC}, 
+								#{modImpresion,jdbcType=NUMERIC}, 
+								#{estado,jdbcType=NUMERIC},
+								#{idcanal,jdbcType=NUMERIC},
+								#{separador,jdbcType=VARCHAR},
+								#{fechaCreacion,jdbcType=TIMESTAMP},
+								#{usuarioCreacion,jdbcType=VARCHAR})
+	
+	</insert>
+	
+	
+	<insert id="insertSelective" parameterType="com.cardif.satelite.model.Producto">
+		insert into PRODUCTO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="idSocio != null">
+				ID_SOCIO,
+			</if>
+			<if test="nombreProducto != null">
+				NOMBRE_PRODUCTO,
+			</if>
+			<if test="tramaDiaria != null">
+				TRAMA_DIARIA,
+			</if>
+			<if test="tramaMensual != null">
+				TRAMA_MENSUAL,
+			</if>
+			<if test="tipoArchivo != null">
+				TIPO_ARCHIVO,
+			</if>
+			<if test="modSuscripcion != null">
+				MOD_SUSCRIPCION,
+			</if>
+			<if test="modImpresion != null">
+				MOD_IMPRESION,
+			</if>
+			<if test="estado != null">
+				ESTADO,
+			</if>
+			<if test="fechaCreacion != null">
+				FECHA_CREACION,
+			</if>
+			<if test="fechaModificacion != null">
+				FECHA_MODIFICACION,
+			</if>
+			<if test="usuarioCreacion != null">
+				USUARIO_CREACION,
+			</if>
+			<if test="usuarioModificacion != null">
+				USUARIO_MODIFICACION,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+			</if>
+			<if test="idSocio != null">
+				#{idSocio,jdbcType=DECIMAL},
+			</if>
+			<if test="nombreProducto != null">
+				#{nombreProducto,jdbcType=VARCHAR},
+			</if>
+			<if test="tramaDiaria != null">
+				#{tramaDiaria,jdbcType=NUMERIC},
+			</if>
+			<if test="tramaMensual != null">
+				#{tramaMensual,jdbcType=NUMERIC},
+			</if>
+			<if test="tipoArchivo != null">
+				#{tipoArchivo,jdbcType=VARCHAR},
+			</if>
+			<if test="modSuscripcion != null">
+				#{modSuscripcion,jdbcType=NUMERIC},
+			</if>
+			<if test="modImpresion != null">
+				#{modImpresion,jdbcType=NUMERIC},
+			</if>
+			<if test="estado != null">
+				#{estado,jdbcType=NUMERIC},
+			</if>
+			<if test="fechaCreacion != null">
+				#{fechaCreacion,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fechaModificacion != null">
+				#{fechaModificacion,jdbcType=TIMESTAMP},
+			</if>
+			<if test="usuarioCreacion != null">
+				#{usuarioCreacion,jdbcType=VARCHAR},
+			</if>
+			<if test="usuarioModificacion != null">
+				#{usuarioModificacion,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.cardif.satelite.model.Producto">
+		update PRODUCTO
+		<set>
+			<if test="idSocio != null">
+				ID_SOCIO = #{idSocio,jdbcType=DECIMAL},
+			</if>
+			<if test="nombreProducto != null">
+				NOMBRE_PRODUCTO = #{nombreProducto,jdbcType=VARCHAR},
+			</if>
+			<if test="tramaDiaria != null">
+				TRAMA_DIARIA = #{tramaDiaria,jdbcType=NUMERIC},
+			</if>
+			<if test="tramaMensual != null">
+				TRAMA_MENSUAL = #{tramaMensual,jdbcType=NUMERIC},
+			</if>
+			<if test="tipoArchivo != null">
+				TIPO_ARCHIVO = #{tipoArchivo,jdbcType=VARCHAR},
+			</if>
+			<if test="modSuscripcion != null">
+				MOD_SUSCRIPCION = #{modSuscripcion,jdbcType=NUMERIC},
+			</if>
+			<if test="modImpresion != null">
+				MOD_IMPRESION = #{modImpresion,jdbcType=NUMERIC},
+			</if>
+			<if test="estado != null">
+				ESTADO = #{estado,jdbcType=NUMERIC},
+			</if>
+			<if test="idcanal != null">
+				ID_CANAL = #{idcanal,jdbcType=NUMERIC},
+			</if>
+			<if test="separador != null">
+				SEPARADOR = #{separador,jdbcType=VARCHAR},
+			</if>
+			<if test="fechaCreacion != null">
+				FECHA_CREACION = #{fechaCreacion,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fechaModificacion != null">
+				FECHA_MODIFICACION = #{fechaModificacion,jdbcType=TIMESTAMP},
+			</if>
+			<if test="usuarioCreacion != null">
+				USUARIO_CREACION = #{usuarioCreacion,jdbcType=VARCHAR},
+			</if>
+			<if test="usuarioModificacion != null">
+				USUARIO_MODIFICACION = #{usuarioModificacion,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+			
+	<update id="updateByPrimaryKey" parameterType="com.cardif.satelite.model.Producto">
+		update PRODUCTO 
+		set ID_SOCIO = #{idSocio,jdbcType=DECIMAL}, 
+			NOMBRE_PRODUCTO = #{nombreProducto,jdbcType=VARCHAR}, 
+			TRAMA_DIARIA = #{tramaDiaria,jdbcType=NUMERIC}, 
+			TRAMA_MENSUAL = #{tramaMensual,jdbcType=NUMERIC}, 
+			TIPO_ARCHIVO = #{tipoArchivo,jdbcType=VARCHAR}, 
+			MOD_SUSCRIPCION = #{modSuscripcion,jdbcType=NUMERIC}, 
+			MOD_IMPRESION = #{modImpresion,jdbcType=NUMERIC}, 
+			FECHA_MODIFICACION = #{fechaModificacion,jdbcType=TIMESTAMP},
+			USUARIO_MODIFICACION = #{usuarioModificacion,jdbcType=VARCHAR},
+			ESTADO = #{estado,jdbcType=NUMERIC} 
+			where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	
+</mapper>

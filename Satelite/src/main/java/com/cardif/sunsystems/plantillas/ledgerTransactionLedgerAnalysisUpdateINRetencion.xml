@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<SSC>
+	<SunSystemsContext>
+		<BusinessUnit>E0X</BusinessUnit>
+		<BudgetCode>A</BudgetCode>
+	</SunSystemsContext>
+	<Payload>
+		<LedgerUpdate>
+			<JournalNumber>NRO_DIARIO</JournalNumber>
+			<Actions>
+				<GeneralDescription1>ESTADO_ASIENTO</GeneralDescription1>
+				<GeneralDescription2>NRO_CERTIFICADO</GeneralDescription2>
+			</Actions>
+		</LedgerUpdate>
+	</Payload>
+</SSC>

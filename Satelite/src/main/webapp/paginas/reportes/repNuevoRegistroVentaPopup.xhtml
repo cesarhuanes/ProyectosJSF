@@ -1,0 +1,154 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" 
+	  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jstl/core">
+	
+	<a4j:keepAlive beanName="repRegistroVentasController" />
+	<head>
+		<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+		<style type="text/css">
+			#panelPrincipal {
+				text-align: left;
+			}
+		
+			#formNuevoRegistroVentaPub {
+				width: 510px;
+				margin: 0 auto;
+			}
+			
+		</style>
+		
+
+	</head>
+	<body>
+		<h:form>
+			<rich:panel id="panelPrincipal" height="100%" reRender="lista">
+				<f:facet name="header">
+					<h:outputText value="Reportes > Registro de Ventas > Nuevo Registro Venta" />
+				</f:facet>
+				<fieldset id="formNuevoRegistroVentaPub" style="border: none;">
+					<div style="padding-top: 5px;">
+						<table style="margin: auto; width: 100%">
+							<tr>
+								<td style="width: 17%; text-align: left;">
+									<rich:message for="idSocioProductoNV" style="color: red;">
+										<f:facet name="errorMarker">
+											<h:graphicImage url="../imagenes/error.png" />
+										</f:facet>
+									</rich:message>
+									<rich:spacer width="2" /><h:outputText value="Socio: " />
+								</td>
+								<td style="width: 35%; text-align: left;">
+									<h:selectOneMenu id="idSocioProductoNV" value="#{repRegistroVentasController.idSocioProductoNV}" style="width: 150px;" 
+										required="true" requiredMessage="">
+										<f:selectItems value="#{repRegistroVentasController.comboListaSocioProductoNV}" />
+									</h:selectOneMenu>
+								</td>
+								<td style="width: 18%; text-align: left;">
+									<rich:message for="fecEmisionNV" style="color: red;">
+										<f:facet name="errorMarker"><h:graphicImage url="../imagenes/error.png" /></f:facet>
+									</rich:message>
+									<rich:spacer width="2" /><h:outputText value="Fec. Emisión: " />
+								</td>
+								<td style="text-align: left;">
+									<rich:calendar id="fecEmisionNV" enableManualInput="false" showWeeksBar="false" datePattern="yyyy-MM-dd"
+										value="#{repRegistroVentasController.fecEmisionNV}" required="true" requiredMessage="" inputStyle="width: 125px;" />
+								</td>
+							</tr>
+							<tr>
+								<td style="width: 17%; text-align: left;">
+									<rich:message for="tipoDocumentoNV" style="color: red;">
+										<f:facet name="errorMarker">
+											<h:graphicImage url="../imagenes/error.png" />
+										</f:facet>
+									</rich:message>
+									<rich:spacer width="2" /><h:outputText value="Tip. Documento: " />
+								</td>
+								<td style="width: 35%; text-align: left;">
+									<h:selectOneMenu id="tipoDocumentoNV" value="#{repRegistroVentasController.tipoDocumentoNV}" 
+									                 style="width: 150px;" required="true" requiredMessage="" 
+									                 valueChangeListener="#{repRegistroVentasController.validarSegunTipoDocumento}">
+										<f:selectItems value="#{repRegistroVentasController.comboListaTipoDocumentoNV}" />
+										<a4j:support event="onchange" reRender="nroDocumentoNV, idMsjValidarRuc" ajaxSingle="true" />
+									</h:selectOneMenu>
+								</td>
+								<td style="width: 18%; text-align: left;">
+									<rich:message for="nroDocumentoNV" style="color: red;">
+										<f:facet name="errorMarker"><h:graphicImage url="../imagenes/error.png" /></f:facet>
+									</rich:message>
+									<rich:spacer width="2" /><h:outputText value="Nro. Documento: " />
+								</td>
+								<td style="text-align: left;">
+									<h:inputText id="nroDocumentoNV" value="#{repRegistroVentasController.nroDocumentoNV}" 
+									             maxlength="#{repRegistroVentasController.longitudTipoDoc}"
+										         required="true" requiredMessage="" style="width: 145px; float: left;"
+										         onkeypress="return valNumeros(event);"	
+										       
+										          />	
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align: left;" colspan="4">
+									<rich:message for="nomRazonSocialNV" style="color: red;">
+										<f:facet name="errorMarker">
+											<h:graphicImage url="../imagenes/error.png" />
+										</f:facet>
+									</rich:message>
+									<rich:spacer width="2" /><h:outputText value="Nombres / Razón Social: " />
+									<h:inputText id="nomRazonSocialNV" value="#{repRegistroVentasController.nomRazonSocialNV}" maxlength="100" required="true" requiredMessage=""
+										style="width: 365px; float:right;" onkeypress="return valNumerosLetrasSiEspacio(event);" onkeyup="value=value.toUpperCase()"/>	
+								</td>
+							</tr>
+							<tr>
+								<td style="width: 17%; text-align: left;">
+									<rich:message for="importeTotalNV" style="color: red;">
+										<f:facet name="errorMarker">
+											<h:graphicImage url="../imagenes/error.png" />
+										</f:facet>
+									</rich:message>
+									<rich:spacer width="2" /><h:outputText value="Importe Total: " />
+								</td>
+								<td style="width: 35%; text-align: left;">
+									<h:inputText id="importeTotalNV" value="#{repRegistroVentasController.importeTotalNV}" 
+									             maxlength="10" required="true" requiredMessage="" style="width: 90px;" 
+										         onkeypress="return valDecimales(event);"	
+										         />	
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div style="color:red; text-align:center;">								
+										<h:outputText id="idMsjValidarRuc" value="#{repRegistroVentasController.msjValidarTipoDoc}"/>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align: left;" colspan="4">
+									<a4j:commandButton action="#{repRegistroVentasController.registrarNuevaVenta}" value="Registrar" style="float:right;"
+										onclick="this.disabled=true;" oncomplete="#{null == facesContext.maximumSeverity ? 'Richfaces.showModalPanel(\'panelSuccess\');this.disabled=false;' : 'this.disabled=false;'}"
+										render="true" reRender="panelSuccess, lista" />
+								</td>
+							</tr>
+						</table>
+					</div>
+				</fieldset>
+			</rich:panel>
+		</h:form>
+		
+		<rich:modalPanel id="panelSuccess" width="250" height="130">
+			<f:facet name="header">
+				<h:outputText value="Mensaje" />
+			</f:facet>
+			<h:panelGroup>
+				<center>
+					<h5>
+						<h:outputText value="Se realizo el registro de la Nueva Venta correctamente!"/>									
+					</h5>
+					<a4j:commandButton value="Aceptar" render="true" onclick="#{rich:component('panelSuccess')}.hide(); #{rich:component('panelNuevoRegistroVenta')}.hide(); return false" 
+						oncomplete="#{facesContext.maximumSeverity == null ? 'Richfaces.hideModalPanel(\'panelNuevoRegistroVenta\')' : ';'}" />
+					<rich:componentControl for="panelNuevoRegistroVenta" attachTo="hidelink" operation="hide" event="onclick" />
+				</center>
+			</h:panelGroup>
+		</rich:modalPanel>
+	</body>
+</html>

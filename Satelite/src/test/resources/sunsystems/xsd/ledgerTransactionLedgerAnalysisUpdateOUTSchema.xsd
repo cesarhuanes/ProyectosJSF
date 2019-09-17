@@ -1,0 +1,2103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema jaxb:version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb">
+	<xsd:element name="SSC">
+		<xsd:annotation>
+			<xsd:documentation>SSC</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ErrorContext" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="CompatibilityMode" type="SunSystemsCompatibilityMode" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Compatibilidad de error</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="ErrorOutput" type="SunSystemsErrorOutput" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Detalles de errores.</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="ErrorThreshold" type="SunSystemsErrorThreshold" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Umbral de errores</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="User">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Name" type="SunSystemsUserName">
+								<xsd:annotation>
+									<xsd:documentation>Nombre de usuario</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="SunSystemsContext">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="BusinessUnit" type="SunSystemsBusinessUnit">
+								<xsd:annotation>
+									<xsd:documentation>Base de datos</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="BudgetCode" type="SunSystemsBudgetCode">
+								<xsd:annotation>
+									<xsd:documentation>Código de presupuesto</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="Payload" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Payload</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="LedgerUpdate" minOccurs="0" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>Actualización de libro mayor</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="AccountCode" minOccurs="0" type="typeCódigoCuenta">
+											<xsd:annotation>
+												<xsd:documentation>Código cuenta</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AccountingPeriod" minOccurs="0" type="SunSystemsPeriod">
+											<xsd:annotation>
+												<xsd:documentation>Período contable</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AgreedStatus" minOccurs="0" type="typeEstadoAcordado">
+											<xsd:annotation>
+												<xsd:documentation>Estado acordado</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AllocatedBy" minOccurs="0" type="typeAsignadoPor">
+											<xsd:annotation>
+												<xsd:documentation>Asignado por</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AllocationCode" minOccurs="0" type="typeCódigoAsignación">
+											<xsd:annotation>
+												<xsd:documentation>Código asignación</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AllocationDate" minOccurs="0" type="SunSystemsDate">
+											<xsd:annotation>
+												<xsd:documentation>Fecha asignación</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AllocationInProgress" minOccurs="0" type="typeAsignaciónEnCurso">
+											<xsd:annotation>
+												<xsd:documentation>Asignación en curso</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AllocationMarker" minOccurs="0" type="typeMarcadorAsig">
+											<xsd:annotation>
+												<xsd:documentation>Marcador asig.</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AllocationPeriod" minOccurs="0" type="SunSystemsPeriod">
+											<xsd:annotation>
+												<xsd:documentation>Período asignación</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AllocationReference" minOccurs="0" type="typeRefAsignación">
+											<xsd:annotation>
+												<xsd:documentation>Ref. asignación</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AllocationStatements" minOccurs="0" type="typeEstadosDistribución">
+											<xsd:annotation>
+												<xsd:documentation>Estados distribución</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AllocationUser" minOccurs="0" type="typeCódigoOperador">
+											<xsd:annotation>
+												<xsd:documentation>Código operador</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AnalysisCode1" minOccurs="0" type="typeAnálisisLibroMayor1">
+											<xsd:annotation>
+												<xsd:documentation>Análisis libro mayor 1</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AnalysisCode10" minOccurs="0" type="typeAnálisisLibroMayor10">
+											<xsd:annotation>
+												<xsd:documentation>Análisis libro mayor 10</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AnalysisCode2" minOccurs="0" type="typeAnálisisLibroMayor2">
+											<xsd:annotation>
+												<xsd:documentation>Análisis libro mayor 2</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AnalysisCode3" minOccurs="0" type="typeAnálisisLibroMayor3">
+											<xsd:annotation>
+												<xsd:documentation>Análisis libro mayor 3</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AnalysisCode4" minOccurs="0" type="typeAnálisisLibroMayor4">
+											<xsd:annotation>
+												<xsd:documentation>Análisis libro mayor 4</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AnalysisCode5" minOccurs="0" type="typeAnálisisLibroMayor5">
+											<xsd:annotation>
+												<xsd:documentation>Análisis libro mayor 5</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AnalysisCode6" minOccurs="0" type="typeAnálisisLibroMayor6">
+											<xsd:annotation>
+												<xsd:documentation>Análisis libro mayor 6</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AnalysisCode7" minOccurs="0" type="typeAnálisisLibroMayor7">
+											<xsd:annotation>
+												<xsd:documentation>Análisis libro mayor 7</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AnalysisCode8" minOccurs="0" type="typeAnálisisLibroMayor8">
+											<xsd:annotation>
+												<xsd:documentation>Análisis libro mayor 8</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AnalysisCode9" minOccurs="0" type="typeAnálisisLibroMayor9">
+											<xsd:annotation>
+												<xsd:documentation>Análisis libro mayor 9</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="ApprovalsExtension" minOccurs="0" type="typeAmpliaciónAprobaciones">
+											<xsd:annotation>
+												<xsd:documentation>Ampliación aprobaciones</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AssetCode" minOccurs="0" type="typeCódigoDeActivo">
+											<xsd:annotation>
+												<xsd:documentation>Código de activo</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AssetIndicator" minOccurs="0" type="typeIndicadorActivo">
+											<xsd:annotation>
+												<xsd:documentation>Indicador activo</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AssetSubCode" minOccurs="0" type="typeSubcódigoActivo">
+											<xsd:annotation>
+												<xsd:documentation>Subcódigo activo</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AuthorisationInProgress" minOccurs="0" type="typeAutorizaciónEnCurso">
+											<xsd:annotation>
+												<xsd:documentation>Autorización en curso</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AuthorisationSetReference" minOccurs="0" type="typeRefgrupoAutorización">
+											<xsd:annotation>
+												<xsd:documentation>Ref.grupo autorización</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Base2ReportOperator" minOccurs="0" type="typeOperadorBase2inf">
+											<xsd:annotation>
+												<xsd:documentation>Operador base 2/inf.</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Base2ReportingAmount" minOccurs="0" type="typeImpBase2inf">
+											<xsd:annotation>
+												<xsd:documentation>Imp. base 2/inf.</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Base2ReportingRate" minOccurs="0" type="typeTasaBase2inf">
+											<xsd:annotation>
+												<xsd:documentation>Tasa base 2/inf.</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="BaseAmount" minOccurs="0" type="typeImporteBase">
+											<xsd:annotation>
+												<xsd:documentation>Importe base</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="BaseOperator" minOccurs="0" type="typeOperadorBase">
+											<xsd:annotation>
+												<xsd:documentation>Operador base</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="BaseRate" minOccurs="0" type="typeTasaBase">
+											<xsd:annotation>
+												<xsd:documentation>Tasa base</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="BinderStatus" minOccurs="0" type="typeEstadoCuaderno">
+											<xsd:annotation>
+												<xsd:documentation>Estado cuaderno</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="CleardownSequenceNumber" minOccurs="0" type="typeNºSecuenciaEliminación">
+											<xsd:annotation>
+												<xsd:documentation>Nº secuencia eliminación</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="ConsumedBudgetId" minOccurs="0" type="typeIdPresupuestoUtilizado">
+											<xsd:annotation>
+												<xsd:documentation>Id presupuesto utilizado</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="ConversionRate" minOccurs="0" type="typeTasaMoneda">
+											<xsd:annotation>
+												<xsd:documentation>Tasa moneda</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="CurrencyCode" minOccurs="0" type="typeCódigoMonedaTransacción">
+											<xsd:annotation>
+												<xsd:documentation>Código moneda transacción</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="DebitCredit" minOccurs="0" type="typeDébitocrédito">
+											<xsd:annotation>
+												<xsd:documentation>Débito/crédito</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Description" minOccurs="0" type="typeDescripción">
+											<xsd:annotation>
+												<xsd:documentation>Descripción</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="DueDate" minOccurs="0" type="SunSystemsDate">
+											<xsd:annotation>
+												<xsd:documentation>Fecha prevista</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="EntryDate" minOccurs="0" type="SunSystemsDate">
+											<xsd:annotation>
+												<xsd:documentation>Fecha entrada</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="EntryPeriod" minOccurs="0" type="SunSystemsPeriod">
+											<xsd:annotation>
+												<xsd:documentation>Período entrada</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="ExcludeFromBalancing" minOccurs="0" type="typeExcluirDeCuadrar">
+											<xsd:annotation>
+												<xsd:documentation>Excluir de cuadrar</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="HoldDateTime" minOccurs="0" type="SunSystemsDate">
+											<xsd:annotation>
+												<xsd:documentation>Retener fecha</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="HoldText" minOccurs="0" type="typeTextoDeRetención">
+											<xsd:annotation>
+												<xsd:documentation>Texto de retención</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="InUse" minOccurs="0" type="typeEnUso">
+											<xsd:annotation>
+												<xsd:documentation>En uso</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="InUseOperatorId" minOccurs="0" type="typeIdOperadorEnUso">
+											<xsd:annotation>
+												<xsd:documentation>Id operador en uso</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="InstalmentDate" minOccurs="0" type="SunSystemsDate">
+											<xsd:annotation>
+												<xsd:documentation>Fecha plazo</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="InstalmentNumber" minOccurs="0" type="typeNºPlazo">
+											<xsd:annotation>
+												<xsd:documentation>Nº plazo</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="JournalClassCode" minOccurs="0" type="typeCódigoClaseDiario">
+											<xsd:annotation>
+												<xsd:documentation>Código clase diario</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="JournalHoldReference" minOccurs="0" type="typeRefDiariosRetenidos">
+											<xsd:annotation>
+												<xsd:documentation>Ref. diarios retenidos</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="JournalLineNumber" minOccurs="0" type="typeNºLíneaDiario">
+											<xsd:annotation>
+												<xsd:documentation>Nº línea diario</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="JournalNumber" minOccurs="0" type="typeNºDiario">
+											<xsd:annotation>
+												<xsd:documentation>Nº diario</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="JournalReversalType" minOccurs="0" type="typeTipoDiarioInvertido">
+											<xsd:annotation>
+												<xsd:documentation>Tipo diario invertido</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="JournalSource" minOccurs="0" type="typeOrigenDiario">
+											<xsd:annotation>
+												<xsd:documentation>Origen diario</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="JournalType" minOccurs="0" type="typeTipoDiario">
+											<xsd:annotation>
+												<xsd:documentation>Tipo diario</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="LedgerExtensionDataOnFile" minOccurs="0" type="typeDatosAmpliaciónLMEnArch">
+											<xsd:annotation>
+												<xsd:documentation>Datos ampliación L/M en arch.</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="LinkReference1" minOccurs="0" type="typeRefVínculo1">
+											<xsd:annotation>
+												<xsd:documentation>Ref. vínculo 1</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="LinkReference2" minOccurs="0" type="typeRefVínculo2">
+											<xsd:annotation>
+												<xsd:documentation>Ref. vínculo 2</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="LinkReference3" minOccurs="0" type="typeRefVínculo3">
+											<xsd:annotation>
+												<xsd:documentation>Ref. vínculo 3</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="ManualPaymentOverride" minOccurs="0" type="typeAnulaciónPagoManual">
+											<xsd:annotation>
+												<xsd:documentation>Anulación pago manual</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="MemoAmount" minOccurs="0" type="typeImporteMemo">
+											<xsd:annotation>
+												<xsd:documentation>Importe memo</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="ModifiedAfterPostingBy" minOccurs="0" type="typeModificadoPorTrasContab">
+											<xsd:annotation>
+												<xsd:documentation>Modificado por (tras contab.)</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="ModifiedAfterPostingDate" minOccurs="0" type="SunSystemsDate">
+											<xsd:annotation>
+												<xsd:documentation>Fecha modif. (tras contab.)</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="OriginatedDate" minOccurs="0" type="SunSystemsDate">
+											<xsd:annotation>
+												<xsd:documentation>Fecha originada</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Originator" minOccurs="0" type="typeOriginadoPor">
+											<xsd:annotation>
+												<xsd:documentation>Originado por</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="PaymentAuthorisationSetRef" minOccurs="0" type="typeRefgrupoAutorizaciónPagos">
+											<xsd:annotation>
+												<xsd:documentation>Ref.grupo autorización pagos</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="PaymentReceiptReference" minOccurs="0" type="typeSelloPago">
+											<xsd:annotation>
+												<xsd:documentation>Sello pago</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="PermanentPostingDate" minOccurs="0" type="SunSystemsDate">
+											<xsd:annotation>
+												<xsd:documentation>Fecha contab.permanente</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="PermanentPostingReference" minOccurs="0" type="typeRefContabilización">
+											<xsd:annotation>
+												<xsd:documentation>Ref. contabilización</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="PostedBy" minOccurs="0" type="typeContabilizaciónDefinitivaPor">
+											<xsd:annotation>
+												<xsd:documentation>Contabilización definitiva por</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="PrincipalRequired" minOccurs="0" type="typePrincipalRequerido">
+											<xsd:annotation>
+												<xsd:documentation>Principal requerido</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="ProvisionalPostingStatus" minOccurs="0" type="typeEstadoContabProvisional">
+											<xsd:annotation>
+												<xsd:documentation>Estado contab. provisional</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="RevaluationLinkReference" minOccurs="0" type="typeRefVínculoRevaluación">
+											<xsd:annotation>
+												<xsd:documentation>Ref. vínculo revaluación</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="RevaluationTransaction" minOccurs="0" type="typeTransacciónRevaluación">
+											<xsd:annotation>
+												<xsd:documentation>Transacción revaluación</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="ReverseNextPeriod" minOccurs="0" type="typeInvertirPeríodoSiguiente">
+											<xsd:annotation>
+												<xsd:documentation>Invertir período siguiente</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="SavedSetNumber" minOccurs="0" type="typeNºGrupoGuardado">
+											<xsd:annotation>
+												<xsd:documentation>Nº grupo guardado</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="SigningDetails" minOccurs="0" type="typeDetallesFirma">
+											<xsd:annotation>
+												<xsd:documentation>Detalles firma</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="SplitInProgress" minOccurs="0" type="typeDivisiónEnCurso">
+											<xsd:annotation>
+												<xsd:documentation>División en curso</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="SplitLinkReference" minOccurs="0" type="typeRefVínculoDivisión">
+											<xsd:annotation>
+												<xsd:documentation>Ref. vínculo división</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="SplitOriginalLine" minOccurs="0" type="typeDividirLíneaOriginal">
+											<xsd:annotation>
+												<xsd:documentation>Dividir línea original</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="SupplementaryExtension" minOccurs="0" type="typeAmpliaciónAdicional">
+											<xsd:annotation>
+												<xsd:documentation>Ampliación adicional</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="TransactionAmount" minOccurs="0" type="typeImporteTrans">
+											<xsd:annotation>
+												<xsd:documentation>Importe trans.</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="TransactionAmountDecimalPlaces" minOccurs="0" type="typeDecimalesImporteTransacción">
+											<xsd:annotation>
+												<xsd:documentation>Decimales importe transacción</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="TransactionDate" minOccurs="0" type="SunSystemsDate">
+											<xsd:annotation>
+												<xsd:documentation>Fecha transacción</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="TransactionOperator" minOccurs="0" type="typeOperadorTransacción">
+											<xsd:annotation>
+												<xsd:documentation>Operador transacción</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="TransactionReference" minOccurs="0" type="typeReftransacción">
+											<xsd:annotation>
+												<xsd:documentation>Ref.transacción</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="TrueRated" minOccurs="0" type="typeConTasaFija">
+											<xsd:annotation>
+												<xsd:documentation>Con tasa fija</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Value4Amount" minOccurs="0" type="typeImporte4ªMoneda">
+											<xsd:annotation>
+												<xsd:documentation>Importe 4ª moneda</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Value4CurrencyCode" minOccurs="0" type="typeCódigo4ªMoneda">
+											<xsd:annotation>
+												<xsd:documentation>Código 4ª moneda</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Value4DecimalPlaces" minOccurs="0" type="typeDecimales4ªMoneda">
+											<xsd:annotation>
+												<xsd:documentation>Decimales 4ª moneda</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Value4Operator" minOccurs="0" type="typeOperador4ªMoneda">
+											<xsd:annotation>
+												<xsd:documentation>Operador 4ª moneda</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Value4Rate" minOccurs="0" type="typeTasaConversión4ªMoneda">
+											<xsd:annotation>
+												<xsd:documentation>Tasa conversión 4ª moneda</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Value5Amount" minOccurs="0" type="typeImporte5ªMoneda">
+											<xsd:annotation>
+												<xsd:documentation>Importe 5ª moneda</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Value5CurrencyCode" minOccurs="0" type="typeCódigo5ªMoneda">
+											<xsd:annotation>
+												<xsd:documentation>Código 5ª moneda</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Value5DecimalPlaces" minOccurs="0" type="typeDecimales5ªMoneda">
+											<xsd:annotation>
+												<xsd:documentation>Decimales 5ª moneda</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Value5Operator" minOccurs="0" type="typeOperador5ªMoneda">
+											<xsd:annotation>
+												<xsd:documentation>Operador 5ª moneda</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Value5Rate" minOccurs="0" type="typeTasaConversión5ªMoneda">
+											<xsd:annotation>
+												<xsd:documentation>Tasa conversión 5ª moneda</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="ValueDate" minOccurs="0" type="SunSystemsDate">
+											<xsd:annotation>
+												<xsd:documentation>Fecha del valor</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="VoucherNumber" minOccurs="0" type="typeSegundaReferencia">
+											<xsd:annotation>
+												<xsd:documentation>Segunda referencia</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AccountRange" minOccurs="0" maxOccurs="unbounded">
+											<xsd:annotation>
+												<xsd:documentation>Contiene etiquetas para especificar cuentas</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element name="AccountCodeFrom" minOccurs="0" type="SunSystemsString">
+														<xsd:annotation>
+															<xsd:documentation>Código de cuenta - De</xsd:documentation>
+														</xsd:annotation>
+													</xsd:element>
+													<xsd:element name="AccountCodeTo" minOccurs="0" type="SunSystemsString">
+														<xsd:annotation>
+															<xsd:documentation>Código de cuenta - A</xsd:documentation>
+														</xsd:annotation>
+													</xsd:element>
+												</xsd:sequence>
+												<xsd:attributeGroup ref="OutputLog" />
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="Actions" minOccurs="0" maxOccurs="unbounded">
+											<xsd:annotation>
+												<xsd:documentation>Contiene etiquetas para las acciones a realizar.</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element name="AnalysisCode1" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="AnalysisCode10" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="AnalysisCode2" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="AnalysisCode3" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="AnalysisCode4" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="AnalysisCode5" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="AnalysisCode6" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="AnalysisCode7" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="AnalysisCode8" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="AnalysisCode9" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="ControlTotal" minOccurs="0" type="SunSystemsDecimal" />
+													<xsd:element name="DebitCredit" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="Description" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDate1" minOccurs="0" type="SunSystemsDateTime" />
+													<xsd:element name="GeneralDate2" minOccurs="0" type="SunSystemsDateTime" />
+													<xsd:element name="GeneralDate3" minOccurs="0" type="SunSystemsDateTime" />
+													<xsd:element name="GeneralDate4" minOccurs="0" type="SunSystemsDateTime" />
+													<xsd:element name="GeneralDate5" minOccurs="0" type="SunSystemsDateTime" />
+													<xsd:element name="GeneralDescription1" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription10" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription11" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription12" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription13" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription14" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription15" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription16" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription17" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription18" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription19" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription2" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription20" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription21" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription22" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription23" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription24" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription25" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription3" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription4" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription5" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription6" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription7" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription8" minOccurs="0" type="SunSystemsString" />
+													<xsd:element name="GeneralDescription9" minOccurs="0" type="SunSystemsString" />
+												</xsd:sequence>
+												<xsd:attributeGroup ref="OutputLog" />
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="Messages" minOccurs="0">
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element name="Message" minOccurs="0" maxOccurs="unbounded">
+														<xsd:complexType>
+															<xsd:sequence>
+																<xsd:element name="Exception" type="xsd:string" minOccurs="0" />
+																<xsd:element name="UserText" type="xsd:string" minOccurs="0" />
+																<xsd:element name="Application" minOccurs="0">
+																	<xsd:complexType>
+																		<xsd:sequence>
+																			<xsd:element name="Component" type="xsd:string" minOccurs="0" />
+																			<xsd:element name="DataItem" type="xsd:string" minOccurs="0" />
+																			<xsd:element name="Driver" type="xsd:string" minOccurs="0" />
+																			<xsd:element name="Item" type="xsd:string" minOccurs="0" />
+																			<xsd:element name="LastMethod" type="xsd:string" minOccurs="0" />
+																			<xsd:element name="Message" type="xsd:string" minOccurs="0" />
+																			<xsd:element name="MessageNumber" type="xsd:string" minOccurs="0" />
+																			<xsd:element name="Method" type="xsd:string" minOccurs="0" />
+																			<xsd:element name="Type" type="xsd:string" minOccurs="0" />
+																			<xsd:element name="Value" type="xsd:string" minOccurs="0" />
+																			<xsd:element name="Version" type="xsd:string" minOccurs="0" />
+																		</xsd:sequence>
+																	</xsd:complexType>
+																</xsd:element>
+															</xsd:sequence>
+															<xsd:attributeGroup ref="MessageAttributes" />
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+									<xsd:attributeGroup ref="OutputLog" />
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="ErrorMessages" type="ErrorMessages" minOccurs="0" />
+			</xsd:sequence>
+			<xsd:attribute name="SequenceID" type="xsd:string" use="optional" />
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ErrorMessages">
+		<xsd:sequence>
+			<xsd:element name="Message" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="PayloadRef" type="xsd:unsignedInt" minOccurs="0" />
+						<xsd:element name="UserText" type="xsd:string" minOccurs="0" />
+						<xsd:element name="Exception" type="xsd:string" minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="Status">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="success" />
+			<xsd:enumeration value="fail" />
+			<xsd:enumeration value="partial" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:attributeGroup name="OutputLog">
+		<xsd:attribute name="status" type="Status">
+			<xsd:annotation>
+				<xsd:appinfo>
+					<jaxb:property name="internalSSCTypestatus" />
+				</xsd:appinfo>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="rejected" type="xsd:boolean">
+			<xsd:annotation>
+				<xsd:appinfo>
+					<jaxb:property name="internalSSCTyperejected" />
+				</xsd:appinfo>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="Reference" type="xsd:unsignedInt">
+			<xsd:annotation>
+				<xsd:appinfo>
+					<jaxb:property name="internalSSCTypeReference" />
+				</xsd:appinfo>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:attributeGroup>
+	<xsd:simpleType name="Level">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="warning" />
+			<xsd:enumeration value="error" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:attributeGroup name="MessageAttributes">
+		<xsd:attribute name="Level" type="Level">
+			<xsd:annotation>
+				<xsd:appinfo>
+					<jaxb:property name="internalSSCTypeLevel" />
+				</xsd:appinfo>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="Reference" type="xsd:unsignedInt">
+			<xsd:annotation>
+				<xsd:appinfo>
+					<jaxb:property name="internalSSCTypeReference" />
+				</xsd:appinfo>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:attributeGroup>
+	<xsd:simpleType name="SunSystemsUserName">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[A-Z0-9]{1,3}" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SunSystemsCompatibilityMode">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0">
+				<xsd:annotation>
+					<xsd:documentation>Off</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="1">
+				<xsd:annotation>
+					<xsd:documentation>On</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SunSystemsErrorOutput">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0">
+				<xsd:annotation>
+					<xsd:documentation>Limited</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="1">
+				<xsd:annotation>
+					<xsd:documentation>Normal</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="2">
+				<xsd:annotation>
+					<xsd:documentation>Extended</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="3">
+				<xsd:annotation>
+					<xsd:documentation>Debug</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SunSystemsErrorThreshold">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0">
+				<xsd:annotation>
+					<xsd:documentation>Warning</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="1">
+				<xsd:annotation>
+					<xsd:documentation>Error</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SunSystemsBusinessUnit">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[A-Z][A-Z0-9]{0,2}" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SunSystemsDataSource">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="32" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SunSystemsBudgetCode">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[A-K]{1}" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="SunSystemsString">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attributeGroup ref="OutputLog" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="SunSystemsDecimal">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:decimal">
+				<xsd:attributeGroup ref="OutputLog" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="SunSystemsDate">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:pattern value="(([0-2][0-9]|3[01])(0[1-9]|1[0-2])[0-9][0-9][0-9][0-9])?" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="SunSystemsDateTime">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:pattern value="(([0-2][0-9]|3[01])(0[1-9]|1[0-2])[0-9][0-9][0-9][0-9]([01][0-9]|2[0-3])[0-5][0-9])?" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="SunSystemsPeriod">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:pattern value="([0-9]{5}([0-9]{2})?)?" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeAmpliaciónAdicional">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="0">
+					<xsd:annotation>
+						<xsd:documentation>No</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="1">
+					<xsd:annotation>
+						<xsd:documentation>Sí</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeAmpliaciónAprobaciones">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="0">
+					<xsd:annotation>
+						<xsd:documentation>No</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="1">
+					<xsd:annotation>
+						<xsd:documentation>Sí</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeAnulaciónPagoManual">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="0">
+					<xsd:annotation>
+						<xsd:documentation>No</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="1">
+					<xsd:annotation>
+						<xsd:documentation>Sí</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeAnálisisLibroMayor1">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="15" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeAnálisisLibroMayor10">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="15" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeAnálisisLibroMayor2">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="15" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeAnálisisLibroMayor3">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="15" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeAnálisisLibroMayor4">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="15" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeAnálisisLibroMayor5">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="15" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeAnálisisLibroMayor6">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="15" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeAnálisisLibroMayor7">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="15" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeAnálisisLibroMayor8">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="15" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeAnálisisLibroMayor9">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="15" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeAsignaciónEnCurso">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="1" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeAsignadoPor">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="3" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeAutorizaciónEnCurso">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="0">
+					<xsd:annotation>
+						<xsd:documentation>No</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="1">
+					<xsd:annotation>
+						<xsd:documentation>Sí</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeConTasaFija">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="0">
+					<xsd:annotation>
+						<xsd:documentation>Normal</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="1">
+					<xsd:annotation>
+						<xsd:documentation>Anticipado</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="2">
+					<xsd:annotation>
+						<xsd:documentation>Con tasa fija</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="10">
+					<xsd:annotation>
+						<xsd:documentation>Tasa fija desde normal</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="11">
+					<xsd:annotation>
+						<xsd:documentation>Tasa fija desde anticipado</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeContabilizaciónDefinitivaPor">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="3" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeCódigo4ªMoneda">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="5" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeCódigo5ªMoneda">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="5" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeCódigoAsignación">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="5" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeCódigoClaseDiario">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="15" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeCódigoCuenta">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="15" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeCódigoDeActivo">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="10" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeCódigoMonedaTransacción">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="5" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeCódigoOperador">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="3" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeDatosAmpliaciónLMEnArch">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="Y">
+					<xsd:annotation>
+						<xsd:documentation>Sí</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value=" ">
+					<xsd:annotation>
+						<xsd:documentation>No</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeDecimales4ªMoneda">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="0">
+					<xsd:annotation>
+						<xsd:documentation>0</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="1">
+					<xsd:annotation>
+						<xsd:documentation>1</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="2">
+					<xsd:annotation>
+						<xsd:documentation>2</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="3">
+					<xsd:annotation>
+						<xsd:documentation>3</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="4">
+					<xsd:annotation>
+						<xsd:documentation>4</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="5">
+					<xsd:annotation>
+						<xsd:documentation>5</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value=" ">
+					<xsd:annotation>
+						<xsd:documentation>en blanco</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeDecimales5ªMoneda">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="0">
+					<xsd:annotation>
+						<xsd:documentation>0</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="1">
+					<xsd:annotation>
+						<xsd:documentation>1</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="2">
+					<xsd:annotation>
+						<xsd:documentation>2</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="3">
+					<xsd:annotation>
+						<xsd:documentation>3</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="4">
+					<xsd:annotation>
+						<xsd:documentation>4</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="5">
+					<xsd:annotation>
+						<xsd:documentation>5</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value=" ">
+					<xsd:annotation>
+						<xsd:documentation>en blanco</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeDecimalesImporteTransacción">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="0">
+					<xsd:annotation>
+						<xsd:documentation>0</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="1">
+					<xsd:annotation>
+						<xsd:documentation>1</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="2">
+					<xsd:annotation>
+						<xsd:documentation>2</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="3">
+					<xsd:annotation>
+						<xsd:documentation>3</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="4">
+					<xsd:annotation>
+						<xsd:documentation>4</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="5">
+					<xsd:annotation>
+						<xsd:documentation>5</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value=" ">
+					<xsd:annotation>
+						<xsd:documentation>en blanco</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeDescripción">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="50" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeDetallesFirma">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="30" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeDividirLíneaOriginal">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="10" />
+				<xsd:fractionDigits value="0" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeDivisiónEnCurso">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="0">
+					<xsd:annotation>
+						<xsd:documentation>No</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="1">
+					<xsd:annotation>
+						<xsd:documentation>Sí</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeDébitocrédito">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="C">
+					<xsd:annotation>
+						<xsd:documentation>Crédito</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="D">
+					<xsd:annotation>
+						<xsd:documentation>Débito</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="J">
+					<xsd:annotation>
+						<xsd:documentation>Cuadrar diario</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="P">
+					<xsd:annotation>
+						<xsd:documentation>Cuadrar período</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="T">
+					<xsd:annotation>
+						<xsd:documentation>Cuadrar transacción</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeEnUso">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="Y">
+					<xsd:annotation>
+						<xsd:documentation>Sí</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="N">
+					<xsd:annotation>
+						<xsd:documentation>No</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value=" ">
+					<xsd:annotation>
+						<xsd:documentation>N/A</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeEstadoAcordado">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="0">
+					<xsd:annotation>
+						<xsd:documentation>No</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="1">
+					<xsd:annotation>
+						<xsd:documentation>Sí</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeEstadoContabProvisional">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value=" ">
+					<xsd:annotation>
+						<xsd:documentation>Contabilización final</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="Y">
+					<xsd:annotation>
+						<xsd:documentation>Provisional</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeEstadoCuaderno">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value=" ">
+					<xsd:annotation>
+						<xsd:documentation>No aplicable</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="A">
+					<xsd:annotation>
+						<xsd:documentation>A</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="B">
+					<xsd:annotation>
+						<xsd:documentation>B</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeEstadosDistribución">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="5" />
+				<xsd:fractionDigits value="0" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeExcluirDeCuadrar">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="Y">
+					<xsd:annotation>
+						<xsd:documentation>Sí</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="N">
+					<xsd:annotation>
+						<xsd:documentation>No</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value=" ">
+					<xsd:annotation>
+						<xsd:documentation>N/A</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeIdOperadorEnUso">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="3" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeIdPresupuestoUtilizado">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="10" />
+				<xsd:fractionDigits value="0" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeImpBase2inf">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="20" />
+				<xsd:fractionDigits value="3" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeImporte4ªMoneda">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="20" />
+				<xsd:fractionDigits value="3" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeImporte5ªMoneda">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="20" />
+				<xsd:fractionDigits value="3" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeImporteBase">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="20" />
+				<xsd:fractionDigits value="3" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeImporteMemo">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="20" />
+				<xsd:fractionDigits value="5" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeImporteTrans">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="20" />
+				<xsd:fractionDigits value="3" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeIndicadorActivo">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value=" ">
+					<xsd:annotation>
+						<xsd:documentation>Sin utilizar</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="D">
+					<xsd:annotation>
+						<xsd:documentation>Amortización</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="I">
+					<xsd:annotation>
+						<xsd:documentation>Inicial</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="V">
+					<xsd:annotation>
+						<xsd:documentation>Valor de activo</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeInvertirPeríodoSiguiente">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="Y">
+					<xsd:annotation>
+						<xsd:documentation>Sí</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="N">
+					<xsd:annotation>
+						<xsd:documentation>No</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value=" ">
+					<xsd:annotation>
+						<xsd:documentation>N/A</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeMarcadorAsig">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value=" ">
+					<xsd:annotation>
+						<xsd:documentation>Sin asignar</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="A">
+					<xsd:annotation>
+						<xsd:documentation>Asignado</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="P">
+					<xsd:annotation>
+						<xsd:documentation>Pagado</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="R">
+					<xsd:annotation>
+						<xsd:documentation>Conciliado</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="C">
+					<xsd:annotation>
+						<xsd:documentation>Corrección</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="B">
+					<xsd:annotation>
+						<xsd:documentation>Saldo acumulado</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="W">
+					<xsd:annotation>
+						<xsd:documentation>Retener</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="F">
+					<xsd:annotation>
+						<xsd:documentation>Forzar</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="0">
+					<xsd:annotation>
+						<xsd:documentation>Marcador 0</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="1">
+					<xsd:annotation>
+						<xsd:documentation>Marcador 1</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="2">
+					<xsd:annotation>
+						<xsd:documentation>Marcador 2</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="3">
+					<xsd:annotation>
+						<xsd:documentation>Marcador 3</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="4">
+					<xsd:annotation>
+						<xsd:documentation>4 Marcador</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="5">
+					<xsd:annotation>
+						<xsd:documentation>Marcador 5</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="6">
+					<xsd:annotation>
+						<xsd:documentation>Marcador 6</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="7">
+					<xsd:annotation>
+						<xsd:documentation>7 Marcador</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="8">
+					<xsd:annotation>
+						<xsd:documentation>Marcador 8</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="9">
+					<xsd:annotation>
+						<xsd:documentation>Marcador 9</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="T">
+					<xsd:annotation>
+						<xsd:documentation>Pagado sin emparejar</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeModificadoPorTrasContab">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="3" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeNºDiario">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="10" />
+				<xsd:fractionDigits value="0" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeNºGrupoGuardado">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="19" />
+				<xsd:fractionDigits value="0" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeNºLíneaDiario">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="10" />
+				<xsd:fractionDigits value="0" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeNºPlazo">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="5" />
+				<xsd:fractionDigits value="0" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeNºSecuenciaEliminación">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="5" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeOperador4ªMoneda">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="+">
+					<xsd:annotation>
+						<xsd:documentation>+</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="-">
+					<xsd:annotation>
+						<xsd:documentation>-</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="*">
+					<xsd:annotation>
+						<xsd:documentation>*</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="/">
+					<xsd:annotation>
+						<xsd:documentation>/</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="%">
+					<xsd:annotation>
+						<xsd:documentation>%</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="T">
+					<xsd:annotation>
+						<xsd:documentation>Total</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeOperador5ªMoneda">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="+">
+					<xsd:annotation>
+						<xsd:documentation>+</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="-">
+					<xsd:annotation>
+						<xsd:documentation>-</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="*">
+					<xsd:annotation>
+						<xsd:documentation>*</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="/">
+					<xsd:annotation>
+						<xsd:documentation>/</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="%">
+					<xsd:annotation>
+						<xsd:documentation>%</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="T">
+					<xsd:annotation>
+						<xsd:documentation>Total</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeOperadorBase">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="+">
+					<xsd:annotation>
+						<xsd:documentation>+</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="-">
+					<xsd:annotation>
+						<xsd:documentation>-</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="*">
+					<xsd:annotation>
+						<xsd:documentation>*</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="/">
+					<xsd:annotation>
+						<xsd:documentation>/</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="%">
+					<xsd:annotation>
+						<xsd:documentation>%</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="T">
+					<xsd:annotation>
+						<xsd:documentation>Total</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeOperadorBase2inf">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="+">
+					<xsd:annotation>
+						<xsd:documentation>+</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="-">
+					<xsd:annotation>
+						<xsd:documentation>-</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="*">
+					<xsd:annotation>
+						<xsd:documentation>*</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="/">
+					<xsd:annotation>
+						<xsd:documentation>/</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="%">
+					<xsd:annotation>
+						<xsd:documentation>%</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="T">
+					<xsd:annotation>
+						<xsd:documentation>Total</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeOperadorTransacción">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="+">
+					<xsd:annotation>
+						<xsd:documentation>+</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="-">
+					<xsd:annotation>
+						<xsd:documentation>-</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="*">
+					<xsd:annotation>
+						<xsd:documentation>*</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="/">
+					<xsd:annotation>
+						<xsd:documentation>/</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="%">
+					<xsd:annotation>
+						<xsd:documentation>%</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="T">
+					<xsd:annotation>
+						<xsd:documentation>Total</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeOrigenDiario">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="5" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeOriginadoPor">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="3" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typePrincipalRequerido">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="0">
+					<xsd:annotation>
+						<xsd:documentation>No</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="1">
+					<xsd:annotation>
+						<xsd:documentation>Sí</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeRefAsignación">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="10" />
+				<xsd:fractionDigits value="0" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeRefContabilización">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="15" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeRefDiariosRetenidos">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="10" />
+				<xsd:fractionDigits value="0" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeRefVínculo1">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="15" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeRefVínculo2">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="15" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeRefVínculo3">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="15" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeRefVínculoDivisión">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="15" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeRefVínculoRevaluación">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="10" />
+				<xsd:fractionDigits value="0" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeRefgrupoAutorización">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="10" />
+				<xsd:fractionDigits value="0" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeRefgrupoAutorizaciónPagos">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="10" />
+				<xsd:fractionDigits value="0" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeReftransacción">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="30" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeSegundaReferencia">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="30" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeSelloPago">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="10" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeSubcódigoActivo">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="5" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeTasaBase">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="20" />
+				<xsd:fractionDigits value="9" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeTasaBase2inf">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="20" />
+				<xsd:fractionDigits value="9" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeTasaConversión4ªMoneda">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="20" />
+				<xsd:fractionDigits value="9" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeTasaConversión5ªMoneda">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="20" />
+				<xsd:fractionDigits value="9" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeTasaMoneda">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsDecimal">
+				<xsd:totalDigits value="20" />
+				<xsd:fractionDigits value="9" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeTextoDeRetención">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="30" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeTipoDiario">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="5" />
+				<xsd:pattern value="[^a-z]*" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeTipoDiarioInvertido">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:enumeration value="0">
+					<xsd:annotation>
+						<xsd:documentation>Sin definir</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="1">
+					<xsd:annotation>
+						<xsd:documentation>Inversión estándar</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="2">
+					<xsd:annotation>
+						<xsd:documentation>Inversión pago</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+				<xsd:enumeration value="3">
+					<xsd:annotation>
+						<xsd:documentation>Copia</xsd:documentation>
+					</xsd:annotation>
+				</xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="typeTransacciónRevaluación">
+		<xsd:simpleContent>
+			<xsd:restriction base="SunSystemsString">
+				<xsd:maxLength value="1" />
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+</xsd:schema>

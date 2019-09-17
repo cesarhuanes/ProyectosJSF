@@ -1,0 +1,408 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:richfaces="http://richfaces.ajax4jsf.org/rich"
+	xmlns:ajax="https://ajax4jsf.dev.java.net/ajax">
+
+<a4j:keepAlive beanName="procesoArchivoController" ajaxOnly="true" />
+<head>
+<script type="text/javascript"
+	src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+
+</head>
+
+<body>
+
+	<h:form id="formulario2">
+		<rich:panel id="panelProcesoArchivo">
+			<f:facet name="header">
+				<h:outputText value="Reportes SBS > Procesamiento de Archivos" />
+			</f:facet>
+			<fieldset>
+				<table border="0" width="1050px">
+					<tr>
+						<td width="10%" align="right"><h:outputText value="Código:" /></td>
+						<td width="15%" align="left"><h:inputText id="idCodigo"
+								onkeypress="return valNumeros(event);" maxlength="10"
+								value="#{procesoArchivoController.codProceso}" /></td>
+
+						<td width="5%" align="left"></td>
+
+						<td width="5%" align="right"><h:outputText
+								value=" Archivo Usuario:" /></td>
+						<td width="20%" align="left" style="width: 30px"><h:inputText
+								id="idUsuarioArchivo" maxlength="30"
+								onkeyup="value=value.toUpperCase()"
+								value="#{procesoArchivoController.nomArchivo}" /></td>
+
+
+						<td width="10%" align="right"><h:outputText
+								value="Fecha Carga:" /></td>
+						<td width="20%" align="left" colspan="2"><rich:calendar
+								id="fechaCargaDesde" inputStyle="width:60px"
+								enableManualInput="true" datePattern="yyyy-MM-dd"
+								value="#{procesoArchivoController.fechaCargaDesde}"
+								showWeeksBar="false">
+							</rich:calendar> - <rich:calendar id="fechaCargaHasta" inputStyle="width:60px"
+								enableManualInput="true" datePattern="yyyy-MM-dd"
+								value="#{procesoArchivoController.fechaCargaHasta}"
+								showWeeksBar="false" header="Hasta">
+							</rich:calendar></td>
+
+
+					</tr>
+					<tr>
+						<td colspan="2" height="10px"></td>
+					</tr>
+
+					<tr>
+						<td width="10%" align="right"><h:outputText value="Estado:" /></td>
+						<td width="20%" align="left"><h:selectOneMenu id="estado"
+								style="width:140px;"
+								value="#{procesoArchivoController.codEstado}">
+								<f:selectItems value="#{procesoArchivoController.itemsEstados}" />
+
+							</h:selectOneMenu></td>
+
+						<td width="5%" align="center"></td>
+
+						<td width="12%" align="right"><h:outputText
+								value="Usuario Proceso:" /></td>
+						<td width="20%" align="left"><h:inputText
+								id="idUsuarioProceso" maxlength="30"
+								onkeyup="value=value.toUpperCase()"
+								value="#{procesoArchivoController.usuarioProceso}" /></td>
+
+
+						<td width="10%" align="right"><h:outputText
+								style="width:5px;" value="Fecha Proceso:" /></td>
+						<td width="20%" align="left" colspan="2"><rich:calendar
+								id="fechaProcesoDesde" inputStyle="width:60px"
+								enableManualInput="true" datePattern="yyyy-MM-dd"
+								value="#{procesoArchivoController.fechaProcesoDesde}"
+								showWeeksBar="false">
+							</rich:calendar> - <rich:calendar id="fechaProcesoHasta" inputStyle="width:60px"
+								enableManualInput="true" datePattern="yyyy-MM-dd"
+								value="#{procesoArchivoController.fechaProcesoHasta}"
+								showWeeksBar="false" header="Hasta">
+							</rich:calendar></td>
+
+					</tr>
+
+					<tr>
+						<td colspan="2" height="10px"></td>
+					</tr>
+
+				</table>
+
+				<table>
+					<tr>
+						<td colspan="10">
+							<center>
+								<a4j:commandButton id="btnBuscar" reRender="listaProceso"
+									action="#{procesoArchivoController.buscaProcesoArchivo}"
+									value="Buscar" style="width:125px"></a4j:commandButton>
+								<rich:spacer width="18"></rich:spacer>
+								<h:commandButton id="btnLimpiar"
+									action="#{procesoArchivoController.limpiar}" value="Limpiar"
+									style="width:125px" />
+							</center>
+						</td>
+
+					</tr>
+					<tr>
+						<td colspan="10" height="10px"></td>
+					</tr>
+
+
+					<tr>
+						<td>
+
+							<div
+								style="scrollbar-base-color: #3d8a3d; width: 1050px; border: 0px solid white; overflow-x: scroll">
+
+								<rich:extendedDataTable id="listaProceso" var="listaProceso"
+									value="#{procesoArchivoController.listaProcesoArchivo}"
+									width="1350px" height="330px" headerClass="dataTableHeader"
+									selection="#{procesoArchivoController.selection}" rows="12"
+									reRender="true" cellpadding="5" cellspacing="5">
+									<rich:column id="codCodProceso" headerClass="dataTableHeader"
+										width="7.5%">
+
+										<f:facet name="header">
+
+											<h:outputText value="Código Proceso" />
+
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaProceso.codProceso}" />
+										</center>
+
+									</rich:column>
+									<rich:column id="codNombre" headerClass="dataTableHeader"
+										width="11.5%">
+										<f:facet name="header">
+											<h:outputText value="Nombre Archivo-Proceso" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaProceso.nomArchivoProceso}" />
+										</center>
+
+									</rich:column>
+									<rich:column id="codNombreUsu" headerClass="dataTableHeader"
+										width="11.5%">
+										<f:facet name="header">
+											<h:outputText value="Nombre Archivo-Usuario" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaProceso.nomArchivoUsuario}" />
+										</center>
+
+									</rich:column>
+
+									<rich:column id="codFechaCarga" headerClass="dataTableHeader"
+										width="6%">
+										<f:facet name="header">
+											<h:outputText value="Fecha Carga" />
+
+
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaProceso.fechaCreador}">
+												<f:convertDateTime pattern="dd-MM-yyy" />
+											</h:outputText>
+										</center>
+
+									</rich:column>
+
+
+									<rich:column id="codEstado" headerClass="dataTableHeader"
+										width="10%">
+										<f:facet name="header">
+											<h:outputText value="Estado" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaProceso.estadoDescripcion}" />
+										</center>
+
+									</rich:column>
+
+									<rich:column id="codEstadoSolic" headerClass="dataTableHeader"
+										width="8%">
+										<f:facet name="header">
+											<h:outputText value="Estado Proceso" />
+										</f:facet>
+										<center>
+											<h:outputText
+												value="#{listaProceso.codEstadoSolicitud eq 'S'?'SOLICITADO':
+							listaProceso.codEstadoSolicitud eq 'P'?'PENDIENTE':'COMPLETADO'}" />
+										</center>
+									</rich:column>
+
+
+									<rich:column id="codFechaProceso" headerClass="dataTableHeader"
+										width="7%">
+										<f:facet name="header">
+											<h:outputText value="Fecha Proceso" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaProceso.fechaProceso}">
+												<f:convertDateTime pattern="dd-MM-yyy" />
+											</h:outputText>
+
+										</center>
+
+									</rich:column>
+
+
+									<rich:column id="colUsuarioProceso"
+										headerClass="dataTableHeader" width="8%">
+										<f:facet name="header">
+											<h:outputText value=" Usuario Proceso" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaProceso.usuarioProceso}" />
+										</center>
+
+									</rich:column>
+
+
+									<rich:column id="colCantidad" headerClass="dataTableHeader"
+										width="7%">
+										<f:facet name="header">
+											<h:outputText value="Cant. Registros" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaProceso.cantRegistros}" />
+										</center>
+
+									</rich:column>
+
+									<rich:column headerClass="dataTableHeader" width="5%">
+										<f:facet name="header">
+											<h:outputText value="Procesar" />
+										</f:facet>
+										<a4j:region ajaxSingle="true">
+											<div align="center">
+												<a4j:commandLink
+													style="visibility: #{listaProceso.codEstado!='0902'? 'hidden': 'show'};"
+													actionListener="#{procesoArchivoController.actionPasarDatos}"
+													oncomplete="#{rich:component('confirmPaneProcesar')}.show()">
+
+													<f:attribute name="codigoArchivo"
+														value="#{listaProceso.codProceso}" />
+													<f:attribute name="nombreArchivo"
+														value="#{listaProceso.nomArchivoProceso}" />
+													<f:attribute name="codEstado"
+														value="#{listaProceso.codEstado}" />
+
+													<center>
+														<h:graphicImage value="/imagenes/procesar.png" />
+													</center>
+												</a4j:commandLink>
+											</div>
+										</a4j:region>
+									</rich:column>
+									<rich:column headerClass="dataTableHeader" width="6.5%">
+										<f:facet name="header">
+											<h:outputText value="Ver Resumen" />
+										</f:facet>
+										<a4j:region ajaxSingle="true">
+											<a4j:commandLink
+												style="visibility: #{listaProceso.codEstado=='0901'? 'show': 'hidden'};"
+												actionListener="#{procesoArchivoController.actionCodigo}"
+												action="#{procesoArchivoController.verDetalle}"
+												oncomplete="#{facesContext.maximumSeverity == null ? 'Richfaces.showModalPanel(\'panelVerResumen\')' : ';'}"
+												reRender="panelVerResumen">
+												<f:attribute name="codigoArchivo"
+													value="#{listaProceso.codProceso}" />
+												<center>
+													<h:graphicImage value="/imagenes/ver.jpg" />
+												</center>
+
+											</a4j:commandLink>
+										</a4j:region>
+									</rich:column>
+									<rich:column headerClass="dataTableHeader" width="7%">
+										<f:facet name="header">
+											<h:outputText value="Descargar Log" />
+										</f:facet>
+										<div align="center">
+											<h:commandButton
+												style="visibility: #{listaProceso.codEstado=='0903'? 'show': 'hidden'};"
+												image="/imagenes/descargar.png"
+												actionListener="#{procesoArchivoController.actionPasarDatos}"
+												action="#{procesoArchivoController.descargarLog}">
+												<f:attribute name="codigoArchivo"
+													value="#{listaProceso.codProceso}" />
+												<f:attribute name="nombreArchivo"
+													value="#{listaProceso.nomArchivoProceso}" />
+												<f:attribute name="codEstado"
+													value="#{listaProceso.codEstado}" />
+											</h:commandButton>
+										</div>
+									</rich:column>
+
+									<rich:column headerClass="dataTableHeader" width="5.5%">
+										<f:facet name="header">
+											<h:outputText value="Eliminar" />
+										</f:facet>
+										<a4j:region ajaxSingle="true">
+											<a4j:commandLink
+												actionListener="#{procesoArchivoController.actionCodigo}"
+												onclick="#{rich:component('confirmPaneEliminar')}.show()">
+												<f:attribute name="codigoArchivo"
+													value="#{listaProceso.codProceso}" />
+												<center>
+													<h:graphicImage value="/imagenes/eliminar.png" />
+												</center>
+											</a4j:commandLink>
+										</a4j:region>
+									</rich:column>
+
+									<f:facet name="footer">
+										<rich:datascroller id="ds" for="listaProceso" maxPages="10"></rich:datascroller>
+									</f:facet>
+
+								</rich:extendedDataTable>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+
+		</rich:panel>
+
+	</h:form>
+
+
+
+</body>
+
+
+<rich:modalPanel id="confirmPaneEliminar" autosized="true" width="220"
+	height="50">
+	<f:facet name="controls">
+		<h:panelGroup>
+			<h:graphicImage value="/imagenes/close.gif" styleClass="hidelink"
+				id="hidelinked" />
+			<rich:componentControl for="confirmPaneEliminar"
+				attachTo="hidelinked" operation="hide" event="onclick" />
+		</h:panelGroup>
+	</f:facet>
+	<h:form>
+
+		<a4j:region>
+			<a4j:include viewId="/paginas/parametros/confirmaEliminar.xhtml" />
+		</a4j:region>
+
+	</h:form>
+</rich:modalPanel>
+
+<rich:modalPanel id="confirmPaneProcesar" autosized="true" width="220"
+	height="50">
+	<f:facet name="controls">
+		<h:panelGroup>
+			<h:graphicImage value="/imagenes/close.gif" styleClass="hidelink"
+				id="hidelinked2" />
+			<rich:componentControl for="confirmPaneProcesar"
+				attachTo="hidelinked2" operation="hide" event="onclick" />
+		</h:panelGroup>
+	</f:facet>
+	<h:form>
+
+		<a4j:region>
+			<a4j:include viewId="/paginas/parametros/confirmaProcesar.xhtml" />
+		</a4j:region>
+
+	</h:form>
+</rich:modalPanel>
+
+
+<rich:modalPanel id="panelVerResumen" autosized="true" width="1200"
+	height="350">
+	<f:facet name="header">
+		<h:outputText value="Vista Resumen de Proceso" />
+	</f:facet>
+	<f:facet name="controls">
+		<h:panelGroup>
+			<h:graphicImage value="/imagenes/close.gif" styleClass="hidelink"
+				id="hidelink" />
+			<rich:componentControl for="panelVerResumen" attachTo="hidelink"
+				operation="hide" event="onclick" />
+		</h:panelGroup>
+	</f:facet>
+	<h:form>
+
+		<a4j:region>
+			<a4j:include viewId="/paginas/parametros/detalleCarga.xhtml" />
+		</a4j:region>
+
+	</h:form>
+
+</rich:modalPanel>
+
+</html>

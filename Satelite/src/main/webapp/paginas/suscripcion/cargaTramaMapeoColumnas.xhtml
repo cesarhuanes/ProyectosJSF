@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<a4j:keepAlive beanName="cargTramaDiariaSoatController" />
+
+<head>
+<script type="text/javascript"
+	src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+	
+<style type="text/css">
+.celda {
+	width: 170px;
+	color: #000;
+}
+
+.datatable {
+	padding-top: 10px;
+}
+
+body {
+	font-family: Monaco, Georgia, Times, serif;
+}
+
+.separador {
+	padding: 10px 9px;
+}
+
+.listaExcel option[value*="_XLS_NUEVO"]{ 
+background: rgb(251, 168, 0) none repeat scroll 0% 0%;
+color: rgb(255, 255, 255);
+}
+
+.nuevaColumna{
+background: red;
+}
+
+
+</style>
+
+</head>
+
+<body>
+	<rich:panel styleClass="wizard">
+		<f:facet name="header">
+			<h:outputText value="Suscripción > SOAT > Carga Trama Diaria SOAT > mapeo de columnas" />
+		</f:facet>
+		<rich:panel id="PanellistaTabla">
+
+			<h:form>
+				<table width="800px">
+					<tr>
+						<td>			
+						<h3> Layout Trama Socio</h3>
+						<h:selectOneListbox id="idtabla"
+								styleClass="listaExcel"
+								value="#{cargTramaDiariaSoatController.excel}" size="35"
+								style="width:250px;height: 495px;">
+								<f:selectItems	value="#{cargTramaDiariaSoatController.listaExcel}" />		
+													
+						</h:selectOneListbox>
+						</td>					
+						<td>
+						<h3> Formato Único </h3>						
+						<h:selectOneListbox id="idexcel"
+								value="#{cargTramaDiariaSoatController.tabla}" size="35"
+								style="width:250px;height: 495px;">
+								<f:selectItems
+									value="#{cargTramaDiariaSoatController.listaTabla}" />
+						</h:selectOneListbox>
+						</td>						
+						<td>
+						<a4j:commandButton id="agregarComprobantes" value="»"
+								reRender="idexcel,idtabla,lista"
+								actionListener="#{cargTramaDiariaSoatController.seleccionListas}" />
+						<br />
+						<a4j:commandButton id="moverComprobantes" value="«"
+								reRender="idexcel,idtabla,lista"
+								action="#{cargTramaDiariaSoatController.removeListas}" />
+						</td>
+						<td>
+						<h3>Layout Trama Socio -- Formato Único </h3>
+						
+								<rich:extendedDataTable id="lista" var="listaArchivos"
+									value="#{cargTramaDiariaSoatController.listaLayout}"
+									width="280px" height="490px"
+									selection="#{cargTramaDiariaSoatController.selection}"
+									selectionMode="single" reRender="true"  >
+									
+									<rich:column id="colExcel" headerClass="dataTableHeader"
+										width="135" sortable="true" sortBy="#{listaArchivos.labelExcel}"
+										sortIconAscending="dataTableAscIcon"
+										sortIconDescending="dataTableDescIcon" styleClass="#{(listaArchivos.tipodata == 'true') ?'nuevaColumna':''}">
+										<f:facet name="header">
+											<h:outputText value="Layout Trama Socio" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaArchivos.labelExcel}" />
+										</center>
+									</rich:column>
+									
+									<rich:column id="colFuente" headerClass="dataTableHeader"
+										width="135" sortable="true" sortBy="#{listaArchivos.labelTabla}"
+										sortIconAscending="dataTableAscIcon"
+										sortIconDescending="dataTableDescIcon" styleClass="#{(listaArchivos.tipodata == 'true') ?'nuevaColumna':''}">
+										<f:facet name="header">
+											<h:outputText value="Formato Único " />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaArchivos.labelTabla}" />
+										</center>
+									</rich:column>
+									
+								</rich:extendedDataTable>	
+							 
+							</td>
+						</tr>
+				</table>
+				<table width="820px">
+					<tr>	
+						<td width="300px">
+							<h:commandButton id="regresarTrama" value="≪ Trama Carga Diaria" action="#{cargTramaDiariaSoatController.regresarTramaDiaria}" /> 					
+						</td>
+						<td width="400px">
+						</td>
+						<td width="300px" style="text-align: right;">
+							<h:commandButton id="buscarComprobantes" value="Procesar Carga Trama >>" action="#{cargTramaDiariaSoatController.ejecutarCargaTramaDiaria}"  /> 
+						</td>
+					</tr>
+				</table>
+			</h:form>
+		</rich:panel>
+	</rich:panel>
+	
+	
+	
+	 
+</body>
+</html>

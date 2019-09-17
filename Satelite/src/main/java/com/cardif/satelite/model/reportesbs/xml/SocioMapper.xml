@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardif.satelite.reportesbs.dao.SocioMapper">
+
+	<resultMap id="BaseResultMapSocio" type="com.cardif.satelite.model.reportesbs.Socio">
+		<id column="COD_SOCIO" jdbcType="NUMERIC" property="codSocio" />
+		<result column="DESCRIPCION" jdbcType="VARCHAR" property="descripcion" />
+	</resultMap>
+
+</mapper>

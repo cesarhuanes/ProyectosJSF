@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<a4j:keepAlive beanName="pagosComisController" />
+<a4j:keepAlive beanName="procesoPagos" />
+
+<head>
+<script>
+		function llamar(){
+			console.log("INICIOOOOOOOO");
+			var e = document.getElementById("principal:formPagos:btnDescargarH");
+			console.log("ELEMENTOOO: "+e);
+			e.click();
+			console.log("Finnnnnnn");
+			
+		}
+	</script>
+</head>
+<body>
+
+	<h:form id="formPagos">
+
+
+
+		<rich:panel id="registro">
+			<f:facet name="header">
+				<h:outputText value="Tesorería > Pagos Comisiones e ITF" />
+			</f:facet>
+
+			<table align="center">
+				<tr>
+					<td align="right"><h:outputText value="* Cuenta: " /></td>
+					<td align="left"><h:selectOneMenu id="tipoCtaBanco" value="#{pagosComisController.numCuentaBanco}" required="false"
+							requiredMessage="Obligatorio" immediate="true" reRender="formPagos">
+							<f:selectItems value="#{pagosComisController.listaCtaBanco}" />
+						</h:selectOneMenu> <rich:message for="tipoCtaBanco" style="color:RED;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center"></td>
+				</tr>
+				<tr>
+					<td align="right"><h:outputText value="* Tipo Pago: " /></td>
+					<td align="left"><h:selectOneMenu id="tipoPago" value="#{pagosComisController.idTipoPago}" required="true" requiredMessage="Obligatorio"
+							immediate="true" reRender="formPagos" style=" width : 123px;">
+							<f:selectItems value="#{pagosComisController.tipoPagoItems}" />
+						</h:selectOneMenu> <rich:message for="tipoPago" style="color:RED;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message></td>
+				</tr>
+
+				<tr>
+					<td colspan="2" align="center"><rich:fileUpload id="uploader" style="width: 50%; height: 50%;" listWidth="200px" listHeight="50px"
+							reRender="firmaImagen,btnProcesar,btnEnviar,listaAsiento" fileUploadListener="#{pagosComisController.listener}" autoclear="false"
+							acceptedTypes="xls,xlsx" allowFlash="false" addControlLabel="Seleccionar archivo excel" clearAllControlLabel="Limpiar" clearControlLabel=""
+							stopEntryControlLabel="Detener Proceso" uploadControlLabel="Cargar Archivo" value="{_MB}MB from {MB}MB cargando --- {mm}:{ss}"
+							maxFilesQuantity="30" /></td>
+				</tr>
+			</table>
+
+		</rich:panel>
+
+		<div align="right">
+			<table>
+				<tr>
+					<!-- <td><h:commandButton id="btnDescargarH" action="#{pagosComisController.exportarPlantilla}" onclick="return false;" style="width:135px; display:none" value="btnDescargarH"/></td> -->
+					<td><h:commandButton id="exportar" style="width:135px" value="Descargar Plantilla" action="#{pagosComisController.descargarPlantilla}" /></td>
+					<!-- <td><a4j:commandButton id="btnDescargarA4J" action="#{pagosComisController.descargarPlantilla}" style="width:135px" value="Descargar Plantilla" oncomplete="llamar()"/></td> -->
+					<td><a4j:commandButton id="btnProcesar" action="#{pagosComisController.obtenerAsiento}" style="width:125px" value="Procesar Asientos"
+							reRender="listaAsiento,btnEnviar" /></td>
+				</tr>
+			</table>
+
+		</div>
+
+		<fieldset id="idTable">
+			<legend>Asientos Contables Generados</legend>
+			<!-- Aqui va la tabla -->
+
+			<div align="center" style="scrollbar-base-color: #3d8a3d; width: 1100px; border: 0px solid white; overflow-x: scroll">
+				<rich:extendedDataTable id="listaAsiento" rowKeyVar="rkv" frozenColCount="1" height="300px" width="1300px" columnClasses="col" var="proc"
+					headerClass="col" value="#{pagosComisController.resultadoContable}" selectionMode="single">
+
+					<rich:column id="tipoCuenta" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.cuentaContable}">
+						<f:facet name="header">
+							<h:outputText value="Cuenta Contable" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{proc.cuentaContable}" />
+						</center>
+					</rich:column>
+
+					<rich:column id="fecha" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.fecha}">
+						<f:facet name="header">
+							<h:outputText value="Fecha Transaccion" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{proc.fecha}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</center>
+					</rich:column>
+
+					<rich:column id="periodo" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.periodo}">
+						<f:facet name="header">
+							<h:outputText value="Periodo" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{proc.periodo}" />
+						</center>
+					</rich:column>
+					<rich:column id="glosa" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.glosa}" width="200px">
+						<f:facet name="header">
+							<h:outputText value="Glosa" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{proc.glosa}" />
+						</center>
+					</rich:column>
+
+					<rich:column id="referencia" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.referencia}">
+						<f:facet name="header">
+							<h:outputText value="Referencia" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{proc.referencia}" />
+						</center>
+					</rich:column>
+
+					<rich:column id="importeSoles" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.importeSoles}">
+						<f:facet name="header">
+							<h:outputText value="Importe Soles" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{proc.importeSoles}" />
+						</center>
+					</rich:column>
+					<rich:column id="marcadorDC" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.marcadorDC}">
+						<f:facet name="header">
+							<h:outputText value="D/C" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{proc.marcadorDC}" />
+						</center>
+					</rich:column>
+					<rich:column id="moneda" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.moneda}">
+						<f:facet name="header">
+							<h:outputText value="Moneda" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{proc.moneda}" />
+						</center>
+					</rich:column>
+					<rich:column id="importeTransaccion" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.importeTransaccion}">
+						<f:facet name="header">
+							<h:outputText value="Importe Transacción" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{proc.importeTransaccion}" />
+						</center>
+					</rich:column>
+
+					<rich:column id="importeEuros" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.importeEuros}">
+						<f:facet name="header">
+							<h:outputText value="Importe Euros" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{proc.importeEuros}" />
+						</center>
+					</rich:column>
+
+
+					<rich:column id="tipoMedioPago" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.tipoMedioPago}">
+						<f:facet name="header">
+							<h:outputText value="Tipo de medio de Pago" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{proc.tipoMedioPago}" />
+						</center>
+					</rich:column>
+					<rich:column id="fechaVencimiento" headerClass="dataTableHeader" sortable="true" sortBy="#{proc.fechaVencimiento}">
+						<f:facet name="header">
+							<h:outputText value="Fecha Vencimiento" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{proc.fechaVencimiento}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</center>
+					</rich:column>
+
+				</rich:extendedDataTable>
+			</div>
+			<div align="right">
+
+				<a4j:commandButton id="btnEnviar" action="#{pagosComisController.enviarPagoSun}" style="width:125px"
+					reRender="panelAsientoContable,listaCorrectosAsientoContable,
+								formAsientos,listaErroresAsientoContable,
+								tipoCtaBanco,tipoPago,listaAsiento"
+					value="Enviar SUN" onclick="Richfaces.showModalPanel('ajaxLoadingModalBox')" oncomplete="Richfaces.showModalPanel('panelAsientoContable')"
+					disabled="#{pagosComisController.desabBtnEnvioSun}" />
+			</div>
+			<!-- <rich:datascroller align="center" for="listaAsientoContable"  /> -->
+		</fieldset>
+	</h:form>
+
+
+
+	<rich:modalPanel id="ajaxLoadingModalBox" width="100" height="95">
+		<center>
+			<img src="#{facesContext.externalContext.requestContextPath}/imagenes/loading.gif"></img><br />
+			<h:outputText value="Cargando..." />
+		</center>
+	</rich:modalPanel>
+	<!-- <rich:messages></rich:messages> -->
+
+	<rich:modalPanel id="panelAsientoContable" autosized="true">
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/imagenes/close.gif" styleClass="hidelink" id="hidelink" />
+				<rich:componentControl for="panelAsientoContable" attachTo="hidelink" operation="hide" event="onclick"
+					action="#{rich:component('panelAsientoContable')}.hide()" />
+
+			</h:panelGroup>
+		</f:facet>
+		<h:form id="formAsientos">
+			<fieldset id="fieldsetAsientos">
+				<legend>
+					<h:outputText value="#{pagosComisController.outText}" />
+				</legend>
+				<!-- Aqui va la tabla -->
+
+				<rich:extendedDataTable id="listaCorrectosAsientoContable" rowKeyVar="rkv" frozenColCount="1" height="400px" width="1200px" columnClasses="col"
+					var="proc" value="#{pagosComisController.resultadoCorrectosContable}" selectionMode="single" rendered="#{pagosComisController.success}">
+
+					<rich:column id="tipoCuenta" headerClass="dataTableHeader" width="15%" sortable="true" sortBy="#{proc.diario}">
+						<f:facet name="header">
+							<h:outputText value="JournalLineNumber" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{proc.diario}" />
+						</center>
+					</rich:column>
+
+					<rich:column id="lineaDiario" headerClass="dataTableHeader" width="15%" sortable="true" sortBy="#{proc.lineaDiario}">
+						<f:facet name="header">
+							<h:outputText value="JournalNumber" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{proc.lineaDiario}" />
+						</center>
+					</rich:column>
+
+					<rich:column id="lineaAsientoError" headerClass="dataTableHeader" width="15%">
+						<f:facet name="header">
+							<h:outputText value="Asiento Enviado" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{proc.lineaAsientoError}" />
+						</center>
+					</rich:column>
+
+				</rich:extendedDataTable>
+
+
+
+
+				<rich:extendedDataTable id="listaErroresAsientoContable" rowKeyVar="rkv" frozenColCount="1" height="400px" width="1200px" columnClasses="col"
+					var="proc" value="#{pagosComisController.resultadoErroresContable}" selectionMode="single" rendered="#{!pagosComisController.success}">
+
+					<rich:column id="tipoCuenta" headerClass="dataTableHeader" width="15%" sortable="true" sortBy="#{proc.lineaAsientoError}">
+						<f:facet name="header">
+							<h:outputText value="Asiento Contable" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{proc.lineaAsientoError}" style="color : red" />
+						</center>
+					</rich:column>
+
+					<rich:column id="lineaDiario" headerClass="dataTableHeader" width="15%" sortable="true" sortBy="#{proc.lineaDiario}">
+						<f:facet name="header">
+							<h:outputText value="Linea de Diario" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{proc.lineaDiario}" style="color : red" />
+						</center>
+					</rich:column>
+
+					<rich:column id="nombreLibro" headerClass="dataTableHeader" width="50%" sortable="true" sortBy="#{proc.mensajeAsientoError}">
+						<f:facet name="header">
+							<h:outputText value="Mensaje de Error Asociado" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{proc.mensajeAsientoError}" style="color : red" />
+						</center>
+					</rich:column>
+					<rich:column id="procedenciaError" headerClass="dataTableHeader" width="20%" sortable="true" sortBy="#{proc.procedenciaError}">
+						<f:facet name="header">
+							<h:outputText value="Origen del Error" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{proc.procedenciaError}" style="color : red" />
+						</center>
+					</rich:column>
+					<rich:column id="lineaAsientoError" headerClass="dataTableHeader" width="15%">
+						<f:facet name="header">
+							<h:outputText value="Asiento Erróneo" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{proc.lineaAsientoError}" />
+						</center>
+					</rich:column>
+				</rich:extendedDataTable>
+			</fieldset>
+		</h:form>
+	</rich:modalPanel>
+	<!-- <rich:messages></rich:messages> -->
+
+</body>
+</html>

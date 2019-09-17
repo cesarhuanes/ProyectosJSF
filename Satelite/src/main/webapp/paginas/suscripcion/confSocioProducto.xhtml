@@ -1,0 +1,648 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://richfaces.org/a4j">
+<a4j:keepAlive beanName="configuracionNuevoSocioController" />
+<head>
+ <meta http-equiv="Cache-Control" content="no-store" />
+<style type="text/css">
+.celda {
+	width: 150px;
+	color: #000;
+}
+input[type="submit"], input[type="button"]{cursor: pointer;}
+.datatable {
+	padding-top: 10px;
+}
+
+body {
+	font-family: Monaco, Georgia, Times, serif;
+}
+</style>
+<script type="text/javascript"
+	src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" 
+/>
+	
+	<script type="text/javascript">
+	
+	
+	function validar(){
+	var length=document.querySelectorAll('.rich-message-marker').length;
+	console.info(length);
+	return length==0;
+	}
+
+	function validarNuevoProducto(){
+	
+ 	//alert(document.getElementById("#{rich:clientId('idMsjValidarRuc')}").innerHTML);
+
+	var msjError = document.getElementById("#{rich:clientId('idMsjValidarRuc')}").innerHTML;
+	var length = document.querySelectorAll('.rich-message-marker').length;
+	if(length==0){
+		if(msjError.length == 0){
+		//alert(msjError.length);
+			Richfaces.hideModalPanel('panelNuevoProducto');
+		}
+	}
+
+	
+	}
+	
+	function validarModifProducto(){
+	
+ 	//alert(document.getElementById("#{rich:clientId('idMsjValidarRuc')}").innerHTML);
+
+	var msjError = document.getElementById("#{rich:clientId('idMsjValidarRucM')}").innerHTML;
+	var length = document.querySelectorAll('.rich-message-marker').length;
+	if(length==0){
+		if(msjError.length == 0){
+		//alert(msjError.length);
+			Richfaces.hideModalPanel('panelModificarProducto');
+		}
+	}
+
+	
+	}
+	
+	function HabilitarCheck(){
+	
+	var msjError = document.getElementById("#{rich:clientId('diaria')}").checked;
+	var msjError1 =document.getElementById("#{rich:clientId('moduloSucripcion')}").innerHTML;
+
+	
+	 if (msjError.checked == false ){
+
+	 
+	 document.getElementById("#{rich:clientId('moduloSucripcion')}").checked = true;
+	 }
+	 
+	}
+	</script>
+	
+
+</head>
+
+
+<body>
+	
+		<rich:panel id="NuevoSocio" height="100%" reRender="lista">
+			<f:facet name="header">
+				<h:outputText value="Suscripción > 	Configuración Socio > Socio - Canal">
+				</h:outputText>
+			</f:facet>
+			<center>
+				<h:form>
+				
+					<h3>Socio  :  <h:outputText value="#{configuracionNuevoSocioController.labelNombreSocio}" />  </h3>
+					
+						<fieldset id="configuracion" >							
+							<table border="0" width="400px" >
+								<tr>
+									<td>
+										<rich:message	for="columna" style="color: red;">
+											<f:facet name="errorMarker">
+												<h:graphicImage url="../imagenes/error.png" />
+											</f:facet>
+										</rich:message> 
+										<h:outputText value="Socio Canal:" />
+									</td>
+									<td>
+										<h:inputText id="columna"
+													 value="#{configuracionNuevoSocioController.producto}"
+													 maxlength="100"										            
+										             onkeyup="value=value.toUpperCase();"													 
+													 requiredMessage="Obligatorio" />
+									</td>
+									<td>
+										<a4j:commandButton value="Buscar" action="#{configuracionNuevoSocioController.buscarProducto}" reRender="lista"  />
+									</td>
+								</tr>
+							</table>
+						<br />
+<!-- 						<div style="width: 1000px; border: 0px solid white;">
+ -->						
+						
+			<div class="datatable">
+				<rich:panel id="panLista">
+					<div class="extendedDTableContenido">
+						<rich:extendedDataTable id="lista" var="objProducto"
+							value="#{configuracionNuevoSocioController.listaProducto}"
+							width="1000px" height="300px" rows="10"
+							selection="#{configuracionNuevoSocioController.seleccionProducto}"
+							selectionMode="single" reRender="true">
+							<a4j:support id="selectionBtnProducto" event="onselectionchange" reRender="panelModificarProducto,btnModificar,tipoCanal,tipoArchivo,modflabelSeparador,modfSeparador"  action="#{configuracionNuevoSocioController.onSelectionChangedProducto}"   immediate="true"/>
+							
+							<rich:column id="colId" headerClass="dataTableHeader" width="40"
+								sortable="true" sortBy="#{objProducto.id}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Id" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{objProducto.id}" />
+								</center>
+							</rich:column>
+							
+							<rich:column id="colNombre" headerClass="dataTableHeader"
+								width="150" sortable="true" sortBy="#{objProducto.nombreProducto}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Descripción Socio Canal" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{objProducto.nombreProducto}" />
+								</center>
+							</rich:column>
+								
+							<rich:column id="colCanal" headerClass="dataTableHeader"
+								width="160" sortable="true"
+								sortBy="#{objProducto.canal}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Tipo Canal" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{objProducto.canal}">
+									</h:outputText>
+								</center>
+							</rich:column>
+							
+							<rich:column id="colTramaDiaria" headerClass="dataTableHeader"
+								width="100" sortable="true" sortBy="#{objProducto.tramaDiaria}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Trama Diaria" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{(objProducto.tramaDiaria == 1)?'SI':'NO'}" />
+								</center>
+							</rich:column>
+							
+							<rich:column id="colTramaMensual" headerClass="dataTableHeader"
+								width="100" sortable="true"
+								sortBy="#{objProducto.tramaMensual}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Trama Mensual" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{(objProducto.tramaMensual  == 1)?'SI':'NO' }">
+									</h:outputText>
+								</center>
+							</rich:column>
+							
+							<rich:column id="colTipoArchivo" headerClass="dataTableHeader"
+								width="100" sortable="true"
+								sortBy="#{objProducto.tipoArchivo}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Tipo Archivo" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{objProducto.tipoArchivo}">
+									</h:outputText>
+								</center>
+							</rich:column>
+							
+							<rich:column id="colSeparador" headerClass="dataTableHeader"
+								width="95" sortable="true"
+								sortBy="#{objProducto.separador}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Separador" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{objProducto.separador}">
+									</h:outputText>
+								</center>
+							</rich:column>							
+							
+							<rich:column id="colModoImpresion" headerClass="dataTableHeader"
+								width="120" sortable="true"
+								sortBy="#{objProducto.modImpresion}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Modo Impresión" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{(objProducto.modImpresion  == 1)?'SI':'NO'}">
+									</h:outputText>
+								</center>
+							</rich:column>
+							
+							<rich:column id="colModoSuscripcion" headerClass="dataTableHeader"
+								width="160" sortable="true"
+								sortBy="#{objProducto.modSuscripcion}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Modo Suscripción" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{(objProducto.modSuscripcion  == 1)?'SI':'NO'}">
+									</h:outputText>
+								</center>
+							</rich:column>
+							
+							<f:facet name="footer">
+								<rich:datascroller id="ds" for="lista" rows="12" page="#{configuracionNuevoSocioController.nroPaginaGrilla}" />
+							</f:facet>	
+						
+						</rich:extendedDataTable>
+						</div>
+						</rich:panel>
+						
+						</div>
+						
+						<br />
+						<table border="0" width="1000px">
+							<tr>
+								<td width="150" style="text-align: left;"><a4j:commandButton id="regresarSocio" action="#{configuracionNuevoSocioController.regresarSocio}" value="≪ Socio "/></td>
+								<td width="150" style="text-align: right;"><a4j:commandButton id="btnModificar" style="width: 130px;" value="Modificar socio canal"  disabled="#{!configuracionNuevoSocioController.flagBtnModificarCanal}"  oncomplete="#{rich:component('panelModificarProducto')}.show();return false" /></td>
+								<td width="150" style="text-align: left;">
+								<a4j:commandButton id="btnNuevo" style="width: 130px;" value="Nuevo socio canal"  oncomplete="#{rich:component('panelNuevoProducto')}.show();return false"  
+								action="#{configuracionNuevoSocioController.btnLimpiarCamposNuevoProd}" reRender="camposProducto" /></td>
+								<td width="150" style="text-align: right;"><a4j:commandButton id="btnContinuar"  value=" Configurar Estructura >> "   action="#{configuracionNuevoSocioController.siguienteConfiguracionTrama}"/></td>
+							</tr>
+						</table>
+						
+						<br />
+					</fieldset>
+				</h:form>
+				
+			
+			</center>
+		</rich:panel>
+	
+	<!-- Modulo producto modifica Producto inicio -->
+	
+	<rich:modalPanel id="panelModificarProducto" autosized="true">
+		<f:facet name="header">
+			<h:outputText value="Modificar socio canal" />
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/imagenes/close.gif" styleClass="hidelink" id="hidelinkAnular" />
+				<rich:componentControl for="panelModificarProducto" attachTo="hidelinkAnular" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<h:form >
+			<a4j:region>
+				<h:panelGrid>
+					<a4j:outputPanel id="camposSocio">
+						<table width="600px">
+							<tr>
+								<td style="width: 130px;">Razón Social:</td>
+								<td><h:outputText value="#{configuracionNuevoSocioController.labelNombreSocio}" /></td>
+								<td style="width: 130px;">
+									<rich:message	for="nombreCanal" style="color: red;">
+											<f:facet name="errorMarker">
+												<h:graphicImage url="../imagenes/error.png" />
+											</f:facet>
+									</rich:message> 
+									<h:outputText value="Descripción Canal:" />
+								</td>
+								<td>
+								<h:inputText id="nombreCanal"
+							   				 value="#{configuracionNuevoSocioController.selectProducto.nombreProducto}" 
+											 required="true"
+											 requiredMessage=""
+											 maxlength="80"
+											 onkeyup="value=value.toUpperCase();"  />
+							   </td>								
+							</tr>
+							<tr>
+							<td style="width: 130px;">
+									<rich:message	for="tipoCanal" style="color: red;">
+											<f:facet name="errorMarker">
+												<h:graphicImage url="../imagenes/error.png" />
+											</f:facet>
+									</rich:message> 
+									<rich:spacer width="1" />
+									<h:outputText value="* Tipo Canal:" />
+									
+							</td>
+							<td style="text-align: left; width: 15%">
+								<h:selectOneMenu  id="tipoCanal" value="#{configuracionNuevoSocioController.valueIdCanal}"  
+									    		  immediate="true"	style=" width : 210px;">
+									  <f:selectItems value="#{configuracionNuevoSocioController.listaCanal}"  id="selecTipoCanal"   />
+									  <a4j:support event="onchange" reRender="tipoArchivo" />	
+								</h:selectOneMenu>
+							</td>
+									
+								<td style="width: 130px;">
+									<rich:message	for="tipoArchivo" style="color: red;">
+											<f:facet name="errorMarker">
+												<h:graphicImage url="../imagenes/error.png" />
+											</f:facet>
+									</rich:message> 
+									<h:outputText value="Tipo Archivo:" />
+								</td>								
+								<td>								
+									<h:selectOneMenu id="tipoArchivo"
+										value="#{configuracionNuevoSocioController.selectProducto.tipoArchivo}"	
+										valueChangeListener="#{configuracionNuevoSocioController.tipoArchivochangeListenerModf}"								
+										style=" width : 210px;" 
+										requiredMessage="">
+										<f:selectItems value="#{configuracionNuevoSocioController.listaArchivos}" />
+										<a4j:support reRender="modfSeparador,modflabelSeparador"   process="modfSeparador,modflabelSeparador"  event="onchange" ajaxSingle="true"  />								
+									</h:selectOneMenu>
+								</td>
+							</tr>
+						<tr>
+								<td style="width: 130px;"></td>
+								<td>	
+									
+								</td>
+								<td style="width: 130px;">								
+									<h:outputText id="modflabelSeparador" value="Separador TXT:"   style="display:#{(configuracionNuevoSocioController.requiredSeparadorModf==true) ? 'block' : 'none'}" />								
+								</td>
+								<td>	
+															
+								<!-- 	<h:inputText id="modfSeparador"  style="display:#{(configuracionNuevoSocioController.requiredSeparadorModf==true) ? 'block' : 'none'}"													
+													value="#{configuracionNuevoSocioController.selectProducto.separador}" 													
+													requiredMessage="Obligatorio"  /> 
+								-->	
+																					
+								<h:selectOneMenu id="modfSeparador"  value="#{configuracionNuevoSocioController.selectProducto.separador}" style="display:#{(configuracionNuevoSocioController.requiredSeparadorModf==true) ? 'block' : 'none'}" >
+											<f:selectItems value="#{configuracionNuevoSocioController.listaSeparador}"  />										
+								</h:selectOneMenu>
+								
+								</td>			
+							
+							</tr>
+						</table>
+						<br />
+					<fieldset>
+						<table width="600px">
+							<tr>
+								<td> 
+								<h:selectBooleanCheckbox  id="diaria" value="#{configuracionNuevoSocioController.tramaDiaria}"  onchange=""> 
+								</h:selectBooleanCheckbox>
+										<rich:message	for="diaria" style="color: red;">
+											<f:facet name="errorMarker">
+												<h:graphicImage url="../imagenes/error.png" />
+											</f:facet>
+										</rich:message> 
+										<h:outputText value=" Trama diaria" />
+								</td>
+								<td>
+									<h:selectBooleanCheckbox  id="modulo" value="#{configuracionNuevoSocioController.moduloImpresion}" /> 
+											<rich:message	for="modulo" style="color: red;">
+												<f:facet name="errorMarker">
+													<h:graphicImage url="../imagenes/error.png" />
+												</f:facet>
+											</rich:message> 
+											<h:outputText value=" Modulo Impresión " />
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<h:selectBooleanCheckbox  id="mensual" value="#{configuracionNuevoSocioController.tramaMensual}" /> 
+										<rich:message	for="mensual" style="color: red;">
+											<f:facet name="errorMarker">
+												<h:graphicImage url="../imagenes/error.png" />
+											</f:facet>
+										</rich:message> 
+										<h:outputText value=" Trama mensual" />
+								</td>	
+								<td>
+							
+										<h:selectBooleanCheckbox  id="moduloSucripcion"  value="#{configuracionNuevoSocioController.moduloSuscripcion}" 
+										disabled="true" checked="true"/>
+										<rich:message	for="mensual" style="color: red;">
+											<f:facet name="errorMarker">
+												<h:graphicImage url="../imagenes/error.png" />
+											</f:facet>
+										</rich:message> 
+										<h:outputText value=" Modulo Suscripción" />
+								</td>
+							</tr>
+							</table>
+					</fieldset>
+					<fieldset>
+						<table>
+						<tr>
+							<td colspan="2">
+								<div style="color:red; text-align:center;">
+									<h:outputText id="idMsjValidarRucM" value="#{configuracionNuevoSocioController.msjValidarRuc}"/>
+								</div>
+							</td>
+							</tr>
+						</table>
+					</fieldset>
+					</a4j:outputPanel>
+				</h:panelGrid>
+				<center>
+					<h:panelGrid columns="2">					
+						<a4j:commandButton id="btnModificarM" value="Guardar"    action="#{configuracionNuevoSocioController.btnModificarProducto}"  
+										   reRender="lista,idMsjValidarRucM, flagBtnModificarCanal, btnModificar"  oncomplete="validarModifProducto();"
+										   />									   
+										   								   
+						<a4j:commandButton id="btnCancelar" value="Cancelar" action="#{configuracionNuevoSocioController.btnModificarProducto}" oncomplete="#{rich:component('panelModificarProducto')}.hide()" />
+					</h:panelGrid>
+				</center>
+			</a4j:region>
+		</h:form>
+	</rich:modalPanel>
+			
+	<!-- Modulo producto modifica Producto fin -->
+	
+	<!-- Modulo producto Nuevo Producto inicio -->
+		
+	<rich:modalPanel id="panelNuevoProducto" autosized="true">
+		<f:facet name="header">
+			<h:outputText value="Nuevo socio canal" />
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/imagenes/close.gif" styleClass="hidelink" id="hidelinkNuevoProducto" />
+				<rich:componentControl for="panelNuevoProducto" attachTo="hidelinkNuevoProducto" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<h:form>
+			<a4j:region>
+				<h:panelGrid>
+					<a4j:outputPanel id="camposProducto">
+						<table width="600px">
+							<tr>
+								<td style="width: 130px;">
+									Razón Social:
+								</td>
+								<td><h:outputText value="#{configuracionNuevoSocioController.labelNombreSocio}" /></td>
+								
+								<td style="width: 130px;">									
+									<rich:message	for="nvoNombreCanal" style="color: red;">
+											<f:facet name="errorMarker">
+												<h:graphicImage url="../imagenes/error.png" />
+											</f:facet>
+									</rich:message> 
+									<h:outputText value="Descripción Canal:" />
+								</td>
+								
+								<td><h:inputText id="nvoNombreCanal"
+								   				 value="#{configuracionNuevoSocioController.nuevoProducto.nombreProducto}" 
+												 required="true"
+												 requiredMessage=""
+												 maxlength="80" 												
+												 onkeyup="value=value.toUpperCase();">
+												 </h:inputText>
+								</td>								
+							</tr>
+							<tr>
+							
+							<td style="width: 130px;">							
+								<rich:message	for="nvoTipoCanal" style="color: red;">
+												<f:facet name="errorMarker">
+													<h:graphicImage url="../imagenes/error.png" />
+												</f:facet>
+								</rich:message> 
+								<rich:spacer width="1" />
+										<h:outputText value="* Tipo Canal:" />								
+							</td>
+							
+							<td style="text-align: left; width: 15%">
+								<h:selectOneMenu id="nvoTipoCanal"
+									             value="#{configuracionNuevoSocioController.nuevoProducto.idcanal}"									
+									             style=" width : 210px;" 
+									             required="true" requiredMessage="">
+									<f:selectItems value="#{configuracionNuevoSocioController.listaCanal}" />
+									<a4j:support event="onchange" />
+							    </h:selectOneMenu>
+							</td>
+									
+							<td style="width: 130px;">
+								   <rich:message	for="nvoTipoArchivo" style="color: red;">
+												<f:facet name="errorMarker">
+													<h:graphicImage url="../imagenes/error.png" />
+												</f:facet>
+								</rich:message> 
+									<rich:spacer width="1" />
+									<h:outputText value="* Tipo Archivo:" />								
+							</td>
+							
+							<td style="text-align: left; width: 15%">
+							
+							       <h:selectOneMenu id="nvoTipoArchivo"
+										value="#{configuracionNuevoSocioController.nuevoProducto.tipoArchivo}"		
+										valueChangeListener="#{configuracionNuevoSocioController.tipoArchivochangeListener}"							
+										style=" width : 210px;" 
+										required="true"
+										requiredMessage="">
+										<f:selectItems value="#{configuracionNuevoSocioController.listaArchivos}" />										
+										<a4j:support reRender="nvoSeparador,labelSeparador"   process="nvoSeparador,labelSeparador"  event="onchange" ajaxSingle="true"  />
+								    
+								    
+								    </h:selectOneMenu>
+							</td>
+							
+							</tr>
+							
+							<tr>				
+								<td style="width: 130px;">
+									
+									<rich:spacer width="1" />								
+										<h:outputText id="labelSeparador" value="* Separador TXT:"   
+													  style="display:#{(configuracionNuevoSocioController.requiredSeparador==true) ? 'block' : 'none'}" />								
+								</td>
+								
+								<td>													
+									<h:selectOneMenu id="nvoSeparador" value="#{configuracionNuevoSocioController.nuevoProducto.separador}" 
+													 style="display:#{(configuracionNuevoSocioController.requiredSeparador==true) ? 'block' : 'none'}">
+											<f:selectItems value="#{configuracionNuevoSocioController.listaSeparador}" />
+									</h:selectOneMenu>													
+								</td>
+								
+							</tr>	
+												
+						</table>
+						<br />
+					<fieldset>
+						<table width="600px">
+							<tr>
+								<td> 
+								    <h:selectBooleanCheckbox  id="nvoDiaria" value="#{configuracionNuevoSocioController.nvotramaDiaria}" reRender="true" onchange="HabilitarCheck();" />
+								                                
+										<rich:message	for="diaria" style="color: red;">
+											<f:facet name="errorMarker">
+												<h:graphicImage url="../imagenes/error.png" />
+											</f:facet>
+										</rich:message> 
+										<h:outputText value="Trama diaria"/>
+								</td>
+								<td>
+									<h:selectBooleanCheckbox  id="nvoModulo" value="#{configuracionNuevoSocioController.nvomoduloImpresion}" /> 
+											<rich:message	for="modulo" style="color: red;">
+												<f:facet name="errorMarker">
+													<h:graphicImage url="../imagenes/error.png" />
+												</f:facet>
+											</rich:message> 
+											<h:outputText value=" Modulo Impresión " />
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<h:selectBooleanCheckbox  id="nvoMensual" value="#{configuracionNuevoSocioController.nvotramaMensual}" /> 
+										<rich:message	for="mensual" style="color: red;">
+											<f:facet name="errorMarker">
+												<h:graphicImage url="../imagenes/error.png" />
+											</f:facet>
+										</rich:message> 
+										<h:outputText value=" Trama mensual" />
+								</td>	
+								<td>
+										<h:selectBooleanCheckbox  id="nvoModuloSucripcion" value="#{configuracionNuevoSocioController.nvomoduloSuscripcion}" 
+										                           disabled="#{!configuracionNuevoSocioController.flagModuloSucripcion}" checked="true"/> 
+										<rich:message	for="mensual" style="color: red;">
+											<f:facet name="errorMarker">
+												<h:graphicImage url="../imagenes/error.png" />
+											</f:facet>
+										</rich:message> 
+										<h:outputText value="* Modulo Suscripción" />
+								</td>
+							</tr>
+							
+							
+						</table>
+						</fieldset>
+						<fieldset>
+						<table>
+						<tr>
+							<td colspan="2">
+								<div style="color:red; text-align:center;">
+									<h:outputText id="idMsjValidarRuc" value="#{configuracionNuevoSocioController.msjValidarRuc}"/>
+								</div>
+							</td>
+							</tr>
+						</table>
+					</fieldset>
+					</a4j:outputPanel>
+				</h:panelGrid>
+				<center>
+					<h:panelGrid columns="2">
+						<a4j:commandButton id="btnGuardar" value="Guardar" reRender="lista, btnModificar, idMsjValidarRuc" oncomplete="validarNuevoProducto();" action="#{configuracionNuevoSocioController.btnNuevoProducto}"   />
+						<a4j:commandButton id="btnCancelar" value="Cancelar" oncomplete="#{rich:component('panelNuevoProducto')}.hide()" reRender="panelNuevoProducto"/>
+					</h:panelGrid>
+				</center>
+			</a4j:region>
+		</h:form>
+	</rich:modalPanel>
+	<!-- Modulo producto Nuevo Producto fin -->
+	
+	
+	
+
+</body>
+</html>

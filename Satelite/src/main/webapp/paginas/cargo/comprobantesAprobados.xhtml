@@ -1,0 +1,485 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<a4j:keepAlive beanName="cargoCentralizadoController" />
+<head>
+<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+<style>
+.extdt-innerdiv {
+	overflow-x: auto !important;
+	width: 100% !important;
+}
+
+.extdt-content {
+	height: 100% !important;
+}
+
+.extdt-hsep {
+	display: none;
+}
+
+.extdt-menu-div-out {
+	height: 22px;
+	position: absolute;
+	width: 20px;
+}
+
+.extdt-menu-div-on {
+	display: none;
+}
+</style>
+</head>
+<body>
+	<!--
+/*************************************/
+DESARROLLADO POR : JOSE HURTADO SYNCCON
+FECHA		: 31-07-2014
+PROYECTO	: CARGO CENTRALIZADO
+TICKET 		: T028372
+/*************************************/
+-->
+	<h:form id="comprobantesAprobados">
+		<rich:panel id="cargo" height="100%" reRender="listaComprobantes">
+			<f:facet name="header">
+				<h:outputText value="Tesorería > Comprobantes aprobados" />
+			</f:facet>
+			<center>
+				<a4j:jsFunction name="actualizar" reRender="listaComprobantes,btnExportar,btnEdit" action="#{cargoCentralizadoController.refrescar}">
+				</a4j:jsFunction>
+				<table border="0" cellpadding="10" cellspacing="0" style="width: 100%;">
+					<tbody>
+						<tr>
+							<td width="13.3%" height="20px"><h:outputText value="Fecha de Registro contable" /> <rich:spacer width="5"></rich:spacer> <h:outputText
+									value="Desde :" /></td>
+							<td width="20%"><rich:calendar id="fechaDe" style=" width : 146px;" enableManualInput="false" datePattern="yyyy-MM-dd"
+									value="#{cargoCentralizadoController.filAprobFechaRegistroContableDesde}" showWeeksBar="false">
+								</rich:calendar> <rich:spacer width="5"></rich:spacer> <rich:message for="fechaDe" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message></td>
+							<td width="13.3%"><h:outputText value="Hasta :" /></td>
+							<td width="20%"><rich:calendar id="fechaHasta" style=" width : 146px;" enableManualInput="false" datePattern="yyyy-MM-dd"
+									value="#{cargoCentralizadoController.filAprobFechaRegistroContableHasta}" showWeeksBar="false">
+								</rich:calendar> <rich:spacer width="5"></rich:spacer> <rich:message for="fechaHasta" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message></td>
+
+							<td width="13.3%"><h:outputText value="Sistema :" /></td>
+							<td width="20%"><h:selectOneMenu id="selectClase" style=" width : 146px;" value="#{cargoCentralizadoController.filAprobSistema}"
+									required="false" requiredMessage="Obligatorio">
+									<f:selectItems value="#{cargoCentralizadoController.itemSistemas}" />
+								</h:selectOneMenu></td>
+						</tr>
+						<tr>
+							<td height="20px"><h:outputText value="N° Comprobante : " /></td>
+							<td><h:inputText id="nroDocumento" style=" width : 146px;" disabled="false" onkeypress="return valNroComprobante(event);" maxlength="50"
+									value="#{cargoCentralizadoController.filAprobNroComprobante}">
+								</h:inputText></td>
+							<td><h:outputText value="R.U.C./D.N.I. : " /></td>
+							<td><h:inputText id="ruc" style=" width : 146px;" disabled="false" onkeypress="return valNumeros(event);" maxlength="18"
+									value="#{cargoCentralizadoController.filAprobRucDni}">
+								</h:inputText></td>
+							<td><h:outputText value="Fecha de emisión : " /></td>
+							<td><rich:calendar id="fechaEmision" style=" width : 146px;" enableManualInput="false" datePattern="yyyy-MM-dd"
+									value="#{cargoCentralizadoController.filAprobFecEmision}" showWeeksBar="false">
+								</rich:calendar></td>
+						</tr>
+						<tr>
+							<td height="20px"><h:outputText value="Razón social : " /></td>
+							<td><h:inputText id="razonSocial" style=" width : 146px;text-transform:uppercase;" disabled="false" maxlength="100"
+									value="#{cargoCentralizadoController.filAprobRazonSocial}">
+								</h:inputText></td>
+							<td><h:outputText value="Moneda : " /></td>
+							<td><h:selectOneMenu id="moneda" style=" width : 146px;" value="#{cargoCentralizadoController.filAprobMoneda}" required="false"
+									requiredMessage="Obligatorio">
+									<f:selectItems value="#{cargoCentralizadoController.itemMoneda}" />
+								</h:selectOneMenu></td>
+							<td><h:outputText value="Fecha vencimiento : " /></td>
+							<td><rich:calendar id="fechaVencimiento" style=" width : 146px;" enableManualInput="false" datePattern="yyyy-MM-dd"
+									value="#{cargoCentralizadoController.filAprobFecVencimiento}" showWeeksBar="false">
+								</rich:calendar></td>
+						</tr>
+
+						<tr>
+							<td height="20px"><h:outputText value="Fecha de carga desde: " /></td>
+							<td width="20%"><rich:calendar id="fechaCargaDe" style=" width : 146px;" enableManualInput="false" datePattern="yyyy-MM-dd HH:mm"
+									value="#{cargoCentralizadoController.filAprobFechaCargaDesde}" showWeeksBar="false">
+								</rich:calendar> <rich:spacer width="5"></rich:spacer> <rich:message for="fechaCargaDe" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message></td>
+							<td><h:outputText value="Hasta: " /></td>
+							<td width="20%"><rich:calendar id="fechaCargaHasta" style=" width : 146px;" enableManualInput="false" datePattern="yyyy-MM-dd HH:mm"
+									value="#{cargoCentralizadoController.filAprobFechaCargaHasta}" showWeeksBar="false">
+								</rich:calendar> <rich:spacer width="5"></rich:spacer> <rich:message for="fechaCargaHasta" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message></td>
+							<td><h:outputText value="Fecha de pago : " /></td>
+							<td><rich:calendar id="fechaPago" style=" width : 146px;" enableManualInput="false" datePattern="yyyy-MM-dd"
+									value="#{cargoCentralizadoController.filAprobFecPago}" showWeeksBar="false">
+								</rich:calendar></td>
+
+						</tr>
+
+						<tr>
+							<td height="20px"><h:outputText value="Estado : " /></td>
+							<td><h:selectOneMenu id="estado" style=" width : 146px;" value="#{cargoCentralizadoController.filAprobEstado}" required="false"
+									requiredMessage="Obligatorio">
+									<f:selectItems value="#{cargoCentralizadoController.itemEstado}" />
+								</h:selectOneMenu></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+
+						<tr>
+							<td colspan="6" align="center"><a4j:commandButton action="#{cargoCentralizadoController.obtenerComprobantesAprobados}" value="Buscar"
+									style="width:120px;height: 20px;" reRender="listaComprobantes,btnEdit">
+								</a4j:commandButton> <rich:spacer width="10"></rich:spacer> <h:commandButton action="#{cargoCentralizadoController.limpiar}" immediate="true" value="Limpiar"
+									style="width:120px;height: 20px;" /></td>
+
+						</tr>
+						<tr>
+							<td colspan="6" align="center"><rich:extendedDataTable id="listaComprobantes" var="listaCompro"
+									value="#{cargoCentralizadoController.listaComprobantesAprobados}" width="100%" rows="13" height="380px"
+									selection="#{cargoCentralizadoController.selection}" selectionMode="none" reRender="true"
+									noDataLabel="No se encontro data para los filtros ingresados">
+									<rich:column id="colPk" width="40px" sortable="false">
+										<f:facet name="header">
+											<h:outputText value="" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaCompro.pk}">
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="colRUC" width="100px" sortable="false">
+										<f:facet name="header">
+											<h:outputText value="R.U.C. / D.N.I." />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaCompro.ruc}">
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="colRazonSocial" width="300px" sortable="false">
+										<f:facet name="header">
+											<h:outputText value="Razón social" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaCompro.razonSocial}">
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="colTipoComprobante" width="200px" sortable="false">
+										<f:facet name="header">
+											<h:outputText value="Tipo comprobante" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaCompro.tipoComprobante}">
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="colNroDocumento" width="120px" sortable="false">
+										<f:facet name="header">
+											<h:outputText value="N° Comprobante" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaCompro.nroDocumento}">
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="colMoneda" width="60px" sortable="false">
+										<f:facet name="header">
+											<h:outputText value="Moneda" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaCompro.moneda}">
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="colImporteTotal" width="80px" sortable="false">
+										<f:facet name="header">
+											<h:outputText value="Importe total" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaCompro.importeTotal}">
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="colIndicadorDeIgv" width="60px" sortable="false">
+										<f:facet name="header">
+											<h:outputText value="Ind. I.G.V." />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaCompro.indicadorDeIgv}">
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="colImporteDetraccion" width="120px" sortable="false">
+										<f:facet name="header">
+											<h:outputText value="Importe detracción" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaCompro.importeDetraccion}">
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="colFecEmision" width="100px" sortable="false">
+										<f:facet name="header">
+											<h:outputText value="Fecha Emisión" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaCompro.fecEmision}">
+												<f:convertDateTime pattern="yyyy-MM-dd" />
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="colFecRecepcion" width="120px" sortable="false">
+										<f:facet name="header">
+											<h:outputText value="Fecha de recepción" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaCompro.fecRecepcionMp}">
+												<f:convertDateTime pattern="yyyy-MM-dd" />
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="colFecRecepcionCntbl" width="180px" sortable="false">
+										<f:facet name="header">
+											<h:outputText value="Fecha de recepción contable" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaCompro.fecRecepcionCntbl}">
+												<f:convertDateTime pattern="yyyy-MM-dd" />
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="colFecAprobacionCmpte" width="210px" sortable="false">
+										<f:facet name="header">
+											<h:outputText value="Fecha aprobación de comprobante" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaCompro.fecAprobacionCmpte}">
+												<f:convertDateTime pattern="yyyy-MM-dd" />
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="colFecRegistroCntbl" width="140px" sortable="false">
+										<f:facet name="header">
+											<h:outputText value="Fecha registro contable" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaCompro.fecRegistroCntbl}">
+												<f:convertDateTime pattern="yyyy-MM-dd" />
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="colFecEntregaTsria" width="180px" sortable="false">
+										<f:facet name="header">
+											<h:outputText value="Fecha de entrega tesorería" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaCompro.fecEntregaTsria}">
+												<f:convertDateTime pattern="yyyy-MM-dd" />
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="colFecVencPago" width="190px" sortable="false">
+										<f:facet name="header">
+											<h:outputText value="Fecha de vencimiento de pago" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaCompro.fecVencPago}">
+												<f:convertDateTime pattern="yyyy-MM-dd" />
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="colfecPago" width="100px" sortable="false">
+										<f:facet name="header">
+											<h:outputText value="Fecha de pago" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaCompro.fecPago}">
+												<f:convertDateTime pattern="yyyy-MM-dd" />
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="colSistema" width="100px" sortable="false">
+										<f:facet name="header">
+											<h:outputText value="Sistema / Clase" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaCompro.sistema}">
+											</h:outputText>
+											/
+											<h:outputText value=" #{listaCompro.clase}">
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="colEstado" width="100px" sortable="false">
+										<f:facet name="header">
+											<h:outputText value="Estado" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaCompro.estado}">
+											</h:outputText>
+										</center>
+									</rich:column>
+									<f:facet name="footer">
+										<rich:datascroller id="ds" for="listaComprobantes" maxPages="10"></rich:datascroller>
+									</f:facet>
+								</rich:extendedDataTable></td>
+						</tr>
+						<tr>
+							<td colspan="6" align="center"><a4j:commandButton value="Exportar" id="btnExportar" style="width:120px;height: 20px;"
+									oncomplete="#{rich:component('exportarPanel')}.show()">
+								</a4j:commandButton> <rich:spacer width="10"></rich:spacer> <a4j:commandButton value="Actualizar Fechas" id="btnEdit" style="width:120px;height: 20px;"
+									action="#{cargoCentralizadoController.obtenerCargo}" disabled="#{!cargoCentralizadoController.flagEditar}"
+									oncomplete="#{cargoCentralizadoController.cantidadActualizados > 0 ? 'Richfaces.showModalPanel(\'mensajeActualizados\');this.disabled=false;' : 'this.disabled=false;'}"
+									reRender="editPanel" rendered="#{cargoCentralizadoController.verActualizar}">
+								</a4j:commandButton></td>
+						</tr>
+					</tbody>
+				</table>
+			</center>
+		</rich:panel>
+	</h:form>
+
+	<rich:modalPanel id="editPanel" autosized="true" width="800" style="background:#FFF">
+		<f:facet name="header">
+			<h:outputText value="Editar comprobantes aprobados" />
+		</f:facet>
+		<!-- 
+        <f:facet name="controls">
+            <h:panelGroup>
+                <h:graphicImage value="/imagenes/cerrar.png" id="hidelink"
+                    styleClass="hidelink" />
+                <rich:componentControl 
+					action="#{cargoCentralizadoController.cleanRow}"
+                	for="editPanel" 
+                	attachTo="hidelink"
+                    reRender="listaComprobantes"
+                    operation="hide" 
+                    event="onclick" />
+            </h:panelGroup>
+        </f:facet>
+        -->
+		<h:form id="editForm">
+			<table border="0" cellpadding="20" cellspacing="0" style="height: 142px;" width="900px">
+				<!--
+				<a4j:jsFunction  
+				    name="actualizarImporte" 
+				   	reRender="importeTotal"
+				   	>
+				</a4j:jsFunction>
+				-->
+				<tbody>
+					<tr>
+						<td height="140px">
+							<table border="0" cellpadding="5" cellspacing="0"
+								style="width: 100%; font-size: 10px; border: 1px solid #ccc; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; background: #FFF;">
+								<tbody>
+									<tr>
+										<td width="20%" height="40px"><h:outputText value="Importe total de comprobante:" /></td>
+										<td width="30%"><h:inputText id="importeTotal" style=" width : 146px;" maxlength="15" disabled="true"
+												value="#{cargoCentralizadoController.indicadorImporteTotal}">
+												<f:convertNumber pattern="#,###,##0.00" />
+											</h:inputText></td>
+										<td width="20%"></td>
+										<td width="30%"></td>
+									</tr>
+									<tr>
+										<td><h:outputText value="Fecha de recepción contable :" /></td>
+										<td><rich:calendar id="fechaRecepcionContable" style=" width : 146px;" enableManualInput="false" datePattern="yyyy-MM-dd"
+												value="#{cargoCentralizadoController.updateFecRecepcionContable}" showWeeksBar="false" required="false" requiredMessage="Obligatorio">
+												<a4j:support event="onchanged" />
+											</rich:calendar> <rich:spacer width="2"></rich:spacer> <rich:message for="fechaRecepcionContable" style="color: red;">
+												<f:facet name="errorMarker">
+													<h:graphicImage url="../imagenes/error.png" />
+												</f:facet>
+											</rich:message></td>
+										<td height="40px"><h:outputText value="Fecha de entrega a tesorería :" /></td>
+										<td><rich:calendar id="fechaEntregaTesoreria" style=" width : 146px;" enableManualInput="false" datePattern="yyyy-MM-dd"
+												value="#{cargoCentralizadoController.updateFecEntregaTesoreria}" showWeeksBar="false" required="false" requiredMessage="Obligatorio">
+												<a4j:support event="onchanged" />
+											</rich:calendar> <rich:spacer width="2"></rich:spacer> <rich:message for="fechaEntregaTesoreria" style="color: red;">
+												<f:facet name="errorMarker">
+													<h:graphicImage url="../imagenes/error.png" />
+												</f:facet>
+											</rich:message></td>
+									</tr>
+									<tr>
+										<td colspan="4" height="40px" align="center"><a4j:commandButton action="#{cargoCentralizadoController.actualizar}" value="Actualizar"
+												style="width:120px;height: 20px;"
+												oncomplete="#{facesContext.maximumSeverity == null ? 'Richfaces.showModalPanel(\'mensajeExito\');this.disabled=false;' : 'this.disabled=false;'}">
+											</a4j:commandButton> <rich:spacer width="10"></rich:spacer> <a4j:commandButton style="width:120px;height: 20px;"
+												onclick="Richfaces.hideModalPanel('editPanel');" value="Cancelar" /></td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</h:form>
+	</rich:modalPanel>
+
+	<rich:modalPanel id="mensajeActualizados" width="250" height="130">
+		<f:facet name="header">Mensaje</f:facet>
+		<h:panelGroup>
+			<center>
+				<!-- 						<h:graphicImage url="../imagenes/advertencia.png"/> -->
+				<!-- 						<br /> -->
+				<h4>Algunos de los comprobantes filtrados ya fueron actualizados anteriormente.</h4>
+				<a4j:commandButton value="Aceptar"
+					onclick="#{rich:component('mensajeActualizados')}.hide(); #{rich:component('editPanel')}.show(); return false ;" />
+				<rich:componentControl for="editPanel" attachTo="hidelink" operation="hide" event="onclick">
+				</rich:componentControl>
+			</center>
+		</h:panelGroup>
+	</rich:modalPanel>
+
+
+	<rich:modalPanel id="mensajeExito" width="250" height="130">
+		<f:facet name="header">Mensaje</f:facet>
+		<h:panelGroup>
+			<center>
+				<h5>Datos actualizados con éxito!.</h5>
+				<a4j:commandButton value="Aceptar"
+					onclick="actualizar();#{rich:component('mensajeExito')}.hide(); #{rich:component('editPanel')}.hide(); return false ;"
+					oncomplete="#{facesContext.maximumSeverity == null ? 'Richfaces.hideModalPanel(\'editPanel\')' : ';'}" />
+				<rich:componentControl for="editPanel" attachTo="hidelink" operation="hide" event="onclick">
+				</rich:componentControl>
+			</center>
+		</h:panelGroup>
+	</rich:modalPanel>
+
+	<rich:modalPanel id="exportarPanel" width="250" height="130">
+		<f:facet name="header">Exportar</f:facet>
+		<h:panelGroup>
+			<h:form>
+				<center>
+					<rich:componentControl for="exportarPanel" attachTo="hidelink" operation="hide" event="onclick">
+					</rich:componentControl>
+					<h5>Esta seguro si desea exportar.</h5>
+					<h:commandButton style="width:80px;height: 20px;" value="Exportar" action="#{cargoCentralizadoController.exportar}">
+						<a4j:support event="onclick" oncomplete="Richfaces.hideModalPanel('exportarPanel');">
+						</a4j:support>
+					</h:commandButton>
+					<rich:spacer width="10"></rich:spacer>
+					<a4j:commandButton style="width:80px;height: 20px;" onclick="Richfaces.hideModalPanel('exportarPanel');" value="Cancelar" />
+				</center>
+			</h:form>
+		</h:panelGroup>
+	</rich:modalPanel>
+</body>
+
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:hh="http://balusc.net/jsf/html">
+
+<a4j:keepAlive beanName="proAnulaMultIBController" />
+
+<style type="text/css">
+.ipt {
+	margin: 0px 8px 0px 8px;
+	padding: 0px;
+	width: 186px;
+}
+
+.boton {
+	font-size: 10px;
+	font-family: Verdana, Helvetica;
+	font-weight: bold;
+	color: white;
+	background: #638cb5;
+	border: 0px;
+	width: 80px;
+	height: 19px;
+}
+
+.custom-input-file .input-file {
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	font-size: 10000px;
+	border: 10000px solid transparent;
+	opacity: 0;
+	filter: alpha(opacity = 0);
+	position: absolute;
+	right: -1000px;
+	top: -1000px;
+	cursor: pointer;
+}
+</style>
+<head>
+</head>
+<body>
+	<h:form>
+		<center>
+			<rich:extendedDataTable id="lista" var="varlista" value="#{proAnulaMultIBController.lista1}" width="925px" rows="15" height="400px"
+				selectionMode="single" reRender="true">
+
+				<rich:column id="poliza" headerClass="dataTableHeader" width="90" sortable="true" sortBy="varlista.nroCertificado"
+					sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+					<f:facet name="header">
+						<h:outputText value="Poliza" />
+					</f:facet>
+					<center>
+						<h:outputText value="#{varlista.nroCertificado}" />
+					</center>
+				</rich:column>
+
+				<rich:column id="documento" headerClass="dataTableHeader" width="110" sortable="true" sortBy="varlista.nroDocumento"
+					sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+					<f:facet name="header">
+						<h:outputText value="Documento" />
+					</f:facet>
+					<center>
+						<h:outputText value="#{varlista.nroDocumento}" />
+					</center>
+				</rich:column>
+
+				<rich:column id="cliente" headerClass="dataTableHeader" width="250" sortable="true" sortIconAscending="dataTableAscIcon"
+					sortIconDescending="dataTableDescIcon" sortBy="varlista.nom1Cer">
+					<f:facet name="header">
+						<h:outputText value="Cliente" />
+					</f:facet>
+					<h:outputText value="#{varlista.nom1Cer} #{varlista.nom2Cer} #{varlista.ape1Cer} #{varlista.ape2Cer}" />
+				</rich:column>
+
+				<rich:column id="fechaSolic" headerClass="dataTableHeader" width="120" sortable="true" sortIconAscending="dataTableAscIcon"
+					sortIconDescending="dataTableDescIcon">
+					<f:facet name="header">
+						<h:outputText value="Fecha de Anulacion" />
+					</f:facet>
+					<center>
+						<h:outputText value="#{varlista.fecSolAnulacion}">
+							<f:convertDateTime pattern="yyyy-MM-dd" />
+						</h:outputText>
+					</center>
+				</rich:column>
+
+
+
+
+
+
+				<rich:column id="fechaInicioVigencia" headerClass="dataTableHeader" width="120" sortable="true" sortIconAscending="dataTableAscIcon"
+					sortIconDescending="dataTableDescIcon">
+					<f:facet name="header">
+						<h:outputText value="Fecha Inicio Vigencia" />
+					</f:facet>
+					<center>
+						<h:outputText value="#{varlista.fecInicioVigencia}">
+							<f:convertDateTime pattern="yyyy-MM-dd" />
+						</h:outputText>
+
+					</center>
+				</rich:column>
+
+
+				<rich:column id="fechaFinVigencia" headerClass="dataTableHeader" width="120" sortable="true" sortIconAscending="dataTableAscIcon"
+					sortIconDescending="dataTableDescIcon">
+					<f:facet name="header">
+						<h:outputText value="Fecha Fin Vigencia" />
+					</f:facet>
+					<center>
+
+						<h:outputText value="#{varlista.finVigencia}">
+							<f:convertDateTime pattern="yyyy-MM-dd" />
+						</h:outputText>
+
+					</center>
+				</rich:column>
+				<rich:column id="estadoDocumento" headerClass="dataTableHeader" width="120" sortable="true" sortIconAscending="dataTableAscIcon"
+					sortIconDescending="dataTableDescIcon">
+					<f:facet name="header">
+						<h:outputText value="Estado" />
+					</f:facet>
+					<center>
+
+						<h:outputText value="#{varlista.estadoDocumento}">
+
+						</h:outputText>
+
+					</center>
+				</rich:column>
+
+				<f:facet name="footer">
+					<rich:datascroller id="ds" for="lista"></rich:datascroller>
+				</f:facet>
+			</rich:extendedDataTable>
+		</center>
+
+
+
+
+	</h:form>
+</body>
+</html>

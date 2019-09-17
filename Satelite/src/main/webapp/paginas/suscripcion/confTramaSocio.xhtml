@@ -1,0 +1,380 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:a4j="http://richfaces.org/a4j"
+		xmlns:rich="http://richfaces.org/rich"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://richfaces.org/a4j">
+		
+<a4j:keepAlive beanName="configuracionNuevoSocioController" />
+
+<head>
+	    <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+	    
+		<style type="text/css">
+		
+			.celda {
+				width: 150px;
+				color: #000;
+			}
+			
+			input[type="submit"], input[type="button"]{cursor: pointer;}
+			
+			.datatable {
+				padding-top: 10px;
+			}
+			
+			body {
+				font-family: Monaco, Georgia, Times, serif;
+			}
+			
+			#imgReiniciar {
+				width: 12px;
+				height: 12px;
+				margin: 0;
+				padding: 0;
+			}
+			
+			.reiniciarLink {
+				text-decoration: none;
+				margin-left: 10px;
+				display: inline;
+			}
+						
+		</style>
+</head>
+
+<body>
+		<rich:panel id="NuevoSocio" height="100%" >
+			
+			<f:facet name="header">
+				<h:form>
+					<h:outputText id="tituloCabecera" value=" Suscripción > Configuración Socio > Socio - Producto > Configuración Trama #{configuracionNuevoSocioController.tituloCabecera}" />
+					<a4j:commandLink id="reiniciar" action="#{configuracionNuevoSocioController.inicio}" reRender="principal" styleClass="reiniciarLink">
+						<img id="imgReiniciar" src="#{facesContext.externalContext.requestContextPath}/imagenes/refresh.png" />
+					</a4j:commandLink>
+				</h:form>
+			</f:facet>			
+			
+			<center>				
+					<h3>Socio Canal :  <h:outputText value="#{configuracionNuevoSocioController.labelNombreSocio}" /> <h:outputText value="#{configuracionNuevoSocioController.labelNombreCanal}" />  </h3>
+					
+						<fieldset id="configuracion" >
+						
+							<h:form id="formulario">
+							
+								<a4j:region id="regionSocioCanal">
+								
+								<table border="0" width="600px" >
+									<tr>
+										<td width="120">
+											<rich:message	for="columna" style="color: red;">
+												<f:facet name="errorMarker">
+													<h:graphicImage url="../imagenes/error.png" />
+												</f:facet>
+											</rich:message> 
+											<h:outputText value=" * Nombre Campo:" />
+										</td>
+										<td width="180">
+											<h:inputText id="columna"
+														 required="true"
+														 value="#{configuracionNuevoSocioController.nombreColumna}"
+														 requiredMessage="" 
+														 maxlength="100" 
+														 onkeypress="return valRegExpEspeciales(event);"
+														 onkeyup="value=value.toUpperCase()"/>
+										</td>
+										<td width="120">
+											<rich:message	for="descripcion" style="color: red;">
+												<f:facet name="errorMarker">
+													<h:graphicImage url="../imagenes/error.png" />
+												</f:facet>
+											</rich:message> 
+											<h:outputText value="* Descripción: " />								
+										</td>
+										<td width="180">
+											<h:inputText id="descripcion"
+														 required="true"													 
+														 value="#{configuracionNuevoSocioController.descripcion}"
+														 requiredMessage=""
+														 maxlength="100" 
+														 onkeypress="return valRegExpEspeciales(event);" 
+														 onkeyup="value=value.toUpperCase();" />
+										</td>
+									</tr>
+									
+									<a4j:region id="tipoDatoFormatoFecha">
+										
+									<tr>
+										<td  width="120">
+											 <rich:message	for="posicion" style="color: red;">
+												 <f:facet name="errorMarker">
+												 	<h:graphicImage url="../imagenes/error.png" />
+												 </f:facet>
+											 </rich:message> 
+											 <h:outputText value="      Longitud: " id="idlong" />											
+										</td>								
+										<td width="180">
+											<h:inputText id="posicion"												 
+													     value="#{configuracionNuevoSocioController.posicion}"													     
+													     onkeypress="return valNumeros(event);"
+													     onkeyup="value=value.toUpperCase()"
+													     maxlength="10"
+													     disabled="#{!configuracionNuevoSocioController.btnlongitud}"
+													    
+													     />											
+										</td>
+										<td width="120">
+											 <rich:message	for="tipodato" style="color: red;">
+												<f:facet name="errorMarker">
+													<h:graphicImage url="../imagenes/error.png" />
+												</f:facet>
+											 </rich:message> 
+											 <h:outputText value=" * Tipo de dato:" />										
+										</td>
+										
+						<!-- 						Inicio	<a4j:region id="regionSocioCanal">			 -->
+											
+										<td width="180">
+											<h:selectOneMenu id="tipodato"
+											                 required="true"
+															 value="#{configuracionNuevoSocioController.tipoData}"
+															 requiredMessage="Obligatorio"
+											                 valueChangeListener="#{configuracionNuevoSocioController.listarFormatoFecha}"
+											                 style=" width : 210px;">										                 
+											<f:selectItems value="#{configuracionNuevoSocioController.listaTipoData}" />
+											<a4j:support event="onchange" 
+											             reRender="idTipoFormatoFecha,idTipoFormatoFechaLabel" 
+											             ajaxSingle="true"
+											             process="idTipoFormatoFecha,idTipoFormatoFechaLabel"/>
+											</h:selectOneMenu>		
+										</td>										
+									</tr>
+									
+									<tr>
+										<td width="120">	
+										<h:outputText value="Obligatorio: " />										
+										</td>	
+																	
+										<td width="180">
+											<h:selectBooleanCheckbox  id="obligatorio"  value="#{configuracionNuevoSocioController.obligatorio}" />											 
+											<rich:message	for="obligatorio" style="color: red;">
+												<f:facet name="errorMarker">
+													<h:graphicImage url="../imagenes/error.png" />
+												</f:facet>
+											</rich:message> 
+											<h:outputText value="" />
+										</td>
+										<td width="120">
+											<rich:message	for="idTipoFormatoFecha" style="color: red; display:#{configuracionNuevoSocioController.flagViewTipoFormatoFecha ? 'block': 'none'}">
+												<f:facet name="errorMarker">
+													<h:graphicImage url="../imagenes/error.png" />
+												</f:facet>
+											</rich:message> 
+											<h:outputText id="idTipoFormatoFechaLabel" value=" * Formato Fecha:"   
+														  style="display:#{configuracionNuevoSocioController.flagViewTipoFormatoFecha ? 'block': 'none'}" /> 						
+										</td>										
+										<td width="180" >
+											<h:selectOneMenu id="idTipoFormatoFecha" 
+											                 required="#{configuracionNuevoSocioController.flagViewTipoFormatoFecha}"
+											                 value="#{configuracionNuevoSocioController.tipoFormatoFecha}"
+											                 requiredMessage="Obligatorio"
+											                 style="display:#{configuracionNuevoSocioController.flagViewTipoFormatoFecha ? 'block': 'none'}">  											                 
+											<f:selectItems value="#{configuracionNuevoSocioController.listaTipoFormatoFecha}" />
+											</h:selectOneMenu>
+										</td>
+									
+						<!-- 						Fin	  <a4j:region id="regionSocioCanal">		 -->
+									</tr>
+								</a4j:region>
+									<tr>
+										<td width="120">
+										</td>
+										<td width="180">
+										</td>
+										<td width="120">
+										</td>
+										<td width="180">
+											<a4j:commandButton id="agragarColumna"  style="float: right;" value="Agregar"  actionListener="#{configuracionNuevoSocioController.btnNuevaTrama}" 
+											reRender=" table_lista, lista,formulario"  /> 
+										</td>
+									</tr>
+							</table>
+							
+							</a4j:region>
+							
+						</h:form>
+						
+						<h:form id="table_lista">
+						<br />
+						<div style="width: 830px; border: 0px solid white;">
+						<rich:extendedDataTable id="lista" var="objLayout"
+							value="#{configuracionNuevoSocioController.listaLayout}"
+							width="910px" height="300px" rows="10"
+							selection="#{configuracionNuevoSocioController.seleccionLayout}"
+							selectionMode="single" reRender="btnEliminar" rendered="true" >
+							
+							<a4j:support id="selectionBtnEliminar"
+								action="#{configuracionNuevoSocioController.cambiarEstado}"
+								event="onselectionchange" reRender="btnEliminar" />
+							<rich:column id="colId" headerClass="dataTableHeader" width="40"
+								sortable="true" sortBy="#{objLayout.secuencia}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Id" />
+								</f:facet>
+								
+								
+								<center>
+									<h:outputText value="#{objLayout.secuencia}" />
+								</center>
+							</rich:column>
+							
+							<rich:column id="colNombre" headerClass="dataTableHeader"
+								width="210" sortable="true" sortBy="#{objLayout.columnaExcel}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Nombre Campo" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{objLayout.columnaExcel}" />
+								</center>
+							</rich:column>
+							
+							<rich:column id="colDescripcion" headerClass="dataTableHeader"
+								width="210" sortable="true" sortBy="#{objLayout.descripcion}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Descripción" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{objLayout.descripcion}" />
+								</center>
+							</rich:column>
+							
+							
+							<rich:column id="posicion" headerClass="dataTableHeader" width="100"
+								sortable="true" sortBy="#{objLayout.posicion}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Longitud" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{objLayout.posicion}" validatorMessage="No se permiten caracteres extraños." />
+								</center>
+							</rich:column>
+							
+							<rich:column id="colTipoData" headerClass="dataTableHeader"
+								width="150" sortable="true" sortBy="#{objLayout.tipodata}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Tipo de dato" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{objLayout.tipodata}" />
+								</center>
+							</rich:column>
+							
+							<rich:column id="colObligatorio" headerClass="dataTableHeader"
+								width="100" sortable="true"
+								sortBy="#{objLayout.obligatorio}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Obligatorio" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{objLayout.obligatorio_desc}">
+									</h:outputText>
+								</center>
+							</rich:column>
+							
+							<rich:column id="colFormato" headerClass="dataTableHeader"
+								width="100" sortable="true"
+								sortBy="#{objLayout.formato}"
+								sortIconAscending="dataTableAscIcon"
+								sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Formato" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{objLayout.formato}">
+									</h:outputText>
+								</center>
+							</rich:column>
+						
+							<f:facet name="footer">
+								<rich:datascroller id="ds" for="lista" maxPages="10"></rich:datascroller>
+							</f:facet>
+						</rich:extendedDataTable>
+								<rich:modalPanel id="panel" width="250" height="150">
+									<f:facet name="header">
+										<h:outputText value="Mensaje" />
+									</f:facet>
+									<h:panelGroup>
+										<center>
+											<h5>
+												<h:outputText value="La carga finalizó correctamente!" />
+											</h5>
+											<a4j:commandButton value="Aceptar"
+												onclick="#{rich:component('panel')}.hide(); #{rich:component('panel')}.hide(); return false"
+												oncomplete="#{facesContext.maximumSeverity == null ? 'Richfaces.hideModalPanel(\'panel\')' : ';'}"
+												reRender="lista" />
+											<rich:componentControl for="panel" attachTo="hidelink"
+												operation="hide" event="onclick" />
+										</center>
+									</h:panelGroup>
+								</rich:modalPanel>													
+						</div>
+						<br />
+						<table border="0" width="600px"> 
+							<tr>
+								<td style="text-align: left; " width="200px">
+								<a4j:commandButton id="regresarProducto" action="#{configuracionNuevoSocioController.regresarProducto}" value="≪ Socio Canal"/>
+								</td>
+								<td width="200px"  style="text-align: right; ">
+									<a4j:commandButton id="btnEliminar"
+										action="#{configuracionNuevoSocioController.eliminarLayout}"
+										value="Eliminar" reRender="lista, btnEliminar"
+										disabled="#{!configuracionNuevoSocioController.flagBtnEliminar}"
+										onclick="if(!confirm('Esta seguro que desea eliminar?')){return false;}" />
+								</td>
+								<td width="200px">
+								</td>
+							</tr>
+						</table>
+						</h:form>
+					</fieldset>			
+			</center>
+		</rich:panel>	
+		
+		
+<script type="text/javascript" language="javascript">		
+			function valRegExpEspeciales(evt){
+				
+					var respuesta = true;
+					//evt = window.event || evt;
+					evt = e ? e : event;
+					var key = window.Event ? evt.which : evt.keyCode;
+					var charCode = evt.which || evt.keyCode;
+					var charStr = String.fromCharCode(charCode);
+
+					var extraCaracteres = /[A-z\\s-ñáéíóúÑÁÉÍÓÚ.:0-9]/
+					// /[A-z\\s-ñáéíóúÑÁÉÍÓÚ.:0-9]/i.test(charStr)
+					if (evt.keyCode==8 || evt.keyCode==46 ||  evt.keyCode==32) {
+						respuesta = true;   
+					}else{
+						respuesta = false;
+					}
+					return respuesta;
+			}
+			
+		</script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+<a4j:keepAlive beanName="reporteSBSModeloUnoDetalleController" ajaxOnly="true" />
+<head>
+<STYLE type="text/css">
+.barraHerramientasAmarilla {
+	background-color: #EAF0F8;
+	border-bottom-color: #C0C0C0;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+}
+</STYLE>
+</head>
+<body>
+  <h:form>
+   <rich:panel id="envio" height="100%">
+	   
+	   <table align="center">
+	    <tr>
+	         <td align="right"><h:outputText value="Codigo" /></td>
+	         <td style="width: 25%; text-align: left;"><h:inputText id="codigoReporte" value="#{reporteSBSModeloUnoDetalleController.codigoReporte}" maxlength="20" /></td>
+	         
+	         <td align="right"><h:outputText value="Tipo Reporte" /></td>
+	         <td width="20%" align="left"><h:selectOneMenu id="tipoReporte" value="#{reporteSBSModeloUnoDetalleController.tipoReporteParametro}">
+				<f:selectItems value="#{reporteSBSModeloUnoDetalleController.tipoReporteparametrosItems}" />
+
+			    </h:selectOneMenu>
+			 </td>	 
+	         
+	         <td align="right"><h:outputText value="Periodo" /></td>
+	         <td width="20%" align="left"><h:selectOneMenu id="anioReporte" value="#{reporteSBSModeloUnoDetalleController.periodoAnio}">
+				<f:selectItems value="#{reporteSBSModeloUnoDetalleController.anioReporteparametrosItems}" />
+
+			    </h:selectOneMenu>
+			 </td>
+			 <td width="20%" align="left"><h:selectOneMenu id="peridoReporte" value="#{reporteSBSModeloUnoDetalleController.periodoTrimestre}">
+				<f:selectItems value="#{reporteSBSModeloUnoDetalleController.periodoReporteparametrosItems}" />
+
+			    </h:selectOneMenu>
+			 </td>
+	    </tr>
+	    <tr>
+	         <td align="right"><h:outputText value="Usuario" /></td>
+	         <td style="width: 25%; text-align: left;"><h:inputText id="UsuarioReporte" value="#{reporteSBSModeloUnoDetalleController.usuarioReporte}" maxlength="20" /></td>
+	         
+	         <td align="right"><h:outputText value="Resultado" /></td>
+	          <td width="20%" align="left"><h:selectOneMenu id="estadoReporte" value="#{reporteSBSModeloUnoDetalleController.estadoReporte}">
+				<f:selectItems value="#{reporteSBSModeloUnoDetalleController.estadoReporteparametrosItems}" />
+
+			    </h:selectOneMenu>
+			 </td>
+	         	         
+	    </tr>	 	    	      
+	   </table>
+	   <table align="center">	   	
+	    <tr> 
+	      <h:form>
+	    	 <td align="center">
+	         	<h:commandButton id="button" action="#{reporteSBSModeloUnoDetalleController.buscarReportes}" value="Buscar" reRender="tblReporte" style="width:100px;height: 22px;" />			
+	         </td>
+	         </h:form>
+	    </tr>
+	   </table>
+	   
+	    <rich:extendedDataTable id="tblReporte" var="reporte" value="#{reporteSBSModeloUnoDetalleController.listaReportesGeneradosBean}" width="1050px" height="260px" rows="200"
+						selectedClass="dataTableSelectedRow" sortMode="single" selectionMode="none" reRender="true">
+
+						<rich:column id="colCodigoProceso" headerClass="dataTableHeader" width="200" sortable="true" sortBy="#{cheque.numero}">
+							<f:facet name="header">
+								<h:outputText value="Codigo Proceso" />
+							</f:facet>
+							<center>
+								<h:outputText value="#{reporte.codigoProceso}" />
+							</center>
+						</rich:column>
+						<rich:column id="colTipoReporte" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{cheque.banco}">
+							<f:facet name="header">
+								<h:outputText value="Tipo Reporte" />
+							</f:facet>
+							<center>
+								<h:outputText value="#{reporte.tipoReporte}" />
+							</center>
+						</rich:column>
+						<rich:column id="colBeneficiario" headerClass="dataTableHeader" width="350" sortable="true" sortBy="#{cheque.nombreBeneficiario}">
+							<f:facet name="header">
+								<h:outputText value="Periodo" />
+							</f:facet>
+							<center>
+								<h:outputText value="#{reporte.anio}" />
+							</center>
+						</rich:column>
+						<rich:column id="colAnio" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{cheque.tipoMoneda}">
+							<f:facet name="header">
+								<h:outputText value="Año" />
+							</f:facet>
+							<center>
+								<h:outputText value="#{reporte.periodo}" />
+							</center>
+						</rich:column>
+					    <rich:column id="colTipoCambio" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{cheque.tipoMoneda}">
+							<f:facet name="header">
+								<h:outputText value="Tipo de Cambio" />
+							</f:facet>
+							<center>
+								<h:outputText value="#{reporte.tipoCambio}" />
+							</center>
+						</rich:column>
+						<!-- 
+						<rich:column id="colFecha" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{cheque.fechaRegistro}">
+							<f:facet name="header">
+								<h:outputText value="Fecha Generado" />
+							</f:facet>
+							<center>
+								<h:outputText value="#{reporte.fechaRegistro}">
+									<f:convertDateTime pattern="yyyy-MM-dd" />
+								</h:outputText>
+							</center>
+						</rich:column>					
+						
+						<rich:column id="colUsuarioProceso" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{cheque.tipoMoneda}">
+							<f:facet name="header">
+								<h:outputText value="Usuario Proceso" />
+							</f:facet>
+							<center>
+								<h:outputText value="#{reporte.usuarioProceso}" />
+							</center>
+						</rich:column>  -->
+						
+						<rich:column id="colResultado" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{cheque.tipoMoneda}">
+							<f:facet name="header">
+								<h:outputText value="Resultado" />
+							</f:facet>
+							<center>
+								<h:outputText value="#{reporte.resultado}" />
+							</center>
+						</rich:column>
+						
+						<f:facet name="footer">
+							<rich:datascroller id="ds" for="tblReporte" maxPages="10"></rich:datascroller>
+						</f:facet>
+						
+		</rich:extendedDataTable>  	   
+   </rich:panel>
+  </h:form>	
+</body>
+</html>

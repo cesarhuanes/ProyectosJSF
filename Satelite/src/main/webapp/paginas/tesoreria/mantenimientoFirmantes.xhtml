@@ -1,0 +1,585 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<a4j:keepAlive beanName="firmanteController" />
+
+<head>
+<style type="text/css">
+body {
+	font-size: 11px;
+	color: #000;
+	font-family: Arial, Verdana, sans-serif;
+}
+
+.extdt-menu-div-out, .extdt-menu-div-on {
+	display: none !important;
+}
+
+.celda {
+	width: 138px;
+	display: block;
+}
+
+.label {
+	width: 100px;
+	display: block;
+}
+</style>
+
+
+<script type="text/javascript">
+
+function validarRegistro(){
+	var labels=document.querySelectorAll('.rich-fileupload-name-padding');
+	console.info(labels);
+	var n=labels.length;
+	console.info("Numero de archivos cargados: "+n);
+	var errors=document.querySelectorAll(".firmaErrorRegistrar");
+	console.info("Numero de errors: "+errors.length);
+	if(n>0){
+		console.info("Si hay firma");
+		console.info(errors[0]);
+		errors[0].style.display = "none";
+	}else{
+		console.info("No hay firma");
+		console.info(errors[0]);
+		errors[0].style.display = "block";
+		return false;
+	}
+	
+	var length=document.querySelectorAll('.rich-message-marker').length;
+	console.info(length);
+	return length==0;
+}
+
+
+function validarEditar(){
+
+	var length=document.querySelectorAll('.rich-message-marker').length;
+	console.info(length);
+	return length==0;
+}
+
+
+
+</script>
+
+<meta http-equiv="cache-control" content="max-age=0" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="pragma" content="no-cache" />
+</head>
+<body>
+	<rich:panel id="pnlFirmantes">
+		<f:facet name="header">
+			<h:form id="frmActualizar">
+				<h:outputText value="Tesorería > Mantenimiento de Firmantes">
+				</h:outputText>
+
+				<a4j:commandLink action="#{firmanteController.inicio}" reRender="principal" style="text-decoration:none; margin-left:10px">
+					<img src="#{facesContext.externalContext.requestContextPath}/imagenes/refresh.png" width="15" height="15" style="margin: 0; padding: 0" />
+				</a4j:commandLink>
+			</h:form>
+
+		</f:facet>
+		<h:form id="frmFirmantes">
+
+			<fieldset style="margin-bottom: 20px; padding: 20px;">
+				<legend>Listado de firmantes activos</legend>
+
+				<h:panelGrid id="pnlFiltros" columns="3" cellspacing="5">
+					<h:outputLabel value="Usuario" styleClass="label" />
+					<h:inputText id="inpUsuario" value="#{firmanteController.usuario}" styleClass="celda" />
+					<a4j:commandButton id="btnBuscar" value="Buscar" action="#{firmanteController.buscarFirmantes}" reRender="tblFirmantes" />
+				</h:panelGrid>
+
+				<rich:extendedDataTable id="tblFirmantes" var="firmante" value="#{firmanteController.firmantesActivos}" width="500px" height="290px" rows="10"
+					selectedClass="dataTableSelectedRow" sortMode="single" selection="#{firmanteController.selectionActivo}" selectionMode="single" reRender="true"
+					style="margin:5px">
+					<a4j:support event="onselectionchange" reRender="pnlOpciones" action="#{firmanteController.seleccionarFirmanteActivo}" ajaxSingle="true" />
+
+					<rich:column id="colUsuario" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{firmante.usuario}">
+						<f:facet name="header">
+							<h:outputText value="Usuario" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{firmante.usuario}" />
+						</center>
+					</rich:column>
+					<rich:column id="colNombres" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{firmante.nombres}">
+						<f:facet name="header">
+							<h:outputText value="Nombres" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{firmante.nombres}" />
+						</center>
+					</rich:column>
+					<rich:column id="colApellidos" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{firmante.apellidos}">
+						<f:facet name="header">
+							<h:outputText value="Apellidos" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{firmante.apellidos}" />
+						</center>
+					</rich:column>
+					<rich:column id="colCorreo" headerClass="dataTableHeader" width="200" sortable="true" sortBy="#{firmante.correo}">
+						<f:facet name="header">
+							<h:outputText value="Correo" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{firmante.correo}" />
+						</center>
+					</rich:column>
+					<f:facet name="footer">
+						<rich:datascroller id="ds" for="tblFirmantes" maxPages="10"></rich:datascroller>
+					</f:facet>
+				</rich:extendedDataTable>
+
+				<h:panelGrid columns="3" id="pnlOpciones" style="padding-top:20px" cellspacing="5">
+
+					<a4j:commandButton id="btnRegistrar" value="Registrar" action="#{firmanteController.prepararInsercion}" reRender="popupRegistar"
+						oncomplete="#{rich:component('popupRegistar')}.show(); return false;" />
+
+					<a4j:commandButton id="btnModificar" value="Modificar" action="#{firmanteController.prepararActualizacion}" reRender="popupModificar"
+						oncomplete="#{rich:component('popupModificar')}.show(); return false;" disabled="#{empty firmanteController.firmanteActivo}" />
+
+					<a4j:commandButton id="btnEliminar" value="Eliminar" action="#{firmanteController.prepararEliminacion}"
+						disabled="#{empty firmanteController.firmanteActivo}" reRender="popupEliminar"
+						oncomplete="#{rich:component('popupEliminar')}.show(); return false;" />
+
+				</h:panelGrid>
+			</fieldset>
+
+
+
+			<fieldset style="margin-bottom: 20px; padding: 20px;">
+				<legend>Listado de firmantes pendientes de aprobación</legend>
+
+				<rich:extendedDataTable id="tblFirmantesPendientes" var="firmante" value="#{firmanteController.firmantesTemporales}" width="700px" height="260px"
+					rows="10" selectedClass="dataTableSelectedRow" sortMode="single" selection="#{firmanteController.selectionTemp}" selectionMode="single"
+					reRender="true" style="margin:5px">
+					<a4j:support event="onselectionchange" reRender="pnlOpcionesTemp" action="#{firmanteController.seleccionarFirmanteTemporal}" ajaxSingle="true" />
+
+					<rich:column id="colUsuario" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{firmante.usuario}">
+						<f:facet name="header">
+							<h:outputText value="Usuario" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{firmante.usuario}" />
+						</center>
+					</rich:column>
+					<rich:column id="colNombres" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{firmante.nombres}">
+						<f:facet name="header">
+							<h:outputText value="Nombres" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{firmante.nombres}" />
+						</center>
+					</rich:column>
+					<rich:column id="colApellidos" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{firmante.apellidos}">
+						<f:facet name="header">
+							<h:outputText value="Apellidos" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{firmante.apellidos}" />
+						</center>
+					</rich:column>
+					<rich:column id="colCorreo" headerClass="dataTableHeader" width="200" sortable="true" sortBy="#{firmante.correo}">
+						<f:facet name="header">
+							<h:outputText value="Correo" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{firmante.correo}" />
+						</center>
+					</rich:column>
+					<rich:column id="colAccion" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{firmante.nombreAccion}">
+						<f:facet name="header">
+							<h:outputText value="Accion" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{firmante.nombreAccion}" />
+						</center>
+					</rich:column>
+					<!--         <rich:column id="colMotivoAccion" headerClass="dataTableHeader" width="200" sortable="true" sortBy="#{firmante.motivoAccion}"> -->
+					<!--           <f:facet name="header"> -->
+					<!--             <h:outputText value="Motivo de acción" /> -->
+					<!--           </f:facet> -->
+					<!--           <center> -->
+					<!--             <h:outputText value="#{firmante.motivoAccion}" /> -->
+					<!--           </center> -->
+					<!--         </rich:column> -->
+					<rich:column id="colEstadoAccion" headerClass="dataTableHeader" width="100" sortable="true" sortBy="#{firmante.estadoAccion}">
+						<f:facet name="header">
+							<h:outputText value="Estado de acción" />
+						</f:facet>
+						<center>
+							<h:outputText rendered="#{firmante.estadoAccion eq 'P'}" value="Pendiente" />
+							<h:outputText rendered="#{firmante.estadoAccion eq 'R'}" value="Rechazado" />
+						</center>
+					</rich:column>
+					<!--         <rich:column id="colMotivoRechazo" headerClass="dataTableHeader" width="200" sortable="true" sortBy="#{firmante.motivoRechazo}"> -->
+					<!--           <f:facet name="header"> -->
+					<!--             <h:outputText value="Motivo de rechazo" /> -->
+					<!--           </f:facet> -->
+					<!--           <center> -->
+					<!--             <h:outputText value="#{firmante.motivoRechazo}" /> -->
+					<!--           </center> -->
+					<!--         </rich:column> -->
+					<f:facet name="footer">
+						<rich:datascroller id="ds" for="tblFirmantesPendientes" maxPages="10"></rich:datascroller>
+					</f:facet>
+				</rich:extendedDataTable>
+				<h:panelGrid columns="3" id="pnlOpcionesTemp" style="padding-top:20px" cellspacing="5">
+
+					<a4j:commandButton id="btnVer" value="Ver" action="#{firmanteController.prepararVisualizacion}" reRender="popupVerTemp"
+						oncomplete="#{rich:component('popupVerTemp')}.show(); return false;" disabled="#{empty firmanteController.firmanteTemp}" />
+
+					<a4j:commandButton id="btnEliminarTmp" value="Eliminar" reRender="frmEliminarTemp"
+						oncomplete="#{rich:component('popupEliminarTemp')}.show(); return false;" disabled="#{empty firmanteController.firmanteTemp}" />
+
+				</h:panelGrid>
+
+			</fieldset>
+
+
+		</h:form>
+	</rich:panel>
+	<rich:modalPanel id="popupRegistar" width="400" height="400">
+		<f:facet name="header">
+			<h:outputText value="#{firmanteController.firmanteNuevo.nombreAccion} firmante" />
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/imagenes/close.gif" styleClass="hidelink" id="hidelinkRegistrar" />
+				<rich:componentControl for="popupRegistar" attachTo="hidelinkRegistrar" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+
+		<h:form id="frmRegistrar" enctype="multipart/form-data">
+
+			<h:panelGrid columns="3" cellspacing="5">
+				<h:outputLabel value="Usuario: " />
+				<h:inputText id="txtUsuario" value="#{firmanteController.firmanteNuevo.usuario}" required="true" requiredMessage="Ingresar usuario"
+					readonly="#{firmanteController.firmanteNuevo.nombreAccion eq 'Modificar'}" validatorMessage="Usuario no válido">
+					<f:validator validatorId="LettersValidator"></f:validator>
+				</h:inputText>
+				<rich:message for="txtUsuario" style="color: red;">
+					<f:facet name="errorMarker">
+						<h:graphicImage url="../imagenes/error.png" />
+					</f:facet>
+				</rich:message>
+
+				<h:outputLabel value="Nombres: " />
+				<h:inputText id="txtNombres" value="#{firmanteController.firmanteNuevo.nombres}" required="true" requiredMessage="Ingresar nombres"
+					validatorMessage="Nombres no válidos">
+					<f:validator validatorId="TextValidator"></f:validator>
+				</h:inputText>
+				<rich:message for="txtNombres" style="color: red;">
+					<f:facet name="errorMarker">
+						<h:graphicImage url="../imagenes/error.png" />
+					</f:facet>
+				</rich:message>
+
+				<h:outputLabel value="Apellidos: " />
+				<h:inputText id="txtApellidos" value="#{firmanteController.firmanteNuevo.apellidos}" required="true" requiredMessage="Ingresar apellidos"
+					validatorMessage="Apellidos no válidos">
+					<f:validator validatorId="TextValidator"></f:validator>
+				</h:inputText>
+				<rich:message for="txtApellidos" style="color: red;">
+					<f:facet name="errorMarker">
+						<h:graphicImage url="../imagenes/error.png" />
+					</f:facet>
+				</rich:message>
+
+				<h:outputLabel value="Correo: " />
+				<h:inputText id="txtCorreo" value="#{firmanteController.firmanteNuevo.correo}" required="true" requiredMessage="Ingresar correo"
+					validatorMessage="Correo no válido">
+					<f:validator validatorId="EmailValidator" />
+				</h:inputText>
+				<rich:message for="txtCorreo" style="color: red;">
+					<f:facet name="errorMarker">
+						<h:graphicImage url="../imagenes/error.png" />
+					</f:facet>
+				</rich:message>
+
+			</h:panelGrid>
+			<h:panelGrid columns="2" cellspacing="5">
+				<h:outputLabel value="Firma: " />
+
+				<rich:fileUpload id="uplFirmaRegistrar" reRender="firmaImagen" listWidth="250px" listHeight="50px"
+					fileUploadListener="#{firmanteController.listener}" autoclear="false" immediateUpload="true" acceptedTypes="png" allowFlash="false"
+					addControlLabel="Seleccionar imagen" clearAllControlLabel="Limpiar" clearControlLabel="X"
+					ontyperejected="alert('Solo archivos PNG son aceptados');" maxFilesQuantity="1">
+					<a4j:support event="onuploadcomplete" reRender="mediaFirmaRegitrar" />
+					<a4j:support event="onclear" oncomplete="document.getElementById('principal:frmLimpiar:btnLimpiar').click();" reRender="uplFirmaRegistrar" />
+
+					<f:facet name="label">
+						<h:outputText value="{_KB}KB de {KB}KB cargados --- {mm}:{ss}" />
+					</f:facet>
+
+				</rich:fileUpload>
+
+
+				<h:outputLabel></h:outputLabel>
+
+				<h:panelGrid id="errorFirma" styleClass="firmaErrorRegistrar" columns="2" style="display:none">
+					<h:graphicImage url="../imagenes/error.png" />
+					<h:outputText value="Ingresar firma" style="color: red;" />
+				</h:panelGrid>
+				<h:outputLabel></h:outputLabel>
+				<a4j:mediaOutput id="mediaFirmaRegitrar" element="img" cacheable="false" session="false" createContent="#{firmanteController.pintar}"
+					value="#{firmanteController.firmanteNuevo.firma}" mimeType="image/png" style="width:210px;height:90px" rendered="true" />
+
+			</h:panelGrid>
+			<center>
+				<h:panelGrid cellspacing="5" columns="2">
+					<a4j:commandButton value="Registrar" action="#{firmanteController.insertarFirmanteTemporal}"
+						oncomplete="if(validarRegistro()){Richfaces.hideModalPanel('popupRegistar');}" reRender="tblFirmantesPendientes">
+					</a4j:commandButton>
+					<a4j:commandButton value="Cancelar" onclick="#{rich:component('popupRegistar')}.hide();return false" />
+				</h:panelGrid>
+			</center>
+
+		</h:form>
+
+		<h:form id="frmLimpiar">
+
+			<a4j:commandButton style="display:none" id="btnLimpiar" action="#{firmanteController.limpiarFirma}" value="Limpiar" reRender="mediaFirmaRegitrar"
+				widget="btnLimpiarFirma"></a4j:commandButton>
+
+		</h:form>
+
+	</rich:modalPanel>
+
+
+
+	<rich:modalPanel id="popupModificar" width="400" height="450">
+		<f:facet name="header">
+			<h:outputText value="#{firmanteController.firmanteNuevo.nombreAccion} firmante" />
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/imagenes/close.gif" styleClass="hidelink" id="hidelinkModificar" />
+				<rich:componentControl for="popupModificar" attachTo="hidelinkModificar" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+
+		<h:form id="frmModificar">
+
+			<h:panelGrid columns="3" cellspacing="5">
+				<h:outputLabel value="Usuario: " />
+				<h:inputText id="txtUsuario" value="#{firmanteController.firmanteNuevo.usuario}" required="true" requiredMessage="Ingresar usuario"
+					readonly="true">
+				</h:inputText>
+				<rich:message for="txtUsuario" style="color: red;">
+					<f:facet name="errorMarker">
+						<h:graphicImage url="../imagenes/error.png" />
+					</f:facet>
+				</rich:message>
+
+				<h:outputLabel value="Nombres: " />
+				<h:inputText id="txtNombres" value="#{firmanteController.firmanteNuevo.nombres}" required="true" requiredMessage="Ingresar nombres"
+					validatorMessage="Nombres no válidos">
+					<f:validator validatorId="TextValidator"></f:validator>
+				</h:inputText>
+				<rich:message for="txtNombres" style="color: red;">
+					<f:facet name="errorMarker">
+						<h:graphicImage url="../imagenes/error.png" />
+					</f:facet>
+				</rich:message>
+
+				<h:outputLabel value="Apellidos: " />
+				<h:inputText id="txtApellidos" value="#{firmanteController.firmanteNuevo.apellidos}" required="true" requiredMessage="Ingresar apellidos"
+					validatorMessage="Apellidos no válidos">
+					<f:validator validatorId="TextValidator"></f:validator>
+				</h:inputText>
+				<rich:message for="txtApellidos" style="color: red;">
+					<f:facet name="errorMarker">
+						<h:graphicImage url="../imagenes/error.png" />
+					</f:facet>
+				</rich:message>
+
+				<h:outputLabel value="Correo: " />
+				<h:inputText id="txtCorreo" value="#{firmanteController.firmanteNuevo.correo}" required="true" requiredMessage="Ingresar correo"
+					validatorMessage="Correo no válido">
+					<f:validator validatorId="EmailValidator"></f:validator>
+				</h:inputText>
+				<rich:message for="txtCorreo" style="color: red;">
+					<f:facet name="errorMarker">
+						<h:graphicImage url="../imagenes/error.png" />
+					</f:facet>
+				</rich:message>
+
+			</h:panelGrid>
+			<h:panelGrid columns="2" cellspacing="5">
+				<h:outputLabel value="Firma: " />
+
+				<rich:fileUpload id="uplFirmaModificar" reRender="firmaImagen" listWidth="250px" listHeight="50px"
+					fileUploadListener="#{firmanteController.listener}" autoclear="false" immediateUpload="true" acceptedTypes="png" allowFlash="false"
+					addControlLabel="Cambiar firma" clearAllControlLabel="Limpiar" clearControlLabel="X" ontyperejected="alert('Solo archivos PNG son aceptados');"
+					maxFilesQuantity="1">
+					<a4j:support event="onuploadcomplete" reRender="mediaFirmaModificar" />
+					<a4j:support event="onclear" reRender="uplFirmaModificar,mediaFirmaModificar" />
+
+					<f:facet name="label">
+						<h:outputText value="{_KB}KB de {KB}KB cargados --- {mm}:{ss}" />
+					</f:facet>
+
+				</rich:fileUpload>
+
+
+				<h:outputLabel></h:outputLabel>
+				<a4j:mediaOutput id="mediaFirmaModificar" element="img" cacheable="false" session="false" createContent="#{firmanteController.pintar}"
+					value="#{firmanteController.firmanteNuevo.firma}" mimeType="image/png" style="width:210px;height:90px" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="3" cellspacing="5">
+				<h:outputLabel value="Motivo de modificacion: "></h:outputLabel>
+				<h:inputTextarea id="txtMotivo" value="#{firmanteController.firmanteNuevo.motivoAccion}" required="true"
+					requiredMessage="Ingresar motivo de modificación"></h:inputTextarea>
+				<rich:message for="txtMotivo" style="color: red;">
+					<f:facet name="errorMarker">
+						<h:graphicImage url="../imagenes/error.png" />
+					</f:facet>
+				</rich:message>
+			</h:panelGrid>
+			<center>
+				<h:panelGrid cellspacing="5" columns="2">
+					<a4j:commandButton value="Registrar" action="#{firmanteController.insertarFirmanteTemporal}"
+						oncomplete="if(validarEditar()){Richfaces.hideModalPanel('popupModificar');}" reRender="tblFirmantesPendientes">
+					</a4j:commandButton>
+					<a4j:commandButton value="Cancelar" onclick="#{rich:component('popupModificar')}.hide();return false" />
+				</h:panelGrid>
+			</center>
+		</h:form>
+
+	</rich:modalPanel>
+
+
+
+
+	<rich:modalPanel id="popupEliminar" height="300">
+		<f:facet name="header">
+			<h:outputText value="Eliminar firmante" />
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/imagenes/close.gif" styleClass="hidelink" id="hidelinkEliminar" />
+				<rich:componentControl for="popupEliminar" attachTo="hidelinkEliminar" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<h:form id="frmEliminar">
+
+      Usted va a solicitar la eliminación del firmante con usuario #{firmanteController.firmanteActivo.usuario} y nombre 
+      #{firmanteController.firmanteActivo.nombres} #{firmanteController.firmanteActivo.apellidos}
+
+      <h:panelGrid rendered="#{not empty firmanteController.pares}">
+				<p>Los siguientes pares de firmantes serán desactivados:</p>
+				<rich:dataList var="par" value="#{firmanteController.pares}" title="Lista de Pares">
+					<h:outputText value="#{par.firmante1}" />
+					<h:outputText value=" " />
+					<h:outputText value="#{par.firmante2}" />
+				</rich:dataList>
+			</h:panelGrid>
+      ¿Desea continuar con la operación? 
+      <br />
+			<center>
+				<h:panelGrid columns="3" cellspacing="5">
+					<h:outputLabel value="Motivo de eliminación: "></h:outputLabel>
+					<h:inputTextarea id="txtMotivo" value="#{firmanteController.firmanteNuevo.motivoAccion}" required="true"
+						requiredMessage="Ingresar motivo de eliminacion"></h:inputTextarea>
+					<rich:message for="txtMotivo" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message>
+				</h:panelGrid>
+				<h:panelGrid columns="2" cellspacing="5">
+					<a4j:commandButton value="Eliminar" action="#{firmanteController.insertarFirmanteTemporal}"
+						oncomplete="if(validarEditar()){Richfaces.hideModalPanel('popupEliminar');}" reRender="tblFirmantesPendientes">
+					</a4j:commandButton>
+					<a4j:commandButton value="Cancelar" onclick="#{rich:component('popupEliminar')}.hide();return false" />
+				</h:panelGrid>
+			</center>
+		</h:form>
+
+	</rich:modalPanel>
+
+	<rich:modalPanel id="popupEliminarTemp" height="130" width="200">
+		<f:facet name="header">
+			<h:outputText value="Eliminar firmante temporal" />
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/imagenes/close.gif" styleClass="hidelink" id="hidelinkEliminarTemp" />
+				<rich:componentControl for="popupEliminarTemp" attachTo="hidelinkEliminarTemp" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<h:form id="frmEliminarTemp">
+			<p>El registro de firmante temporal será eliminado, ¿Desea continuar con la operación?</p>
+			<center>
+				<h:panelGrid columns="2" cellspacing="5">
+					<h:commandButton actionListener="#{firmanteController.eliminarFirmanteTemporal}" value="Eliminar" />
+					<a4j:commandButton value="Cancelar" onclick="#{rich:component('popupEliminarTemp')}.hide();return false" />
+				</h:panelGrid>
+			</center>
+
+		</h:form>
+
+	</rich:modalPanel>
+
+	<rich:modalPanel id="popupVerTemp" height="#{firmanteController.alto}" width="250">
+		<f:facet name="header">
+			<h:outputText value="Visualización de firmante temporal" />
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/imagenes/close.gif" styleClass="hidelink" id="hidelinkVerTemp" />
+				<rich:componentControl for="popupVerTemp" attachTo="hidelinkVerTemp" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+
+		<h:panelGrid columns="2" cellspacing="5">
+			<h:outputLabel value="Usuario: " />
+			<h:inputText id="txtUsuario" value="#{firmanteController.firmanteTemp.usuario}" readonly="true" />
+
+			<h:outputLabel value="Nombres: " />
+			<h:inputText id="txtNombres" value="#{firmanteController.firmanteTemp.nombres}" readonly="true" />
+
+			<h:outputLabel value="Apellidos: " />
+			<h:inputText id="txtApellidos" value="#{firmanteController.firmanteTemp.apellidos}" readonly="true" />
+
+			<h:outputLabel value="Correo: " />
+			<h:inputText id="txtCorreo" value="#{firmanteController.firmanteTemp.correo}" readonly="true" />
+
+			<h:outputLabel value="Firma: " />
+
+			<a4j:mediaOutput element="img" cacheable="false" session="false" createContent="#{firmanteController.pintar}"
+				value="#{firmanteController.firmanteTemp.firma}" mimeType="image/png" style="width:210px;height:90px" />
+
+			<h:outputLabel value="Accion: " />
+
+			<h:inputText id="txtAccion" value="#{firmanteController.firmanteTemp.nombreAccion}" readonly="true" />
+
+			<h:outputLabel value="Motivo de acción: " rendered="#{not empty firmanteController.firmanteTemp.motivoAccion}" />
+
+			<h:inputTextarea id="txtMotivoAccion" value="#{firmanteController.firmanteTemp.motivoAccion}" readonly="true"
+				rendered="#{not empty firmanteController.firmanteTemp.motivoAccion}" />
+
+			<h:outputLabel value="Motivo de rechazo: " rendered="#{not empty firmanteController.firmanteTemp.motivoRechazo}" />
+
+			<h:inputTextarea id="txtMotivoRechazo" value="#{firmanteController.firmanteTemp.motivoRechazo}" readonly="true"
+				rendered="#{not empty firmanteController.firmanteTemp.motivoRechazo}" />
+
+		</h:panelGrid>
+		<center>
+			<a4j:commandButton value="Cerrar" onclick="#{rich:component('popupVerTemp')}.hide();return false" />
+		</center>
+	</rich:modalPanel>
+
+
+
+
+</body>
+</html>

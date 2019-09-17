@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardif.satelite.configuracion.dao.SocioMapper">
+	
+	<resultMap id="BaseResultMap" type="com.cardif.satelite.model.Socio">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result	column="RUC_SOCIO" property="rucSocio" jdbcType="VARCHAR" />
+		<result column="NOMBRE_SOCIO" property="nombreSocio" jdbcType="VARCHAR" />
+		<result column="ABREVIATURA" property="abreviatura" jdbcType="VARCHAR" />
+		<result column="FECHA_CONTRATO" property="fechaContrato" jdbcType="TIMESTAMP" />
+		<result column="GRUPO_COMERCIO" property="grupoComercio" jdbcType="NUMERIC" />
+		<result column="ESTADO" property="estado" jdbcType="NUMERIC" />		
+		<result	column="FECHA_CREACION"	property="fechaCreacion" jdbcType="DATE" />
+		<result	column="FECHA_MODIFICACION"	property="fechaModificacion" jdbcType="DATE" />
+		<result column="USUARIO_CREACION" property="usuarioCreacion" jdbcType="VARCHAR" />
+		<result column="USUARIO_MODIFICACION" property="usuarioModificacion" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID, RUC_SOCIO, NOMBRE_SOCIO, ABREVIATURA, FECHA_CONTRATO, GRUPO_COMERCIO, ESTADO, FECHA_CREACION, FECHA_MODIFICACION, USUARIO_CREACION, USUARIO_MODIFICACION
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from SOCIO
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	
+	<select id="selectByRuc" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />	
+		from SOCIO
+		where RUC_SOCIO = #{rucSocio,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from SOCIO where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	
+	<insert id="insert" parameterType="com.cardif.satelite.model.Socio">
+		<selectKey keyProperty="id" order="BEFORE" resultType="int">
+			SELECT nextVal('SOCIO_SEQ')
+		</selectKey>
+		
+		insert into SOCIO (ID, RUC_SOCIO, NOMBRE_SOCIO, ABREVIATURA, FECHA_CONTRATO, GRUPO_COMERCIO, ESTADO)
+		values (#{id,jdbcType=DECIMAL}, #{rucSocio,jdbcType=VARCHAR}, #{nombreSocio,jdbcType=VARCHAR}, #{abreviatura,jdbcType=VARCHAR},
+		#{fechaContrato,jdbcType=TIMESTAMP}, #{grupoComercio,jdbcType=NUMERIC}, #{estado,jdbcType=NUMERIC})
+	</insert>
+			
+	<insert id="insertSelective" parameterType="com.cardif.satelite.model.Socio">
+		insert into SOCIO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="rucSocio != null">
+				RUC_SOCIO,
+			</if>
+			<if test="nombreSocio != null">
+				NOMBRE_SOCIO,
+			</if>
+			<if test="abreviatura != null">
+				ABREVIATURA,
+			</if>
+			<if test="fechaContrato != null">
+				FECHA_CONTRATO,
+			</if>
+			<if test="grupoComercio != null">
+				GRUPO_COMERCIO,
+			</if>
+			<if test="estado != null">
+				ESTADO,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+			</if>
+			<if test="rucSocio != null">
+				#{rucSocio,jdbcType=VARCHAR},
+			</if>
+			<if test="nombreSocio != null">
+				#{nombreSocio,jdbcType=VARCHAR},
+			</if>
+			<if test="abreviatura != null">
+				#{abreviatura,jdbcType=VARCHAR},
+			</if>
+			<if test="fechaContrato != null">
+				#{fechaContrato,jdbcType=TIMESTAMP},
+			</if>
+			<if test="grupoComercio != null">
+				#{grupoComercio,jdbcType=DECIMAL},
+			</if>
+			<if test="estado != null">
+				#{estado,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.cardif.satelite.model.Socio">
+		update SOCIO
+		<set>
+			<if test="rucSocio != null">
+				RUC_SOCIO = #{rucSocio,jdbcType=VARCHAR},
+			</if>
+			<if test="nombreSocio != null">
+				NOMBRE_SOCIO = #{nombreSocio,jdbcType=VARCHAR},
+			</if>
+			<if test="abreviatura != null">
+				ABREVIATURA = #{abreviatura,jdbcType=VARCHAR},
+			</if>
+			<if test="fechaContrato != null">
+				FECHA_CONTRATO = #{fechaContrato,jdbcType=TIMESTAMP},
+			</if>
+			<if test="grupoComercio != null">
+				GRUPO_COMERCIO = #{grupoComercio,jdbcType=DECIMAL},
+			</if>
+			<if test="estado != null">
+				ESTADO = #{estado,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.cardif.satelite.model.Socio">
+		update SOCIO 
+		set RUC_SOCIO = #{rucSocio,jdbcType=VARCHAR}. NOMBRE_SOCIO = #{nombreSocio,jdbcType=VARCHAR}, ABREVIATURA = #{abreviatura,jdbcType=VARCHAR}, 
+		FECHA_CONTRATO = #{fechaContrato,jdbcType=TIMESTAMP}, GRUPO_COMERCIO = #{grupoComercio,jdbcType=DECIMAL}, 
+		ESTADO = #{estado,jdbcType=DECIMAL} 
+		where COD_PARAM = #{codParam,jdbcType=NVARCHAR}
+	</update>
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cardif.satelite.reportes.dao.DetalleReporteLiquidacionMapper">
+	
+	<resultMap id="BaseResultMap" type="com.cardif.satelite.model.reportes.DetalleReporteLiquidacion">
+		<id column="ID" jdbcType="NUMERIC" property="id" />
+		<result column="ID_DETALLE_TRAMA_DIARIA" jdbcType="NUMERIC" property="idDetalleTramaDiaria" />
+		<result column="DERECHO_EMISION" jdbcType="DOUBLE" property="derechoEmision" />
+		<result column="COMISION" jdbcType="DOUBLE" property="comision" />
+		<result column="FONDO_COMPENSACION" jdbcType="DOUBLE" property="fondoCompensacion" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID, ID_DETALLE_TRAMA_DIARIA, DERECHO_EMISION, COMISION, FONDO_COMPENSACION
+	</sql>
+	
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" /> 
+		from DETALLE_REPORTE_LIQUIDACION
+		where ID = #{id,jdbcType=NUMERIC}
+	</select>
+	
+	<select id="selectByDetalleTramaDiaria" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" /> 
+		from DETALLE_REPORTE_LIQUIDACION
+		where ID_DETALLE_TRAMA_DIARIA = #{id,jdbcType=NUMERIC} AND ROWNUM=1
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from DETALLE_REPORTE_LIQUIDACIONES
+		where ID = #{id,jdbcType=NUMERIC}
+	</delete>
+</mapper>

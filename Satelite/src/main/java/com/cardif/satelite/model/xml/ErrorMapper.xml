@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardif.satelite.configuracion.dao.ErrorMapper">
+	<resultMap id="BaseResultMap" type="com.cardif.satelite.model.Error">
+		<id column="COD_ERROR" property="codError" jdbcType="NUMERIC" />
+		<result column="TIP_ERROR" property="tipError" jdbcType="NVARCHAR" />
+		<result column="NOM_VALOR" property="nomValor" jdbcType="NVARCHAR" />
+	</resultMap>
+</mapper>

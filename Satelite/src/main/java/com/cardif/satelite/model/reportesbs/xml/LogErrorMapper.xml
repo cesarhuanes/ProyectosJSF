@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardif.satelite.reportesbs.dao.LogErrorMapper">
+	<resultMap id="BaseResultMap" type="com.cardif.satelite.model.reportesbs.LogError">
+		<id column="COD_LOG_ERROR" property="codLogError" jdbcType="DECIMAL" />
+		<result column="COD_PROCESO_ARCHIVO" property="codProcesoArchivo"
+			jdbcType="DECIMAL" />
+		<result column="SOCIO" property="socio" jdbcType="VARCHAR" />
+		<result column="ASEGURADO" property="asegurado" jdbcType="VARCHAR" />
+		<result column="PRODUCTO" property="producto" jdbcType="VARCHAR" />
+		<result column="BO_PLANILLA" property="bo_planilla" jdbcType="VARCHAR" />
+		<result column="NUM_POLIZA_SINIESTRO" property="numPolizaSiniestro"
+			jdbcType="VARCHAR" />
+		<result column="USU_CREACION" property="usuCreacion" jdbcType="VARCHAR" />
+		<result column="FEC_CREACION" property="fecCreacion" jdbcType="VARCHAR" />
+		<result column="DESCRIPCION" property="descripcionError"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+
+</mapper>

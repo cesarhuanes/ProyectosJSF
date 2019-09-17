@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<a4j:keepAlive beanName="calcReservaAcseleController" />
+<head>
+
+<style type="text/css">
+.celda {
+	width: 170px;
+	color: #000;
+}
+
+body {
+	/*font-family: Monaco, Georgia, Times, serif;*/
+	font-family: 'Cutive Mono', serif;
+}
+</style>
+<link href='http://fonts.googleapis.com/css?family=Cutive+Mono' rel='stylesheet' type='text/css' />
+</head>
+<body>
+	<h:form>
+
+		<rich:panel id="consultar" height="100%" reRender="lista">
+			<f:facet name="header">
+				<h:outputText value="Actuarial > Cálculo de Reserva Acsel-e" />
+			</f:facet>
+			<center>
+				<div style="text-align: center;">
+					<table style="margin: 0 auto;">
+						<tr>
+							<td style="text-align: right;"><rich:message for="selectSocio" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Seleccionar Socio:" /></td>
+							<td style="text-align: left;">
+							
+							<h:selectOneMenu id="selectSocio" class="celda" value="#{calcReservaAcseleController.socio}"
+									valueChangeListener="#{calcReservaAcseleController.buscarProducto}" required="true" requiredMessage="Obligatorio">
+									<f:selectItems value="#{calcReservaAcseleController.socioItems}" />
+									<a4j:support event="onchange" ajaxOnly="true" reRender="selectProducto" />
+							</h:selectOneMenu>
+							
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align: right;"><rich:message for="selectProducto" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Producto:" /></td>
+							<td style="text-align: left;"><h:selectOneMenu id="selectProducto" class="celda" value="#{calcReservaAcseleController.producto}"
+									required="true" requiredMessage="Obligatorio">
+									<f:selectItems value="#{calcReservaAcseleController.productoItems}" />
+									<a4j:support event="onchange" ajaxOnly="true" />
+								</h:selectOneMenu></td>
+						</tr>
+						<tr>
+							<td style="text-align: right;"><rich:message for="tipVenta" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Tipo de Venta:" /></td>
+							<td style="text-align: left;"><h:selectOneMenu id="tipVenta" class="celda"
+									value="#{calcReservaAcseleController.actReservaAcsele.codTipoVenta}" required="true" requiredMessage="Obligatorio">
+									<f:selectItems value="#{calcReservaAcseleController.tipVentaItems}" />
+									<a4j:support event="onchange" ajaxOnly="true" />
+								</h:selectOneMenu></td>
+						</tr>
+						<tr>
+							<td style="text-align: right;"><rich:message for="fechaCierre" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Fecha de Cierre:" /></td>
+							<td style="text-align: left;"><rich:calendar id="fechaCierre" enableManualInput="false" datePattern="yyyy/MM/dd"
+									value="#{calcReservaAcseleController.actReservaAcsele.fecCierre}" showWeeksBar="false" required="true" requiredMessage="Obligatorio">
+									<a4j:support event="onchanged" />
+								</rich:calendar></td>
+						</tr>
+						<tr>
+							<td style="text-align: right;"><rich:message for="fechaInicio" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Fecha de Inicio" /></td>
+							<td style="text-align: left;"><rich:calendar id="fechaInicio" enableManualInput="false" datePattern="yyyy/MM/dd"
+									value="#{calcReservaAcseleController.actReservaAcsele.fecInicio}" showWeeksBar="false" required="true" requiredMessage="Obligatorio">
+									<a4j:support event="onchanged" />
+								</rich:calendar></td>
+						</tr>
+						<tr>
+							<td style="text-align: right;"><rich:message for="fechaFin" style="color: red;">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="../imagenes/error.png" />
+									</f:facet>
+								</rich:message> <rich:spacer width="5">
+								</rich:spacer> <h:outputText value="Fecha de Fin" /></td>
+							<td style="text-align: left;"><rich:calendar id="fechaFin" enableManualInput="false" datePattern="yyyy/MM/dd"
+									value="#{calcReservaAcseleController.actReservaAcsele.fecFin}" showWeeksBar="false" required="true" requiredMessage="Obligatorio">
+									<a4j:support event="onchanged" />
+								</rich:calendar></td>
+						</tr>
+						<tr>
+							<td colspan="7" height="10px"></td>
+						</tr>
+					</table>
+				</div>
+				<a4j:commandButton action="#{calcReservaAcseleController.procesar}" value="Procesar Reporte"
+					oncomplete="#{facesContext.maximumSeverity == null ? 'Richfaces.showModalPanel(\'cargando\');this.disabled=false;' :
+						'this.disabled=false;'}">
+				</a4j:commandButton>
+				<rich:spacer width="10"></rich:spacer>
+				<h:commandButton action="#{calcReservaAcseleController.limpiar}" immediate="true" value="Limpiar" />
+			</center>
+		</rich:panel>
+	</h:form>
+</body>
+<rich:modalPanel id="existe" width="250" height="130">
+	<f:facet name="header">Informativo</f:facet>
+	<h:panelGroup>
+		<center>
+			<h5>Existe un Reporte en ejecución por favor revise en Consulta de Procesos.</h5>
+			<a4j:commandButton value="Aceptar" onclick="#{rich:component('existe')}.hide();return false" />
+			<rich:componentControl for="existe" attachTo="hidelink" operation="hide" event="onclick"></rich:componentControl>
+		</center>
+	</h:panelGroup>
+</rich:modalPanel>
+<rich:modalPanel id="cargando" width="250" height="230">
+	<f:facet name="header">Informativo</f:facet>
+	<h:panelGroup>
+		<center>
+			<h5>El proceso se está ejecutando, por favor vaya a Consulta de Procesos.</h5>
+			<a4j:commandButton value="Aceptar" onclick="#{rich:component('cargando')}.hide();return false" />
+			<rich:componentControl for="cargando" attachTo="hidelink" operation="hide" event="onclick"></rich:componentControl>
+		</center>
+	</h:panelGroup>
+</rich:modalPanel>
+
+</html>

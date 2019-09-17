@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+
+</head>
+<body>
+
+	<h:form id="frmConfig">
+
+
+
+		<rich:panel id="pnlConfig">
+			<f:facet name="header">
+				<h:outputText value="Tesorería > Configuración de contraseña" />
+			</f:facet>
+			<center>
+				<h:panelGrid columns="3" cellspacing="5">
+					<h:outputText value="Contraseña Actual: " />
+					<h:inputSecret id="txtClaveAntigua" value="#{claveController.claveAntigua}" requiredMessage="Debe ingresar la antigua contraseña" />
+					<rich:message for="txtClaveAntigua" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message>
+					<h:outputText value="Nueva Contraseña: " />
+					<h:inputSecret id="txtClave" value="#{claveController.clave}" requiredMessage="Debe ingresar la nueva contraseña"
+						validatorMessage="Mínimo 6 caracteres y máximo 15 ">
+						<f:validateLength minimum="6" maximum="15"></f:validateLength>
+					</h:inputSecret>
+					<rich:message for="txtClave" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message>
+					<h:outputText value="Confirmar Contraseña: " />
+					<h:inputSecret id="txtClaveVerificacion" value="#{claveController.claveVerificacion}" requiredMessage="Debe ingresar la nueva contraseña"
+						validatorMessage="Mínimo 6 caracteres y máximo 15 ">
+						<f:validateLength minimum="6" maximum="15"></f:validateLength>
+					</h:inputSecret>
+					<rich:message for="txtClaveVerificacion" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message>
+				</h:panelGrid>
+				<h:outputText></h:outputText>
+				<a4j:commandButton value="Cambiar contraseña" action="#{claveController.configurar}"></a4j:commandButton>
+			</center>
+
+
+		</rich:panel>
+
+
+	</h:form>
+
+
+</body>
+</html>

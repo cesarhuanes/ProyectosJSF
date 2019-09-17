@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core">
+	
+	<a4j:keepAlive beanName="postVentaSOATController" />
+	<head>
+		<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+		<style type="text/css">
+			#ventanaPopupDimension {
+ 				width: 450px;
+ 				margin: 0 auto;
+ 			}
+		</style>
+	</head>
+	<body>
+		<rich:panel id="panelPrincipal" height="100%">
+			<f:facet name="header">
+				<h:outputText value=" Suscripción > Consulta Post Venta > Ver Detalle > Anular Póliza" />
+			</f:facet>
+			<fieldset id="ventanaPopupDimension" style="border: none;">
+				<h:form id="formPostVentaSOATStep2_Anular">
+					<rich:panel>
+						<div style="padding: 15px 5px;">
+							<table style="width: 100%;">
+								<tr>
+									<td style="text-align: left; width: 33.5%;">
+										<rich:message for="idMotivoVDA" style="color: red;">
+											<f:facet name="errorMarker">
+												<h:graphicImage url="../imagenes/error.png" />
+											</f:facet>
+										</rich:message>
+										<rich:spacer width="2" /><h:outputText value="Motivo de Anulación:" />
+									</td>
+									<td style="text-align: left;">
+										<h:selectOneMenu id="idMotivoVDA" value="#{postVentaSOATController.idMotivoVDA}" style="width: 220px;" required="true" requiredMessage="">
+											<f:selectItems value="#{postVentaSOATController.comboListaMotivoAnul}" />
+										</h:selectOneMenu>
+									</td>
+								</tr>
+								<tr>
+									<td style="text-align: left; width: 33.5%;">
+										<rich:message for="observacionVDA" style="color: red;">
+											<f:facet name="errorMarker">
+												<h:graphicImage url="../imagenes/error.png" />
+											</f:facet>
+										</rich:message>
+										<rich:spacer width="2" /><h:outputText value="Observación:" />
+									</td>
+									<td style="text-align: left;">
+										<h:inputTextarea id="observacionVDA" value="#{postVentaSOATController.observacionVDA}" required="true" requiredMessage="" maxlength="250"
+											onkeyup="value=value.toUpperCase();" style="width: 265px; height: 50px; resize: none; float: left;" />
+									</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>
+										<a4j:commandButton id="aceptarAnular" action="#{postVentaSOATController.procesoAnularPoliza}" onclick="this.disabled=true" value="Anular" 
+											oncomplete="#{null == facesContext.maximumSeverity ? 'Richfaces.showModalPanel(\'panelSuccessAnular\'); this.disabled=false;' : 'this.disabled=false;'}" 
+											reRender="panelSuccessAnular, componentes, editar, actualizar, re-imprimir, anular, verCertificado, confirmarCert" render="true" />
+									</td>
+								</tr>
+							</table>
+						</div>
+					</rich:panel>
+					<a4j:status onstart="Richfaces.showModalPanel('ajaxLoadingModalBox')" onstop="Richfaces.hideModalPanel('ajaxLoadingModalBox')" />
+				</h:form>
+			</fieldset>
+		</rich:panel>
+		
+		<rich:modalPanel id="ajaxLoadingModalBox" width="100" height="95">
+			<center>
+				<img src="#{facesContext.externalContext.requestContextPath}/imagenes/loading.gif"></img><br />
+				<h:outputText value="Cargando..." />
+			</center>
+		</rich:modalPanel>
+		
+		<rich:modalPanel id="panelSuccessAnular" width="250" height="130">
+			<f:facet name="header">
+				<h:outputText value="Mensaje" />
+			</f:facet>
+			<h:panelGroup>
+				<center>
+					<h5>
+						<h:outputText value="La anulación de la Póliza Nro.#{postVentaSOATController.detalleTramaDiariaAux.nroPolizaPe} fue exitosa." />
+					</h5>
+					<a4j:commandButton value="Aceptar" render="true" onclick="#{rich:component('panelSuccessAnular')}.hide(); #{rich:component('panelAnularPolizaSOAT')}.hide(); return false" 
+						oncomplete="#{facesContext.maximumSeverity == null ? 'Richfaces.hideModalPanel(\'panelAnularPolizaSOAT\')' : ';'}" />
+					<rich:componentControl for="panelAnularPolizaSOAT" attachTo="hidelink02" operation="hide" event="onclick" />
+				</center>
+			</h:panelGroup>
+		</rich:modalPanel>
+	</body>
+</html>

@@ -1,0 +1,306 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<a4j:keepAlive beanName="impresionSoatController" />
+<head>
+
+<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+<style type="text/css">
+.celda {
+	width: 170px;
+	color: #000;
+}
+
+.separador {
+	padding: 0 27px 0 27px;
+}
+</style>
+
+</head>
+<body>
+	<h:form>
+
+		<fieldset id="formVehiculo">
+			<legend>Datos del Vehiculo</legend>
+			<a4j:region ajaxSingle="true">
+				<table>
+					<tr>
+						<td width="19%" align="center"><rich:spacer width="5"></rich:spacer> <h:outputText value="Nro. Poliza" /> <h:inputText id="nroPoliza"
+								value="#{impresionSoatController.ventaSoatEmpl.nroPoliza}" maxlength="20" class="celda" readonly="true" style="background:#ddd;" /></td>
+					</tr>
+				</table>
+				<br />
+				<table>
+					<tr>
+						<td width="19%" align="right"><rich:message for="placa" style="color: red;">
+								<f:facet name="errorMarker">
+									<h:graphicImage url="../imagenes/error.png" />
+								</f:facet>
+							</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Placa" /></td>
+						<td style="width: 20%; text-align: right:;"><h:inputText id="placa" value="#{impresionSoatController.ventaSoatEmpl.placa}" maxlength="6"
+								class="celda" onkeyup="value=value.toUpperCase()" required="true" requiredMessage="Obligatorio" readonly="true" style="background:#ddd;" /></td>
+
+						<td width="18%" align="right"><rich:message for="serie" style="color: red;">
+								<f:facet name="errorMarker">
+									<h:graphicImage url="../imagenes/error.png" />
+								</f:facet>
+							</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Serie" /></td>
+
+						<td style="width: 20%; text-align: left;"><h:inputText id="serie" value="#{impresionSoatController.ventaSoatEmpl.serie}" maxlength="20"
+								class="celda" onkeyup="value=value.toUpperCase()" required="true" requiredMessage="Obligatorio" /></td>
+					</tr>
+				</table>
+
+
+			</a4j:region>
+			<a4j:region ajaxSingle="true">
+				<table>
+					<tr>
+						<td width="22%" align="right"><rich:message for="anioFabricacion" style="color: red;">
+								<f:facet name="errorMarker">
+									<h:graphicImage url="../imagenes/error.png" />
+								</f:facet>
+							</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Año Fabricacion" /></td>
+
+						<td style="width: 20%; text-align: left;"><h:inputText id="anioFabricacion"
+								value="#{impresionSoatController.ventaSoatEmpl.anioFabricacion}" maxlength="4" class="celda" onkeypress="return valNumeros(event);"
+								required="true" requiredMessage="Obligatorio" /></td>
+
+
+						<td width="22%" align="right"><rich:spacer width="5"></rich:spacer> <h:outputText value="Nro. Especie Valorada" /></td>
+						<td style="width: 20%; text-align: left;"><h:inputText id="espValorada" value="#{impresionSoatController.ventaSoatEmpl.nroEspValorada}"
+								maxlength="18" class="celda" onkeypress="return valNumeros(event);" /></td>
+
+					</tr>
+				</table>
+
+			</a4j:region>
+		</fieldset>
+
+		<fieldset id="formContratante">
+			<legend>Datos del Contratante</legend>
+			<table>
+				<tr>
+					<td width="18%" align="right"><rich:message for="tipDocumento" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Tipo Documento" /></td>
+					<td style="width: 20%; text-align: left;"><h:selectOneMenu id="tipDocumento" value="#{impresionSoatController.ventaSoatEmpl.tipDocumento}"
+							style=" width : 173px;" required="true" requiredMessage="Obligatorio">
+							<f:selectItems value="#{impresionSoatController.tipDocumentoItems}" />
+						</h:selectOneMenu> <!-- <h:inputText id="tipDocumento" readonly="true"
+								value="#{impresionSoatController.ventaSoatEmpl.tipDocumento}" class="celda"/>--></td>
+					<td width="22%" align="right"><rich:message for="numDocumento" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Nro. Documento" /></td>
+					<td style="width: 20%; text-align: left;"><h:inputText id="numDocumento" value="#{impresionSoatController.ventaSoatEmpl.nroDocumento}"
+							maxlength="11" class="celda" onkeyup="value=value.toUpperCase()" required="true" requiredMessage="Obligatorio" /></td>
+					<td width="5%" align="center"></td>
+					<td width="15%" align="center"></td>
+					<td width="2%" align="center"></td>
+				</tr>
+				<tr>
+					<td width="18%" align="right"><rich:message for="nombres" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Nombres" /></td>
+					<td style="width: 20%; text-align: left;"><h:inputText id="nombres" value="#{impresionSoatController.ventaSoatEmpl.nomContrat}"
+							maxlength="50" class="celda" onkeyup="value=value.toUpperCase()" required="true" requiredMessage="Obligatorio" /></td>
+
+					<td width="22%" align="right"><rich:message for="apPaterno" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Apellido Paterno" /></td>
+					<td style="width: 20%; text-align: left;"><h:inputText id="apPaterno" readonly="readonly"
+							value="#{impresionSoatController.ventaSoatEmpl.apePatcontrat}" maxlength="50" onkeyup="value=value.toUpperCase()" class="celda" required="true"
+							requiredMessage="Obligatorio" /></td>
+					<td width="4%" align="center"></td>
+					<td width="1%" align="center"></td>
+					<td width="1%" align="center"></td>
+				</tr>
+				<tr>
+
+					<td width="18%" align="right"><rich:message for="apMaterno" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Apellido Materno" /></td>
+					<td style="width: 20%; text-align: left;"><h:inputText id="apMaterno" value="#{impresionSoatController.ventaSoatEmpl.apeMatcontrat}"
+							maxlength="50" class="celda" onkeyup="value=value.toUpperCase()" required="true" requiredMessage="Obligatorio" /></td>
+					<td width="22%" align="right"><rich:message for="fechaNac" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Fecha de Nacimiento(dd/MM/yyyy)" /></td>
+					<td style="text-align: left;"><rich:calendar id="fechaNac" enableManualInput="true" datePattern="dd/MM/yyyy"
+							value="#{impresionSoatController.ventaSoatEmpl.fecNacimiento}" showWeeksBar="false" required="true" requiredMessage="Obligatorio">
+						</rich:calendar></td>
+					<td width="5%" align="center"></td>
+					<td width="15%" align="center"></td>
+					<td width="2%" align="center"></td>
+				</tr>
+				<tr>
+					<td width="18%" align="right"><rich:message for="selectDepart" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Departamento" /></td>
+					<td style="width: 20%; text-align: left;"><h:selectOneMenu id="selectDepartamento"
+							value="#{impresionSoatController.ventaSoatEmpl.depContrat}" style="width:173px;"
+							valueChangeListener="#{impresionSoatController.buscarProvincia}" required="true" requiredMessage="Obligatorio">
+							<f:selectItems value="#{impresionSoatController.departamentoItems}" />
+							<a4j:support event="onchange" ajaxOnly="true" reRender="selectProvincia" />
+						</h:selectOneMenu></td>
+					<td width="22%" align="right"><rich:message for="selectProvincia" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Provincia" /></td>
+					<td style="width: 20%; text-align: left;"><h:selectOneMenu id="selectProvincia" value="#{impresionSoatController.ventaSoatEmpl.provContrat}"
+							style="width:173px;" valueChangeListener="#{impresionSoatController.buscarDistrito}" required="true" requiredMessage="Obligatorio">
+							<f:selectItems value="#{impresionSoatController.provinciaItems}" />
+							<a4j:support event="onchange" ajaxOnly="true" reRender="selectDistrito" />
+
+						</h:selectOneMenu></td>
+					<td width="5%" align="center"></td>
+					<td width="15%" align="center"></td>
+					<td width="2%" align="center"></td>
+				</tr>
+				<tr>
+					<td width="18%" align="right"><rich:message for="selectDistrito" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Distrito" /></td>
+					<td style="width: 20%; text-align: left;"><h:selectOneMenu id="selectDistrito" value="#{impresionSoatController.ventaSoatEmpl.distContrat}"
+							style=" width : 173px;" required="true" requiredMessage="Obligatorio">
+							<f:selectItems value="#{impresionSoatController.distritoItems}" />
+						</h:selectOneMenu></td>
+
+					<td width="22%" align="right"><rich:message for="direccion" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Direccion" /></td>
+					<td style="width: 20%; text-align: left;"><h:inputText id="direccion" value="#{impresionSoatController.ventaSoatEmpl.direccion}"
+							maxlength="200" onkeyup="value=value.toUpperCase()" class="celda" required="true" requiredMessage="Obligatorio" /></td>
+					<td width="5%" align="center"></td>
+					<td width="15%" align="center"></td>
+					<td width="2%" align="center"></td>
+				</tr>
+				<tr>
+					<td width="18%" align="right"><rich:message for="fechaInicio" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Fecha Inicio Vigencia(dd/MM/yyyy)" /></td>
+					<td style="text-align: left;"><rich:calendar id="fechaInicio" enableManualInput="true" datePattern="dd/MM/yyyy"
+							value="#{impresionSoatController.ventaSoatEmpl.fecIniVig}" showWeeksBar="false" required="true" requiredMessage="Obligatorio">
+						</rich:calendar></td>
+
+					<td width="22%" align="right"><rich:message for="telefono" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message> <h:outputText value="Telefono" /></td>
+					<td style="width: 20%; text-align: left;"><h:inputText id="telefono" value="#{impresionSoatController.ventaSoatEmpl.telefono}"
+							onkeypress="return valNumeros(event);" maxlength="10" class="celda" required="true" requiredMessage="Obligatorio" /></td>
+					<td width="5%" align="center"></td>
+					<td width="15%" align="center"></td>
+					<td width="2%" align="center"></td>
+				</tr>
+				<tr>
+					<td colspan="2" height="10px"></td>
+
+				</tr>
+			</table>
+
+		</fieldset>
+		<fieldset id="formEmpleado">
+			<legend>Datos del Empleado</legend>
+
+			<table>
+				<tr>
+					<td width="18%" align="right"><rich:message for="tipDocumentoempl" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message> <h:outputText value="Tipo Documento" /></td>
+					<td style="text-align: left;"><h:selectOneMenu id="tipDocumentoempl" value="#{impresionSoatController.ventaSoatEmpl.tipDocumentoempl}"
+							style=" width : 173px;" required="true" requiredMessage="Obligatorio">
+							<f:selectItems value="#{impresionSoatController.tipDocumentoItems}" />
+						</h:selectOneMenu></td>
+					<td width="22%" align="right"><rich:message for="nroDocumentoempl" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message> <h:outputText value="Nro. Documento" /></td>
+					<td style="width: 20%; text-align: left;"><h:inputText id="nroDocumentoempl"
+							value="#{impresionSoatController.ventaSoatEmpl.nroDocumentoempl}" maxlength="11" class="celda" required="true" requiredMessage="Obligatorio"
+							onkeyup="value=value.toUpperCase()" /></td>
+					<td width="5%" align="center"></td>
+					<td width="15%" align="center"></td>
+					<td width="2%" align="center"></td>
+				</tr>
+				<tr>
+					<td width="18%" align="right"><rich:message for="nomEmpl" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message> <h:outputText value="Nombres" /></td>
+					<td style="width: 20%; text-align: left;"><h:inputText id="nomEmpl" onkeyup="value=value.toUpperCase()"
+							value="#{impresionSoatController.ventaSoatEmpl.nomEmpl}" maxlength="50" class="celda" required="true" requiredMessage="Obligatorio" /></td>
+					<td width="22%" align="right"><rich:message for="apePatempl" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message> <h:outputText value="Apellido paterno" /></td>
+					<td style="width: 20%; text-align: left;"><h:inputText id="apePatempl" value="#{impresionSoatController.ventaSoatEmpl.apePatempl}"
+							maxlength="50" class="celda" onkeyup="value=value.toUpperCase()" required="true" requiredMessage="Obligatorio" /></td>
+					<td width="5%" align="center"></td>
+					<td width="15%" align="center"></td>
+					<td width="2%" align="center"></td>
+				</tr>
+				<tr>
+					<td width="18%" align="right"><rich:message for="apeMatempl" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message> <h:outputText value="Apellido Materno" /></td>
+					<td style="width: 20%; text-align: left;"><h:inputText id="apeMatempl" value="#{impresionSoatController.ventaSoatEmpl.apeMatempl}"
+							maxlength="50" class="celda" onkeyup="value=value.toUpperCase()" required="true" requiredMessage="Obligatorio" /></td>
+					<td width="5%" align="right"><rich:message for="razonSocial" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Razón Social" /></td>
+					<td width="5%" align="left"><h:selectOneMenu id="razonSocial" value="#{impresionSoatController.ventaSoatEmpl.codRazonSocial}"
+							style=" width : 173px;" requiredMessage="Obligatorio" required="true">
+							<f:selectItems value="#{impresionSoatController.listaRazonSocialItem}" />
+							<a4j:support event="onchange" ajaxOnly="true" />
+						</h:selectOneMenu></td>
+
+				</tr>
+			</table>
+
+		</fieldset>
+
+		<table align="center">
+			<tr>
+				<td><a4j:commandButton id="buttonGuardar" action="#{impresionSoatController.modificar}" value="Guardar" style="width:100px; height : 19px;"
+						onclick="Richfaces.hideModalPanel('panelDetalle');" reRender="lista">
+					</a4j:commandButton></td>
+				<td><a4j:commandButton id="buttonCerrar" value="Cancelar" style="width:100px;height: 22px;"
+						onclick="Richfaces.hideModalPanel('panelDetalle');">
+					</a4j:commandButton></td>
+			</tr>
+
+		</table>
+
+	</h:form>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<SSC>
+	<ErrorContext />
+	<User />
+	<SunSystemsContext>
+		<BusinessUnit>E01</BusinessUnit>
+		<BudgetCode>A</BudgetCode>
+	</SunSystemsContext>
+	<Payload>
+		<Filter>
+			<Expr operator="AND">
+				<Item name="/Ledger/Line/TransactionReference" operator="EQU" value="" />
+				<Item name="/Ledger/Line/LinkReference3" operator="EQU" value="CHEQUE BBVA" />
+				<Item name="/Ledger/Line/TransactionDate" operator="BETWEEN" minvalue="10102013" maxvalue="11102014" />
+				<Item name="/Ledger/Line/AccountCode" operator="LIKE" value="10%" />
+				<Item name="/Ledger/Line/AllocationMarker" operator="NEQU" value="0" />
+			</Expr>
+		</Filter>
+
+		<Select>
+			<Ledger>
+				<Line>
+
+					<CurrencyCode />
+					<Description />
+					<LinkReference3 />
+					<TransactionAmount />
+					<TransactionReference />
+					<TransactionDate />
+					<JournalNumber />
+					<JournalLineNumber />
+				</Line>
+			</Ledger>
+		</Select>
+	</Payload>
+</SSC>

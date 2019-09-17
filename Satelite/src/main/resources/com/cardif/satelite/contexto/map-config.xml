@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+	</settings>
+
+	<mappers>
+		<mapper resource="com/cardif/satelite/model/xml/PerfilMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/OpcionMenuMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/OpcionMenuPerfilMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/ParametroMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/ErrorMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/CabLibroMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/TstVentasMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/MigRegVentasMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/AuditCobranzaMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/CargRegVentasTempMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/AuditCarRegVentasMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/VentaSoatEmplMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/MasterPreciosSoatMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/ActCoaseguroMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/ActReaseguroMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/ActReservaSegyaMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/ActReservaAcseleMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/TlmkBaseCabeceraMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/TlmkBaseBCMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/TlmkBaseIBMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/TlmkBaseRPMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/TlmkBaseSBMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/TlmkLayoutSocioCardifMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/AuditRegistroVehicularMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/SusTramaInterbankMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/SusTramaCabeceraIBMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/SiniSiniestroMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/SiniPolizaMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/SiniDatosCafaeMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/SiniDesempleoMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/SiniDesgravamenMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/SiniRentaHospMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/SiniRoboMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/SiniProductoMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/SiniValidacionesMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/SiniObjetosMapper.xml" />
+		<!-- Conciliacion SOAT -->
+		<mapper resource="com/cardif/satelite/model/satelite/xml/MasterPrecioSoatMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/satelite/xml/ConciCabTramaDiariaMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/satelite/xml/ConciTramaDiariaMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/satelite/xml/ConciCabTramaMensualMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/satelite/xml/ConciTramaMensualMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/satelite/xml/ConciCabReporteMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/satelite/xml/ConciReporteMapper.xml" />
+
+		<!-- Cargo Centralizado -->
+		<mapper resource="com/cardif/satelite/model/satelite/xml/CargoCentralizadoMapper.xml" />
+
+		<!-- Ubicacion -->
+		<mapper resource="com/cardif/satelite/model/satelite/xml/GenPaisMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/satelite/xml/GenDepartamentoMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/satelite/xml/GenDistritoMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/satelite/xml/GenProvinciaMapper.xml" />
+
+		<!-- MODULO DE DESEMPLEO -->
+		<mapper resource="com/cardif/satelite/model/satelite/xml/TipoTrabajadorMapper.xml" />
+
+		<mapper resource="com/cardif/satelite/model/xml/LoteCabeceraMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/LoteProveedorMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/xml/LoteFacturaMapper.xml" />
+
+
+		<!-- ##### MODULO SOAT #################################################################### -->
+		<!-- ADD SOAT -->
+		<mapper resource="com/cardif/satelite/model/satelite/xml/CanalSubProductoMapper.xml" />
+		<mapper resource="com/cardif/satelite/model/acsele/xml/ProductMapper.xml" />
+		<mapper resource="com/cardif/satelite/soat/directo/dao/xml/DepartamentoDirectoMapper.xml" />
+		<mapper resource="com/cardif/satelite/soat/dao/xml/BitacoraSoatMapper.xml" />
+		<!-- FIN ADD SOAT -->
+
+	</mappers>
+
+</configuration>

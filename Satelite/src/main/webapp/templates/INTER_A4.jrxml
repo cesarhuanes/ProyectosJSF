@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
+<!-- 2015-09-03T15:43:52 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ChequeBancoNacion_A4" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="196" bottomMargin="0" uuid="8fdd516c-0489-4bf3-998d-c26f7c82358f">
+	<property name="com.jaspersoft.studio.unit." value="cm"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="cm"/>
+	<parameter name="benef" class="java.lang.String"/>
+	<parameter name="importeLetra" class="java.lang.String"/>
+	<parameter name="dia" class="java.lang.String"/>
+	<parameter name="mes" class="java.lang.String"/>
+	<parameter name="anho" class="java.lang.String"/>
+	<parameter name="importe" class="java.lang.String"/>
+	<parameter name="firma1" class="java.lang.String"/>
+	<parameter name="firma2" class="java.lang.String"/>
+	<parameter name="imagen1" class="java.io.InputStream"/>
+	<parameter name="imagen2" class="java.io.InputStream"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="212" splitType="Stretch">
+			<frame>
+				<reportElement x="400" y="4" width="442" height="204" uuid="036c4f3a-7840-464e-ac9b-bdc6f2e88079">
+					<property name="local_mesure_unitx" value="cm"/>
+					<property name="local_mesure_unity" value="cm"/>
+					<property name="local_mesure_unitwidth" value="cm"/>
+					<property name="local_mesure_unitheight" value="cm"/>
+					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+					<property name="com.jaspersoft.studio.unit.x" value="cm"/>
+					<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					<property name="com.jaspersoft.studio.unit.width" value="cm"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textField pattern="">
+					<reportElement x="18" y="91" width="406" height="14" uuid="a4614f0d-9262-4c99-85f2-a34ac316a42f">
+						<property name="local_mesure_unitwidth" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.width" value="cm"/>
+						<property name="local_mesure_unitheight" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+						<property name="local_mesure_unity" value="cm"/>
+						<property name="local_mesure_unitx" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[$P{importeLetra}]]></textFieldExpression>
+				</textField>
+				<textField pattern="">
+					<reportElement x="198" y="14" width="19" height="14" uuid="4a487d03-ac00-40aa-9ec5-49f49b70ba34">
+						<property name="local_mesure_unitx" value="cm"/>
+						<property name="local_mesure_unity" value="cm"/>
+						<property name="local_mesure_unitwidth" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.width" value="cm"/>
+						<property name="local_mesure_unitheight" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.x" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$P{dia}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="219" y="14" width="19" height="14" uuid="60c0ef1d-ea91-4917-a701-e36018b26201">
+						<property name="local_mesure_unitx" value="cm"/>
+						<property name="local_mesure_unity" value="cm"/>
+						<property name="local_mesure_unitwidth" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.width" value="cm"/>
+						<property name="local_mesure_unitheight" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.x" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$P{mes}]]></textFieldExpression>
+				</textField>
+				<textField pattern="">
+					<reportElement x="307" y="14" width="116" height="19" uuid="aa768fc4-8f12-43f1-857f-4dd3e3bd4c61">
+						<property name="local_mesure_unity" value="cm"/>
+						<property name="local_mesure_unitheight" value="cm"/>
+						<property name="local_mesure_unitx" value="cm"/>
+						<property name="local_mesure_unitwidth" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.x" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$P{importe}]]></textFieldExpression>
+				</textField>
+				<textField pattern="">
+					<reportElement x="317" y="146" width="103" height="14" uuid="9078c8a3-ae40-401f-afab-15bc24326a73">
+						<property name="local_mesure_unity" value="cm"/>
+						<property name="local_mesure_unitheight" value="cm"/>
+						<property name="local_mesure_unitx" value="cm"/>
+						<property name="local_mesure_unitwidth" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{firma2}]]></textFieldExpression>
+				</textField>
+				<textField pattern="">
+					<reportElement x="211" y="146" width="105" height="14" uuid="b5566a0b-b8e3-4f0a-8d5b-95b0d172a704">
+						<property name="local_mesure_unity" value="cm"/>
+						<property name="local_mesure_unitheight" value="cm"/>
+						<property name="local_mesure_unitx" value="cm"/>
+						<property name="local_mesure_unitwidth" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.width" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.x" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{firma1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="55" y="66" width="369" height="14" uuid="d8b41944-c359-442e-aaf2-70799b7ee9d2">
+						<property name="local_mesure_unitx" value="cm"/>
+						<property name="local_mesure_unity" value="cm"/>
+						<property name="local_mesure_unitheight" value="cm"/>
+						<property name="local_mesure_unitwidth" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.width" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[$P{benef}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="240" y="14" width="39" height="14" uuid="561dc3e2-484f-4de9-b95b-d9485e525ecd">
+						<property name="local_mesure_unitx" value="cm"/>
+						<property name="local_mesure_unity" value="cm"/>
+						<property name="local_mesure_unitwidth" value="cm"/>
+						<property name="local_mesure_unitheight" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.x" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$P{anho}]]></textFieldExpression>
+				</textField>
+				<image hAlign="Center" vAlign="Middle">
+					<reportElement x="211" y="107" width="104" height="35" uuid="2d1ecad8-31b8-43b8-81a1-e49e742dae9c">
+						<property name="local_mesure_unitheight" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+						<property name="local_mesure_unitwidth" value="cm"/>
+					</reportElement>
+					<imageExpression><![CDATA[$P{imagen1}]]></imageExpression>
+				</image>
+				<image hAlign="Center" vAlign="Middle">
+					<reportElement x="316" y="107" width="104" height="35" uuid="8466e703-2962-4cb1-a665-bd0e406c3f87">
+						<property name="local_mesure_unitwidth" value="cm"/>
+						<property name="local_mesure_unitheight" value="pixel"/>
+					</reportElement>
+					<imageExpression><![CDATA[$P{imagen2}]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="211" y="160" width="105" height="14" uuid="218c3dea-7857-4311-9cd1-8df3b6774a64">
+						<property name="local_mesure_unitheight" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Apoderado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="317" y="160" width="103" height="14" uuid="ce2f1438-153e-49aa-bbf0-920e5b9eb451">
+						<property name="local_mesure_unitheight" value="cm"/>
+						<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+					</reportElement>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Apoderado]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="9" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="9">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="9" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Immediate"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch">
+			<property name="local_mesure_unitheight" value="cm"/>
+			<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+		</band>
+	</summary>
+</jasperReport>

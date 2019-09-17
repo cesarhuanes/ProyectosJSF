@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<a4j:keepAlive beanName="armarLoteController" />
+	
+	<head>
+		<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+		<style type="text/css">
+			.buttonSeleccionarTodos {
+				float: right;
+				padding-bottom: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<h:form>
+			<div style="text-align: center;">
+				<table style="margin: auto;" border="0">
+					<tr>
+						<td style="text-align: right; width: 12%;">
+							<rich:message for="idProductoSocio" style="color: red;">
+								<f:facet name="errorMarker">
+									<h:graphicImage url="../imagenes/error.png" />
+								</f:facet>
+							</rich:message>
+							<rich:spacer width="5" /><h:outputText value="* Socio: " />
+						</td>
+						<td style="text-align: left; width: 15%;">
+							<h:selectOneMenu id="idProductoSocio" value="#{armarLoteController.idProducto}" style=" width: 150px;" required="true" requiredMessage="">
+								<f:selectItems value="#{armarLoteController.comboListaProductos}" />
+							</h:selectOneMenu>
+						</td>
+						<td style="text-align: right; width: 12%">
+							<h:outputText value="Placa: " />
+						</td>
+						<td style="text-align: left; width: 15%">
+							<h:inputText id="numPlaca" value="#{armarLoteController.numPlaca}" maxlength="7"  style=" width: 145px;float: left;"
+								 onkeyup="value=value.toUpperCase();"  />
+						</td>
+						<td	style="text-align: right; width: 12%">
+							<h:outputText value="Uso: " />
+						</td>
+						<td style="text-align: left;">
+							<h:selectOneMenu id="idUsoVehiculo" value="#{armarLoteController.idUsoVehiculo}" style=" width: 150px;">
+								<f:selectItems value="#{armarLoteController.comboListaUsos}"/>
+							</h:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: right; width: 12%;">
+							<h:outputText value="Departamento: " />
+						</td>
+						<td style="text-align: left; width: 15%;">
+							<h:selectOneMenu id="selectDepartamento" value="#{armarLoteController.idDepartamento}" style=" width: 150px;" 
+								valueChangeListener="#{armarLoteController.buscarProvincia}">
+								<f:selectItems value="#{armarLoteController.comboListaDepartamentos}" />
+								<a4j:support event="onchange" reRender="selectProvincia" />
+							</h:selectOneMenu>
+						</td>
+						<td style="text-align: right; width: 12%;">
+							<h:outputText value="Provincia: " />
+						</td>
+						<td style="text-align: left; width: 15%;">
+							<h:selectOneMenu id="selectProvincia" value="#{armarLoteController.idProvincia}" style=" width: 150px;"
+								valueChangeListener="#{armarLoteController.buscarDistrito}">
+								<f:selectItems value="#{armarLoteController.comboListaProvincias}" />
+								<a4j:support event="onchange" reRender="selectDistrito" />
+							</h:selectOneMenu>
+						</td>
+						<td style="text-align: right; width: 12%;">
+							<h:outputText value="Distrito: " />
+						</td>
+						<td style="text-align: left;">
+							<h:selectOneMenu id="selectDistrito" value="#{armarLoteController.idDistrito}" style=" width: 150px;">
+								<f:selectItems value="#{armarLoteController.comboListaDistritos}" />
+							</h:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="6">
+							<div class="separatorLine" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputText value="Fecha de Compra" style="text-align: left; font-weight:bold"/>
+						</td>
+						<td>&nsp;</td>
+						<td>&nsp;</td>
+						<td>&nsp;</td>
+						<td>&nsp;</td>
+						<td>&nsp;</td>
+					</tr>
+					<tr>
+						<td style="text-align: right; width: 12%;">
+							<rich:message for="fecCompraDesde" style="color: red;">
+								<f:facet name="errorMarker">
+									<h:graphicImage url="../imagenes/error.png" />
+								</f:facet>
+							</rich:message>
+							<rich:spacer width="5" /><h:outputText value="* Desde: " />
+						</td>
+						<td style="text-align: left; width: 15%;">
+							<rich:calendar id="fecCompraDesde" enableManualInput="false" showWeeksBar="false" datePattern="yyyy-MM-dd"
+								value="#{armarLoteController.fechaCompraDesde}" required="true" requiredMessage="" inputStyle="width: 125px;" />
+						</td>
+						<td style="text-align: right; width: 12%;">
+							<rich:message for="fecCompraHasta" style="color: red;">
+								<f:facet name="errorMarker">
+									<h:graphicImage url="../imagenes/error.png" />
+								</f:facet>
+							</rich:message>
+							<rich:spacer width="5" /><h:outputText value="* Hasta: " />
+						</td>
+						<td style="text-align: left; width: 15%;">
+							<rich:calendar id="fecCompraHasta" enableManualInput="false" showWeeksBar="false" datePattern="yyyy-MM-dd" 
+								value="#{armarLoteController.fechaCompraHasta}" required="true" requiredMessage="" inputStyle="width: 125px;" />
+						</td>
+						<td>&nsp;</td>
+						<td>&nsp;</td>
+					</tr>
+					<tr>
+						<td colspan="6">
+							<div class="separatorLine" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputText value="Fecha de Entrega" style="text-align: left;font-weight:bold"/>
+						</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td style="text-align: right; width: 12%;">
+							<h:outputText value="Hasta: " />
+						</td>
+						<td style="text-align: left; width: 15%;">
+							<rich:calendar id="fecEntregaHasta" enableManualInput="false" showWeeksBar="false" datePattern="yyyy-MM-dd"
+								value="#{armarLoteController.fechaEntregaHasta}" inputStyle="width: 125px;" />
+						</td>
+						<td style="text-align: right; width: 12%;">
+							<h:outputText value="Rango Horario: " />
+						</td>
+						<td style="text-align: left; width: 15%;">
+							<h:selectOneMenu id="idRangoHorario" value="#{armarLoteController.idRangoHorario}" style=" width: 150px;">
+								<f:selectItems value="#{armarLoteController.comboListaRangoHorarios}" />
+							</h:selectOneMenu>
+						</td >
+						<td>&nbsp;</td>
+						<td style="text-align: left;">
+							<a4j:commandButton action="#{armarLoteController.procesarBusqueda}" value="Buscar" reRender="pnlLista,cargarValidarCertificado" />
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="datatable">
+				<rich:panel id="pnlLista">
+					<div class="buttonSeleccionarTodos">
+						<a4j:commandButton id="seleccionarTodos" value="#{armarLoteController.tituloSeleccionarTodos}" action="#{armarLoteController.seleccionarTodasPolizas}" 
+							disabled="#{armarLoteController.disabledBtnSeleccionarTodos}" render="true" reRender="pnlLista,cargarValidarCertificado" />
+					</div>
+					<div class="extendedDTableContenido">
+						<rich:extendedDataTable id="lista" var="itemPolizasParaLote" value="#{armarLoteController.listaPolizasParaArmarLote}" width="1200px" height="335px"
+							selectionMode="single" rows="10" keppSaved="false">
+							<rich:column headerClass="dataTableHeader" width="2.5%">
+								<f:facet name="header">
+									<h:outputText value="" />
+								</f:facet>
+								<center>
+									<h:selectBooleanCheckbox id="idSelectCheck" value="#{itemPolizasParaLote.selected}" style="width:10px">
+										<f:selectItems value="#{armarLoteController.selection}" />
+										<a4j:support event="onclick" actionListener="#{armarLoteController.selectionCheckArmarLoteListener}" render="true" 
+											reRender="numRegSeleccionados,cargarValidarCertificado,seleccionarTodos" />
+			  						</h:selectBooleanCheckbox>
+			  					</center>
+							</rich:column>
+							<rich:column headerClass="dataTableHeader" width="8.5%" sortable="true" sortBy="#{itemPolizasParaLote.nroPolizaPe}"
+								sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Nª Póliza" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemPolizasParaLote.nroPolizaPe}" />
+								</center>
+							</rich:column>
+							<rich:column headerClass="dataTableHeader" width="11%" sortable="true" sortBy="#{itemPolizasParaLote.usoVehiculo}"
+								sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Tipo Vehículo" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemPolizasParaLote.usoVehiculo}" />
+								</center>
+							</rich:column>
+							<rich:column headerClass="dataTableHeader" width="11.5%" sortable="true" sortBy="#{itemPolizasParaLote.fecVenta}"
+								sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Fecha Compra" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemPolizasParaLote.fecVenta}">
+										<f:convertDateTime pattern="yyyy-MM-dd"/>
+									</h:outputText>
+								</center>
+							</rich:column>
+							<rich:column headerClass="dataTableHeader" width="11%" sortable="true" sortBy="#{itemPolizasParaLote.departamentoDesp}"
+								sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Departamento" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemPolizasParaLote.departamentoDesp}" />
+								</center>
+							</rich:column>
+							<rich:column headerClass="dataTableHeader" width="11%" sortable="true" sortBy="#{itemPolizasParaLote.provinciaDesp}"
+								sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Provincia" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemPolizasParaLote.provinciaDesp}" />
+								</center>
+							</rich:column>
+							<rich:column headerClass="dataTableHeader" width="11%" sortable="true" sortBy="#{itemPolizasParaLote.distritoDesp}"
+								sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Distrito" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemPolizasParaLote.distritoDesp}" />
+								</center>
+							</rich:column>
+							<rich:column headerClass="dataTableHeader" width="9%" sortable="true" sortBy="#{itemPolizasParaLote.fecDespacho}" sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Despacho" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemPolizasParaLote.fecDespacho}">
+										<f:convertDateTime pattern="yyyy-MM-dd"/>
+									</h:outputText>
+								</center>
+							</rich:column>
+							<rich:column headerClass="dataTableHeader" width="11%" sortable="true" sortBy="#{itemPolizasParaLote.franjaHorariaDesp}"
+								sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Horario" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemPolizasParaLote.franjaHorariaDesp}" />
+								</center>
+							</rich:column>
+							<rich:column headerClass="dataTableHeader" width="8.5%" sortable="true" sortBy="#{itemPolizasParaLote.nombreProducto}"
+								sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Producto" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemPolizasParaLote.nombreProducto}" />
+								</center>
+							</rich:column>
+							<rich:column headerClass="dataTableHeader" width="7%" sortable="true" sortBy="#{itemPolizasParaLote.placa}"
+								sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Placa" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemPolizasParaLote.placa}" />
+								</center>
+							</rich:column>
+							<f:facet name="footer">
+								<rich:datascroller id="dsLista" rows="10" for="lista" />
+							</f:facet>
+						</rich:extendedDataTable>
+					</div>
+					 
+					<table class="contadorRegistros">
+						<tr>
+							<td style="width: 30%;">
+							N° de Registros encontrados: <h:outputText id="numRegEncontrados" value="#{armarLoteController.registrosEntrados}" />
+							</td>
+							<td style="width: 10%;">
+							N° de Registros seleccionados: <h:outputText id="numRegSeleccionados" value="#{armarLoteController.registrosSeleccionados}" />
+							</td>
+						</tr>
+					</table>
+				</rich:panel>
+				<div class="botonInferior">
+					<a4j:commandButton id="cargarValidarCertificado" action="#{armarLoteController.cargarValidarCertificado}" value="> Siguiente" 
+						render="true" reRender="pnlListaCertificado, generarLote, panelStep1, panelStep2, panelStep3, tituloCabecera" 
+						disabled="#{armarLoteController.disabledBtnSiguiente}" />
+				</div>
+			</div>	
+		</h:form>
+	</body>
+</html>

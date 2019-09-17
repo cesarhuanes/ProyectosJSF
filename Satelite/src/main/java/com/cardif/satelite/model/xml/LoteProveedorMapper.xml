@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardif.satelite.tesoreria.dao.LoteProveedorMapper">
+	<resultMap id="BaseResultMap" type="com.cardif.satelite.model.LoteProveedor">
+		<result column="nro_lote" property="nro_lote" jdbcType="VARCHAR" />
+		<result column="tip_doc_proveedor" property="tip_doc_proveedor" jdbcType="VARCHAR" />
+		<result column="num_doc_proveedor" property="num_doc_proveedor" jdbcType="VARCHAR" />
+		<result column="nom_proveedor" property="nom_proveedor" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="JoinResultMap" type="com.cardif.satelite.tesoreria.bean.ProveedorFacturaBean">
+		<result column="nro_lote" property="nroLote" jdbcType="VARCHAR" />
+		<result column="tip_doc_proveedor" property="tipoDocProveedor" jdbcType="VARCHAR" />
+		<result column="num_doc_proveedor" property="numeroDocProveedor" jdbcType="VARCHAR" />
+		<result column="nom_proveedor" property="nombreProveedor" jdbcType="VARCHAR" />
+		<result column="importe_entero" property="importeEntero" jdbcType="INTEGER" />
+		<result column="importe_decimal" property="importeDecimal" jdbcType="INTEGER" />
+		<result column="tip_cod_sunat" property="tipoCodSunat" jdbcType="VARCHAR" />
+		<result column="cuenta_contable" property="cuentaContable" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="insert" parameterType="com.cardif.satelite.model.LoteProveedor">
+		insert into dbo.LOTE_PROVEEDOR (nro_lote, tip_doc_proveedor, num_doc_proveedor,
+		nom_proveedor)
+		values
+		(#{nro_lote,jdbcType=VARCHAR}, #{tip_doc_proveedor,jdbcType=VARCHAR}, #{num_doc_proveedor,jdbcType=VARCHAR},
+		#{nom_proveedor,jdbcType=VARCHAR})
+	</insert>
+</mapper>

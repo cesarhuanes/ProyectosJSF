@@ -1,0 +1,129 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<a4j:keepAlive beanName="cargMasterSoatController" />
+<head>
+<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+<style type="text/css">
+.celda {
+	width: 130px;
+	color: #000;
+}
+
+.datatable {
+	padding-top: 10px;
+}
+
+body {
+	font-family: Monaco, Georgia, Times, serif;
+}
+
+.separador {
+	padding: 0px 17px;
+}
+
+#consultar {
+	text-align: left;
+}
+</style>
+</head>
+
+<body>
+	<rich:panel id="consultar" height="100%">
+		<f:facet name="header">
+			<h:outputText value="Suscripción > SOAT > Master SOAT" />
+		</f:facet>
+		<a4j:region ajaxSingle="true">
+			<table style="margin: 0 auto; width: 400px;" border="0">
+
+
+			</table>
+		</a4j:region>
+		<table style="margin: 0 auto; width: 400px;" border="0">
+
+			<tr>
+				<td width="30%" align="right"><rich:message for="socio" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Socio" /></td>
+				<td style="width: 53%; text-align: left;"><h:selectOneMenu id="socio" value="#{cargMasterSoatController.socio}" style=" width : 220px;"
+						required="true" requiredMessage="Obligatorio">
+						<f:selectItems value="#{cargMasterSoatController.tipoSocioItems}" />
+					</h:selectOneMenu></td>
+				<td width="17%" align="left"></td>
+			</tr>
+			<!-- 
+				<tr>
+					<td width="30%" align="right"><rich:message for="fechaNac"
+							style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText
+							value="Fecha de Validez(dd/MM/yyyy)" /></td>
+					<td style="width: 53%; text-align: left;"><rich:calendar
+							id="fechaNac" enableManualInput="true" datePattern="dd/MM/yyyy"
+							value="#{cargMasterSoatController.fecValidez}"
+							showWeeksBar="false" required="true"
+							requiredMessage="Obligatorio"
+							>
+						</rich:calendar></td>
+					<td width="17%" align="left"></td>
+				</tr>
+ 	-->
+		</table>
+
+		<rich:extendedDataTable id="listas" var="listaFechaCarga" value="#{cargMasterSoatController.listaFechaCarga}" width="400px" rows="12" height="330px"
+			selection="#{cargMasterSoatController.selection}" selectionMode="single" reRender="true">
+			<rich:column id="colFechaCarga" headerClass="dataTableHeader" width="50%" sortable="true" sortBy="#{listaFechaCarga.fecValidez}"
+				sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+				<f:facet name="header">
+					<h:outputText value="Fecha Carga" />
+				</f:facet>
+				<center>
+					<h:outputText value="#{listaFechaCarga.fecValidez}">
+						<f:convertDateTime pattern="yyyy-MM-dd" />
+					</h:outputText>
+				</center>
+			</rich:column>
+			<rich:column id="colCantidad" headerClass="dataTableHeader" width="50%" sortable="true" sortBy="#{listaFechaCarga.cantidad}"
+				sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+				<f:facet name="header">
+					<h:outputText value="Cantidad" />
+				</f:facet>
+				<center>
+					<h:outputText value="#{listaFechaCarga.cantidad}" />
+				</center>
+			</rich:column>
+
+			<f:facet name="footer">
+				<rich:datascroller id="ds" for="listas" maxPages="10"></rich:datascroller>
+			</f:facet>
+		</rich:extendedDataTable>
+
+		<center>
+			<span style="margin: 0 7px;"><a4j:commandButton action="#{cargMasterSoatController.buscarFechaCarga}" value="Buscar" reRender="listas" /> </span>
+			<span style="margin: 0 7px;"><a4j:commandButton id="btnEliminar" action="#{cargMasterSoatController.eliminar}" value="Eliminar"
+					reRender="listas" onclick="if(!confirm('Esta seguro que desea eliminar?')){return false;}" /> </span> <span style="margin: 0 7px;">
+				<!--  disabled="#{!cargTramaDiariaSoatController.flagBtnEliminar}" --> <a4j:commandButton
+					onclick="Richfaces.hideModalPanel('panelEliminaMaster');" value="Cancelar" immediate="true" />
+			</span>
+		</center>
+	</rich:panel>
+	<!-- 
+	<rich:modalPanel id="panel" width="250" height="150">
+				<f:facet name="header">Mensaje</f:facet>
+				<h:panelGroup>
+					<center>
+						<h5>La carga finalizó correctamente!.</h5>
+						<a4j:commandButton value="Aceptar" reRender="lista"
+							onclick="#{rich:component('panel')}.hide(); #{rich:component('panelEliminaMaster')}.hide(); return false"
+							oncomplete="#{facesContext.maximumSeverity == null ? 'Richfaces.hideModalPanel(\'panelEliminaMaster\')' : ';'}"
+							/>
+						<rich:componentControl for="panelEliminaMaster\" attachTo="hidelink"
+							operation="hide" event="onclick"></rich:componentControl>
+					</center>
+				</h:panelGroup>
+			</rich:modalPanel> -->
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<head>
+<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+<style type="text/css">
+.celda {
+	width: 170px;
+	color: #000;
+}
+
+.datatable {
+	padding-top: 10px;
+}
+
+body {
+	font-family: Monaco, Georgia, Times, serif;
+}
+
+.separador {
+	padding: 10px 9px;
+}
+</style>
+</head>
+<body>
+	<div>
+		<center>
+			<fieldset>
+				<legend>Datos de Entrada del Proceso</legend>
+				<table>
+					<tr>
+						<td></td>
+						<td></td>
+						<td style="text-align: right;"><rich:message for="selectSocioBase" style="color: red;">
+								<f:facet name="errorMarker">
+									<h:graphicImage url="../imagenes/error.png" />
+								</f:facet>
+							</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="* Socio Base:" /></td>
+						<td style="text-align: left;"><h:selectOneMenu id="selectSocioBase" class="celda" value="#{telemarketingController.codSocio}"
+								required="true" requiredMessage="Obligatorio">
+								<f:selectItems value="#{telemarketingController.socioItems}" />
+							</h:selectOneMenu></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td style="text-align: right;"><rich:message for="edadMax" style="color: red;">
+								<f:facet name="errorMarker">
+									<h:graphicImage url="../imagenes/error.png" />
+								</f:facet>
+							</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="* Edad Maxima : " /></td>
+						<td style="text-align: left;"><h:inputText id="edadMax" onkeypress="return valNumeros(event);" maxlength="2"
+								value="#{telemarketingController.edadMaxima}" required="true" requiredMessage="Obligatorio">
+							</h:inputText></td>
+						<td style="text-align: right;"><rich:message for="cantDescanso" style="color: red;">
+								<f:facet name="errorMarker">
+									<h:graphicImage url="../imagenes/error.png" />
+								</f:facet>
+							</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="* Meses Descanso : " /></td>
+						<td style="text-align: left;"><h:inputText id="cantDescanso" onkeypress="return valNumeros(event);" maxlength="2"
+								value="#{telemarketingController.numMesDescanso}" required="true" requiredMessage="Obligatorio">
+							</h:inputText></td>
+						<td style="text-align: right;"><rich:message for="numMesVencimiento" style="color: red;">
+								<f:facet name="errorMarker">
+									<h:graphicImage url="../imagenes/error.png" />
+								</f:facet>
+							</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="* Meses Vencimiento : " /></td>
+						<td style="text-align: left;"><h:inputText id="numMesVencimiento" onkeypress="return valNumeros(event);" maxlength="2"
+								value="#{telemarketingController.numMesVencimiento}" required="true" requiredMessage="Obligatorio">
+							</h:inputText></td>
+					</tr>
+				</table>
+			</fieldset>
+			<fieldset>
+				<legend>Validación de Producto Existente</legend>
+				<table>
+					<tr>
+						<td style="text-align: right;"><h:outputText value="Socio Validación:" /></td>
+						<td style="text-align: left;"><h:selectOneMenu id="selectSocio" class="celda" value="#{telemarketingController.codSocioVali}"
+								valueChangeListener="#{telemarketingController.buscarProducto}">
+								<f:selectItems value="#{telemarketingController.socioItems}" />
+								<a4j:support event="onchange" ajaxOnly="true" reRender="selectProducto" />
+							</h:selectOneMenu></td>
+						<td style="text-align: right;"><h:outputText value="Producto:" /></td>
+						<td style="text-align: left;"><h:selectOneMenu id="selectProducto" class="celda" value="#{telemarketingController.codProducto}">
+								<f:selectItems value="#{telemarketingController.productoItems}" />
+							</h:selectOneMenu></td>
+						<td width="15%" align="right"><a4j:commandButton action="#{telemarketingController.agregar}" value="Agregar" reRender="lista" /></td>
+						<td><a4j:commandButton action="#{telemarketingController.quitar}" value="Quitar" reRender="lista" /></td>
+					</tr>
+				</table>
+				<br /> <br />
+				<rich:extendedDataTable id="lista" var="tlmkAuditCargaTrama" value="#{telemarketingController.listaAudCargaTrama}" width="400px" height="300px"
+					selection="#{telemarketingController.selection}" selectionMode="single" reRender="true">
+
+					<rich:column id="colSocio" headerClass="dataTableHeader" width="50%" sortable="true" sortBy="#{tlmkAuditCargaTrama.codSocioVali}"
+						sortIconAscending="dataTableAscIcon">
+						<f:facet name="header">
+							<h:outputText value="SOCIO" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{tlmkAuditCargaTrama.desSocio}" />
+						</center>
+					</rich:column>
+					<rich:column id="colProducto" headerClass="dataTableHeader" width="50%" sortable="true" sortBy="#{tlmkAuditCargaTrama.codProducto}"
+						sortIconAscending="dataTableAscIcon">
+						<f:facet name="header">
+							<h:outputText value="PRODUCTO" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{tlmkAuditCargaTrama.desProducto}" />
+						</center>
+					</rich:column>
+				</rich:extendedDataTable>
+			</fieldset>
+			<table>
+				<tr>
+					<td align="right" width="90%"><a4j:commandButton value="Siguiente >>" action="#{telemarketingController.siguienteUno}"
+							reRender="selectSocioBase" /></td>
+				</tr>
+			</table>
+		</center>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardif.satelite.reportes.dao.DetalleReporteSBSMapper">
+	
+	<resultMap id="BaseResultMap" type="com.cardif.satelite.model.reportes.DetalleReporteSBS">
+		<id column="ID" jdbcType="NUMERIC" property="id" />
+		<result column="ID_DETALLE_TRAMA_MENSUAL" jdbcType="NUMERIC" property="idDetalleTramaMensual" />
+		<result column="CLASE" jdbcType="VARCHAR" property="clase" />
+		<result column="USO" jdbcType="VARCHAR" property="uso" />
+		<result column="REPORTADO" jdbcType="VARCHAR" property="reportado" />
+		<result column="FECHA_REPORTADO" jdbcType="TIMESTAMP" property="fechaReportado" />
+		<result column="ESTADO_REPORTADO" jdbcType="VARCHAR" property="estadoReportado" />
+		<result column="FEC_CREACION" jdbcType="TIMESTAMP" property="fecCreacion" />
+		<result column="USU_CREACION" jdbcType="VARCHAR" property="usuCreacion" />
+	</resultMap>
+		
+	<resultMap id="RepProduccionPrimaResultMap" type="com.cardif.satelite.reportes.bean.RepProduccionPrimaSBSBean">
+		<result column="CODIGO_FILA" jdbcType="NUMERIC" property="codigoFila" />
+		<result column="ID" jdbcType="NUMERIC" property="id" />
+		<result column="ID_DETALLE_TRAMA_MENSUAL" jdbcType="NUMERIC" property="idDetalleTramaMensual" />
+		<result column="FECHA_EMISION" jdbcType="DATE" property="fechaEmision" />
+		<result column="NRO_POLIZA" jdbcType="VARCHAR" property="nroPoliza" />
+		<result column="NRO_CERTIFICADO" jdbcType="VARCHAR" property="nroCertificado" />
+		<result column="PLACA" jdbcType="VARCHAR" property="placa" />
+		<result column="UBIGEO" jdbcType="VARCHAR" property="ubigeo" />
+		<result column="CLASE_VEHICULO" jdbcType="VARCHAR" property="claseVehiculo" />
+		<result column="USO_VEHICULO" jdbcType="VARCHAR" property="usoVehiculo" />
+		<result column="NRO_ASIENTOS" jdbcType="NUMERIC" property="nroAsientos" />
+		<result column="PRIMA_COMERCIAL_BRUTA" jdbcType="DOUBLE" property="primaComercialBruta" />
+		<result column="DERECHO_EMISION" jdbcType="DOUBLE" property="derechoEmision" />
+		<result column="PRIMA_COMERCIAL" jdbcType="DOUBLE" property="primaComercial" />
+		<result column="PRIMA_COMERCIAL_COBRADA" jdbcType="DOUBLE" property="primaComercialCobrada" />
+		<result column="PRIMA_COMERCIAL_COBRAR" jdbcType="DOUBLE" property="primaComercialCobrar" />
+		<result column="COMISIONES" jdbcType="DOUBLE" property="comisiones" />
+		<result column="GASTO_ADMINISTRACION" jdbcType="DOUBLE" property="gastoAdministracion" />
+		<result column="RECARGO_COMERCIAL" jdbcType="DOUBLE" property="recargoComercial" />
+		<result column="OTROS_RECARGOS" jdbcType="DOUBLE" property="otrosRecargos" />
+		<result column="FECHA_INI_VIGENCIA" jdbcType="DATE" property="fechaIniVigencia" />
+		<result column="FECHA_FIN_VIGENCIA" jdbcType="DATE" property="fechaFinVigencia" />
+		<result column="FONDO_COMPENSACION" jdbcType="DOUBLE" property="fondoCompensacion" />
+	</resultMap>
+	
+	<resultMap id="RepAnulacionPrimaResultMap" type="com.cardif.satelite.reportes.bean.RepAnulacionPrimaSBSBean">
+		<result column="CODIGO_FILA" jdbcType="NUMERIC" property="codigoFila" />
+		<result column="ID" jdbcType="NUMERIC" property="id" />
+		<result column="ID_DETALLE_TRAMA_MENSUAL" jdbcType="NUMERIC" property="idDetalleTramaMensual" />
+		<result column="FEC_REGISTRO_ANULACION" jdbcType="TIMESTAMP" property="fecRegistroAnulacion" />
+		<result column="FEC_ANULACION" jdbcType="DATE" property="fecAnulacion" />
+		<result column="NRO_POLIZA" jdbcType="DATE" property="nroPoliza" />
+		<result column="NRO_CERTIFICADO" jdbcType="DATE" property="nroCertificado" />
+		<result column="PLACA" jdbcType="DATE" property="placa" />
+		<result column="PRIMA_COMERCIAL_BRUTA" jdbcType="DOUBLE" property="primaComercialBruta" />
+		<result column="PRIMA_COMERCIAL" jdbcType="DOUBLE" property="primaComercial" />
+		<result column="MONTO_FONDO_SOAT" jdbcType="DOUBLE" property="montoFondoSOAT" />
+		<result column="FECHA_INI_VIGENCIA" jdbcType="DATE" property="fechaIniVigencia" />
+	</resultMap>
+	
+	<resultMap id="RepContratoComercioResultMap" type="com.cardif.satelite.reportes.bean.RepContratoSoatSBSBean">
+		<result column="CODIGO_FILA" jdbcType="NUMERIC" property="codigoFila" />
+		<result column="ID" jdbcType="NUMERIC" property="id" />
+		<result column="ID_DETALLE_TRAMA_MENSUAL" jdbcType="NUMERIC" property="idDetalleTramaMensual" />
+		<result column="ID_SOCIO" jdbcType="NUMERIC" property="idSocio" />
+		<result column="NOMBRE_EMPRESA" jdbcType="VARCHAR" property="nombreEmpresa" />
+		<result column="FEC_FIRMA_CONTRATO" jdbcType="DATE" property="fecFirmaContrato" />
+		<result column="NRO_ASEGURADOS" jdbcType="NUMERIC" property="nroAsegurados" />
+		<result column="MONTO_PRIMAS" jdbcType="DOUBLE" property="montoPrimas" />
+	</resultMap>
+	
+	
+	<sql id="Base_Column_List">
+		ID, ID_DETALLE_TRAMA_MENSUAL, CLASE, USO, REPORTADO, FECHA_REPORTADO, ESTADO_REPORTADO, FEC_CREACION, USU_CREACION
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from DETALLE_REPORTE_SBS
+		where ID = #{id,jdbcType=NUMERIC}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from DETALLE_REPORTE_SBS
+		where ID = #{id,jdbcType=NUMERIC}
+	</delete>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.cardif.satelite.model.reportes.ReporteSBS">
+		update DETALLE_REPORTE_SBS
+		<set>
+			<if test="idDetalleTramaMensual != null">
+				ID_DETALLE_TRAMA_MENSUAL = #{idDetalleTramaMensual,jdbcType=NUMERIC},
+			</if>
+			<if test="clase != null">
+				CLASE = #{clase,jdbcType=VARCHAR},
+			</if>
+			<if test="uso != null">
+				USO = #{uso,jdbcType=VARCHAR},
+			</if>
+			<if test="reportado != null">
+				REPORTADO = #{reportado,jdbcType=VARCHAR},
+			</if>
+			<if test="fechaReportado != null">
+				FECHA_REPORTADO = #{fechaReportado,jdbcType=TIMESTAMP},
+			</if>
+			<if test="estadoReportado != null">
+				ESTADO_REPORTADO = #{estadoReportado,jdbcType=VARCHAR},
+			</if>
+			<if test="fecCreacion != null">
+				FEC_CREACION = #{fecCreacion,jdbcType=TIMESTAMP},
+			</if>
+			<if test="usuCreacion != null">
+				USU_CREACION = #{usuCreacion,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=NUMERIC}
+	</update>
+</mapper>

@@ -1,0 +1,58 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core">
+<head>
+<script type="text/javascript">
+	function subir() {
+
+		var element = document.getElementById("subir");
+		console.info(element);
+		element.click();
+	}
+</script>
+</head>
+<body>
+	<h:form id="formMenu" onsubmit="subir();">
+		<!-- mode="ajax" -->
+		<rich:panelMenu style="width:200px" mode="ajax" iconExpandedGroup="disc" iconCollapsedGroup="triangle" iconExpandedTopGroup="chevronUp"
+			iconGroupTopPosition="right" iconCollapsedTopGroup="chevronDown">
+			<c:forEach items="#{loginController.listaOpciones}" var="opcion">
+				<c:if test="#{opcion.codPadre == 0}">
+					<rich:panelMenuGroup label="#{opcion.nombre}" expanded="true">
+						<!-- 			       		 <c:choose>  <c:when test="#{ opcion.codOpcion == childe.codPadre and childe.nivel == 1}"> -->
+
+						<c:forEach items="#{loginController.listaOpciones}" var="child">
+							<c:choose>
+								<c:when test="#{opcion.codOpcion == child.codPadre and child.url != loginController.valor }">
+									<rich:panelMenuItem label="#{child.nombre}" action="#{panelMenu.updateCurrent}" immediate="true" reRender="panelPrincipal">
+										<f:param name="current" value="/paginas#{child.url}" />
+										<f:param name="opcion" value="#{child.codOpcion}" />
+									</rich:panelMenuItem>
+								</c:when>
+
+								<c:when test="#{opcion.codOpcion == child.codPadre and child.nivel ==1 and child.url == loginController.valor }">
+									<rich:panelMenuGroup label="#{child.nombre}" expanded="false">
+										<c:forEach items="#{loginController.listaOpciones}" var="nie">
+											<c:if test="#{child.codOpcion == nie.codPadre}">
+												<rich:panelMenuItem label="#{nie.nombre}" action="#{panelMenu.updateCurrent}" immediate="true" reRender="panelPrincipal">
+													<f:param name="current" value="/paginas#{nie.url}" />
+													<f:param name="opcion" value="#{nie.codOpcion}" />
+												</rich:panelMenuItem>
+											</c:if>
+										</c:forEach>
+									</rich:panelMenuGroup>
+								</c:when>
+
+							</c:choose>
+						</c:forEach>
+					</rich:panelMenuGroup>
+				</c:if>
+			</c:forEach>
+		</rich:panelMenu>
+
+	</h:form>
+	<a id="subir" href="#principal" style="display: none"> Ir a principal </a>
+</body>
+</html>

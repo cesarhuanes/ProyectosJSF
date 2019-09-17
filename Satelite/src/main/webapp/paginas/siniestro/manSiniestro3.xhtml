@@ -1,0 +1,193 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+<a4j:keepAlive beanName="siniestroController" />
+<head>
+</head>
+
+<body>
+	<fieldset>
+		<legend>Items</legend>
+
+		<a4j:region ajaxSingle="true">
+
+			<table align="left">
+				<tr>
+
+					<td width="100" align="left"><h:outputText style="font-size:11px;" value="Sucursal de Retiro" /></td>
+					<td align="left"><h:inputText id="sucursalDeRetiro" maxlength="49" value="#{siniestroController.siniRobo.codSucRetiro}"
+							style=" width : 416px; #{siniestroController.styleVerSiniestro}" onkeyup="value=value.toUpperCase()"
+							readonly="#{siniestroController.readonlyMostrar}" /></td>
+				</tr>
+			</table>
+			<br></br>
+			<br></br>
+			<br></br>
+
+			<table align="left">
+				<tr>
+					<td width="30px">
+						<!--  h:selectBooleanCheckbox id="checkCelular"
+							value="#{siniestroController.celular_m3}"
+						valueChangeListener="#{siniestroController.cambiarCheck }" 
+							disabled="false" >
+							<a4j:support event="onchanged" ajaxSingle="true"
+       						 reRender="sucursalDeRetiro" />
+							</h:selectBooleanCheckbox>--> <h:selectBooleanCheckbox id="checkCelular" valueChangeListener="#{siniestroController.cambiarCheckCelular}"
+							value="#{siniestroController.celular_m3}" disabled="#{siniestroController.readonlyMostrar}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox>
+
+					</td>
+					<td width="230px"><h:outputText style="font-size:11px;" value="Celular" /></td>
+					<td width="30px"><h:selectBooleanCheckbox id="checkLEntesSol" value="#{siniestroController.lentesDeSol_m3}"
+							valueChangeListener="#{siniestroController.cambiarCheckLentesSol}" disabled="#{siniestroController.readonlyMostrar}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="230px" align="left"><h:outputText style="font-size:11px;" value="Lentes de Sol" /></td>
+					<td width="30px"><h:selectBooleanCheckbox id="checkDiscIpod" value="#{siniestroController.discIpodMP3Table_m3}"
+							valueChangeListener="#{siniestroController.cambiarCheckDiscIpod}" disabled="#{siniestroController.readonlyMostrar}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="230px"><h:outputText style="font-size:11px;" value="Disc-Ipod-MP3-Tablet" /></td>
+					<td width="30px"><h:selectBooleanCheckbox id="checkLlantas" value="#{siniestroController.llanta_m3}"
+							disabled="#{siniestroController.readonlyMostrar}" valueChangeListener="#{siniestroController.cambiarCheckLlanta}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="160px"><h:outputText style="font-size:11px;" value="Llanta" /></td>
+				</tr>
+
+				<tr>
+					<td width="30px"><h:selectBooleanCheckbox id="checkCartera" value="#{siniestroController.cartera_m3}"
+							disabled="#{siniestroController.readonlyMostrar}" valueChangeListener="#{siniestroController.cambiarCheckCartera}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="180px"><h:outputText style="font-size:11px;" value="Cartera" /></td>
+					<td width="30px"><h:selectBooleanCheckbox id="checkCosmeticos" value="#{siniestroController.cosmeticos_m3}"
+							disabled="#{siniestroController.readonlyMostrar}" valueChangeListener="#{siniestroController.cambiarCheckCosmeticos}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="200px"><h:outputText style="font-size:11px;" value="Cosméticos" /></td>
+					<td width="30px"><h:selectBooleanCheckbox id="checkpalmTabled" value="#{siniestroController.palmTabled_m3}"
+							disabled="#{siniestroController.readonlyMostrar}" valueChangeListener="#{siniestroController.cambiarCheckPalmTabled}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="250px"><h:outputText style="font-size:11px;" value="Palm-Tablet" /></td>
+					<td width="30px"><h:selectBooleanCheckbox id="checkGMedicos" value="#{siniestroController.flagMedicos_m3}"
+							disabled="#{siniestroController.readonlyMostrar}" valueChangeListener="#{siniestroController.cambiarCheckGMedicos}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="160px"><h:outputText style="font-size:11px;" value="G. Médicos" /></td>
+
+				</tr>
+				<tr>
+					<td width="30px"><h:selectBooleanCheckbox id="checkMAletin" value="#{siniestroController.maletetin_m3}"
+							disabled="#{siniestroController.readonlyMostrar}" valueChangeListener="#{siniestroController.cambiarCheckMaletin}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="180px"><h:outputText style="font-size:11px;" value="Maletín" /></td>
+					<td width="30px"><h:selectBooleanCheckbox id="checkLapicero" value="#{siniestroController.lapicero_m3}"
+							disabled="#{siniestroController.readonlyMostrar}" valueChangeListener="#{siniestroController.cambiarCheckLapicero}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="200px"><h:outputText style="font-size:11px;" value="Lapicero" /></td>
+					<td width="30px"><h:selectBooleanCheckbox id="checkBolso" value="#{siniestroController.bolso_m3}"
+							disabled="#{siniestroController.readonlyMostrar}" valueChangeListener="#{siniestroController.cambiarCheckCelular}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="250px"><h:outputText style="font-size:11px;" value="Bolso" /></td>
+					<td width="30px"><h:selectBooleanCheckbox id="checkLibreDisp" value="#{siniestroController.libreDisp_m3}"
+							disabled="#{siniestroController.readonlyMostrar}" valueChangeListener="#{siniestroController.cambiarCheckLibreDisp}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="160px"><h:outputText style="font-size:11px;" value="Libre Disp." /></td>
+
+				</tr>
+				<tr>
+					<td width="30px"><h:selectBooleanCheckbox id="checkBilletera" value="#{siniestroController.billetera_m3}"
+							disabled="#{siniestroController.readonlyMostrar}" valueChangeListener="#{siniestroController.cambiarCheckBilletera}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="180px"><h:outputText style="font-size:11px;" value="Billetera" /></td>
+					<td width="30px"><h:selectBooleanCheckbox id="checkDni" value="#{siniestroController.dni_m3}"
+							disabled="#{siniestroController.readonlyMostrar}" valueChangeListener="#{siniestroController.cambiarCheckDni}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="200px"><h:outputText style="font-size:11px;" value="DNI" /></td>
+					<td width="30px"><h:selectBooleanCheckbox id="checkSillaAuto" value="#{siniestroController.sillaAutoBB_m3}"
+							disabled="#{siniestroController.readonlyMostrar}" valueChangeListener="#{siniestroController.cambiarCheckSillaBB}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="250px"><h:outputText style="font-size:11px;" value="Silla Auto Bebé" /></td>
+					<td width="30px"><h:selectBooleanCheckbox id="checkMuerteAccidente" value="#{siniestroController.muerteAccidente_m3}"
+							disabled="#{siniestroController.readonlyMostrar}" valueChangeListener="#{siniestroController.cambiarCheckCelular}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="160px"><h:outputText style="font-size:11px;" value="Muerte Accidental" /></td>
+
+				</tr>
+				<tr>
+					<td width="30px"><h:selectBooleanCheckbox id="checkPortadocumentos" value="#{siniestroController.portadocumentos_m3}"
+							valueChangeListener="#{siniestroController.cambiarCheckPortadocumentos}" disabled="#{siniestroController.readonlyMostrar}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="180px"><h:outputText style="font-size:11px;" value="Portadocumentos" /></td>
+					<td width="30px"><h:selectBooleanCheckbox id="checkMochila" value="#{siniestroController.mochila_m3}"
+							valueChangeListener="#{siniestroController.cambiarCheckMochila}" disabled="#{siniestroController.readonlyMostrar}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="200px"><h:outputText style="font-size:11px;" value="Mochila" /></td>
+					<td width="30px"><h:selectBooleanCheckbox id="checkCocheBB" value="#{siniestroController.cocheBB_m3}"
+							valueChangeListener="#{siniestroController.cambiarCheckCochiBB}" disabled="#{siniestroController.readonlyMostrar}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="250px"><h:outputText style="font-size:11px;" value="Coche Bebé" /></td>
+					<td width="30px"><h:selectBooleanCheckbox id="checkLllaves" value="#{siniestroController.llaves_m3}"
+							valueChangeListener="#{siniestroController.cambiarCheckLlaves}" disabled="#{siniestroController.readonlyMostrar}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="160px"><h:outputText style="font-size:11px;" value="Llaves" /></td>
+
+				</tr>
+				<tr>
+					<td width="30px"><h:selectBooleanCheckbox id="checkLentasOpticos" value="#{siniestroController.lentesOpticos_m3}"
+							valueChangeListener="#{siniestroController.cambiarLentesOpticos}" disabled="#{siniestroController.readonlyMostrar}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="180px"><h:outputText style="font-size:11px;" value="Lentes Ópticos" /></td>
+					<td width="30px"><h:selectBooleanCheckbox id="checkReloj" value="#{siniestroController.reloj_m3}"
+							valueChangeListener="#{siniestroController.cambiarCheckReloj}" disabled="#{siniestroController.readonlyMostrar}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="200px"><h:outputText style="font-size:11px;" value="Reloj" /></td>
+					<td width="30px"><h:selectBooleanCheckbox id="checkDisco" value="#{siniestroController.disco_m3}"
+							valueChangeListener="#{siniestroController.cambiarCheckDisco}" disabled="#{siniestroController.readonlyMostrar}">
+							<a4j:support event="onclick" reRender="montoPreliquidacion" />
+						</h:selectBooleanCheckbox></td>
+					<td width="250px"><h:outputText style="font-size:11px;" value="Disco" /></td>
+				</tr>
+			</table>
+			<br></br>
+			<br></br>
+			<br></br>
+			<br></br>
+
+
+			<table align="center">
+				<tr>
+					<td><h:outputText style="font-size:11px;" value="Monto de Pre-Liquidación:" /></td>
+					<td><h:inputText id="montoPreliquidacion" maxlength="10" value="#{siniestroController.siniRobo.impPreLiquid}" readonly="true"
+							style="background:#ddd;" /></td>
+					<td><rich:spacer width="15"></rich:spacer></td>
+
+					<td><h:outputText style="font-size:11px;" value="Gastos Médicos:" /></td>
+					<td><h:inputText id="gastosMedicos" maxlength="10" value="#{siniestroController.siniRobo.impGasMedicos}"
+							onkeypress="return valDecimales(event);" readonly="#{siniestroController.readonlyMostrar}" style="#{siniestroController.styleVerSiniestro}" />
+					</td>
+				</tr>
+			</table>
+
+		</a4j:region>
+	</fieldset>
+</body>
+</html>

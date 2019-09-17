@@ -1,0 +1,139 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<a4j:keepAlive beanName="generacionComprobanteController" />
+<head>
+<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+
+<style type="text/css">
+body {
+	font-family: Monaco, Georgia, Times, serif;
+}
+
+#panelPrincipal {
+	text-align: left;
+}
+
+.datatable {
+	padding-top: 25px;
+}
+</style>
+</head>
+<body>
+	<rich:panel id="panelPrincipal" height="100%" style="padding-bottom:10px;">
+		<f:facet name="header">
+			<h:outputText value="Tesorería > Generar Certificado > Ver Detalle" />
+		</f:facet>
+		<center>
+			<div style="text-align: center;">
+				<table style="margin: auto; width: 100%; padding: 10px 10px;">
+					<tr>
+						<td style="text-align: left; width: 20%; font-weight: bold"><h:outputText value="Nro. Comprobante: " /></td>
+						<td style="text-align: left;"><h:outputText id="nroCertificadoComprobante" value="#{generacionComprobanteController.nroCertificado}" /></td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="datatable">
+				<rich:panel id="pnlListaDetalle">
+					<div style="scrollbar-base-color: #3D8A3D; width: 650px; border: 0px solid white; overflow-x: scroll;">
+						<rich:extendedDataTable id="listaDetalle" var="itemDetalleComprobante" value="#{generacionComprobanteController.listaComprobantesRelacionados}"
+							style="width:1100px; height: 200px !important;" selectionMode="single" reRender="true" keppSaved="false">
+							<rich:column id="colDetalleTipoComp" headerClass="dataTableHeader" width="7%" sortable="true"
+								sortBy="#{itemDetalleComprobante.crTipoComprobante}" sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Tipo" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemDetalleComprobante.crTipoComprobante}" />
+								</center>
+							</rich:column>
+							<rich:column id="colDetalleNroComp" headerClass="dataTableHeader" width="10.5%" sortable="true"
+								sortBy="#{itemDetalleComprobante.crNroComprobante}" sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Serie - Nro." />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemDetalleComprobante.crNroComprobante}" />
+								</center>
+							</rich:column>
+							<rich:column id="colDetalleFechaEmision" headerClass="dataTableHeader" width="11%" sortable="true"
+								sortBy="#{itemDetalleComprobante.crFechaEmision}" sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Fec. Emisión" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemDetalleComprobante.crFechaEmision}">
+										<f:convertDateTime pattern="yyyy-MM-dd" />
+									</h:outputText>
+								</center>
+							</rich:column>
+							<rich:column id="colDetalleTipoMoneda" headerClass="dataTableHeader" width="8.5%" sortable="true"
+								sortBy="#{itemDetalleComprobante.crTipoMoneda}" sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Moneda" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemDetalleComprobante.crTipoMoneda}" />
+								</center>
+							</rich:column>
+							<rich:column id="colDetalleImpTotalOrig" headerClass="dataTableHeader" width="12.5%" sortable="true"
+								sortBy="#{itemDetalleComprobante.pcImportePagoSinRetCob}" sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Imp. Total Orig." />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemDetalleComprobante.crImporteTotal}" />
+								</center>
+							</rich:column>
+							<rich:column id="colDetalleFechaPago" headerClass="dataTableHeader" width="9.5%" sortable="true"
+								sortBy="#{itemDetalleComprobante.pcFechaPagoCobro}" sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Fec. Pago" />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemDetalleComprobante.rpFechaRetPer}">
+										<f:convertDateTime pattern="yyyy-MM-dd" />
+									</h:outputText>
+								</center>
+							</rich:column>
+							<rich:column id="colDetalleImpPagoOrig" headerClass="dataTableHeader" width="12.5%" sortable="true"
+								sortBy="#{itemDetalleComprobante.pcImportePagoMonOrig}" sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Imp. Pago Orig." />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemDetalleComprobante.pcImportePagoSinRetCob}" />
+								</center>
+							</rich:column>
+							<rich:column id="colDetalleImpRetencionNac" headerClass="dataTableHeader" width="14.5%" sortable="true"
+								sortBy="#{itemDetalleComprobante.rpImporteRetPer}" sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Imp. Retención Nac." />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemDetalleComprobante.rpImporteRetPer}" />
+								</center>
+							</rich:column>
+							<rich:column id="colDetalleImpNetoPagadoNac" headerClass="dataTableHeader" width="16%" sortable="true"
+								sortBy="#{itemDetalleComprobante.rpImporteNetPagoCobro}" sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+								<f:facet name="header">
+									<h:outputText value="Imp. Neto Pagado Nac." />
+								</f:facet>
+								<center>
+									<h:outputText value="#{itemDetalleComprobante.rpImporteNetPagoCobro}" />
+								</center>
+							</rich:column>
+						</rich:extendedDataTable>
+					</div>
+				</rich:panel>
+			</div>
+
+			<div style="text-align: right;">
+				<a4j:commandButton onclick="#{facesContext.maximumSeverity == null ? 'Richfaces.hideModalPanel(\'panelDetalleCertificadoRetencion\')' : ';'}"
+					value="> Salir" render="true" style="margin-top: 10px;" />
+			</div>
+		</center>
+	</rich:panel>
+</body>
+</html>

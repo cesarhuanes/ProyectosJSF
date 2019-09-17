@@ -1,0 +1,362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<a4j:keepAlive beanName="anulacionCertificadoController" />
+<head>
+<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+
+<style type="text/css">
+body, html {
+	font-family: Monaco, Georgia, Times, serif;
+	width: 100%;
+	height: 100%;
+}
+
+#panelPrincipal {
+	text-align: left;
+}
+
+#formGeneracionCertificado {
+	width: 1000px;
+	margin: 0 auto;
+	color:
+}
+
+.datatable {
+	padding-top: 10px;
+}
+
+.celda {
+	width: 130px;
+	color: #000;
+}
+
+.outputTitle {
+	font-weight: bold;
+	padding: 0px 10px !important;
+}
+</style>
+<script type="text/javascript">
+
+function validar(){
+	var length=document.querySelectorAll('.rich-message-marker').length;
+	console.info(length);
+	return length==0;
+}
+
+</script>
+</head>
+<body>
+	<rich:panel id="panelPrincipal" height="100%" reRender="lista">
+		<f:facet name="header">
+			<h:form id="formRefresh">
+				<h:outputText value="Tesorería > Anular Certificado" />
+				<a4j:commandLink action="#{anulacionCertificadoController.inicio}" reRender="principal" style="text-decoration:none; margin-left:10px">
+					<img src="#{facesContext.externalContext.requestContextPath}/imagenes/refresh.png" width="15" height="15" style="margin: 0; padding: 0" />
+				</a4j:commandLink>
+			</h:form>
+		</f:facet>
+		<center>
+			<fieldset id="formGeneracionCertificado">
+				<legend />
+				<h:form id="AnularCertificado">
+					<div style="text-align: center;">
+						<table style="margin: auto; width: 100%" border="0">
+							<tr>
+								<td colspan="6" style="text-align: left;"><h:outputText value="Compañia" styleClass="outputTitle" /></td>
+							</tr>
+							<tr>
+								<td style="text-align: right; width: 12%;"><rich:message for="idUnidadNegocio" style="color: red;">
+										<f:facet name="errorMarker">
+											<h:graphicImage url="../imagenes/error.png" />
+										</f:facet>
+									</rich:message> <rich:spacer width="5" /> <h:outputText value="* Razón Social: " /></td>
+								<td style="text-align: left; width: 20%;"><h:selectOneMenu id="idUnidadNegocio" value="#{anulacionCertificadoController.unidadNegocio}"
+										style=" width: 150px;" required="true" requiredMessage="">
+										<f:selectItems value="#{anulacionCertificadoController.comboListaUnidadNegocio}" />
+									</h:selectOneMenu></td>
+								<td>
+									&nsp;
+								</td>
+								<td>
+									&nsp;
+								</td>
+								<td>
+									&nsp;
+								</td>
+								<td>
+									&nsp;
+								</td>
+							</tr>
+							<tr>
+								<td colspan="6">
+									<div style="width: 100%; border-top: 1px solid #C0C0C0; margin: 5px 0;"></div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="6" style="text-align: left;"><h:outputText value="Fecha de Emisión" styleClass="outputTitle" /></td>
+							</tr>
+							<tr>
+
+								<td style="width: 11%; text-align: right;"><rich:message for="fechaDesde" style="color: red;">
+										<f:facet name="errorMarker">
+											<h:graphicImage url="../imagenes/error.png" />
+										</f:facet>
+									</rich:message> <rich:spacer width="5" /> <h:outputText value="* Desde : " /></td>
+
+								<td style="width: 20%; text-align: left;"><rich:calendar id="fechaDesde" showWeeksBar="false" datePattern="yyyy-MM-dd"
+										value="#{anulacionCertificadoController.fechaDesde}" required="true" requiredMessage="" inputStyle="width: 125px;" /></td>
+
+								<td style="width: 11%; text-align: right;"><rich:message for="fecEmisionHasta" style="color: red;">
+										<f:facet name="errorMarker">
+											<h:graphicImage url="../imagenes/error.png" />
+										</f:facet>
+									</rich:message> <rich:spacer width="5" /> <h:outputText value=" * Hasta : " /></td>
+								<td style="text-align: left;"><rich:calendar required="true" id="fecEmisionHasta" datePattern="yyyy-MM-dd"
+										value="#{anulacionCertificadoController.fechaHasta}" requiredMessage="" inputStyle="width: 125px;" /></td>
+								<td>
+									&nsp;
+								</td>
+							</tr>
+								<tr>
+								<td style="width: 11%; text-align: right;">
+								
+								<!-- <rich:message	for="ruc" style="color: red;">
+										<f:facet name="errorMarker">
+											<h:graphicImage url="../imagenes/error.png" />
+										</f:facet>
+									</rich:message> 
+								<rich:spacer width="5" /> 
+								<h:outputText value=" RUC :" /> -->
+								
+								</td>
+								
+								<td style="width: 20%; text-align: left;">
+								
+								<!-- <h:inputText id="ruc" value="#{anulacionCertificadoController.rucProveedor}" />
+								 -->		
+								</td>
+										
+								<td style="width: 11%; text-align: right;"></td>
+										
+								<td style="width: 20%; text-align: left;"></td>
+										
+								<td style="text-align: left;"><a4j:commandButton
+										id="buscarComprobantes" style="margin:0 5px;" value="Buscar"
+										action="#{anulacionCertificadoController.buscar}"
+										reRender="pnlLista" />
+								</td>
+							</tr>
+							<!-- <tr>
+								<td colspan="6">
+									<div style="width: 100%; border-top: 1px solid #C0C0C0; margin: 5px 0;"></div>
+								</td>
+							</tr>
+							 <tr>
+								<td colspan="6" style="text-align: left;"><h:outputText value="Datos del Proveedor" styleClass="outputTitle" /></td>
+							</tr>
+							<tr>
+								<td style="width: 11%; text-align: right;"><rich:message for="nroDiario" style="color: red;">
+										<f:facet name="errorMarker">
+											<h:graphicImage url="../imagenes/error.png" />
+										</f:facet>
+									</rich:message> <rich:spacer width="5" /> <h:outputText value=" Nro Diario :" /></td>
+								<td style="text-align: left;"><h:inputText id="nroDiario" value="#{anulacionCertificadoController.nroDiario}" /></td>
+								<td style="width: 11%; text-align: right;"><rich:message for="nroCertificado" style="color: red;">
+										<f:facet name="errorMarker">
+											<h:graphicImage url="../imagenes/error.png" />
+										</f:facet>
+									</rich:message> <rich:spacer width="5" /> <h:outputText value=" Nro Certificado :" /></td>
+								<td style="text-align: left;"><h:inputText id="nroCertificado" value="#{anulacionCertificadoController.nroComprobanteRetencion}" /></td>
+								<td></td>
+							</tr>-->
+
+						</table>
+					</div>
+					<br />
+					<rich:panel id="pnlLista">
+
+						<div style="scrollbar-base-color: #3D8A3D; width: 1000px; border: 0px solid whi te; overflow-x: scroll;">
+							<rich:extendedDataTable id="lista" var="itemCertificado" value="#{anulacionCertificadoController.listaCertificados}"
+								selection="#{anulacionCertificadoController.selectionActivo}" height="270px" width="995px" rows="200" selectionMode="single" reRender="true"
+								keppSaved="false">
+
+								<a4j:support event="onselectionchange" action="#{anulacionCertificadoController.onSelectionChanged}" ajaxSingle="true" limitToList="true"
+									reRender="panelAnular,anularComponentes" />
+
+								<rich:column id="colEnFechaEmision" headerClass="dataTableHeader" width="10%" sortable="true" sortBy="#{itemCertificado.fechaEmision}"
+									sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+									<f:facet name="header">
+										<h:outputText value="Fecha Emisión" />
+									</f:facet>
+									<center>
+										<h:outputText value="#{itemCertificado.fechaEmision}">
+											<f:convertDateTime pattern="yyyy-MM-dd" />
+										</h:outputText>
+									</center>
+								</rich:column>
+
+								<rich:column id="colruc" headerClass="dataTableHeader" width="10%" sortable="true" sortBy="#{itemCertificado.proNroDocumento}"
+									sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+									<f:facet name="header">
+										<h:outputText value="RUC" />
+									</f:facet>
+									<center>
+										<h:outputText value="#{itemCertificado.proNroDocumento}" />
+									</center>
+								</rich:column>
+
+								<rich:column id="colNroDiario" headerClass="dataTableHeader" width="10%" sortable="true" sortBy="#{itemCertificado.nroDiario}"
+									sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+									<f:facet name="header">
+										<h:outputText value="Nro. Diario" />
+									</f:facet>
+									<center>
+										<h:outputText value="#{itemCertificado.nroDiario}" />
+									</center>
+								</rich:column>
+
+								<rich:column id="colRazonSocial" headerClass="dataTableHeader" width="30%" sortable="true" sortBy="#{itemCertificado.proRazonSocial}"
+									sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+									<f:facet name="header">
+										<h:outputText value="Razón social" />
+									</f:facet>
+									<center>
+										<h:outputText value="#{itemCertificado.proRazonSocial}" />
+									</center>
+								</rich:column>
+
+								<rich:column id="colnroCertificado" headerClass="dataTableHeader" width="15%" sortable="true"
+									sortBy="#{itemCertificado.nroComprobanteElectronico}" sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+									<f:facet name="header">
+										<h:outputText value="Nro. Certificado" />
+									</f:facet>
+									<center>
+										<h:outputText value="#{itemCertificado.nroComprobanteElectronico}" />
+									</center>
+								</rich:column>
+
+								<rich:column id="colmoneda" headerClass="dataTableHeader" width="10%" sortable="true" sortBy="#{itemCertificado.monedaPago}"
+									sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+									<f:facet name="header">
+										<h:outputText value="Moneda Pago" />
+									</f:facet>
+									<center>
+										<h:outputText value="#{itemCertificado.monedaPago}" />
+									</center>
+								</rich:column>
+								<rich:column id="colimporteTotal" headerClass="dataTableHeader" width="15%" sortable="true" sortBy="#{itemCertificado.importeRetPer}}"
+									sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+									<f:facet name="header">
+										<h:outputText value="Importe Retenido" />
+									</f:facet>
+									<center>
+										<h:outputText value="#{itemCertificado.importeRetPer}" />
+									</center>
+								</rich:column>
+
+							</rich:extendedDataTable>
+						</div>
+						<br />
+						<div style="float: right;">
+							<a4j:commandButton id="anularComponentes" disabled="#{anulacionCertificadoController.disabledBtnAnular}" reRender="true"
+								style="margin:0 5px; float:left" value="Anular" oncomplete="#{rich:component('panelAnular')}.show();return false" />
+						</div>
+						<div style="clear: both;"></div>
+					</rich:panel>
+				</h:form>
+			</fieldset>
+		</center>
+	</rich:panel>
+
+	<rich:modalPanel id="panelAnular" autosized="true">
+		<f:facet name="header">
+			<h:outputText value="Confirmación de anulación de Certificado" />
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/imagenes/close.gif" styleClass="hidelink" id="hidelinkAnular" />
+				<rich:componentControl for="panelAnular" attachTo="hidelinkAnular" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<h:form>
+			<a4j:region>
+
+				<h:panelGrid>
+					<h:outputText value="Usted esta a punto anular el certificado de retencion" />
+					<a4j:outputPanel id="camposAnular">
+						<table>
+
+							<tr>
+								<td style="width: 130px;">Nº Certificado:</td>
+								<td><h:outputText value="#{anulacionCertificadoController.certificadoActual.nroComprobanteElectronico}" /></td>
+							</tr>
+							<tr>
+								<td style="width: 130px;">RUC:</td>
+								<td><h:outputText value="#{anulacionCertificadoController.certificadoActual.proNroDocumento}" /></td>
+							</tr>
+							<tr>
+								<td style="width: 130px;">Razon Social:</td>
+								<td><h:outputText value="#{anulacionCertificadoController.certificadoActual.proRazonSocial}" /></td>
+							</tr>
+							<tr>
+								<td style="width: 130px;">Moneda:</td>
+								<td><h:outputText value="#{anulacionCertificadoController.certificadoActual.monedaPago}" /></td>
+							</tr>
+							<tr>
+								<td style="width: 130px;">Importe Retenido:</td>
+								<td><h:outputText value="#{anulacionCertificadoController.certificadoActual.importeRetPer}" /></td>
+							</tr>
+							<tr>
+								<td style="width: 130px;">Fecha Emisión :</td>
+								<td><h:outputText value="#{anulacionCertificadoController.certificadoActual.fechaEmision}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputText></td>
+							</tr>
+							<tr>
+								<td style="width: 130px;">Fecha Digitalizacion:</td>
+								<td><h:outputText value="#{anulacionCertificadoController.certificadoActual.fechaDigitalizacion}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputText></td>
+							</tr>
+							<tr>
+								<td style="width: 130px;">Estado:</td>
+								<td><h:outputText value="#{anulacionCertificadoController.certificadoActual.estado}" /></td>
+							</tr>
+							<tr>
+								<td style="width: 130px;">Causa de Anulación:</td>
+								<td><h:selectOneMenu id="idcausa" value="#{anulacionCertificadoController.certificadoActual.causaAnulacion}" style=" width: 150px;"
+										required="true" requiredMessage="">
+										<f:selectItems value="#{anulacionCertificadoController.comboListaCausa}" />
+									</h:selectOneMenu></td>
+							</tr>
+
+						</table>
+
+					</a4j:outputPanel>
+
+					<h:outputText value="Ingrese el motivo de anulación" />
+
+					<h:inputTextarea id="txtMotivo" value="#{anulacionCertificadoController.certificadoActual.motivoAnulacion}" rows="5" cols="60"
+						style="height: 100px;" required="true" requiredMessage="Obligatorio" />
+					<rich:message for="txtMotivo" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message>
+
+				</h:panelGrid>
+
+				<center>
+					<h:panelGrid columns="2">
+						<a4j:commandButton id="btnAnular" value="Anular" action="#{anulacionCertificadoController.anularCertificado}"
+							oncomplete="if(validar()){#{rich:component('panelAnular')}.hide()}" reRender="pnlLista" />
+						<a4j:commandButton id="btnCancelar" value="Cancelar" oncomplete="#{rich:component('panelAnular')}.hide()" />
+					</h:panelGrid>
+				</center>
+			</a4j:region>
+		</h:form>
+	</rich:modalPanel>
+</body>
+</html>

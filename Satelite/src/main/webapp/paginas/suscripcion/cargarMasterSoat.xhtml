@@ -1,0 +1,104 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<a4j:keepAlive beanName="cargMasterSoatController" />
+<head> 
+<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+<style type="text/css"> 
+.celda {
+	width: 130px;
+	color: #000;
+}
+
+.datatable {
+	padding-top: 10px;
+}
+
+body {
+	font-family: Monaco, Georgia, Times, serif;
+}
+
+.separador {
+	padding: 0px 17px;
+}
+
+#consultar {
+	text-align: left;
+}
+</style>
+</head>
+
+<body>
+	<rich:panel id="consultar" height="100%">
+		<f:facet name="header">
+			<h:outputText value="Suscripción > SOAT > Master SOAT" />
+		</f:facet>
+		<table style="margin: 0 auto; width: 400px;" border="">
+			<tr>
+				<td width="30%" align="right"><rich:message for="socio" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message> <rich:spacer width="5"></rich:spacer> <h:outputText value="Socio" /></td>
+				<td style="width: 53%; text-align: left;"><h:selectOneMenu id="socio" value="#{cargMasterSoatController.socio}" style=" width : 220px;"
+						required="true" requiredMessage="Obligatorio">
+						<f:selectItems value="#{cargMasterSoatController.tipoSocioItems}" />
+					</h:selectOneMenu></td>
+				<td width="17%" align="left"></td>
+			</tr>
+
+			<tr>
+				<td width="30%" align="right"><rich:message for="fechaNac" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message> <rich:spacer width="5" /> <h:outputText value="Fecha de Validez(dd/MM/yyyy): " /></td>
+				<td style="width: 53%; text-align: left;"><rich:calendar id="fechaNac" enableManualInput="false" datePattern="dd/MM/yyyy"
+						value="#{cargMasterSoatController.fecValidez}" showWeeksBar="false" required="true" requiredMessage="Obligatorio">
+					</rich:calendar></td>
+				<td width="17%" align="left"></td>
+			</tr>
+			<tr>
+				<td width="30%" align="right"><rich:message for="uploader" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message> <rich:spacer width="5" /> <h:outputText value="Archivo Master" /></td>
+
+				<td style="width: 53%; text-align: left;"><rich:fileUpload id="uploader" align="left" disabled="#{cargMasterSoatController.upload}"
+						fileUploadListener="#{cargMasterSoatController.listener}" autoclear="false" acceptedTypes="xlsx" maxFilesQuantity="1" allowFlash="false"
+						addControlLabel="Seleccionar Archivo .xlsx" clearAllControlLabel="Limpiar" clearControlLabel="" stopEntryControlLabel="Detener Proceso"
+						uploadControlLabel="Cargar Archivo" value="{_MB}MB from {MB}MB cargando --- {mm}:{ss}" listHeight="50px" listWidth="345px" required="true"
+						requiredMessage="Ingrese">
+						<a4j:support event="onclear" action="#{cargMasterSoatController.clear}" reRender="uploader" />
+						<a4j:support event="onuploadcomplete" />
+						<!-- reRender="btnIngresar,btnIngresarMes" -->
+					</rich:fileUpload></td>
+				<td width="17%" align="left" />
+			</tr>
+		</table>
+		<center>
+			<a4j:commandButton id="aceptar" action="#{cargMasterSoatController.cargarArchivoMaster}" onclick="this.disabled=true;" value="Cargar"
+				oncomplete="#{facesContext.maximumSeverity == null ? 'Richfaces.showModalPanel(\'panel\');this.disabled=false;' : 'this.disabled=false;'}"
+				reRender="lista, uploader" />
+			<span style="margin: 0 7px;"> <a4j:commandButton onclick="Richfaces.hideModalPanel('panelMantenimiento');" value="Cancelar" immediate="true" />
+			</span>
+		</center>
+	</rich:panel>
+	<rich:modalPanel id="panel" width="250" height="150">
+		<f:facet name="header">
+			<h:outputText value="Mensaje" />
+		</f:facet>
+		<h:panelGroup>
+			<center>
+				<h5>
+					<h:outputText value="La carga finalizó correctamente!" />
+				</h5>
+				<a4j:commandButton value="Aceptar" reRender="lista"
+					onclick="#{rich:component('panel')}.hide(); #{rich:component('panelMantenimiento')}.hide(); return false"
+					oncomplete="#{facesContext.maximumSeverity == null ? 'Richfaces.hideModalPanel(\'panelMantenimiento\')' : ';'}" />
+				<rich:componentControl for="panelMantenimiento" attachTo="hidelink" operation="hide" event="onclick" />
+			</center>
+		</h:panelGroup>
+	</rich:modalPanel>
+</body>
+</html>

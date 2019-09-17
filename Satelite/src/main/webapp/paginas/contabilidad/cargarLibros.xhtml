@@ -1,0 +1,99 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+<a4j:keepAlive beanName="cargarLibrosController" />
+<head>
+<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js"></script>
+</head>
+<body>
+	<h:form id="loadBooksForm">
+		<rich:panel id="registro">
+			<f:facet name="header">
+				<h:outputText value="Contabilidad >  Cargar Libros Electrónicos" />
+			</f:facet>
+			<table align="center">
+				<tr>
+					<td align="right"><h:outputText value="* Periodo (AAAAMM): " /></td>
+					<td align="left"><h:inputText id="periodo" value="#{cargarLibrosController.periodo}" maxlength="6" required="true"
+							requiredMessage="El periodo es obligatorio" onkeypress="return valNumeros(event);">
+						</h:inputText> <rich:message for="periodo" style="color:RED;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message></td>
+				</tr>
+				<a4j:region id="uploadValidationRegion">
+					<tr>
+						<td align="right"><h:outputText value="* Compañía: " /></td>
+						<td align="left"><h:selectOneMenu id="compania" value="#{cargarLibrosController.codCia}" required="true"
+								requiredMessage="La compañia es obligatoria">
+								<f:selectItems value="#{cargarLibrosController.companias}" />
+								<a4j:support event="onchange" action="#{cargarLibrosController.cambioTipoLibro}" reRender="uploader" process="tipoLibro,compania" />
+							</h:selectOneMenu> <rich:message for="compania" style="color:RED;">
+								<f:facet name="errorMarker">
+									<h:graphicImage url="../imagenes/error.png" />
+								</f:facet>
+							</rich:message></td>
+
+					</tr>
+					<tr>
+						<td align="right"><h:outputText value="* Tipo de Libro: " /></td>
+						<td align="left"><h:selectOneMenu id="tipoLibro" value="#{cargarLibrosController.tipoLibro}" required="true"
+								requiredMessage="El tipo de Libro es obligatoria" immediate="true">
+								<f:selectItems value="#{cargarLibrosController.tiposLibro}" />
+								<a4j:support event="onchange" action="#{cargarLibrosController.cambioTipoLibro}" reRender="uploader" process="tipoLibro,compania" />
+							</h:selectOneMenu> <rich:message for="tipoLibro" style="color:RED;">
+								<f:facet name="errorMarker">
+									<h:graphicImage url="../imagenes/error.png" />
+								</f:facet>
+							</rich:message></td>
+					</tr>
+				</a4j:region>
+				<tr>
+					<td colspan="2" align="center"><h:commandButton action="#{cargarLibrosController.limpiar}" immediate="true" value="Limpiar" /></td>
+
+				</tr>
+				<tr>
+					<td colspan="2" height="10px"></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center"><rich:fileUpload id="uploader" align="left" disabled="#{cargarLibrosController.upload}"
+							fileUploadListener="#{cargarLibrosController.listener}" autoclear="false" acceptedTypes="xlsx" maxFilesQuantity="100" allowFlash="false"
+							addControlLabel="Adicionar Archivo .xlsx" clearAllControlLabel="Limpiar Todo" clearControlLabel="" stopEntryControlLabel="Detener Proceso"
+							uploadControlLabel="Cargar Archivo" value="{_MB}MB from {MB}MB cargando --- {mm}:{ss}">
+							<a4j:support event="onclear" action="#{cargarLibrosController.clear}" />
+						</rich:fileUpload></td>
+				</tr>
+				<tr>
+					<td colspan="2" height="10px"></td>
+				</tr>
+				<tr>
+					<td align="center" colspan="2">
+						<!-- <a4j:commandButton action="#{cargarLibrosController.procesar}"
+							value="Procesar Archivos" onclick="#{facesContext.maximumSeverity == null ? 'Richfaces.showModalPanel(\'procesando\');' : 'this.disabled=false;'}"
+							oncomplete="#{facesContext.maximumSeverity == null ? 'Richfaces.hideModalPanel(\'procesando\');' : 'Richfaces.hideModalPanel(\'procesando\');'}"/>
+					 --> <h:commandButton action="#{cargarLibrosController.procesar}" value="Procesar Archivos" />
+					</td>
+				</tr>
+			</table>
+
+		</rich:panel>
+
+	</h:form>
+
+	<h:form>
+		<h:commandButton value="Ingresar" action="ejemploRequest" />
+	</h:form>
+</body>
+
+<rich:modalPanel id="procesando" width="130" height="70">
+	<f:facet name="header">
+		<h:outputText value="Procesando... " />
+	</f:facet>
+
+	<h:form>
+		<img src="#{facesContext.externalContext.requestContextPath}/imagenes/cargando.gif"></img>
+	</h:form>
+</rich:modalPanel>
+
+
+</html>

@@ -1,0 +1,73 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<a4j:keepAlive beanName="consultarPagosController" />
+<head>
+</head>
+
+<body>
+	<rich:panel id="consultar" height="100%">
+		<f:facet name="header">
+			<h:outputText value="Módulo de Pagos > Edicion Registro" />
+		</f:facet>
+		<fieldset id="formContratante">
+			<legend>Datos Fijos</legend>
+			<table border="1" style="border-collapse: collapse;">
+				<tr>
+					<td style="padding: 5px"><h:outputText value="Codigo de Cuenta : " style="font-size:11px;" /> <h:outputText
+							value="#{consultarPagosController.beanEditable.codigoCuenta}" style="font-size:11px;" /></td>
+					<td style="padding: 5px"><h:outputText value="Ruc : " style="font-size:11px;" /> <h:outputText
+							value="#{consultarPagosController.beanEditable.ruc}" style="font-size:11px;" /></td>
+				</tr>
+				<tr>
+
+					<td style="padding: 5px"><h:outputText value="Diario : " style="font-size:11px;" /> <h:outputText
+							value="#{consultarPagosController.beanEditable.diario}" style="font-size:11px;" /></td>
+					<td style="padding: 5px"><h:outputText value="Linea Diario : " style="font-size:11px;" /> <h:outputText
+							value="#{consultarPagosController.beanEditable.lineaDiario}" style="font-size:11px;" /></td>
+
+				</tr>
+			</table>
+		</fieldset>
+		<fieldset id="formVehiculo">
+			<legend>Datos Editables</legend>
+			<table border="1" style="border-collapse: collapse;">
+				<tr>
+					<td style="padding: 5px"><h:outputText value="Numero Constancia : " style="font-size:11px;" /> <h:inputText id="idnumeroConstancia"
+							maxlength="20" value="#{consultarPagosController.beanEditable.numeroConstancia}" style="font-size:11px;" /></td>
+					<td style="padding: 5px"><h:outputText value="Numero Cheque : " style="font-size:11px;" /> <h:inputText id="idNroCheque" maxlength="20"
+							value="#{consultarPagosController.beanEditable.nroCheque}" style="font-size:11px;" /></td>
+					<td style="padding: 5px"><h:outputText value="Propinas : " style="font-size:11px;" /> <h:inputText id="idimpPropinas" maxlength="20"
+							value="#{consultarPagosController.beanEditable.impPropinas}" style="font-size:11px;" /></td>
+				</tr>
+				<tr>
+					<td style="padding: 5px"><h:outputText value="Ref. Cta Banco Provision: " style="font-size:11px;" /> <h:inputText
+							id="idRefCtaBancoProvision" maxlength="20" value="#{consultarPagosController.beanEditable.refCtaBancoProvision}" style="font-size:11px;" /></td>
+					<td style="padding: 5px"><h:outputText value="Ref. Cta Banco Comision " style="font-size:11px;" /> <h:inputText id="idRefCtaBancoComision"
+							maxlength="20" value="#{consultarPagosController.beanEditable.refCtaBancoComision}" style="font-size:11px;" /></td>
+					<td style="padding: 5px"><h:outputText value="Flag Pago " style="font-size:11px;" /> <h:inputText id="idFlagPago" maxlength="20"
+							value="#{consultarPagosController.beanEditable.flagPago}" style="font-size:11px;" /></td>
+				</tr>
+			</table>
+
+		</fieldset>
+		<center>
+			<a4j:commandButton id="aceptar" action="#{consultarPagosController.almacenarCambios}" onclick="this.disabled=true;" value="Aceptar"
+				reRender="listaPago" oncomplete="Richfaces.hideModalPanel('panelRegistroContable');" disabled="#{consultarPagosController.trataEditarVacio}" />
+			<a4j:commandButton onclick="Richfaces.hideModalPanel('panelRegistroContable');" action="#{consultarPagosController.cancelaModificacion}"
+				value="Cancelar" immediate="true" />
+		</center>
+	</rich:panel>
+	<rich:modalPanel id="panel" width="250" height="130">
+		<f:facet name="header">Mensaje</f:facet>
+		<h:panelGroup>
+			<center>
+				<h5>Datos guardados con éxito!.</h5>
+				<a4j:commandButton value="Aceptar" reRender="listaPago"
+					onclick="#{rich:component('panel')}.hide(); #{rich:component('panelRegistroContable')}.hide(); return false"
+					oncomplete="#{facesContext.maximumSeverity == null ? 'Richfaces.hideModalPanel(\'panelRegistroContable\')' : ';'}" />
+				<rich:componentControl for="panelRegistroContable" attachTo="hidelink" operation="hide" event="onclick"></rich:componentControl>
+			</center>
+		</h:panelGroup>
+	</rich:modalPanel>
+</body>
+</html>

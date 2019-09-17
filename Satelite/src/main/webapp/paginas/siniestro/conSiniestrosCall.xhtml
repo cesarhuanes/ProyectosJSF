@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<a4j:keepAlive beanName="siniestroController" />
+<head>
+<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+</head>
+<body>
+	<h:form>
+		<rich:panel id="panelBusquedat">
+			<f:facet name="header">
+				<h:outputText value="Call Center > Consulta de Siniestros" />
+			</f:facet>
+			<table>
+				<tr>
+					<td width="10%" colspan="1" align="right"><h:outputText style="font-size:11px;" value="N° Siniestro:" /></td>
+					<td width="20%"><h:inputText value="#{siniestroController.nroSiniestro_b}" id="nroSiniestrort" maxlength="18" /></td>
+					<td width="10%" colspan="1" align="right"><h:outputText style="font-size:11px;" value="Fec. Notificación:" /></td>
+					<td width="30%" colspan="2"><rich:calendar id="fechaNotificacion1n" enableManualInput="true" datePattern="dd/MM/yyyy"
+							value="#{siniestroController.fecNotiDesde_b}" showWeeksBar="false">
+						</rich:calendar> - <rich:calendar id="fechaNotificaciont" enableManualInput="true" datePattern="dd/MM/yyyy" value="#{siniestroController.fecNotiHasta_b}"
+							showWeeksBar="false" header="Hasta">
+						</rich:calendar></td>
+
+					<td width="10%" align="right"><h:outputText style="font-size:11px;" value="Fec. Últ. Docum:" /></td>
+					<td width="20%"><rich:calendar id="fechaNotificaciontk" enableManualInput="true" style=" width : 130px;" datePattern="dd/MM/yyyy"
+							value="#{siniestroController.fecUltDocumen_b}" showWeeksBar="false">
+						</rich:calendar></td>
+
+				</tr>
+
+
+				<tr>
+					<td align="right"><h:outputText style="font-size:11px;" value="Tipo de Seguros:" /></td>
+
+					<td><h:selectOneMenu id="tipProcesoT" value="#{siniestroController.tipoSeguro_b}">
+							<f:selectItems value="#{siniestroController.listaTipoSeguroItem}" />
+						</h:selectOneMenu></td>
+
+					<td align="right"><h:outputText style="font-size:11px;" value="Socio:" /></td>
+
+					<td colspan="2"><h:selectOneMenu id="socioT" value="#{siniestroController.socio_b}">
+							<f:selectItems value="#{siniestroController.listaSocioItem}" />
+						</h:selectOneMenu></td>
+
+					<td align="right"><h:outputText style="font-size:11px;" value="Producto:" /></td>
+
+					<td><h:selectOneMenu id="productoT" value="#{siniestroController.producto_b}">
+							<f:selectItems value="#{siniestroController.listaProductoItem1}" />
+						</h:selectOneMenu></td>
+				</tr>
+				<tr>
+					<td align="right"><h:outputText style="font-size:11px;" value="N° de Póliza:" /></td>
+
+					<td><h:inputText id="nroPolizaT" maxlength="20" value="#{siniestroController.nroPoliza_b}" /></td>
+
+					<td align="right"><h:outputText style="font-size:11px;" value="Tipo de Doc.:" /></td>
+
+					<td><h:selectOneMenu id="nroDocU" value="#{siniestroController.tipoDoc_b}">
+							<f:selectItems value="#{siniestroController.listaTipoDocItem}" />
+						</h:selectOneMenu></td>
+					<td colspan="2" align="right"><h:outputText style="font-size:11px;" value="N° Doc.:" /></td>
+
+					<td><h:inputText id="nroDocU_b" maxlength="11" value="#{siniestroController.nroDocumento_b}" /></td>
+				</tr>
+				<tr>
+					<td align="right"><h:outputText style="font-size:11px;" value="Nombres:" /></td>
+					<td><h:inputText id="nombresU" maxlength="50" value="#{siniestroController.nombres_b}" onkeyup="value=value.toUpperCase()" /></td>
+					<td align="right"><h:outputText style="font-size:11px;" value="Ape. Paterno:" /></td>
+
+					<td><h:inputText id="apePaternoU" maxlength="50" value="#{siniestroController.apePaterno_b}" onkeyup="value=value.toUpperCase()" /></td>
+					<td align="right" colspan="2"><h:outputText style="font-size:11px;" value="Ape. Materno:" /></td>
+					<td><h:inputText id="apeMaternoU" maxlength="50" value="#{siniestroController.apeMaterno_b}" onkeyup="value=value.toUpperCase()" /></td>
+				</tr>
+				<tr>
+					<td align="right"><h:outputText style="font-size:11px;" value="Cober. Afectada:" /></td>
+					<td><h:selectOneMenu id="coberturaAfecU" style="width : 150px;" value="#{siniestroController.cobAfectada_b}" maxlength="40px">
+							<f:selectItems value="#{siniestroController.listaCoberturaAfecItem}" />
+						</h:selectOneMenu></td>
+
+					<td align="right"><h:outputText style="font-size:11px;" value="Estado:" /></td>
+
+
+					<td colspan="2" align="left"><h:selectOneMenu id="estadoU" style=" width : 247px;" value="#{siniestroController.estado_b}">
+							<f:selectItems value="#{siniestroController.listaEstadoItem}" />
+						</h:selectOneMenu></td>
+
+					<td align="right"><h:outputText style="font-size:11px;" value="Estado Legajo:" /></td>
+					<td><h:selectOneMenu id="estadoLegajoR" value="#{siniestroController.estadoLegajo_b}">
+							<f:selectItems value="#{siniestroController.listaEstadoLegajoItem}" />
+						</h:selectOneMenu></td>
+				</tr>
+
+			</table>
+
+
+			<table width="100%" align="center">
+				<tr>
+					<td colspan="7">
+						<center>
+							<a4j:commandButton id="btnBuscar" reRender="listaSini" action="#{siniestroController.buscarSiniestro}" value="Buscar" style="width:125px"></a4j:commandButton>
+							<rich:spacer width="18"></rich:spacer>
+							<h:commandButton id="btnLimpiar" action="#{siniestroController.limpiar}" immediate="true" style="width:125px" value="Limpiar" />
+						</center>
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="7" align="center">
+						<div style="scrollbar-base-color: #3d8a3d; width: 1000px; border: 0px solid white; overflow-x: scroll">
+							<rich:extendedDataTable id="listaSini" var="varlista" value="#{siniestroController.listaSiniSiniestro}" width="1900px" rows="12" height="330px"
+								selectionMode="multi" selection="#{siniestroController.selection}" action="#{siniestroController.openTask}" reRender="true">
+								<rich:column id="nroSiniestro" headerClass="dataTableHeader" width="90px">
+									<f:facet name="header">
+										<h:outputText value="N° Siniestro" />
+									</f:facet>
+									<center>
+										<h:outputText value="#{varlista.nroSiniestro}" />
+									</center>
+								</rich:column>
+								<rich:column id="fecCreacion" headerClass="dataTableHeader" width="90px">
+									<f:facet name="header">
+										<h:outputText value="Fec. Creac." />
+									</f:facet>
+									<center>
+										<h:outputText value="#{varlista.fecCreacion}">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
+									</center>
+								</rich:column>
+								<rich:column id="fecAprobRechazo" headerClass="dataTableHeader" width="90px" sortable="false" selectionMode="single">
+									<f:facet name="header">
+										<h:outputText value="Fec. Apr./Re." />
+									</f:facet>
+									<center>
+										<h:outputText value="#{varlista.fecAprobRechazo}">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
+									</center>
+								</rich:column>
+								<rich:column id="estado" headerClass="dataTableHeader" width="120px" sortable="false" selectionMode="single">
+									<f:facet name="header">
+										<h:outputText value="Estado" />
+									</f:facet>
+									<center>
+										<h:outputText value="#{varlista.nomEstado}" />
+									</center>
+								</rich:column>
+								<rich:column id="fecOcurrencia" headerClass="dataTableHeader" width="90px" sortable="false">
+									<f:facet name="header">
+										<h:outputText value="Fec. Ocurr." />
+									</f:facet>
+									<center>
+										<h:outputText value="#{varlista.fecOcurrencia}">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
+									</center>
+								</rich:column>
+								<rich:column id="socio" headerClass="dataTableHeader" width="200px" sortable="false">
+									<f:facet name="header">
+										<h:outputText value="Socio" />
+									</f:facet>
+									<center>
+										<h:outputText value="#{varlista.nomSocio}" />
+									</center>
+								</rich:column>
+								<rich:column id="producto" headerClass="dataTableHeader" width="200px" sortable="false">
+									<f:facet name="header">
+										<h:outputText value="Producto" />
+									</f:facet>
+									<center>
+										<h:outputText value="#{varlista.nomProducto}">
+											<f:convertDateTime pattern="yyyy-MM-dd" />
+										</h:outputText>
+									</center>
+								</rich:column>
+								<rich:column id="cobertura" headerClass="dataTableHeader" width="200px" sortable="false">
+									<f:facet name="header">
+										<h:outputText value="Cobertura" />
+									</f:facet>
+									<center>
+										<h:outputText value="#{varlista.nomCobertura}" />
+									</center>
+								</rich:column>
+								<rich:column id="nroPol" headerClass="dataTableHeader" width="90px" sortable="false">
+									<f:facet name="header">
+										<h:outputText value="N° Póliza" />
+									</f:facet>
+									<center>
+										<h:outputText value="#{varlista.nroPoliza} " />
+									</center>
+								</rich:column>
+								<rich:column id="tipoDoc" headerClass="dataTableHeader" width="90px" sortable="false">
+									<f:facet name="header">
+										<h:outputText value="T. Doc" />
+									</f:facet>
+									<center>
+										<h:outputText value="#{varlista.tipDocum}" />
+									</center>
+								</rich:column>
+								<rich:column id="nroDocument" headerClass="dataTableHeader" width="90px" sortable="false">
+									<f:facet name="header">
+										<h:outputText value="N° Doc." />
+									</f:facet>
+									<center>
+										<h:outputText value="#{varlista.nroDocumento} " />
+									</center>
+								</rich:column>
+								<rich:column id="nrombes" headerClass="dataTableHeader" width="200px" sortable="false">
+									<f:facet name="header">
+										<h:outputText value="Nombre" />
+									</f:facet>
+									<center>
+										<h:outputText value="#{varlista.nomCompleto}" />
+									</center>
+								</rich:column>
+								<rich:column id="nroPlanilla" headerClass="dataTableHeader" width="90px" sortable="false">
+									<f:facet name="header">
+										<h:outputText value="N° Planilla" />
+									</f:facet>
+									<center>
+										<h:outputText value="#{varlista.nroPlanilla}" />
+									</center>
+								</rich:column>
+								<rich:column id="moneda" headerClass="dataTableHeader" width="70px" sortable="false">
+									<f:facet name="header">
+										<h:outputText value="Moneda" />
+									</f:facet>
+									<center>
+										<h:outputText value="#{varlista.nomMoneda}" />
+									</center>
+								</rich:column>
+								<rich:column id="impPago" headerClass="dataTableHeader" width="100px" sortable="false">
+									<f:facet name="header">
+										<h:outputText value="Imp. Pagos" />
+									</f:facet>
+									<center>
+										<h:outputText value="#{varlista.impPagos}" />
+									</center>
+								</rich:column>
+								<rich:column id="usuCreacion" headerClass="dataTableHeader" width="90px">
+									<f:facet name="header">
+										<h:outputText value="Usu. Creac." />
+									</f:facet>
+									<center>
+										<h:outputText value="#{varlista.usuCreacion}" />
+									</center>
+								</rich:column>
+								<f:facet name="footer">
+									<rich:datascroller id="ds" for="listaSini" maxPages="10"></rich:datascroller>
+								</f:facet>
+							</rich:extendedDataTable>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<table align="center">
+				<tr>
+					<td colspan="7"><a4j:commandButton id="btnMostrar" action="#{siniestroController.verSiniestroCall}" value="Consultar" style="width:90px">
+						</a4j:commandButton></td>
+				</tr>
+			</table>
+		</rich:panel>
+	</h:form>
+</body>
+</html>

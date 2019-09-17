@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<a4j:keepAlive beanName="regVentasController" ajaxOnly="true" />
+<head>
+<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+</head>
+<body>
+
+	<center>
+
+		<fieldset>
+			<legend>
+				<h:outputText value="Datos Registro de Venta" />
+			</legend>
+			<table>
+				<tr>
+					<td style="width: 15%; text-align: right;"><h:outputText value="Correlativo Registro:" /></td>
+					<td style="width: 15%; text-align: left;"><h:inputText id="correlativoRegistro" value="#{regVentasController.tstVentas.correlativoregistro}"
+							maxlength="20" onkeypress="return valNumeros(event);" disabled="true" style="width:120px; color:#666; background:#ddd;">
+						</h:inputText></td>
+					<td style="width: 5%; text-align: center;"></td>
+					<td style="width: 10%; text-align: right;"><h:outputText value="Fecha Emisión:" /></td>
+					<td style="width: 20%; text-align: left;"><rich:calendar id="fechaEmision" enableManualInput="true" datePattern="yyyy-MM-dd"
+							value="#{regVentasController.tstVentas.fechaemision}">
+						</rich:calendar></td>
+					<td style="width: 5%; text-align: center;"></td>
+					<td style="width: 10%; text-align: right;"><h:outputText value="Fecha Vencimiento:" /></td>
+					<td style="width: 20%; text-align: left;"><rich:calendar id="fechaVencimiento" enableManualInput="true" datePattern="yyyy-MM-dd"
+							value="#{regVentasController.tstVentas.fechavencimiento}">
+						</rich:calendar></td>
+				</tr>
+				<tr>
+					<td style="text-align: right;"><h:outputText value="Tipo Comprobante:" /></td>
+					<td style="text-align: left;"><h:selectOneMenu id="tipoComprobante" value="#{regVentasController.tstVentas.tipocomprobante}">
+							<f:selectItems value="#{regVentasController.tipComprobanteItems}" />
+						</h:selectOneMenu></td>
+					<td style="text-align: center;"></td>
+					<td style="text-align: right;"><h:outputText value="Nro. Serie:" /></td>
+					<td style="text-align: left;"><h:inputText id="numeroSerie" value="#{regVentasController.tstVentas.nroserie}" maxlength="20">
+						</h:inputText></td>
+					<td style="text-align: center;"></td>
+					<td style="text-align: right;"><h:outputText value="Correlativo Serie:" /></td>
+					<td style="text-align: left;"><h:inputText id="correlativoSerie" value="#{regVentasController.tstVentas.correlativoserie}" maxlength="20">
+						</h:inputText></td>
+				</tr>
+				<tr>
+					<td style="text-align: right;"><h:outputText value="Tipo Doc. Cliente:" /></td>
+					<td style="text-align: left;"><h:selectOneMenu id="tipoDocCliente" value="#{regVentasController.tstVentas.tipodoccliente}">
+							<f:selectItems value="#{regVentasController.tipDocumentoItems}" />
+						</h:selectOneMenu></td>
+					<td style="text-align: center;"></td>
+					<td style="text-align: right;"><h:outputText value="Número Doc. Cliente:" /></td>
+					<td style="text-align: left;"><h:inputText id="numeroDocCliente" value="#{regVentasController.tstVentas.numerodoccliente}" maxlength="20">
+						</h:inputText></td>
+					<td colspan="3" style="text-align: center;"></td>
+				</tr>
+				<tr>
+					<td style="text-align: right;"><h:outputText value="Nombres o Razón Social:" /></td>
+					<td colspan="5" style="text-align: left;"><h:inputText id="nombresRazonSocial" value="#{regVentasController.tstVentas.nombresrazonsocial}"
+							style="width:84%;">
+						</h:inputText></td>
+					<td style="text-align: center;"></td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td style="width: 12%; text-align: right;"><h:outputText value="Valor Fact. Export.:" /></td>
+					<td style="width: 12%; text-align: left;"><h:inputText id="valorFactExport" value="#{regVentasController.tstVentas.valorfactexport}"
+							disabled="true" maxlength="20" style="color:#666; background:#ddd;" /></td>
+					<td style="width: 4%; text-align: center;"></td>
+					<td style="width: 12%; text-align: right;"><h:outputText value="Base Imponible:" /></td>
+					<td style="width: 12%; text-align: left;"><h:inputText id="baseImponible" value="#{regVentasController.tstVentas.baseimponible}"
+							disabled="true" maxlength="20" style="color:#666; background:#ddd;" /></td>
+					<td style="width: 4%; text-align: center;"></td>
+					<td style="width: 12%; text-align: right;"><h:outputText value="ImporteExonerado:" /></td>
+					<td style="width: 12%; text-align: left;"><h:inputText id="importeExonerado" value="#{regVentasController.tstVentas.importeexonerado}"
+							disabled="true" maxlength="20" style="color:#666; background:#ddd;" /></td>
+					<td style="width: 4%; text-align: center;"></td>
+					<td style="width: 12%; text-align: right;"><h:outputText value="ISC:" /></td>
+					<td style="width: 12%; text-align: left;"><h:inputText id="isc" value="#{regVentasController.tstVentas.isc}" disabled="true" maxlength="20"
+							style="color:#666; background:#ddd;" /></td>
+				</tr>
+				<tr>
+					<td style="text-align: right;"><h:outputText value="IGV:" /></td>
+					<td style="text-align: left;"><h:inputText id="igv" value="#{regVentasController.tstVentas.igv}" disabled="true" maxlength="50"
+							style="color:#666; background:#ddd;" /></td>
+					<td style="text-align: center;"></td>
+					<td style="text-align: right;"><h:outputText value="Otros Importes:" /></td>
+					<td style="text-align: left;"><h:inputText id="otrosImportes" value="#{regVentasController.tstVentas.otrosimportes}" disabled="true"
+							maxlength="20" style="color:#666; background:#ddd;" /></td>
+					<td style="text-align: center;"></td>
+					<td style="text-align: right;"><h:outputText value="Importe Total:" /></td>
+					<td style="text-align: left;"><h:inputText id="importeTotal" value="#{regVentasController.tstVentas.importetotal}" disabled="true"
+							maxlength="20" style="color:#666; background:#ddd;" /></td>
+					<td style="text-align: center;"></td>
+					<td style="text-align: right;"><h:outputText value="Tipo Cambio:" /></td>
+					<td style="text-align: left;"><h:inputText id="tipoCambio" value="#{regVentasController.tstVentas.tipocambio}" disabled="true"
+							maxlength="20" style="color:#666; background:#ddd;" /></td>
+				</tr>
+				<tr>
+					<td style="text-align: right;"><h:outputText value="Fecha Emisión Ref.:" /></td>
+					<td colspan="2" style="text-align: left;"><rich:calendar id="fechaEmisionRef" enableManualInput="true" datePattern="yyyy-MM-dd"
+							value="#{regVentasController.tstVentas.fechaemisionref}" /></td>
+					<!-- <td style="text-align: center;"></td>  -->
+					<td style="text-align: right;"><h:outputText value="Tipo Comprobante Ref.:" /></td>
+					<td style="text-align: left;"><h:selectOneMenu id="tipocomprobanteref" value="#{regVentasController.tstVentas.tipocomprobanteref}">
+							<f:selectItems value="#{regVentasController.tipComprobanteItems}" />
+						</h:selectOneMenu></td>
+					<td style="text-align: center;"></td>
+					<td style="text-align: right;"><h:outputText value="Serie Comprobante Ref.:" /></td>
+					<td style="text-align: left;"><h:inputText id="serieComprobanteRef" value="#{regVentasController.tstVentas.seriecomprobanteref}"
+							maxlength="4" /></td>
+					<td style="text-align: center;"></td>
+					<td style="text-align: right;"><h:outputText value="Correlat. Serie Orig.:" /></td>
+					<td style="text-align: left;"><h:inputText id="correlativoSerieOrig" value="#{regVentasController.tstVentas.correlativoserieorig}"
+							maxlength="20" /></td>
+				</tr>
+			</table>
+		</fieldset>
+		<fieldset>
+			<legend>
+				<h:outputText value="Datos Adicionales" />
+			</legend>
+			<table>
+				<tr>
+					<td style="text-align: right;"><h:outputText value="Número Póliza:" /></td>
+					<td style="text-align: left;"><h:inputText id="numeroPoliza" value="#{regVentasController.tstVentas.numeropoliza}" maxlength="30"
+							style=" width:160px;" /></td>
+					<td style="text-align: center;"></td>
+					<td style="text-align: right;"><h:outputText value="Producto:" /></td>
+					<td style="text-align: left;"><h:inputText id="producto" value="#{regVentasController.tstVentas.producto}" maxlength="20"
+							style=" width:220px;" /></td>
+					<td style="text-align: center;"></td>
+					<td style="text-align: right;"><h:outputText value="Fecha Modif.:" /></td>
+					<td style="text-align: left;"><h:inputText id="fecModificacion" value="#{regVentasController.tstVentas.fecModificacion}" maxlength="20"
+							disabled="true" style="width:120px; color:#666;
+									background:#ddd;">
+							<f:convertDateTime pattern="dd-MMM-yyyy HH:mm:ss" />
+						</h:inputText></td>
+					<td style="text-align: center;"></td>
+					<td style="text-align: right;"><h:outputText value="Usuario Modif.:" /></td>
+					<td style="text-align: left;"><h:inputText id="usuModificacion" value="#{regVentasController.tstVentas.usuModificacion}" maxlength="20"
+							disabled="true" style="width:120px; color:#666;
+									background:#ddd;" /></td>
+				</tr>
+			</table>
+		</fieldset>
+		<table>
+			<tr>
+				<td><a4j:commandButton action="#{regVentasController.actualizar}" onclick="this.disabled=true;" value="Actualizar"
+						oncomplete="#{facesContext.maximumSeverity == null ? 'Richfaces.hideModalPanel(\'panelEdicion\');this.disabled=false;' : 'this.disabled=false;'}"
+						reRender="lista" /></td>
+				<td style="width: 10%; text-align: center;"></td>
+				<td><a4j:commandButton onclick="Richfaces.hideModalPanel('panelEdicion');" value="Volver" /></td>
+			</tr>
+		</table>
+
+	</center>
+
+</body>
+<rich:modalPanel id="panel" width="220" height="100">
+	<f:facet name="header">Informativo</f:facet>
+	<h:panelGroup>
+		<center>
+			<h5>Se actualizó el registro correctamente.</h5>
+			<a4j:commandButton value="Aceptar" onclick="#{rich:component('panel')}.hide();return false" />
+			<rich:componentControl for="panel" attachTo="hidelink" operation="hide" event="onclick"></rich:componentControl>
+		</center>
+	</h:panelGroup>
+</rich:modalPanel>
+</html>

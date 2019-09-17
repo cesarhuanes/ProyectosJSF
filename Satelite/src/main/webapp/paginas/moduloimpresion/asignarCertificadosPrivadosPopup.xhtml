@@ -1,0 +1,142 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jstl/core">
+	
+	<a4j:keepAlive beanName="configCertificadoController" />
+	
+	<head>
+		<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+		<style type="text/css">
+			#panelPrincipal {
+				text-align: left;
+			}
+			
+			#formAsigCertificadoPri {
+				width: 420px;
+				margin: 0 auto;
+			}
+			
+			.datatable {
+				padding: 10px 10px 0px 10px;
+			}
+			
+			.certRepetidosPri {
+				background-color: #fff;
+				color: red;
+				font-weight: bold;
+				padding: 5px;
+				display: block;
+				margin-top: 5px; 
+				height: 50px;
+				overflow: auto;
+				border: 1px solid #ccc;
+			}
+		</style>
+	</head>
+	<body>
+		<h:form>
+			<rich:panel id="panelPrincipal" height="100%" reRender="lista">
+				<f:facet name="header">
+					<h:outputText value="Impresión > Configurar Certificado > Asignar Certificados Privados" />
+				</f:facet>
+				<fieldset id="formAsigCertificadoPri" style="border: none;">
+					<h:outputText value="Rango de Certificados" style="float: left; font-weight: bold;" />
+					<div style="clear: both;" />
+					
+					<div class="datatable">
+						<table style="margin: auto; width: 100%">
+							<tr>
+								<td style="width: 12%; text-align: left;">
+									<rich:message for="rangoDesde" style="color: red;">
+										<f:facet name="errorMarker">
+											<h:graphicImage url="../imagenes/error.png" />
+										</f:facet>
+									</rich:message>
+									<rich:spacer width="2" /><h:outputText value="Desde: " />
+								</td>
+								<td style="width: 38%; text-align: left;">
+									<h:inputText id="rangoDesde" value="#{configCertificadoController.rangoDesde}" maxlength="8"
+										required="true" requiredMessage="" style="width: 130px;float: left;" onkeypress="return valNumeros(event);" />
+								</td>
+								<td style="width: 12%; text-align: left;">
+									<rich:message for="rangoHasta" style="color: red;">
+										<f:facet name="errorMarker"><h:graphicImage url="../imagenes/error.png" /></f:facet>
+									</rich:message>
+									<rich:spacer width="2" /><h:outputText value="Hasta: " />
+								</td>
+								<td style="width: 38%; text-align: left;">
+									<h:inputText id="rangoHasta" value="#{configCertificadoController.rangoHasta}" maxlength="8"
+										required="true" requiredMessage="" style="width: 130px;float: left;" onkeypress="return valNumeros(event);" />
+								</td>
+							</tr>
+							<tr>
+								<td style="width: 12%; text-align: left;">
+									<rich:message for="anioCertificado" style="color: red;">
+										<f:facet name="errorMarker"><h:graphicImage url="../imagenes/error.png" /></f:facet>
+									</rich:message>
+									<rich:spacer width="2" /><h:outputText value="Año: " />
+								</td>
+								<td style="width: 38%; text-align: left;">
+									<h:inputText id="anioCertificado" value="#{configCertificadoController.anioCertificado}" maxlength="4"
+										required="true" requiredMessage="" style=" width: 130px;float: left;" onkeypress="return valNumeros(event);" />
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4" style="text-align: right; padding-right: 15px;">
+									<a4j:commandButton actionListener="#{configCertificadoController.asignarCertificadosPrivados}" onclick="this.disabled=true;" value="Asignar" 
+										oncomplete="#{null == facesContext.maximumSeverity ? 'Richfaces.showModalPanel(\'panelSuccessPrivados\');this.disabled=false;' : 'this.disabled=false;'}" 
+										reRender="numCertificadosPrivados, verCertificadosPrivados, panelSuccessPrivados" render="true"/>
+										 
+								
+								
+								</td>
+							</tr>
+						</table>
+					</div>
+					<a4j:status onstart="Richfaces.showModalPanel('ajaxLoadingModalBox')" onstop="Richfaces.hideModalPanel('ajaxLoadingModalBox')"></a4j:status>
+				</fieldset>
+			</rich:panel>
+		</h:form>
+		
+		<rich:modalPanel id="ajaxLoadingModalBox" width="100" height="95">
+			<center>
+				<img src="#{facesContext.externalContext.requestContextPath}/imagenes/loading.gif"></img><br />
+				<h:outputText value="Cargando..." />
+			</center>
+		</rich:modalPanel>
+		
+		<rich:modalPanel id="panelSuccessPrivados" width="250" height="290">
+			<f:facet name="header">
+				<h:outputText value="Mensaje" />
+			</f:facet>
+			<h:panelGroup>
+				<center>
+					<h5 style="margin:0 0  8px 0 !important">
+						<!--  <h:outputText value="Se asignarón los certificados públicos correctamente!"/>-->
+						<c:choose>
+							<c:when test="#{null != configCertificadoController.certRepetidosPri[0]}">
+								<h:outputText value="Se asignarón los certificados privados correctamente!"/>
+								<br /><br /><h:outputText value="Certificados Registrados:" style="text-decoration: underline;"/>
+								<h:outputText id="certRepetidosPri" class="certRepetidosPri" value="#{configCertificadoController.certRepetidosPri[0]}" style="margin: 5px 0 10px 0px;" render="true"/>
+						    </c:when>						
+						    <c:otherwise>
+						    	<h:outputText id="certRepetidosPri" class="certRepetidosPri" style="line-height:50px;margin: 15px 0px; text-decoration: underline;" value="Certificados No Asignados!" render="true"/>
+						    </c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="#{null != configCertificadoController.certRepetidosPri[1]}">
+								<br /><br /><h:outputText value="Certificados Duplicados:" style="text-decoration: underline;"/>
+								<h:outputText id="certRepetidosPri1" class="certRepetidosPri" value="#{configCertificadoController.certRepetidosPri[1]}" style="margin: 5px 0 10px 0px;" render="true"/>
+						    </c:when>						
+						    <c:otherwise>
+						    	<h:outputText id="certRepetidosPri1" class="certRepetidosPri" style="line-height:50px;margin: 15px 0px; text-decoration: underline;" value="No se Encontrarón Certificados Duplicados!" render="true"/>
+						    </c:otherwise>
+						</c:choose>
+					</h5>
+					<a4j:commandButton value="Aceptar" render="true" onclick="#{rich:component('panelSuccessPrivados')}.hide(); #{rich:component('panelAsignarCertificadosPrivados')}.hide(); return false" 
+						oncomplete="#{facesContext.maximumSeverity == null ? 'Richfaces.hideModalPanel(\'panelAsignarCertificadosPrivados\')' : ';'}" />
+					<rich:componentControl for="panelAsignarCertificadosPrivados" attachTo="hidelink04" operation="hide" event="onclick" />
+				</center>
+			</h:panelGroup>
+		</rich:modalPanel>
+	</body>
+</html>

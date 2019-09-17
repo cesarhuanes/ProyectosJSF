@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+	http://www.springframework.org/schema/task 
+	http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<!-- ##### BASE DE DATOS SQLServer: ########################################################################### -->
+	<!-- Modulo Satelite -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:com/cardif/satelite/contexto/map-config.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- Modulo Tesoreria -->
+	<bean id="sqlSessionFactoryTesoreria" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:com/cardif/satelite/contexto/map-config-tesoreria.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+		<property name="url" value="jdbc:sqlserver://172.17.189.131;database=PELMSATD" />
+		<property name="username" value="sa" />
+		<property name="password" value="Password10" />
+	</bean>
+
+
+	<!-- BASE DE DATOS: SSIS -->
+	<bean id="sqlSessionFactorySsis" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:com/cardif/satelite/contexto/map-config-ssis.xml" />
+		<property name="dataSource" ref="dataSourceSsis" />
+	</bean>
+
+	<bean id="dataSourceSsis" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+		<property name="url" value="jdbc:sqlserver://172.17.189.131;database=SSIS Database" />
+		<property name="username" value="sa" />
+		<property name="password" value="Password10" />
+	</bean>
+
+	<!-- BASE DE DATOS: SEGYA -->
+	<bean id="sqlSessionFactorySegya" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:com/cardif/satelite/contexto/map-config-segya.xml" />
+		<property name="dataSource" ref="dataSourceSegya" />
+	</bean>
+	<bean id="dataSourceSegya" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+		<property name="url" value="jdbc:sqlserver://172.17.189.131;database=SEGYAV20_DEV" />
+		<property name="username" value="sa" />
+		<property name="password" value="Password10" />
+	</bean>
+
+	<!-- ##### BASE DE DATOS ORACLE: ########################################################################### -->
+	<!-- BASE DE DATOS: ASCELE -->
+	<bean id="sqlSessionFactoryAcsele" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:com/cardif/satelite/contexto/map-config-acsele.xml" />
+		<property name="dataSource" ref="dataSourceAcsele" />
+	</bean>
+	<bean id="dataSourceAcsele" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@10.170.137.130:1521:PELMACET" />
+		<property name="username" value="BRAXTS_CFG" />
+		<property name="password" value="V9K1Rg2Q#" />
+	</bean>
+	<bean id="sqlSessionFactorySeguro" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:com/cardif/satelite/contexto/map-config-repSbs.xml" />
+		<property name="dataSource" ref="dataSourceSeguro" />
+	</bean>
+<!-- 	<bean id="dataSourceSeguro" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+<!-- 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" /> -->
+<!-- 		<property name="url" value="jdbc:oracle:thin:@172.17.189.138:1521:PELMACED" /> -->
+<!-- 		<property name="username" value="USER_SEGUROSYCOAS" /> -->
+<!-- 		<property name="password" value="ST3V3$C3S4R" /> -->
+<!-- 	</bean> -->
+	
+	<bean id="dataSourceSeguro" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@172.17.189.138:1521:PELMACED" />
+		<property name="username" value="USER_SEGUROSYCOAS_TST" />
+		<property name="password" value="C3S4RandST3V3" />
+	</bean>
+
+	<!-- BASE DE DATOS: UPLOAD -->
+	<bean id="sqlSessionFactoryUpload" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:com/cardif/satelite/contexto/map-config-upload.xml" />
+		<property name="dataSource" ref="dataSourceUpload" />
+	</bean>
+	<bean id="dataSourceUpload" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@10.170.137.130:1521:PELMACET" />
+		<property name="username" value="UPLOAD" />
+		<property name="password" value="Brw8zL74#" />
+	</bean>
+
+	<!-- BASE DE DATOS: DATAMART -->
+	<bean id="sqlSessionFactoryDatamart" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:com/cardif/satelite/contexto/map-config-datamart.xml" />
+		<property name="dataSource" ref="dataSourceDatamart" />
+	</bean>
+	<bean id="dataSourceDatamart" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@10.170.137.129:1521:PELMACED" />
+		<property name="username" value="user_dm_ods" />
+		<property name="password" value="udm#3ods" />
+	</bean>
+
+	<!-- BASE DE DATOS: SUCURSAL -->
+	<bean id="sqlSessionFactoryrepVentaSoatSucursal" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:com/cardif/satelite/contexto/map-config-repVentaSoatSucursal.xml" />
+		<property name="dataSource" ref="dataSourcerepVentaSoatSucursal" />
+	</bean>
+	<bean id="sqlSessionFactorySoatSucursal" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:com/cardif/satelite/contexto/map-config-soat-sucursal.xml" />
+		<property name="dataSource" ref="dataSourcerepVentaSoatSucursal" />
+	</bean>
+	<bean id="dataSourcerepVentaSoatSucursal" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@172.17.189.138:1521:PELMACED" />
+		<property name="username" value="user_ventas_sucursal" />
+		<property name="password" value="US44T#C4RD11" />
+	</bean>
+
+
+	<!-- INICIO REGISTRO VEHICULAR -->
+
+	<!-- BASE DE DATOS: FALABELLA -->
+	<bean id="sqlSessionFactorySoat" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:com/cardif/satelite/contexto/map-config-soat-falabella.xml" />
+		<property name="dataSource" ref="dataSourceSoat" />
+	</bean>
+	<bean id="dataSourceSoat" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@172.17.189.138:1521:PELMACED" />
+		<property name="username" value="USER_SOAT" />
+		<property name="password" value="US44T#C4RD11" />
+	</bean>
+
+	<!-- BASE DE DATOS: DIRECTO -->
+	<bean id="sqlSessionFactorySoatDirecto" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:com/cardif/satelite/contexto/map-config-soat-directo.xml" />
+		<property name="dataSource" ref="dataSourceSoatDirecto" />
+	</bean>
+	<bean id="dataSourceSoatDirecto" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@172.17.189.138:1521:PELMACED" />
+		<property name="username" value="USER_SOAT_DIRECPROD" />
+		<property name="password" value="US44T#C4RD11" />
+	</bean>
+
+	<!-- BASE DE DATOS: RPP -->
+	<bean id="sqlSessionFactorySoatRpp" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:com/cardif/satelite/contexto/map-config-soat-rpp.xml" />
+		<property name="dataSource" ref="dataSourceSoatRpp" />
+	</bean>
+	<bean id="dataSourceSoatRpp" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@172.17.189.138:1521:PELMACED" />
+		<property name="username" value="USER_SOAT_RPP" />
+		<property name="password" value="US44T#C4RD11" />
+	</bean>
+
+	<!-- BASE DE DATOS: RIPLEY -->
+	<bean id="sqlSessionFactorySoatRipley" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:com/cardif/satelite/contexto/map-config-soat-ripley.xml" />
+		<property name="dataSource" ref="dataSourceSoatRipley" />
+	</bean>
+	<bean id="dataSourceSoatRipley" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@172.17.189.138:1521:PELMACED" />
+		<property name="username" value="USER_SOAT_RIPLEY" />
+		<property name="password" value="US44T#C4RD11" />
+	</bean>
+
+	<!-- BASE DE DATOS: COMPARA BIEN -->
+	<bean id="sqlSessionFactorySoatComparaBien" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:com/cardif/satelite/contexto/map-config-soat-compara-bien.xml" />
+		<property name="dataSource" ref="dataSourceSoatComparaBien" />
+	</bean>
+	<bean id="dataSourceSoatComparaBien" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@172.17.189.138:1521:PELMACED" />
+		<property name="username" value="USER_SOAT_COMPARABIEN" />
+		<property name="password" value="US44T#C4RD11" />
+	</bean>
+
+	<!-- BASE DE DATOS: CENCOSUD -->
+	<bean id="sqlSessionFactorySoatCencosud" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:com/cardif/satelite/contexto/map-config-soat-cencosud.xml" />
+		<property name="dataSource" ref="dataSourceSoatCencosud" />
+	</bean>
+	<bean id="dataSourceSoatCencosud" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@172.17.189.138:1521:PELMACED" />
+		<property name="username" value="USER_SOAT_NEWCENCOSUD" />
+		<property name="password" value="US44T#C4RD11" />
+	</bean>
+
+	<!-- FIN REGISTRO VEHICULAR -->
+	
+	<!-- BASE DE DATOS: MULTISOCIO -->
+	 	<bean id="sqlSessionFactorySoatMultisocio" class="org.mybatis.spring.SqlSessionFactoryBean">
+			<property name="configLocation" value="classpath:com/cardif/satelite/contexto/map-config-soat-multisocio.xml" />
+			<property name="dataSource" ref="dataSourceSoatMultisocio" />
+		</bean>
+		<bean id="dataSourceSoatMultisocio" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+			<property name="url" value="jdbc:oracle:thin:@172.17.189.138:1521:PELMACED" />
+			<property name="username" value="USER_SOAT_NEWCENCOSUD" />
+			<property name="password" value="US44T#C4RD11" />
+		</bean>
+	
+	<!-- BASE DE DATOS: AUTOMATIZACION SOAT -->
+	<bean id="sqlSessionFactoryAutomatizacion" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:com/cardif/satelite/contexto/map-config-automatizacion-soat.xml" />
+		<property name="dataSource" ref="dataSourceAutomatizacion" />
+	</bean>
+	
+	<bean id="dataSourceAutomatizacion" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@172.17.189.138:1521:PELMACED" />
+		<property name="username" value="USER_SOAT_AUTOMATIZACION" />
+		<property name="password" value="US44T#C4RD11" />
+	</bean>
+	
+	<!-- BASE DE DATOS: SASONCO SOAT -->
+	<bean id="sqlSessionFactorySasOnco" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:com/cardif/satelite/contexto/map-config-sasonco-soat.xml" />
+		<property name="dataSource" ref="dataSourceSasOnco" />
+	</bean>
+	
+	<bean id="dataSourceSasOnco" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:sqlserver://172.17.189.131;database=SasOnco_DEV" />
+		<property name="username" value="sa" />
+		<property name="password" value="Password10" />
+	</bean>
+	
+</beans>

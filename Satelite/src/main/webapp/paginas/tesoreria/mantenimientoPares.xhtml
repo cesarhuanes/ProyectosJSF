@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<a4j:keepAlive beanName="parController" />
+<head>
+<style type="text/css">
+body {
+	font-size: 11px;
+	color: #000;
+	font-family: Arial, Verdana, sans-serif;
+}
+
+.extdt-menu-div-out, .extdt-menu-div-on {
+	display: none !important;
+}
+
+.celda {
+	width: 138px;
+	display: block;
+}
+
+.label {
+	width: 100px;
+	display: block;
+}
+</style>
+
+</head>
+<body>
+
+
+	<rich:panel id="pnlMantenimiento">
+		<f:facet name="header">
+			<h:form id="frmActualizar">
+				<h:outputText value="Tesorería > Mantenimiento de Pares" />
+
+				<a4j:commandLink action="#{parController.inicio}" reRender="principal" style="text-decoration:none; margin-left:10px">
+					<img src="#{facesContext.externalContext.requestContextPath}/imagenes/refresh.png" width="15" height="15" style="margin: 0; padding: 0" />
+				</a4j:commandLink>
+
+			</h:form>
+		</f:facet>
+
+		<fieldset style="margin-bottom: 20px; padding: 20px;">
+			<legend>Registrar pares de firmantes</legend>
+			<h:form id="frmFirmantes">
+				<div class="datatable">
+					<h:panelGrid id="pnlFiltros" columns="5" cellspacing="5">
+						<h:outputLabel value="Firmante 1: " styleClass="label" />
+
+						<h:selectOneMenu id="firmante1" value="#{parController.firmante1}" required="true" requiredMessage="Obligatorio"
+							style="width: 142px; margin-right:45px">
+							<f:selectItems value="#{parController.firmantes}" />
+						</h:selectOneMenu>
+
+						<h:outputLabel value="Firmante 2: " styleClass="label" />
+
+						<h:selectOneMenu id="firmante2" value="#{parController.firmante2}" required="true" requiredMessage="Obligatorio"
+							style="width: 142px; margin-right:45px">
+							<f:selectItems value="#{parController.firmantes}" />
+						</h:selectOneMenu>
+
+						<h:commandButton id="btnBuscar" value="Agregar" actionListener="#{parController.registrarPar}"></h:commandButton>
+
+						<h:outputLabel value="" />
+						<rich:message for="firmante1" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message>
+						<h:outputLabel value="" />
+						<rich:message for="firmante2" style="color: red;">
+							<f:facet name="errorMarker">
+								<h:graphicImage url="../imagenes/error.png" />
+							</f:facet>
+						</rich:message>
+
+
+					</h:panelGrid>
+				</div>
+
+				<rich:extendedDataTable id="tblPares" var="par" value="#{parController.pares}" width="550px" height="260px" rows="10"
+					selectedClass="dataTableSelectedRow" sortMode="single" selection="#{parController.selection}" selectionMode="single" reRender="true"
+					style="margin:5px">
+					<a4j:support event="onselectionchange" reRender="pnlOpciones" action="#{parController.seleccionarPar}" ajaxSingle="true" />
+
+					<rich:column id="colCodigo" headerClass="dataTableHeader" width="150" sortable="true" sortBy="#{par.codigo}">
+						<f:facet name="header">
+							<h:outputText value="Cod Par Firmante" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{par.codigo}" />
+						</center>
+					</rich:column>
+					<rich:column id="colFirmante1" headerClass="dataTableHeader" width="200" sortable="true" sortBy="#{par.firmante1}">
+						<f:facet name="header">
+							<h:outputText value="Nombre Firmante 1" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{par.firmante1}" />
+						</center>
+					</rich:column>
+					<rich:column id="colFirmante2" headerClass="dataTableHeader" width="200" sortable="true" sortBy="#{par.firmante2}">
+						<f:facet name="header">
+							<h:outputText value="Nombre Firmante 2" />
+						</f:facet>
+						<center>
+							<h:outputText value="#{par.firmante2}" />
+						</center>
+					</rich:column>
+					<!--       <rich:column id="colEstado" headerClass="dataTableHeader" width="200" sortable="true" sortBy="#{par.estado}"> -->
+					<!--         <f:facet name="header"> -->
+					<!--           <h:outputText value="Estado" /> -->
+					<!--         </f:facet> -->
+					<!--         <center> -->
+
+					<!--           <h:outputText value="Activo" rendered="#{par.estado eq 'A'}" /> -->
+					<!--           <h:outputText value="Inactivo" rendered="#{par.estado eq 'I'}" /> -->
+					<!--         </center> -->
+					<!--       </rich:column> -->
+
+					<f:facet name="footer">
+						<rich:datascroller id="ds" for="tblPares" maxPages="10"></rich:datascroller>
+					</f:facet>
+				</rich:extendedDataTable>
+
+			</h:form>
+			<h:form id="frmOpciones">
+
+				<h:panelGrid id="pnlOpciones" rendered="true" cellspacing="5">
+					<a4j:commandButton id="btnEliminar" value="Eliminar" disabled="#{empty parController.par}" reRender="popupEliminar"
+						oncomplete="#{rich:component('popupEliminar')}.show(); return false;" />
+
+				</h:panelGrid>
+
+			</h:form>
+		</fieldset>
+	</rich:panel>
+	<rich:modalPanel id="popupEliminar" height="130" width="200">
+		<f:facet name="header">
+			<h:outputText value="Eliminar firmante temporal" />
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/imagenes/close.gif" styleClass="hidelink" id="hidelinkEliminarTemp" />
+				<rich:componentControl for="popupEliminarTemp" attachTo="hidelinkEliminarTemp" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<h:form id="frmEliminar">
+			<p>El par de firmantes #{parController.par.firmante1} - #{parController.par.firmante2} será eliminado, ¿Desea continuar con la operación?</p>
+			<center>
+				<h:panelGrid columns="2" cellspacing="5">
+					<h:commandButton actionListener="#{parController.eliminarPar}" value="Eliminar" />
+					<a4j:commandButton value="Cancelar" onclick="#{rich:component('popupEliminar')}.hide();return false" />
+				</h:panelGrid>
+			</center>
+
+		</h:form>
+
+	</rich:modalPanel>
+
+
+</body>
+</html>

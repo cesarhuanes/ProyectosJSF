@@ -1,0 +1,410 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:richfaces="http://richfaces.ajax4jsf.org/rich"
+	xmlns:ajax="https://ajax4jsf.dev.java.net/ajax">
+
+<a4j:keepAlive beanName="repParametroController" ajaxOnly="true" />
+<head>
+<script type="text/javascript"
+	src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+
+</head>
+
+<body>
+
+	<h:form>
+		<rich:panel id="panelParametrosdt" height="100%" reRender="listaPar">
+			<f:facet name="header">
+				<h:outputText value="Reportes SBS > Mantenimiento de Paràmetros" />
+			</f:facet>
+			<fieldset>
+				<table>
+					<tr>
+						<td width="10%" align="right"><h:outputText value="Empresa:" /></td>
+						<td width="20%" align="left"><h:selectOneMenu id="empresa"
+								value="#{repParametroController.empresa_b}" style="width:170px;">
+								<f:selectItems value="#{repParametroController.empresaItems}" />
+
+							</h:selectOneMenu></td>
+
+						<td width="5%" align="center"></td>
+
+						<td width="12%" align="right"><h:outputText value="Socio:" /></td>
+						<td width="20%" align="left" style="width: 30px"><h:selectOneMenu
+								id="socio" style="width:170px;"
+								value="#{repParametroController.socio_b}">
+								<f:selectItems value="#{repParametroController.socioItems}" />
+
+							</h:selectOneMenu></td>
+
+						<td width="5%" align="center"></td>
+
+						<td width="10%" align="right"><h:outputText value="Estado:" /></td>
+						<td width="20%" align="left"><h:selectOneMenu id="estado"
+								style="width:170px;"
+								value="#{repParametroController.tipoEstado_b}">
+								<f:selectItems value="#{repParametroController.estadoItems}" />
+
+							</h:selectOneMenu></td>
+
+					</tr>
+
+					<tr>
+						<td width="10%" align="right"><h:outputText
+								value="Tipo Contrato:" /></td>
+						<td width="20%" align="left"><h:selectOneMenu
+								id="tipoContrato" style="width:170px;"
+								value="#{repParametroController.tipoContrato_b}">
+								<f:selectItems
+									value="#{repParametroController.tipoContratoItems}" />
+
+							</h:selectOneMenu></td>
+
+						<td width="5%" align="center"></td>
+
+						<td width="12%" align="right"><h:outputText value="Producto" /></td>
+						<td width="20%" align="left"><h:selectOneMenu id="producto"
+								style="width:170px;"
+								value="#{repParametroController.producto_b}">
+								<f:selectItems value="#{repParametroController.productoItems}" />
+
+							</h:selectOneMenu></td>
+
+						<td width="5%" align="center"></td>
+
+						<td width="10%" align="right"><h:outputText
+								value="Detalle de Cuenta:" /></td>
+						<td width="20%" align="left"><h:inputText
+								style="width:170px;"
+								value="#{repParametroController.detalleCuenta_b}"
+								onkeyup="value=value.toUpperCase()" maxlength="30" /></td>
+
+					</tr>
+					<tr>
+
+						<td width="10%" align="right"><h:outputText value="Tipo :" /></td>
+						<td width="20%" height="20%" align="left"><h:selectOneMenu
+								id="tipo" style="width:170px;"
+								value="#{repParametroController.tipoSeguro_b}">
+								<f:selectItems value="#{repParametroController.tipoSeguroItems}" />
+							</h:selectOneMenu></td>
+
+						<td width="5%" align="center"></td>
+
+						<td width="12%" align="right"><h:outputText
+								value="Tipo Reaseguro:" /></td>
+						<td width="20%" align="left"><h:selectOneMenu
+								id="tipoReaseguro" style="width:170px;"
+								value="#{repParametroController.tipoReaseguro_b}">
+								<f:selectItems
+									value="#{repParametroController.tipoReaseguroItems}" />
+
+							</h:selectOneMenu></td>
+
+						<td width="5%" align="center"></td>
+
+						<td width="10%" align="right"><h:outputText
+								value="Tipo Movimiento:" /></td>
+						<td width="20%" align="left"><h:selectOneMenu id="tipoCuenta"
+								style="width:170px;"
+								value="#{repParametroController.tipoMovimiento_b}">
+								<f:selectItems
+									value="#{repParametroController.tipoMovimientoItems}" />
+
+							</h:selectOneMenu></td>
+
+					</tr>
+					<tr>
+						<td width="10%" align="right"><h:outputText
+								value="Total Soles:" /></td>
+						<td width="20%" align="left"><h:inputText id="totalSoles"
+								style="width:170px;"
+								value="#{repParametroController.totalSoles_b}"
+								onkeypress="return valNumeros(event);" maxlength="15" /></td>
+
+						<td width="5%" align="center"></td>
+
+						<td width="12%" align="right"><h:outputText
+								value="Prima Soles:" /></td>
+						<td width="20%" align="left"><h:inputText id="primaSoles"
+								style="width:170px;"
+								value="#{repParametroController.primaSoles_b}"
+								onkeypress="return valNumeros(event);" maxlength="15" /></td>
+
+						<td width="5%" align="center"></td>
+
+						<td width="10%" align="right"><h:outputText
+								value="Dscto Soles:" /></td>
+						<td width="20%" align="left"><h:inputText id="dstoSoles"
+								style="width:170px;"
+								value="#{repParametroController.descSoles_b}"
+								onkeypress="return valNumeros(event);" maxlength="15" /></td>
+
+
+					</tr>
+					<tr>
+						<td width="10%" align="right"><h:outputText
+								value="Total Dolar:" /></td>
+						<td width="20%" align="left"><h:inputText id="totalDolar"
+								style="width:170px;"
+								value="#{repParametroController.totalDolar_b}"
+								onkeypress="return valNumeros(event);" maxlength="15" /></td>
+
+						<td width="5%" align="center"></td>
+
+						<td width="12%" align="right"><h:outputText
+								value="Prima Dolar:" /></td>
+						<td width="20%" align="left"><h:inputText id="primaDolar"
+								style="width:170px;"
+								value="#{repParametroController.primaDola_b}"
+								onkeypress="return valNumeros(event);" maxlength="15" /></td>
+
+						<td width="5%" align="center"></td>
+
+						<td width="10%" align="right"><h:outputText
+								value="Dscto Dolar:" /></td>
+						<td width="20%" align="left"><h:inputText id="dstoDolar"
+								style="width:170px;"
+								value="#{repParametroController.desDolar_b}"
+								onkeypress="return valNumeros(event);" maxlength="15" /></td>
+
+
+					</tr>
+
+					<tr>
+						<td colspan="2" height="10px"></td>
+					</tr>
+
+
+				</table>
+
+
+
+				<table width="100%" align="center">
+					<tr>
+						<td colspan="10">
+							<center>
+								<a4j:commandButton id="btnBuscar" reRender="listaPar"
+									action="#{repParametroController.buscarParametros}"
+									value="Buscar" style="width:125px" />
+
+								<rich:spacer width="18"></rich:spacer>
+								<h:commandButton id="btnLimpiar"
+									action="#{repParametroController.limpiar}" inmediate="true"
+									value="Limpiar" style="width:125px" />
+
+
+
+
+							</center>
+						</td>
+					</tr>
+
+
+					<tr>
+						<td>
+							<div
+								style="scrollbar-base-color: #3d8a3d; width: 1100px; border: 0px solid white; overflow-x: scroll">
+								<rich:extendedDataTable id="listaPar" var="listaVar"
+									value="#{repParametroController.listaParametros}"
+									selection="#{repParametroController.selection}"
+									selectionMode="single" width="1300px" height="330px"
+									headerClass="dataTableHeader" rows="12" reRender="true">
+									<rich:column id="colNombreSocio" headerClass="dataTableHeader"
+										width="12%">
+										<f:facet name="header">
+											<h:outputText value="Empresa" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaVar.empresa}" />
+										</center>
+
+									</rich:column>
+									<rich:column id="colEmpresa" headerClass="dataTableHeader"
+										width="9%">
+										<f:facet name="header">
+											<h:outputText value="Socio" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaVar.socio}" />
+										</center>
+
+									</rich:column>
+									<rich:column id="colTipoParticipante"
+										headerClass="dataTableHeader" width="7%">
+										<f:facet name="header">
+											<h:outputText value="Tipo " />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaVar.tipoSeguro}" />
+										</center>
+
+									</rich:column>
+
+									<rich:column id="colTipoImporte" headerClass="dataTableHeader"
+										width="9%">
+										<f:facet name="header">
+											<h:outputText value="Tipo Reaseguro" />
+
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaVar.tipoReaseguro}" />
+										</center>
+
+									</rich:column>
+
+
+									<rich:column id="colTipoCuenta" headerClass="dataTableHeader"
+										width="8%">
+										<f:facet name="header">
+											<h:outputText value="Tipo Movimiento" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaVar.tipoMovimiento}" />
+										</center>
+
+									</rich:column>
+
+									<rich:column id="colTipoContrato" headerClass="dataTableHeader"
+										width="12%">
+										<f:facet name="header">
+											<h:outputText value="Tipo Contrato" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaVar.tipoContrato}" />
+										</center>
+
+									</rich:column>
+
+
+									<rich:column id="colProducto" headerClass="dataTableHeader"
+										width="12%">
+										<f:facet name="header">
+											<h:outputText value=" Producto" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaVar.producto}" />
+										</center>
+
+									</rich:column>
+
+
+									<rich:column id="colDetalleCuenta"
+										headerClass="dataTableHeader" width="9%">
+										<f:facet name="header">
+											<h:outputText value="Detalle Cuenta" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaVar.tipoCuenta}" />
+										</center>
+
+									</rich:column>
+
+
+									<rich:column id="colCuentaSoles" width="9%">
+										<f:facet name="header">
+											<h:outputText value="Total Soles" />
+										</f:facet>
+										<center>
+											<h:outputText
+												value="#{listaVar.cuentaSaldoSoles == '0' ? '-':listaVar.cuentaSaldoSoles}" />
+										</center>
+
+									</rich:column>
+
+
+									<rich:column id="colCuentaDolares" width="9%">
+										<f:facet name="header">
+											<h:outputText value="Total Dolar" />
+										</f:facet>
+										<center>
+											<h:outputText
+												value="#{listaVar.cuentaSaldoDolares == '0' ? '-':listaVar.cuentaSaldoDolares}" />
+										</center>
+
+									</rich:column>
+
+
+									<rich:column id="colEstado" width="6%">
+										<f:facet name="header">
+											<h:outputText value="Estado" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{listaVar.estadoDesc}" />
+										</center>
+
+									</rich:column>
+
+									<f:facet name="footer">
+										<rich:datascroller id="ds" for="listaPar" maxPages="10"></rich:datascroller>
+									</f:facet>
+
+								</rich:extendedDataTable>
+							</div>
+						</td>
+					</tr>
+				</table>
+
+				<table align="center">
+					<tr>
+						<td colspan="9"><a4j:commandButton id="btnRegistrar"
+								action="#{repParametroController.registrarNuevo}"
+								value="Registrar" style="width:90px">
+
+							</a4j:commandButton> <rich:spacer width="18" /> <a4j:commandButton id="btnCopiar"
+								value="Copiar"
+								action="#{repParametroController.copiarParametro}"
+								style="width:90px">
+							</a4j:commandButton> <rich:spacer width="18" /> <a4j:commandButton id="btnModificar"
+								value="Editar"
+								action="#{repParametroController.mostrarParametro}"
+								style="width:90px">
+
+							</a4j:commandButton> <rich:spacer width="18">
+							</rich:spacer> <a4j:commandButton id="btnMostrar" value="Consultar"
+								action="#{repParametroController.consultarParametro}"
+								style="width:90px">
+
+							</a4j:commandButton> <rich:spacer width="18">
+							</rich:spacer> <a4j:commandButton id="btnModifEstado"
+								action="#{repParametroController.obtenerEstado}"
+								oncomplete="#{facesContext.maximumSeverity == null ? 'Richfaces.showModalPanel(\'panelEdicion\')' : ';'}"
+								value="Modificar Estado" reRender="panelEdicion"
+								style="width:90px">
+
+							</a4j:commandButton></td>
+					</tr>
+				</table>
+
+			</fieldset>
+		</rich:panel>
+
+	</h:form>
+
+
+</body>
+
+
+<rich:modalPanel id="panelEdicion" autosized="true">
+	<f:facet name="header">
+		<h:outputText value="Mantenimiento de Estado" />
+	</f:facet>
+	<f:facet name="controls">
+		<h:panelGroup>
+			<h:graphicImage value="/imagenes/close.gif" styleClass="hidelink"
+				id="hidelink" />
+			<rich:componentControl for="panelEdicion" attachTo="hidelink"
+				operation="hide" event="onclick" />
+		</h:panelGroup>
+	</f:facet>
+	<h:form>
+		<a4j:region>
+			<a4j:include viewId="/paginas/parametros/mantRegEstado.xhtml" />
+		</a4j:region>
+	</h:form>
+</rich:modalPanel>
+</html>

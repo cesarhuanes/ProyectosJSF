@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cardif.satelite.tesoreria.dao.PagoComisionItfMapper">
+	<resultMap id="BaseResultMap" type="com.cardif.satelite.tesoreria.model.PagoComisionItf">
+		<id column="nom_excel" property="nom_excel" jdbcType="VARCHAR" />
+		<result column="usu_creacion" property="usu_creacion" jdbcType="VARCHAR" />
+		<result column="fec_creacion" property="fec_creacion" jdbcType="TIMESTAMP" />
+		<result column="usu_modificacion" property="usu_modificacion" jdbcType="VARCHAR" />
+		<result column="fec_modificacion" property="fec_modificacion" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		nom_excel, usu_creacion, fec_creacion, usu_modificacion, fec_modificacion
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cardif.satelite.tesoreria.model.PagoComisionItfExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from dbo.PAGO_COMISION_ITF
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from dbo.PAGO_COMISION_ITF
+		where nom_excel = #{nom_excel,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from dbo.PAGO_COMISION_ITF
+		where nom_excel = #{nom_excel,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.cardif.satelite.tesoreria.model.PagoComisionItfExample">
+		delete from dbo.PAGO_COMISION_ITF
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.cardif.satelite.tesoreria.model.PagoComisionItf">
+		insert into dbo.PAGO_COMISION_ITF (nom_excel, usu_creacion, fec_creacion,
+		usu_modificacion, fec_modificacion)
+		values (#{nom_excel,jdbcType=VARCHAR}, #{usu_creacion,jdbcType=VARCHAR}, #{fec_creacion,jdbcType=TIMESTAMP},
+		#{usu_modificacion,jdbcType=VARCHAR},
+		#{fec_modificacion,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.cardif.satelite.tesoreria.model.PagoComisionItf">
+		insert into dbo.PAGO_COMISION_ITF
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="nom_excel != null">
+				nom_excel,
+			</if>
+			<if test="usu_creacion != null">
+				usu_creacion,
+			</if>
+			<if test="fec_creacion != null">
+				fec_creacion,
+			</if>
+			<if test="usu_modificacion != null">
+				usu_modificacion,
+			</if>
+			<if test="fec_modificacion != null">
+				fec_modificacion,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="nom_excel != null">
+				#{nom_excel,jdbcType=VARCHAR},
+			</if>
+			<if test="usu_creacion != null">
+				#{usu_creacion,jdbcType=VARCHAR},
+			</if>
+			<if test="fec_creacion != null">
+				#{fec_creacion,jdbcType=TIMESTAMP},
+			</if>
+			<if test="usu_modificacion != null">
+				#{usu_modificacion,jdbcType=VARCHAR},
+			</if>
+			<if test="fec_modificacion != null">
+				#{fec_modificacion,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.cardif.satelite.tesoreria.model.PagoComisionItfExample" resultType="java.lang.Integer">
+		select count(*) from dbo.PAGO_COMISION_ITF
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update dbo.PAGO_COMISION_ITF
+		<set>
+			<if test="record.nom_excel != null">
+				nom_excel = #{record.nom_excel,jdbcType=VARCHAR},
+			</if>
+			<if test="record.usu_creacion != null">
+				usu_creacion = #{record.usu_creacion,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fec_creacion != null">
+				fec_creacion = #{record.fec_creacion,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.usu_modificacion != null">
+				usu_modificacion = #{record.usu_modificacion,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fec_modificacion != null">
+				fec_modificacion = #{record.fec_modificacion,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update dbo.PAGO_COMISION_ITF
+		set nom_excel = #{record.nom_excel,jdbcType=VARCHAR},
+		usu_creacion = #{record.usu_creacion,jdbcType=VARCHAR},
+		fec_creacion = #{record.fec_creacion,jdbcType=TIMESTAMP},
+		usu_modificacion = #{record.usu_modificacion,jdbcType=VARCHAR},
+		fec_modificacion =
+		#{record.fec_modificacion,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.cardif.satelite.tesoreria.model.PagoComisionItf">
+		update dbo.PAGO_COMISION_ITF
+		<set>
+			<if test="usu_creacion != null">
+				usu_creacion = #{usu_creacion,jdbcType=VARCHAR},
+			</if>
+			<if test="fec_creacion != null">
+				fec_creacion = #{fec_creacion,jdbcType=TIMESTAMP},
+			</if>
+			<if test="usu_modificacion != null">
+				usu_modificacion = #{usu_modificacion,jdbcType=VARCHAR},
+			</if>
+			<if test="fec_modificacion != null">
+				fec_modificacion = #{fec_modificacion,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where nom_excel = #{nom_excel,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.cardif.satelite.tesoreria.model.PagoComisionItf">
+		update dbo.PAGO_COMISION_ITF
+		set usu_creacion = #{usu_creacion,jdbcType=VARCHAR},
+		fec_creacion =
+		#{fec_creacion,jdbcType=TIMESTAMP},
+		usu_modificacion = #{usu_modificacion,jdbcType=VARCHAR},
+		fec_modificacion = #{fec_modificacion,jdbcType=TIMESTAMP}
+		where nom_excel = #{nom_excel,jdbcType=VARCHAR}
+	</update>
+</mapper>

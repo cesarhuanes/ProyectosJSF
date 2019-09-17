@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://richfaces.org/a4j">
+<a4j:keepAlive beanName="cargaTramaMensualController" />
+<head>
+
+<style>
+	.pasos{background-color: transparent;padding: 0;text-align: center;list-style: none;}
+	.pasos li {position: relative;float: none;margin: 0.4em 40px 0.4em 0;display: inline-block;}
+	.pasos li > * {z-index: 1;padding: .6em 7em;border-radius: .25em;position: relative;font-size: 14px;text-decoration: none;color: #ffffff;background-color: #58A358;}
+	.pasos li.activo > *{background-color: #007B4C; background-image: url("/Satelite/imagenes/bien.png");background-repeat: no-repeat;background-position: 10px;background-size: 25px;}
+	.pasos li.proceso > *{ background-image: url("/Satelite/imagenes/proceso.gif");background-repeat: no-repeat;background-position: 5px;background-size: 45px;}
+	.tabla {border: 1px solid #007B4C; }
+	.tabla tr {border: 1px solid #007B4C; }
+	.tabla tr td {border: 1px solid #007B4C; }
+</style>
+
+</head>
+<body>
+		<rich:panel id="reporte" height="100%" reRender="lista">
+			<f:facet name="header">
+				<h:outputText value="Suscripción > SOAT > Carga Trama Mensual SOAT">
+				</h:outputText>
+			</f:facet>
+			<center>
+				<h:form  >
+				
+				<a4j:outputPanel id="progressPanel">
+				
+				<a4j:jsFunction name="init" 
+						reRender="formProceso" 
+						action="#{cargaTramaMensualController.procesandoCarga}" 
+						data="#{cargaTramaMensualController.tramaEjecucion}" 
+						ajaxSingle="false"
+						immediate="false"
+						bypassUpdates="true" />
+						
+				</a4j:outputPanel>	
+					
+				<h:panelGroup id="formProceso">
+					<fieldset >						
+						<ol class="pasos">
+							<li class="#{(cargaTramaMensualController.tramaEjecucion.iniciando == true)? 'activo':''}"><em>  Iniciando  </em></li>
+							<li class="#{(cargaTramaMensualController.tramaEjecucion.enProceso == true)? 'activo':''}"><em>  En proceso </em></li>
+							<li class="#{(cargaTramaMensualController.tramaEjecucion.finalizo == true)? 'activo':''} "><em> Finalizó   </em></li>	
+						</ol>	
+						<br />
+							<a4j:region>
+								<a4j:outputPanel id="outprogressPanel">
+						            <rich:progressBar value="#{cargaTramaMensualController.currentValue}"
+						                interval="2000" label="#{cargaTramaMensualController.currentValue} %"
+						                 minValue="-1" maxValue="100"
+						                reRenderAfterComplete="formProceso,download">
+						              
+						            </rich:progressBar>
+						        </a4j:outputPanel>	
+							</a4j:region>
+						<br />					
+					
+					
+						<table class="tabla">
+							<tr>
+								<td>Total Registros</td>
+								<td><h:outputText value="#{cargaTramaMensualController.tramaEjecucion.nroRegistros}" /> </td>
+							</tr>
+							<tr>
+								<td>Registros Observados</td>
+								<td><h:outputText value="#{cargaTramaMensualController.tramaEjecucion.nroRegistrosObservados}" /> </td>
+							</tr>
+							<tr>
+								<td>Registros Correctos</td>
+								<td><h:outputText value="#{cargaTramaMensualController.tramaEjecucion.nroRegistrosCorrectos}" /> </td>
+							</tr>
+							<tr>
+								<td>Estado Carga</td>
+								<td><h:outputText value="#{cargaTramaMensualController.tramaEjecucion.flagEstado}" /> </td>
+							</tr>
+						</table>	
+						<br />
+						<label style="background:#ffffff;">
+							#{cargaTramaMensualController.tramaEjecucion.mensaje}
+						</label>
+					</fieldset>							
+				</h:panelGroup>
+				</h:form>
+			
+			<h:form id="download" >
+					<a4j:region>	
+						<p:commandButton   action="#{cargaTramaMensualController.exportarObservado}"  value="Exportar Observaciones"  immediate="false"/>			
+					</a4j:region>
+			</h:form>
+				
+			</center>
+		  </rich:panel>
+		  <script>window.onload = init;</script>
+				
+</body>
+</html>

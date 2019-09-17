@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:richfaces="http://richfaces.ajax4jsf.org/rich"
+      xmlns:ajax="https://ajax4jsf.dev.java.net/ajax">
+	<a4j:keepAlive beanName="repParametroController" />
+<head>
+<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+</head>
+<body>
+	<center>
+
+				<table>
+				<tr ><td>
+					 <h:outputText 
+					  value="#{repParametroController.mensajeCambioEstado}"  />
+					</td>
+				</tr>
+				<tr ><td>
+					 <h:outputText 
+					  value="#{repParametroController.mensajeCambioEstado2}"  />
+					</td>
+				</tr>
+										
+			</table>
+		<table>
+			<tr>
+				<td>
+				<center>
+				<h:commandButton value="Cancel" onclick="#{rich:component('confirmActualizaEstado')}.hide(); return false;" />
+				<rich:spacer width="18"></rich:spacer>
+		        <a4j:commandButton  value="Aceptar"  action="#{repParametroController.actualizarEstado}" onclick="#{rich:component('confirmActualizaEstado')}.hide();" 
+		        oncomplete="#{rich:component('panelEdicion')}.hide();" reRender="listaPar" >
+		        </a4j:commandButton>
+		        </center>
+		        </td>
+			</tr>
+		</table>
+	</center>
+</body>
+
+</html>

@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<wsdl:definitions name="webSocioService" targetNamespace="http://offline.cardif.bnpparibas.com/ws/service/offline/v2" xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://offline.cardif.bnpparibas.com/ws/service/offline/v2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://offline.cardif.bnpparibas.com/ws/service/offline/v2"
+			xmlns:ns1="http://offline.cardif.bnpparibas.com/ws/schema/offline/v2" xmlns:tns="http://offline.cardif.bnpparibas.com/ws/service/offline/v2"
+			xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:import namespace="http://offline.cardif.bnpparibas.com/ws/schema/offline/v2" />
+			<xs:complexType name="commissionAndPremium">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="office" type="tns:office" />
+					<xs:element minOccurs="0" name="seller" type="tns:seller" />
+					<xs:element minOccurs="0" name="values">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="value" type="ns1:property" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="totalCommission" type="xs:decimal" />
+					<xs:element minOccurs="0" name="totalPremium" type="xs:decimal" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="office">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="officeId" type="xs:string" />
+					<xs:element minOccurs="0" name="name" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="seller">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="sellerId" type="xs:string" />
+					<xs:element minOccurs="0" name="name" type="xs:string" />
+					<xs:element minOccurs="0" name="station" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType abstract="true" name="number">
+				<xs:sequence />
+			</xs:complexType>
+			<xs:complexType final="#all" name="commissionAndPremiumArray">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="item" nillable="true" type="tns:commissionAndPremium" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="AcseleServiceException" type="tns:AcseleServiceException" />
+			<xs:complexType name="AcseleServiceException">
+				<xs:sequence />
+			</xs:complexType>
+			<xs:element name="documentNumber" nillable="true" type="xs:string" />
+			<xs:element name="findThirdPartyByDocumentNumberResponse" nillable="true" type="ns1:thirdPartyArray" />
+			<xs:element name="thirdPartyTptId" nillable="true" type="xs:integer" />
+			<xs:element name="findThirdPartyDetailsByIdResponse" nillable="true" type="ns1:thirdParty" />
+			<xs:element name="protocol" nillable="true" type="xs:string" />
+			<xs:element name="findThirdPartyByProtocolResponse" nillable="true" type="ns1:thirdPartyArray" />
+			<xs:element name="region" nillable="true" type="xs:string" />
+			<xs:element name="socioId" nillable="true" type="xs:string" />
+			<xs:element name="productId" nillable="true" type="xs:string" />
+			<xs:element name="withSeller" nillable="true" type="xs:boolean" />
+			<xs:element name="dateIni" nillable="true" type="xs:dateTime" />
+			<xs:element name="dateEnd" nillable="true" type="xs:dateTime" />
+			<xs:element name="findComissionAndPremiumResponse" nillable="true" type="tns:commissionAndPremiumArray" />
+			<xs:element name="getFilterComissionAndPremiumResponse" nillable="true" type="ns1:thirdPartyArray" />
+			<xs:element name="policyId" nillable="true" type="xs:integer" />
+			<xs:element name="policyNumber" nillable="true" type="xs:string" />
+			<xs:element name="findPolicyDetailsByPolicyIdOrNumberResponse" nillable="true" type="ns1:policy" />
+			<xs:element name="name" nillable="true" type="xs:string" />
+			<xs:element name="findThirdPartyByNameResponse" nillable="true" type="ns1:thirdPartyArray" />
+			<xs:element name="fullPolicyId" nillable="true" type="xs:integer" />
+			<xs:element name="fullPolicyNumber" nillable="true" type="xs:string" />
+			<xs:element name="findPolicyFullDetailsByPolicyIdOrNumberResponse" nillable="true" type="ns1:policy" />
+			<xs:element name="findPolicyByThirdPartyTptId" nillable="true" type="xs:integer" />
+			<xs:element name="findPolicyByThirdPartyTptIdResponse" nillable="true" type="ns1:policyArray" />
+		</xs:schema>
+		<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://offline.cardif.bnpparibas.com/ws/schema/offline/v2"
+			xmlns:ns1="http://offline.cardif.bnpparibas.com/ws/schema/offline/v1" xmlns:tns="http://offline.cardif.bnpparibas.com/ws/schema/offline/v2"
+			xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:import namespace="http://offline.cardif.bnpparibas.com/ws/schema/offline/v1" />
+			<xs:element name="policy" type="tns:policy" />
+			<xs:element name="thirdParty" type="tns:thirdParty" />
+			<xs:complexType name="thirdParty">
+				<xs:sequence>
+					<xs:element name="id" type="xs:long" />
+					<xs:element minOccurs="0" name="name" type="xs:string" />
+					<xs:element minOccurs="0" name="codeIdentifier" type="xs:string" />
+					<xs:element minOccurs="0" name="dateOfBirth" type="xs:string" />
+					<xs:element minOccurs="0" name="sex" type="xs:string" />
+					<xs:element minOccurs="0" name="addresses">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="address" type="tns:addressBook" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="properties">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="property" type="tns:property" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="products">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="product" type="tns:product" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="addressBook">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="addressBookType" type="ns1:addressBookType" />
+					<xs:element minOccurs="0" name="properties">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="property" type="tns:property" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="property">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="name" type="xs:string" />
+					<xs:element minOccurs="0" name="value" type="xs:string" />
+					<xs:element minOccurs="0" name="type" type="tns:type" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="product">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="events">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="event" type="tns:policyEvent" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="productTypes">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="productType" type="tns:productType" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="description" type="xs:string" />
+					<xs:element minOccurs="0" name="productId" type="xs:integer" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="policyEvent">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="eventPk" type="xs:integer" />
+					<xs:element minOccurs="0" name="description" type="xs:string" />
+					<xs:element minOccurs="0" name="properties">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="property" type="tns:property" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="operationDate" type="xs:dateTime" />
+					<xs:element minOccurs="0" name="eventDate" type="xs:dateTime" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="productType">
+				<xs:complexContent>
+					<xs:extension base="tns:templateType">
+						<xs:sequence />
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+			<xs:complexType name="templateType">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="description" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="workUnitData">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="databaseIdentifier" type="xs:string" />
+					<xs:element minOccurs="0" name="jobName" type="xs:string" />
+					<xs:element minOccurs="0" name="jobGroup" type="xs:string" />
+					<xs:element minOccurs="0" name="sessionId" type="xs:long" />
+					<xs:element minOccurs="0" name="processId" type="xs:integer" />
+					<xs:element minOccurs="0" name="cancellationSource" type="tns:cancellationSource" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="policy">
+				<xs:complexContent>
+					<xs:extension base="tns:workUnitData">
+						<xs:sequence>
+							<xs:element minOccurs="0" name="product" type="tns:product" />
+							<xs:element minOccurs="0" name="date" type="xs:dateTime" />
+							<xs:element minOccurs="0" name="initialDate" type="xs:dateTime" />
+							<xs:element minOccurs="0" name="finalDate" type="xs:dateTime" />
+							<xs:element minOccurs="0" name="templateType" type="tns:templateType" />
+							<xs:element minOccurs="0" name="policyEvent" type="tns:policyEvent" />
+							<xs:element minOccurs="0" name="riskUnits">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element maxOccurs="unbounded" minOccurs="0" name="riskUnit" type="tns:riskUnit" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element minOccurs="0" name="coverages">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element maxOccurs="unbounded" minOccurs="0" name="coverage" type="tns:coverage" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element minOccurs="0" name="openItens">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element maxOccurs="unbounded" minOccurs="0" name="openItem" type="tns:openItem" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element minOccurs="0" name="events">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element maxOccurs="unbounded" minOccurs="0" name="event" type="tns:policyEvent" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element minOccurs="0" name="financialPlan" type="tns:financialPlan" />
+							<xs:element minOccurs="0" name="groupPolicy" type="tns:groupPolicy" />
+							<xs:element minOccurs="0" name="properties">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element maxOccurs="unbounded" minOccurs="0" name="property" type="tns:property" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element minOccurs="0" name="participations">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element maxOccurs="unbounded" minOccurs="0" name="participation" type="tns:participation" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element minOccurs="0" name="ID" type="xs:string" />
+							<xs:element minOccurs="0" name="policyNumber" type="xs:string" />
+							<xs:element minOccurs="0" name="applyEvent" type="xs:string" />
+							<xs:element minOccurs="0" name="policyLog" type="tns:policyLog" />
+							<xs:element minOccurs="0" name="pimsID" type="xs:string" />
+						</xs:sequence>
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+			<xs:complexType name="riskUnit">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="initialDate" type="xs:dateTime" />
+					<xs:element minOccurs="0" name="endDate" type="xs:dateTime" />
+					<xs:element minOccurs="0" name="templateType" type="tns:templateType" />
+					<xs:element minOccurs="0" name="properties">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="property" type="tns:property" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="eventProperties">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="property" type="tns:property" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="insuranceObjects">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="insuranceObject" type="tns:insuranceObject" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="participations">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="participation" type="tns:participation" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="operationDate" type="xs:string" />
+					<xs:element minOccurs="0" name="event" type="xs:string" />
+					<xs:element minOccurs="0" name="id" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="insuranceObject">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="plan" type="xs:string" />
+					<xs:element minOccurs="0" name="templateType" type="tns:templateType" />
+					<xs:element minOccurs="0" name="event" type="xs:string" />
+					<xs:element minOccurs="0" name="initialDate" type="xs:dateTime" />
+					<xs:element minOccurs="0" name="endDate" type="xs:dateTime" />
+					<xs:element minOccurs="0" name="source" type="xs:string" />
+					<xs:element minOccurs="0" name="properties">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="property" type="tns:property" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="coverages">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="coverage" type="tns:coverage" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="eventProperties">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="property" type="tns:property" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="participations">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="participation" type="tns:participation" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="operationDate" type="xs:string" />
+					<xs:element minOccurs="0" name="id" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="coverage">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="description" type="xs:string" />
+					<xs:element minOccurs="0" name="participations">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="participation" type="tns:participation" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="dco">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="property" type="tns:property" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="participation">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="role" type="xs:string" />
+					<xs:element minOccurs="0" name="thirdPartyID" type="xs:string" />
+					<xs:element minOccurs="0" name="thirdPartyNB" type="xs:string" />
+					<xs:element minOccurs="0" name="personType" type="xs:string" />
+					<xs:element minOccurs="0" name="paymentMode" type="tns:paymentMode" />
+					<xs:element minOccurs="0" name="addresses">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="address" type="tns:addressBook" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="properties">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="property" type="tns:property" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="paymentMode">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="templateType" type="tns:templateType" />
+					<xs:element minOccurs="0" name="collector" type="xs:string" />
+					<xs:element minOccurs="0" name="collectorCode" type="xs:string" />
+					<xs:element minOccurs="0" name="collectorPhone" type="xs:string" />
+					<xs:element minOccurs="0" name="collectorContact" type="xs:string" />
+					<xs:element minOccurs="0" name="collectorAddress" type="xs:string" />
+					<xs:element minOccurs="0" name="properties">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0" name="property" type="tns:property" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="openItem">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="id" type="xs:long" />
+					<xs:element minOccurs="0" name="dueDate" type="xs:dateTime" />
+					<xs:element minOccurs="0" name="dateOfRecipient" type="xs:dateTime" />
+					<xs:element minOccurs="0" name="dateOperation" type="xs:dateTime" />
+					<xs:element minOccurs="0" name="status" type="xs:string" />
+					<xs:element minOccurs="0" name="substatus" type="xs:string" />
+					<xs:element minOccurs="0" name="docTypes" type="xs:string" />
+					<xs:element minOccurs="0" name="amount" type="xs:decimal" />
+					<xs:element minOccurs="0" name="thirdPartyName" type="xs:string" />
+					<xs:element minOccurs="0" name="movementDate" type="xs:dateTime" />
+					<xs:element minOccurs="0" name="docDate" type="xs:dateTime" />
+					<xs:element minOccurs="0" name="appliedTo" type="xs:string" />
+					<xs:element name="movementId" type="xs:long" />
+					<xs:element minOccurs="0" name="currencyIsoCode" type="xs:string" />
+					<xs:element minOccurs="0" name="paymentDate" type="xs:dateTime" />
+					<xs:element name="paymentMovementId" type="xs:long" />
+					<xs:element minOccurs="0" name="paymentMovementAmount" type="xs:decimal" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="financialPlan">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="name" type="xs:string" />
+					<xs:element minOccurs="0" name="currency" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="groupPolicy">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="description" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="policyLog">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="aslSessionId" type="xs:long" />
+					<xs:element minOccurs="0" name="contextOperationId" type="xs:integer" />
+					<xs:element minOccurs="0" name="agregatedPolicyId" type="xs:integer" />
+					<xs:element minOccurs="0" name="policyNumber" type="xs:string" />
+					<xs:element minOccurs="0" name="pimsID" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:simpleType name="type">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="STRING" />
+					<xs:enumeration value="INTEGER" />
+					<xs:enumeration value="DOUBLE" />
+					<xs:enumeration value="LONG" />
+					<xs:enumeration value="BYTE" />
+					<xs:enumeration value="BIGINT" />
+					<xs:enumeration value="BIGDECIMAL" />
+					<xs:enumeration value="DATE" />
+					<xs:enumeration value="TIMESTAMP" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="cancellationSource">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="PARTNER" />
+					<xs:enumeration value="SAC" />
+					<xs:enumeration value="JOB" />
+					<xs:enumeration value="INSURANCE_OPERATOR" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:complexType final="#all" name="thirdPartyArray">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="item" nillable="true" type="tns:thirdParty" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType final="#all" name="policyArray">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="item" nillable="true" type="tns:policy" />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+		<xs:schema targetNamespace="http://offline.cardif.bnpparibas.com/ws/schema/offline/v1" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:simpleType name="addressBookType">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="HOME" />
+					<xs:enumeration value="OFFICE" />
+					<xs:enumeration value="BILLING" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="findComissionAndPremium">
+		<wsdl:part element="tns:region" name="region" />
+
+	</wsdl:message>
+	<wsdl:message name="findPolicyFullDetailsByPolicyIdOrNumberResponse">
+		<wsdl:part element="tns:findPolicyFullDetailsByPolicyIdOrNumberResponse" name="findPolicyFullDetailsByPolicyIdOrNumberResponse" />
+	</wsdl:message>
+	<wsdl:message name="findThirdPartyByDocumentNumber">
+		<wsdl:part element="tns:documentNumber" name="documentNumber" />
+	</wsdl:message>
+	<wsdl:message name="findPolicyByThirdPartyTptId">
+		<wsdl:part element="tns:findPolicyByThirdPartyTptId" name="findPolicyByThirdPartyTptId" />
+	</wsdl:message>
+	<wsdl:message name="findPolicyDetailsByPolicyIdOrNumber">
+		<wsdl:part element="tns:policyId" name="policyId" />
+	</wsdl:message>
+	<wsdl:message name="findThirdPartyByDocumentNumberResponse">
+		<wsdl:part element="tns:findThirdPartyByDocumentNumberResponse" name="findThirdPartyByDocumentNumberResponse" />
+	</wsdl:message>
+	<wsdl:message name="findThirdPartyByNameResponse">
+		<wsdl:part element="tns:findThirdPartyByNameResponse" name="findThirdPartyByNameResponse" />
+	</wsdl:message>
+	<wsdl:message name="getFilterComissionAndPremium" />
+	<wsdl:message name="findThirdPartyByProtocol">
+		<wsdl:part element="tns:protocol" name="protocol" />
+	</wsdl:message>
+	<wsdl:message name="findThirdPartyByProtocolResponse">
+		<wsdl:part element="tns:findThirdPartyByProtocolResponse" name="findThirdPartyByProtocolResponse" />
+	</wsdl:message>
+	<wsdl:message name="findPolicyDetailsByPolicyIdOrNumberResponse">
+		<wsdl:part element="tns:findPolicyDetailsByPolicyIdOrNumberResponse" name="findPolicyDetailsByPolicyIdOrNumberResponse" />
+	</wsdl:message>
+	<wsdl:message name="findPolicyFullDetailsByPolicyIdOrNumber">
+		<wsdl:part element="tns:fullPolicyId" name="fullPolicyId" />
+	</wsdl:message>
+	<wsdl:message name="findPolicyByThirdPartyTptIdResponse">
+		<wsdl:part element="tns:findPolicyByThirdPartyTptIdResponse" name="findPolicyByThirdPartyTptIdResponse" />
+	</wsdl:message>
+	<wsdl:message name="findThirdPartyDetailsByIdResponse">
+		<wsdl:part element="tns:findThirdPartyDetailsByIdResponse" name="findThirdPartyDetailsByIdResponse" />
+	</wsdl:message>
+	<wsdl:message name="ServiceException">
+		<wsdl:part element="tns:AcseleServiceException" name="ServiceException" />
+	</wsdl:message>
+	<wsdl:message name="findComissionAndPremiumResponse">
+		<wsdl:part element="tns:findComissionAndPremiumResponse" name="findComissionAndPremiumResponse" />
+	</wsdl:message>
+	<wsdl:message name="getFilterComissionAndPremiumResponse">
+		<wsdl:part element="tns:getFilterComissionAndPremiumResponse" name="getFilterComissionAndPremiumResponse" />
+	</wsdl:message>
+	<wsdl:message name="findThirdPartyDetailsById">
+		<wsdl:part element="tns:thirdPartyTptId" name="thirdPartyTptId" />
+	</wsdl:message>
+	<wsdl:message name="findThirdPartyByName">
+		<wsdl:part element="tns:name" name="name" />
+	</wsdl:message>
+	<wsdl:portType name="WebSocioPortType">
+		<wsdl:operation name="findThirdPartyByDocumentNumber">
+			<wsdl:input message="tns:findThirdPartyByDocumentNumber" name="findThirdPartyByDocumentNumber" />
+			<wsdl:output message="tns:findThirdPartyByDocumentNumberResponse" name="findThirdPartyByDocumentNumberResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="findThirdPartyDetailsById">
+			<wsdl:input message="tns:findThirdPartyDetailsById" name="findThirdPartyDetailsById" />
+			<wsdl:output message="tns:findThirdPartyDetailsByIdResponse" name="findThirdPartyDetailsByIdResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="findThirdPartyByProtocol">
+			<wsdl:input message="tns:findThirdPartyByProtocol" name="findThirdPartyByProtocol" />
+			<wsdl:output message="tns:findThirdPartyByProtocolResponse" name="findThirdPartyByProtocolResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="findComissionAndPremium">
+			<wsdl:input message="tns:findComissionAndPremium" name="findComissionAndPremium" />
+			<wsdl:output message="tns:findComissionAndPremiumResponse" name="findComissionAndPremiumResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="getFilterComissionAndPremium">
+			<wsdl:input message="tns:getFilterComissionAndPremium" name="getFilterComissionAndPremium" />
+			<wsdl:output message="tns:getFilterComissionAndPremiumResponse" name="getFilterComissionAndPremiumResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="findPolicyDetailsByPolicyIdOrNumber">
+			<wsdl:input message="tns:findPolicyDetailsByPolicyIdOrNumber" name="findPolicyDetailsByPolicyIdOrNumber" />
+			<wsdl:output message="tns:findPolicyDetailsByPolicyIdOrNumberResponse" name="findPolicyDetailsByPolicyIdOrNumberResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="findThirdPartyByName">
+			<wsdl:input message="tns:findThirdPartyByName" name="findThirdPartyByName" />
+			<wsdl:output message="tns:findThirdPartyByNameResponse" name="findThirdPartyByNameResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="findPolicyFullDetailsByPolicyIdOrNumber">
+			<wsdl:input message="tns:findPolicyFullDetailsByPolicyIdOrNumber" name="findPolicyFullDetailsByPolicyIdOrNumber" />
+			<wsdl:output message="tns:findPolicyFullDetailsByPolicyIdOrNumberResponse" name="findPolicyFullDetailsByPolicyIdOrNumberResponse" />
+			<wsdl:fault message="tns:ServiceException" name="ServiceException" />
+		</wsdl:operation>
+		<wsdl:operation name="findPolicyByThirdPartyTptId">
+			<wsdl:input message="tns:findPolicyByThirdPartyTptId" name="findPolicyByThirdPartyTptId" />
+			<wsdl:output message="tns:findPolicyByThirdPartyTptIdResponse" name="findPolicyByThirdPartyTptIdResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="webSocioServiceSoapBinding" type="tns:WebSocioPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="findThirdPartyByDocumentNumber">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="findThirdPartyByDocumentNumber">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="findThirdPartyByDocumentNumberResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findThirdPartyDetailsById">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="findThirdPartyDetailsById">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="findThirdPartyDetailsByIdResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findThirdPartyByProtocol">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="findThirdPartyByProtocol">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="findThirdPartyByProtocolResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findComissionAndPremium">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="findComissionAndPremium">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="findComissionAndPremiumResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getFilterComissionAndPremium">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="getFilterComissionAndPremium">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getFilterComissionAndPremiumResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findPolicyDetailsByPolicyIdOrNumber">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="findPolicyDetailsByPolicyIdOrNumber">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="findPolicyDetailsByPolicyIdOrNumberResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findThirdPartyByName">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="findThirdPartyByName">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="findThirdPartyByNameResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findPolicyByThirdPartyTptId">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="findPolicyByThirdPartyTptId">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="findPolicyByThirdPartyTptIdResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findPolicyFullDetailsByPolicyIdOrNumber">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="findPolicyFullDetailsByPolicyIdOrNumber">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="findPolicyFullDetailsByPolicyIdOrNumberResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="ServiceException">
+				<soap:fault name="ServiceException" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="webSocioService">
+		<wsdl:port binding="tns:webSocioServiceSoapBinding" name="WebSocioPort">
+			<soap:address location="https://ampelmapl6wp.am.insurance.corp:9444/acsele-offline/services/webSocioService" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

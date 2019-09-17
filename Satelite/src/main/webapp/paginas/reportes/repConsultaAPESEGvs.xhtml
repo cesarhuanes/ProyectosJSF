@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<a4j:keepAlive beanName="repConsultaAPESEGController" />
+
+	<head>
+		<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/validacion.js" />
+		
+		<style type="text/css">
+			.celda {
+				width: 130px;
+				color: #000;
+			}
+				
+			.datatable {
+				padding-top: 10px;
+			}
+			
+			body, html {
+				font-family: Monaco, Georgia, Times, serif;
+				width: 100%;
+				height: 100%;
+			}
+			
+			.separador {
+				padding: 0;
+				margin: 0 2px;
+				float: center;
+			}
+			
+			#consultar {
+				text-align: left;
+			}
+			
+			#formRepConsultaAPESEG {
+				width: 1000px;
+				margin: 0 auto;
+				color:
+			}
+			
+			.rich-message{
+				color: red;
+				display: block;
+				float: left;
+			}
+		</style>	
+	</head>
+	<body>
+		<rich:panel id="consultar" height="100%" reRender="lista">
+			<f:facet name="header">
+				<h:outputText value=" Reportes > Reporte APESEG" />
+			</f:facet>
+			<center>
+				<fieldset id="formRepConsultaAPESEG">
+					<legend/>
+					<h:form>
+						<div >
+							<table border="0" width="800px">
+								<tr>
+									<td>
+										<h:outputText value="Consulta de Registro SOAT: " style="text-align: left;font-weight:bold"/>
+									</td>
+								</tr>
+								<tr><td>&nsp;</td></tr>
+								<tr><td>&nsp;</td></tr>
+							</table>
+							<table style="width: 800px;" border="0">
+								<tr>
+									<td style="text-align: right; width: 20%;">
+										<rich:message for="fecInicioRegistro" style="color: red;">
+											<f:facet name="errorMarker">
+												<h:graphicImage url="../imagenes/error.png" />
+											</f:facet>
+										</rich:message>
+										<rich:spacer width="3" />
+										<h:outputText value="Fecha inicio registro: " />
+									</td>
+									<td style="text-align: left; width: 20%;">
+										<rich:calendar id="fecInicioRegistro" enableManualInput="false" showWeeksBar="false" datePattern="yyyy-MM-dd"
+											value="#{repConsultaAPESEGController.fecInicioRegistro}" required="true" requiredMessage="Obligatorio" inputStyle="width: 125px;" />
+									</td>
+									<td style="text-align: right; width: 12%;">
+										<rich:message for="fecFinRegistro" style="color: red;">
+											<f:facet name="errorMarker">
+												<h:graphicImage url="../imagenes/error.png" />
+											</f:facet>
+										</rich:message>
+										<rich:spacer width="3" />
+										<h:outputText value="Fecha fin registro: " />
+									</td>
+									<td style="text-align: left; width: 20%;">
+										<rich:calendar id="fecFinRegistro" enableManualInput="false" showWeeksBar="false" datePattern="yyyy-MM-dd"
+											value="#{repConsultaAPESEGController.fecFinRegistro}" required="true" requiredMessage="Obligatorio" inputStyle="width: 125px;" />
+									</td>
+									<td style="text-align: left;">
+										<a4j:commandButton action="#{repConsultaAPESEGController.procesarBusqueda}" value="Consultar" reRender="lista, exportar" />
+									</td>
+								</tr>
+								<tr>
+									<td colspan="10" height="5px"></td>
+								</tr>
+							</table>
+						</div>
+					</h:form>
+					
+					<h:form id="form2">
+						<div class="datatable">
+							<div style="scrollbar-base-color: #3d8a3d; width: 800px; border: 0px solid white; overflow-x: scroll;">
+								<rich:extendedDataTable id="lista" var="itemApeseg" value="#{repConsultaAPESEGController.listaConsultaAPESEG}" width="790px" rows="13"
+									height="350px" selectionMode="single" reRender="true">
+									<rich:column id="polcer" headerClass="dataTableHeader" width="25%" sortable="true" sortBy="#{itemApeseg.polCer}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="Nombre Archivo" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{itemApeseg.polCer}" />
+										</center>
+									</rich:column>
+									<rich:column id="fchCeF" headerClass="dataTableHeader" width="25%" sortable="true" sortBy="#{itemApeseg.fchCeF}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="Cantidad Registros" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{itemApeseg.fchCeF}">
+												<f:convertDateTime pattern="yyyy-MM-dd" />
+											</h:outputText>
+										</center>
+									</rich:column>
+									<rich:column id="fchCeI" headerClass="dataTableHeader" width="25%" sortable="true" sortBy="#{itemApeseg.fchCeI}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="Fecha Proceso" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{itemApeseg.fchCeI}">
+												<f:convertDateTime pattern="yyyy-MM-dd" />
+											</h:outputText>
+										</center>
+									</rich:column>
+								<!-- 	<rich:column id="nomCon" headerClass="dataTableHeader" width="25%" sortable="true" sortBy="#{itemApeseg.nomCon}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="NOMCON" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{itemApeseg.nomCon}" />
+										</center>
+									</rich:column>
+									<rich:column id="tipDoc" headerClass="dataTableHeader" width="9.5%" sortable="true" sortBy="#{itemApeseg.tipDoc}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="TIPDOC" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{itemApeseg.tipDoc}" />
+										</center>
+									</rich:column>
+									<rich:column id="numDoc" headerClass="dataTableHeader" width="11%" sortable="true" sortBy="#{itemApeseg.numDoc}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="NUMDOC" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{itemApeseg.numDoc}" />
+										</center>
+									</rich:column>
+									<rich:column id="placa" headerClass="dataTableHeader" width="9%" sortable="true" sortBy="#{itemApeseg.placa}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="PLACA" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{itemApeseg.placa}" />
+										</center>
+									</rich:column>
+									<rich:column id="uso" headerClass="dataTableHeader" width="8%" sortable="true" sortBy="#{itemApeseg.uso}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="USO" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{itemApeseg.uso}" />
+										</center>
+									</rich:column> -->
+									<rich:column id="clase" headerClass="dataTableHeader" width="20%" sortable="true" sortBy="#{itemApeseg.clase}"
+										sortIconAscending="dataTableAscIcon" sortIconDescending="dataTableDescIcon">
+										<f:facet name="header">
+											<h:outputText value="Estado" />
+										</f:facet>
+										<center>
+											<h:outputText value="#{itemApeseg.clase}" />
+										</center>
+									</rich:column>
+									<f:facet name="footer">
+										<rich:datascroller id="ds" for="lista" maxPages="10"></rich:datascroller>
+									</f:facet>
+								</rich:extendedDataTable>
+							</div>
+						</div>
+						<a4j:region>
+							<div style="width: 800px; border: 0px solid white;">
+								<br></br>
+								<h:commandButton id="exportar" style="margin:0 5px;" action="#{repConsultaAPESEGController.exportar}" value="> Exportar" 
+									disabled="#{repConsultaAPESEGController.desabilitarExport}"/>
+									
+								<h:commandButton id="exportar2" style="margin:0 5px;" action="#{repConsultaAPESEGController.exportar}" value="Confirmar APESEG" 
+									disabled="#{repConsultaAPESEGController.desabilitarExport}"/>
+							</div>
+						</a4j:region>
+					</h:form>
+				</fieldset>
+			</center>
+		</rich:panel>
+	</body>
+</html>

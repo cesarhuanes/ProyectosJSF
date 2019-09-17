@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardif.satelite.moduloimpresion.dao.LoteImpresionMapper">
+	
+	<resultMap id="BaseResultMap" type="com.cardif.satelite.model.moduloimpresion.LoteImpresion">
+		<id column="NUM_LOTE" jdbcType="NUMERIC" property="numLote" />
+		<result column="ESTADO" jdbcType="VARCHAR" property="estado" />
+		<result column="FEC_CREACION" jdbcType="TIMESTAMP" property="fecCreacion" />
+		<result column="PDF_CODIFICADO_LOTE" jdbcType="CLOB" property="pdfCodificadoLote" />
+		<result column="PRODUCTO" jdbcType="NUMERIC" property="producto" />
+		<result column="USUARIO" jdbcType="VARCHAR" property="usuario" />
+	</resultMap>
+	
+	<resultMap id="ConsultaLoteImpresionResultMap" type="com.cardif.satelite.moduloimpresion.bean.ConsultaLoteImpresion">
+		<result column="NUM_LOTE" jdbcType="NUMERIC" property="numLote" />
+		<result column="ESTADO" jdbcType="VARCHAR" property="estado" />
+		<result column="FEC_CREACION" jdbcType="TIMESTAMP" property="fecCreacion" />
+		<result column="USUARIO" jdbcType="VARCHAR" property="usuario" />
+		<result column="DESC_LINK" jdbcType="VARCHAR" property="visible" />
+		<result column="FECHA_CREACION" jdbcType="VARCHAR" property="fechaCreacion"/>
+	</resultMap>
+	
+	<resultMap id="ConsultaEstadoLImpresionResultMap" type="com.cardif.satelite.moduloimpresion.bean.ConsultaEstadoLoteImpresion">
+		<result	column="ESTADO_LOTE_IMPRESION" jdbcType="VARCHAR" property="estadoLoteImpresion" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		NUM_LOTE, ESTADO, FEC_CREACION, PDF_CODIFICADO_LOTE, PRODUCTO, USUARIO
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from LOTE_IMPRESION
+		where NUM_LOTE = #{numLote,jdbcType=NUMERIC}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from LOTE_IMPRESION
+		where NUM_LOTE = #{numLote,jdbcType=NUMERIC}
+	</delete>
+		
+	<insert id="insert" parameterType="com.cardif.satelite.model.moduloimpresion.LoteImpresion">
+		<selectKey resultType="java.lang.Long" keyProperty="numLote" order="BEFORE">
+			SELECT LOTE_IMPRESION_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		insert into LOTE_IMPRESION (NUM_LOTE, ESTADO, FEC_CREACION, PDF_CODIFICADO_LOTE, PRODUCTO, USUARIO)
+		values (#{numLote,jdbcType=NUMERIC}, #{estado,jdbcType=VARCHAR}, #{fecCreacion,jdbcType=TIMESTAMP}, #{pdfCodificadoLote,jdbcType=CLOB},
+		#{producto,jdbcType=NUMERIC}, #{usuario,jdbcType=VARCHAR})
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.cardif.satelite.model.moduloimpresion.LoteImpresion">
+		update LOTE_IMPRESION
+		<set>
+			<if test="estado != null">
+				ESTADO = #{estado,jdbcType=VARCHAR},
+			</if>
+			<if test="fecCreacion != null">
+				FEC_CREACION = #{fecCreacion,jdbcType=TIMESTAMP},
+			</if>
+			<if test="pdfCodificadoLote != null">
+				PDF_CODIFICADO_LOTE = #{pdfCodificadoLote,jdbcType=CLOB},
+			</if>
+			<if test="producto != null">
+				PRODUCTO = #{producto,jdbcType=NUMERIC},
+			</if>
+			<if test="usuario != null">
+				USUARIO = #{usuario,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where NUM_LOTE = #{numLote,jdbcType=NUMERIC}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.cardif.satelite.model.moduloimpresion.LoteImpresion">
+		update LOTE_IMPRESION
+		set ESTADO = #{estado,jdbcType=VARCHAR},
+			FEC_CREACION = #{fecCreacion,jdbcType=TIMESTAMP},
+			PDF_CODIFICADO_LOTE = #{pdfCodificadoLote,jdbcType=CLOB},
+			PRODUCTO = #{producto,jdbcType=NUMERIC},
+			USUARIO = #{usuario,jdbcType=VARCHAR}
+		where NUM_LOTE = #{numLote,jdbcType=NUMERIC}
+	</update>
+		
+</mapper>

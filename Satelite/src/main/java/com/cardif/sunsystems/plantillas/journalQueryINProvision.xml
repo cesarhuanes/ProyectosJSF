@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<SSC>
+	<ErrorContext></ErrorContext>
+	<User></User>
+	<SunSystemsContext>
+		<BusinessUnit>E0X</BusinessUnit>
+		<BudgetCode>A</BudgetCode>
+	</SunSystemsContext>
+	<Payload>
+		<Filter>
+			<Expr operator="AND">
+				<Item name="/Ledger/Line/AccountCode" operator="BETWEEN" minvalue="PX,20X,10X|42X,40X,10X" maxvalue="PX,20X,10X|42X,40X,10X" />
+				<Item name="/Ledger/Line/JournalType" operator="NEQU" value="VPAY4" />
+				<Item name="/Ledger/Line/JournalType" operator="NEQU" value="VPAY5" />
+				<Item name="/Ledger/Line/JournalType" operator="NEQU" value="ZPAY1" />
+				<Item name="/Ledger/Line/Accounts/LookupCode" operator="EQU" value="RUC" />
+				<Item name="/Ledger/Line/TransactionReference" operator="EQU" value="REFERENCIA" />
+			</Expr>
+		</Filter>
+		<Select>
+			<Ledger>
+				<Line>
+					<AccountCode></AccountCode>
+					<AnalysisCode9></AnalysisCode9>
+					<BaseAmount></BaseAmount>
+					<CurrencyCode></CurrencyCode>
+					<DebitCredit></DebitCredit>
+					<JournalLineNumber></JournalLineNumber>
+					<JournalNumber></JournalNumber>
+					<Description></Description>
+					<JournalType></JournalType>
+					<LinkReference2></LinkReference2>
+					<TransactionAmount></TransactionAmount>
+					<TransactionDate></TransactionDate>
+					<TransactionReference></TransactionReference>
+					<Accounts>
+						<LookupCode></LookupCode>
+					</Accounts>
+					<BaseCurrency>
+						<BaseCurrency></BaseCurrency>
+					</BaseCurrency>
+					<DetailLad>
+						<GeneralDescription1></GeneralDescription1>
+						<GeneralDescription2></GeneralDescription2>
+						<GeneralDescription3></GeneralDescription3>
+					</DetailLad>
+				</Line>
+			</Ledger>
+		</Select>
+	</Payload>
+</SSC>

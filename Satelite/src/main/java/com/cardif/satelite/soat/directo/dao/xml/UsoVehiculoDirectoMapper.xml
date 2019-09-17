@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardif.satelite.soat.directo.dao.UsoVehiculoDirectoMapper">
+	<resultMap id="BaseResultMap" type="com.cardif.satelite.soat.model.UsoVehiculo">
+		<id column="COD_USO" property="codUso" jdbcType="VARCHAR" />
+		<result column="DESCRIPCION_USO" property="descripcionUso" jdbcType="VARCHAR" />
+		<result column="VERSION" property="version" jdbcType="DECIMAL" />
+	</resultMap>
+</mapper>

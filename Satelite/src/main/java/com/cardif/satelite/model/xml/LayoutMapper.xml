@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardif.satelite.suscripcion.dao.LayoutMapper">
+	
+	<resultMap id="BaseResultMap" type="com.cardif.satelite.model.Layout">
+		<id column="ID" property="pk" jdbcType="NUMERIC" />
+		<result column="ID_PRODUCTO" property="idcanal" jdbcType="NUMERIC" />
+		<result column="COLUMNA_EXCEL" property="columnaExcel" jdbcType="VARCHAR" />
+		<result column="COLUMNA_TABLA" property="columnaTabla" jdbcType="VARCHAR" />
+		<result column="TIPO_DATA" property="tipodata" jdbcType="VARCHAR" />
+		<result column="OBLIGATORIO" property="obligatorio" jdbcType="NUMERIC" />
+		<result column="ESTADO" property="estado" jdbcType="NUMERIC" />
+		<result column="POSICION" property="posicion" jdbcType="NUMERIC" />
+		<result column="DESCRIPCION_COLUMNA" property="descripcion" jdbcType="VARCHAR" />
+		<result column="FORMATO" property="formato" jdbcType="VARCHAR" />
+		<result column="OBLIGATORIO_DESC" property="obligatorio_desc" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="com.cardif.satelite.suscripcion.bean.TramaDiariaBean" id="tramaDiaria">
+		<result column="CNAME" property="nombreColumna" jdbcType="VARCHAR"/>
+		<result column="WIDTH" property="numeroCaracteres" jdbcType="NUMERIC"/>
+		<result column="NULLS" property="estado" jdbcType="VARCHAR"/>
+		<result column="COLTYPE" property="tipoDato" jdbcType="VARCHAR"/>
+		<result column="COMMENTS" property="label" jdbcType="VARCHAR"/>		
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID, 
+		ID_PRODUCTO , 
+		COLUMNA_EXCEL, 
+		COLUMNA_TABLA, 
+		ESTADO,
+		TIPO_DATA,
+		OBLIGATORIO,
+		POSICION,
+		DESCRIPCION_COLUMNA
+	</sql>
+	
+	<select id="selectAllLayout" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		FROM DETALLE_TRAMA_LAYOUT 
+	</select>
+	
+	<insert id="insert" parameterType="com.cardif.satelite.model.Layout">
+		<selectKey keyProperty="pk"  order="AFTER" resultType="java.lang.Integer">
+			SELECT SCOPE_IDENTITY()
+		</selectKey>
+		
+		insert into DETALLE_TRAMA_LAYOUT (
+											ID_PRODUCTO , 
+											COLUMNA_EXCEL, 
+											COLUMNA_TABLA, 
+											ESTADO,
+											POSICION,
+											DESCRIPCION_COLUMNA) 
+		VALUES(
+		#{idcanal,jdbcType=NUMERIC},
+		#{columnaExcel,jdbcType=VARCHAR},
+		#{columnaTabla,jdbcType=VARCHAR},
+		#{estado,jdbcType=NUMERIC},
+		#{posicion,jdbcType=NUMERIC},
+		#{descripcion,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.cardif.satelite.model.Layout"   >
+	
+		<selectKey keyProperty="pk"  order="BEFORE" resultType="java.lang.Integer">
+			SELECT SCOPE_IDENTITY()
+		</selectKey>
+		
+		insert into DETALLE_TRAMA_LAYOUT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="idcanal !=null">
+			ID_PRODUCTO,
+			</if>
+			<if test="columnaExcel !=null">
+			COLUMNA_EXCEL,
+			</if>
+			<if test="columnaTabla !=null">
+			COLUMNA_TABLA,
+			</if>
+			<if test="estado !=null">
+			ESTADO,
+			</if>
+			<if test="posicion != null">
+			POSICION,
+			</if>
+			<if test="descripcion != null">
+			DESCRIPCION_COLUMNA,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="idcanal !=null">
+				#{idcanal,jdbcType=NUMERIC},
+			</if>
+			<if test="columnaExcel !=null">
+				#{columnaExcel,jdbcType=VARCHAR},
+			</if>
+			<if test="columnaTabla !=null">
+				#{columnaTabla,jdbcType=VARCHAR},
+			</if>
+			<if test="estado !=null">
+				#{estado,jdbcType=NUMERIC},
+			</if>
+			<if test="posicion != null">
+				#{posicion,jdbcType=NUMERIC},
+			</if>
+			<if test="descripcion != null">
+				#{descripcion,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="updateLayout" parameterType="com.cardif.satelite.model.Layout">
+		
+		UPDATE DETALLE_TRAMA_LAYOUT
+		
+		<set>
+			<if test="idcanal !=null">
+			ID_PRODUCTO = #{idcanal,jdbcType=NUMERIC},
+			</if>
+			<if test="columnaExcel !=null">
+			COLUMNA_EXCEL = #{columnaExcel,jdbcType=NVARCHAR},
+			</if>
+			<if test="columnaTabla !=null">
+			COLUMNA_TABLA = #{columnaTabla,jdbcType=NVARCHAR},
+			</if>
+			<if test="estado !=null">
+			ESTADO = #{estado,jdbcType=NUMERIC},
+			</if>
+			<if test="posicion !=null">
+			POSICION = #{posicion,jdbcType=NUMERIC},
+			</if>
+			<if test="descripcion != null">
+			DESCRIPCION_COLUMNA =	#{descripcion,jdbcType=VARCHAR}
+			</if>
+		</set>
+		
+	</update>
+	
+</mapper>

@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<a4j:keepAlive beanName="anulacionChequeController" />
+<head>
+<style type="text/css">
+.celda {
+	width: 150px;
+	color: #000;
+}
+
+.datatable {
+	padding-top: 10px;
+}
+
+body {
+	font-family: Monaco, Georgia, Times, serif;
+}
+</style>
+
+
+<script type="text/javascript">
+
+function validar(){
+
+	var length=document.querySelectorAll('.rich-message-marker').length;
+	console.info(length);
+	return length==0;
+}
+
+</script>
+</head>
+<body>
+
+	<rich:panel id="reporte" height="100%" reRender="lista">
+
+
+		<f:facet name="header">
+
+			<h:form id="frmActualizar">
+				<h:outputText value="Tesorería > Anulación de Cheques">
+				</h:outputText>
+				<a4j:commandLink action="#{anulacionChequeController.inicio}" reRender="principal" style="text-decoration:none; margin-left:10px">
+					<img src="#{facesContext.externalContext.requestContextPath}/imagenes/refresh.png" width="15" height="15" style="margin: 0; padding: 0" />
+				</a4j:commandLink>
+
+			</h:form>
+
+		</f:facet>
+
+
+		<fieldset id="filtros">
+			<legend>Filtro</legend>
+			<center>
+				<h:form>
+
+					<table border="0" width="300px">
+
+						<tr>
+
+							<td height="30" width="120px" style="text-align: left;"><h:outputText value="Nro Cheque" /></td>
+							<td height="30" width="80" style="text-align: left;"><h:inputText value="#{anulacionChequeController.nro_cheque}" /></td>
+							<td></td>
+							<td width="30" align="center" valign="middle" height="30" style="text-align: right;"><a4j:commandButton
+									action="#{anulacionChequeController.buscar}" value="Buscar" reRender="lista,exportar" style="margin:0 10px;" /></td>
+						</tr>
+
+					</table>
+
+				</h:form>
+
+
+				<h:form id="form2">
+					<rich:extendedDataTable id="lista" var="cheq" value="#{anulacionChequeController.listaCheques}" height="250px" width="750px" rows="10"
+						selection="#{anulacionChequeController.selection}" selectionMode="single" reRender="true">
+
+						<a4j:support event="onselectionchange" action="#{anulacionChequeController.onSelectionChanged}" ajaxSingle="true" limitToList="true"
+							reRender="panelAnular,anular,anular2" />
+
+						<rich:column headerClass="dataTableHeader" width="100">
+							<f:facet name="header">
+								<h:outputText value="Nro Cheque" />
+							</f:facet>
+							<center>
+								<h:outputText value="#{cheq.numero}" />
+							</center>
+						</rich:column>
+
+						<rich:column headerClass="dataTableHeader" width="100">
+							<f:facet name="header">
+								<h:outputText value="Banco" />
+							</f:facet>
+							<center>
+								<h:outputText value="#{cheq.banco}" />
+							</center>
+						</rich:column>
+
+						<rich:column headerClass="dataTableHeader" width="200">
+							<f:facet name="header">
+								<h:outputText value="Beneficiario" />
+							</f:facet>
+							<center>
+								<h:outputText value="#{cheq.nombreBeneficiario}" />
+							</center>
+						</rich:column>
+
+						<rich:column headerClass="dataTableHeader" width="100">
+							<f:facet name="header">
+								<h:outputText value="Moneda" />
+							</f:facet>
+							<center>
+								<h:outputText value="#{cheq.tipoMoneda}" />
+							</center>
+						</rich:column>
+
+						<rich:column headerClass="dataTableHeader" width="160">
+							<f:facet name="header">
+								<h:outputText value="Importe" />
+							</f:facet>
+							<center>
+								<h:outputText value="#{cheq.importe}" style="float:right">
+									<f:convertNumber locale="en_US" />
+								</h:outputText>
+							</center>
+						</rich:column>
+
+						<rich:column headerClass="dataTableHeader" width="100">
+							<f:facet name="header">
+								<h:outputText value="Fec Impresión" />
+							</f:facet>
+							<center>
+								<h:outputText value="#{cheq.fechaImpresion}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</center>
+						</rich:column>
+
+						<f:facet name="footer">
+							<rich:datascroller id="ds" for="lista" maxPages="10"></rich:datascroller>
+						</f:facet>
+
+					</rich:extendedDataTable>
+
+					<a4j:region>
+
+						<a4j:commandButton id="anular" value="Anular" style="margin-top:10px" disabled="#{anulacionChequeController.desabilitarAnula}"
+							oncomplete="if (#{anulacionChequeController.puedeAnular}) 
+								#{rich:component('panelAnular')}.show();" />
+
+					</a4j:region>
+				</h:form>
+
+			</center>
+
+		</fieldset>
+	</rich:panel>
+
+	<rich:modalPanel id="panelAnular" autosized="true">
+		<f:facet name="header">
+			<h:outputText value="Confirmación de anulación de cheque" />
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/imagenes/close.gif" styleClass="hidelink" id="hidelinkAnular" />
+				<rich:componentControl for="panelAnular" attachTo="hidelinkAnular" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<h:form>
+			<a4j:region>
+
+				<h:panelGrid>
+					<h:outputText value="Usted esta a punto de anular el siguiente cheque IMPRESO" />
+					<a4j:outputPanel id="camposAnular">
+						Nº Cheque: <h:outputText value="#{anulacionChequeController.chequeActual.numero}" />
+						<br />
+						Banco: <h:outputText value="#{anulacionChequeController.chequeActual.banco}" />
+						<br />
+						Nombre Beneficiario: <h:outputText value="#{anulacionChequeController.chequeActual.nombreBeneficiario}" />
+						<br />
+						Moneda: <h:outputText value="#{anulacionChequeController.chequeActual.tipoMoneda}" />
+						<br />
+						Importe:<h:outputText value="#{anulacionChequeController.chequeActual.importe}" />
+						<br />
+						Fecha Impresion:<h:outputText value="#{anulacionChequeController.chequeActual.fechaImpresion}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+						<br />
+						Estado: <h:outputText value="Impreso" rendered="#{anulacionChequeController.chequeActual.estadoCheque eq 'I' }" />
+						<h:outputText value="Pendiente" rendered="#{anulacionChequeController.chequeActual.estadoCheque eq 'P' }" />
+						<h:outputText value="Rechazado" rendered="#{anulacionChequeController.chequeActual.estadoCheque eq 'R' }" />
+						<h:outputText value="Aprobado" rendered="#{anulacionChequeController.chequeActual.estadoCheque eq 'A' }" />
+					</a4j:outputPanel>
+
+
+					<h:outputText value="Ingrese el motivo de anulación" />
+
+					<h:inputTextarea id="txtMotivo" value="#{anulacionChequeController.motivo}" cols="50" rows="3" required="true" requiredMessage="Obligatorio" />
+					<rich:message for="txtMotivo" style="color: red;">
+						<f:facet name="errorMarker">
+							<h:graphicImage url="../imagenes/error.png" />
+						</f:facet>
+					</rich:message>
+
+				</h:panelGrid>
+
+				<center>
+					<h:panelGrid columns="2">
+						<a4j:commandButton id="btnAnular" value="Anular" action="#{anulacionChequeController.anular}"
+							disabled="#{anulacionChequeController.desabilitarAnula}" oncomplete="if(validar()){#{rich:component('panelAnular')}.hide()}"
+							reRender="lista,txtMotivo,camposAnular" />
+						<a4j:commandButton id="btnCancelar" value="Cancelar" oncomplete="#{rich:component('panelAnular')}.hide()" />
+					</h:panelGrid>
+				</center>
+			</a4j:region>
+		</h:form>
+	</rich:modalPanel>
+
+
+
+</body>
+</html>

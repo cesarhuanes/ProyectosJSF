@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+	</settings>
+
+	<mappers>
+		<mapper resource="com/cardif/satelite/soat/ripley/dao/xml/VehiculoPeRipleyMapper.xml" />
+		<mapper resource="com/cardif/satelite/soat/ripley/dao/xml/DireccionPropietarioVehiculoRipleyMapper.xml" />
+		<mapper resource="com/cardif/satelite/soat/ripley/dao/xml/PropietarioRipleyMapper.xml" />
+		<mapper resource="com/cardif/satelite/soat/ripley/dao/xml/OrdenCompraPeMapper.xml" />
+		<mapper resource="com/cardif/satelite/soat/ripley/dao/xml/MarcaVehiculoMapper.xml" />
+		<mapper resource="com/cardif/satelite/soat/ripley/dao/xml/ModeloVehiculoMapper.xml" />
+		<mapper resource="com/cardif/satelite/soat/ripley/dao/xml/TarifaExcepcionMapper.xml" />		
+		<mapper resource="com/cardif/satelite/soat/ripley/dao/xml/SocioDigitalesRipleyMapper.xml"/> 
+		
+	</mappers>
+
+</configuration>

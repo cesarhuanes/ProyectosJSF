@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardif.satelite.configuracion.dao.CategoriaClaseMapper">
+	
+	<resultMap id="BaseResultMap" type="com.cardif.satelite.model.CategoriaClase">
+		<id column="COD_CATEGORIA_CLASE" property="codCategoriaClase" jdbcType="VARCHAR" />
+		<result column="DESCRIPCION_CATEGORIA_CLASE" property="descripcionCategoriaClase" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		COD_CATEGORIA_CLASE, DESCRIPCION_CATEGORIA_CLASE
+	</sql>
+	
+	<select id="selectAllCategoriaClases" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from CATEGORIA_CLASE order by COD_CATEGORIA_CLASE asc	
+	</select>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from CATEGORIA_CLASE
+		where COD_CATEGORIA_CLASE = #{codCategoriaClase,jdbcType=VARCHAR}
+	</select>
+</mapper>

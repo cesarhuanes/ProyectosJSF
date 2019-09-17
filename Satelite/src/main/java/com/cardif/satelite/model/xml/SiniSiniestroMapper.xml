@@ -1,0 +1,1394 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardif.satelite.siniestro.dao.SiniSiniestroMapper">
+
+	<resultMap id="ConsultaSiniResultMap" type="com.cardif.satelite.siniestro.bean.ConsultaSiniestro">
+		<id column="NRO_SINIESTRO" property="nroSiniestro" jdbcType="NVARCHAR" />
+		<result column="FEC_OCURRENCIA" property="fecOcurrencia" jdbcType="TIMESTAMP" />
+		<result column="NOM_SOCIO" property="nomSocio" jdbcType="NVARCHAR" />
+		<result column="NOM_PRODUCTO" property="nomProducto" jdbcType="NVARCHAR" />
+		<result column="NOM_COBERTURA" property="nomCobertura" jdbcType="NVARCHAR" />
+		<result column="NRO_POLIZA" property="nroPoliza" jdbcType="NVARCHAR" />
+		<result column="TIP_DOCUM" property="tipDocum" jdbcType="NVARCHAR" />
+		<result column="NRO_DOCUMENTO" property="nroDocumento" jdbcType="NVARCHAR" />
+		<result column="NOM_COMPLETO" property="nomCompleto" jdbcType="NVARCHAR" />
+		<result column="FEC_RECEP_SOCIO" property="fecRecepSocio" jdbcType="TIMESTAMP" />
+		<result column="IMP_PAGOS" property="impPagos" jdbcType="NUMERIC" />
+		<result column="FEC_APROB_RECHAZO" property="fecAprobRechazo" jdbcType="TIMESTAMP" />
+		<result column="NOM_ESTADO" property="nomEstado" jdbcType="NVARCHAR" />
+		<result column="NRO_PLANILLA" property="nroPlanilla" jdbcType="NVARCHAR" />
+		<result column="NOM_MONEDA" property="nomMoneda" jdbcType="NVARCHAR" />
+		<result column="COD_SOCIO" property="codSocio" jdbcType="NVARCHAR" />
+		<result column="FEC_ULT_DOCUM" property="fecUltDocumentacion" jdbcType="TIMESTAMP" />
+		<result column="TIP_REF_CAFAE" property="tipRefCafae" jdbcType="NVARCHAR" />
+		<result column="REF_CAFAE" property="refCafae" jdbcType="NVARCHAR" />
+		<result column="USU_CREACION" property="usuCreacion" jdbcType="NVARCHAR" />
+		<result column="FEC_CREACION" property="fecCreacion" jdbcType="TIMESTAMP" />
+		<result column="COD_PAIS" property="codPais" jdbcType="NVARCHAR" />
+		<result column="FEC_ULT_DOCUM_SOCIO" property="fecUltDocumSocio" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<resultMap id="ConsultaReporteSiniResultMap" type="com.cardif.satelite.siniestro.bean.ReporteSiniestro">
+		<id column="NRO_SINIESTRO" property="nroSiniestro" jdbcType="NVARCHAR" />
+		<result column="FEC_OCURRENCIA" property="fecOcurrencia" jdbcType="TIMESTAMP" />
+		<result column="MES_OCURRENCIA" property="mesOcurrencia" jdbcType="NVARCHAR" />
+		<result column="FEC_NOTIFICACION" property="fecNotificacion" jdbcType="TIMESTAMP" />
+		<result column="MES_NOTIFICACION" property="mesNotificacion" jdbcType="NVARCHAR" />
+		<result column="COD_COBERTURA" property="codCobertura" jdbcType="NVARCHAR" />
+		<result column="COD_UBICACION" property="codUbicacion" jdbcType="NVARCHAR" />
+		<result column="COD_ESTADO" property="codEstado" jdbcType="NVARCHAR" />
+		<result column="COD_EST_LEGAJO" property="codEstLegajo" jdbcType="NVARCHAR" />
+		<result column="COD_MOT_RECHAZO_AGR" property="codMotRechazoAgr" jdbcType="NVARCHAR" />
+		<result column="COD_MOT_RECHAZO" property="codMotRechazo" jdbcType="NVARCHAR" />
+		<result column="COD_RESUMEN" property="codResumen" jdbcType="NVARCHAR" />
+		<result column="CIE_10" property="cie10" jdbcType="NVARCHAR" />
+		<result column="DIAGNOSTICO" property="diagnostico" jdbcType="NVARCHAR" />
+		<result column="NRO_CARTA" property="nroCarta" jdbcType="NVARCHAR" />
+		<result column="FEC_APROB_RECHAZO" property="fecAprobRechazo" jdbcType="TIMESTAMP" />
+		<result column="MES_APROB_RECHAZO" property="mesAprobRechazo" jdbcType="NVARCHAR" />
+		<result column="FEC_RECEP_SOCIO" property="fecRecepSocio" jdbcType="TIMESTAMP" />
+		<result column="FEC_ULT_DOCUM" property="fecUltDocum" jdbcType="TIMESTAMP" />
+		<result column="CAN_DIAS_LIQUI_RECHA" property="canDiasLiquiRecha" jdbcType="NUMERIC" />
+		<result column="CAN_DIAS_PENDIENTES" property="canDiasPendientes" jdbcType="NUMERIC" />
+		<result column="VAL_EDAD_INGRESO" property="valEdadIngreso" jdbcType="NVARCHAR" />
+		<result column="VAL_EDAD_PERMANENCIA" property="valEdadPermanencia" jdbcType="NVARCHAR" />
+		<result column="VAL_CARENCIA" property="valCarencia" jdbcType="NVARCHAR" />
+		<result column="CAN_SINIESTRO" property="canSiniestro" jdbcType="NUMERIC" />
+		<result column="OBSERVACIONES" property="observaciones" jdbcType="NVARCHAR" />
+		<result column="FLAG_CARGO_CARTA" property="flagCargoCarta" jdbcType="NVARCHAR" />
+		<result column="FEC_ENTREGA" property="fecEntrega" jdbcType="TIMESTAMP" />
+		<result column="COD_MOT_NO_ENT" property="codMotNoEnt" jdbcType="NVARCHAR" />
+		<result column="FEC_SOLIC_NUEVA_DIREC" property="fecSolicNuevaDirec" jdbcType="TIMESTAMP" />
+		<result column="FEC_REENVIO" property="fecReenvio" jdbcType="TIMESTAMP" />
+		<result column="NRO_ENVIOS" property="nroEnvios" jdbcType="NUMERIC" />
+		<result column="NRO_CAJA" property="nroCaja" jdbcType="NVARCHAR" />
+		<result column="TEL_REFERENCIA" property="telReferencia" jdbcType="NVARCHAR" />
+		<result column="CONTACTO" property="contacto" jdbcType="NVARCHAR" />
+		<result column="CORREO" property="correo" jdbcType="NVARCHAR" />
+		<result column="DIR_DOMICILIO" property="dirDomicilio" jdbcType="NVARCHAR" />
+		<result column="COD_DEPARTAMENTO" property="codDepartamento" jdbcType="NVARCHAR" />
+		<result column="COD_PROVINCIA" property="codProvincia" jdbcType="NVARCHAR" />
+		<result column="COD_DISTRITO" property="codDistrito" jdbcType="NVARCHAR" />
+		<result column="NOMBRE_DEPARTAMENTO" property="nomDepartamento" jdbcType="NVARCHAR" />
+		<result column="NOMBRE_PROVINCIA" property="nomProvincia" jdbcType="NVARCHAR" />
+		<result column="NOMBRE_DISTRITO" property="nomDistrito" jdbcType="NVARCHAR" />
+		<result column="COD_TIP_SEGURO" property="codTipSeguro" jdbcType="NVARCHAR" />
+		<result column="RANGOS" property="rangos" jdbcType="NVARCHAR" />
+		<result column="LEY_RESERVA_PENDIENTE" property="leyReservaPendiente" jdbcType="NVARCHAR" />
+		<result column="LEY_RESERVA_PENDIENTE_1" property="leyReservaPendiente1" jdbcType="NVARCHAR" />
+		<result column="NRO_DOCUM_ASEGURADO" property="nroDocumAsegurado" jdbcType="NVARCHAR" />
+		<result column="TIP_DOCUM_ASEGURADO" property="tipDocumAsegurado" jdbcType="NVARCHAR" />
+		<result column="NACIONALIDAD" property="nacionalidad" jdbcType="NVARCHAR" />
+		<result column="COD_GENERO" property="codGenero" jdbcType="NVARCHAR" />
+		<result column="NOM_ASEGURADO" property="nomAsegurado" jdbcType="NVARCHAR" />
+		<result column="APE_PAT_ASEGURADO" property="apePatAsegurado" jdbcType="NVARCHAR" />
+		<result column="APE_MAT_ASEGURADO" property="apeMatAsegurado" jdbcType="NVARCHAR" />
+		<result column="NOMBRE_COMPLETO" property="nombreCompleto" jdbcType="NVARCHAR" />
+		<result column="FEC_NACIMIENTO" property="fecNacimiento" jdbcType="TIMESTAMP" />
+		<result column="EDA_FEC_OCURRENCIA" property="edaFecOcurrencia" jdbcType="NUMERIC" />
+		<result column="COD_PAR_ASEGURADO" property="codParAsegurado" jdbcType="NVARCHAR" />
+		<result column="IMP_PAGOS" property="impPagos" jdbcType="NUMERIC" />
+		<result column="IMP_RESERVA" property="impReserva" jdbcType="NUMERIC" />
+		<result column="RESERVA_INICIAL" property="reservaInicial" jdbcType="NUMERIC" />
+		<result column="COD_MONEDA" property="codMoneda" jdbcType="NVARCHAR" />
+		<result column="NRO_PLANILLA" property="nroPlanilla" jdbcType="NVARCHAR" />
+		<result column="FEC_ENTREGA_OP_CONT" property="fecEntregaOpCont" jdbcType="TIMESTAMP" />
+		<result column="FEC_EMI_CHEQUE" property="fecEmiCheque" jdbcType="TIMESTAMP" />
+		<result column="FEC_ENT_CHEQUE" property="fecEntCheque" jdbcType="TIMESTAMP" />
+		<result column="USU_CREACION" property="usuCreacion" jdbcType="NVARCHAR" />
+		<result column="FEC_CREACION" property="fecCreacion" jdbcType="TIMESTAMP" />
+		<result column="USU_MODIFICACION" property="usuModificacion" jdbcType="NVARCHAR" />
+		<result column="FEC_MODIFICACION" property="fecModificacion" jdbcType="TIMESTAMP" />
+		<result column="FEC_ULT_DOCUM_SOCIO" property="fecUltDocumSocio" jdbcType="TIMESTAMP"/>
+		<result column="FEC_NOTIFICACION_MENOR" property="fecNotificacionMenor" jdbcType="TIMESTAMP"/>
+		<result column="MES_NOTIFICACION_SOCIO" property="mesNotificacionSocio" jdbcType="NVARCHAR"/>
+		<result column="DIAS_NOTIFICACION" property="diasNotificacion" jdbcType="NUMERIC"/>
+		<result column="DIAS_ULT_DOCUMENTACION" property="diasDocumentacion" jdbcType="NUMERIC"/>
+
+		<result column="EJE_CAFAE" property="ejeCafae" jdbcType="NVARCHAR" />
+		<result column="TIP_REF_CAFAE" property="tipRefCafae" jdbcType="NVARCHAR" />
+		<result column="REF_CAFAE" property="refCafae" jdbcType="NVARCHAR" />
+		<result column="TIP_DOC_BENEFICIARIO" property="tipDocBeneficiario" jdbcType="NVARCHAR" />
+		<result column="NRO_DOC_BENEFICIARIO" property="nroDocBeneficiario" jdbcType="NVARCHAR" />
+		<result column="NOM_BENEFICIARIO" property="nomBeneficiario" jdbcType="NVARCHAR" />
+		<result column="PARENTESCO_BENEF" property="parentescoBenef" jdbcType="NVARCHAR" />
+		<result column="FONDO_CAFAE" property="fondoCafae" jdbcType="NVARCHAR" />
+		<result column="FLAG_MU_NA" property="flagMuNa" jdbcType="NVARCHAR" />
+		<result column="FLAG_MU_AC" property="flagMuAc" jdbcType="NVARCHAR" />
+		<result column="FLAG_IHP" property="flagIhp" jdbcType="NVARCHAR" />
+		<result column="FLAG_SA_DE" property="flagSaDe" jdbcType="NVARCHAR" />
+		<result column="FLAG_UT_ES" property="flagUtEs" jdbcType="NVARCHAR" />
+		<result column="FLAG_RE_RE" property="flagReRe" jdbcType="NVARCHAR" />
+		<result column="FLAG_TR_RE" property="flagTrRe" jdbcType="NVARCHAR" />
+		<result column="FLAG_IN_TO_PE" property="flagInToPe" jdbcType="NVARCHAR" />
+		<result column="FLAG_DC" property="flagDc" jdbcType="NVARCHAR" />
+		<result column="FLAG_DS" property="flagDs" jdbcType="NVARCHAR" />
+
+		<result column="COD_SUC_RETIRO" property="codSucRetiro" jdbcType="NVARCHAR" />
+		<result column="IMP_PRE_LIQUID" property="impPreLiquid" jdbcType="NUMERIC" />
+		<result column="IMP_GAS_MEDICOS" property="impGasMedicos" jdbcType="NUMERIC" />
+		<result column="FLAG_CELULAR" property="flagCelular" jdbcType="NVARCHAR" />
+		<result column="FLAG_CARTERA" property="flagCartera" jdbcType="NVARCHAR" />
+		<result column="FLAG_MALETIN" property="flagMaletin" jdbcType="NVARCHAR" />
+		<result column="FLAG_BILLETERA" property="flagBilletera" jdbcType="NVARCHAR" />
+		<result column="FLAG_PORTADOCUMENTOS" property="flagPortadocumentos" jdbcType="NVARCHAR" />
+		<result column="FLAG_LENTES_OPTICOS" property="flagLentesOpticos" jdbcType="NVARCHAR" />
+		<result column="FLAG_LENTES_DE_SOL" property="flagLentesDeSol" jdbcType="NVARCHAR" />
+		<result column="FLAG_COSMETICOS" property="flagCosmeticos" jdbcType="NVARCHAR" />
+		<result column="FLAG_LAPICERO" property="flagLapicero" jdbcType="NVARCHAR" />
+		<result column="FLAG_DNI" property="flagDni" jdbcType="NVARCHAR" />
+		<result column="FLAG_MOCHILA" property="flagMochila" jdbcType="NVARCHAR" />
+		<result column="FLAG_RELOJ" property="flagReloj" jdbcType="NVARCHAR" />
+		<result column="FLAG_DISC_IPOD_MP3" property="flagDiscIpodMp3" jdbcType="NVARCHAR" />
+		<result column="FLAG_PALM_TABLED" property="flagPalmTabled" jdbcType="NVARCHAR" />
+		<result column="FLAG_BOLSO" property="flagBolso" jdbcType="NVARCHAR" />
+		<result column="FLAG_SILLA_AUTO_BB" property="flagSillaAutoBb" jdbcType="NVARCHAR" />
+		<result column="FLAG_COCHE_BB" property="flagCocheBb" jdbcType="NVARCHAR" />
+		<result column="FLAG_DISCO" property="flagDisco" jdbcType="NVARCHAR" />
+		<result column="FLAG_LLANTA" property="flagLlanta" jdbcType="NVARCHAR" />
+		<result column="FLAG_GASTO_MEDICO" property="flagGastoMedico" jdbcType="NVARCHAR" />
+		<result column="FLAG_MUERTE_ACCID" property="flagMuerteAccid" jdbcType="NVARCHAR" />
+		<result column="FLAG_LLAVES" property="flagLlaves" jdbcType="NVARCHAR" />
+		<result column="FLAG_LIBRE_DISP" property="flagLibreDisp" jdbcType="NVARCHAR" />
+
+		<result column="IMP_MAX_CUOTA" property="impMaxCuota" jdbcType="NUMERIC" />
+		<result column="NRO_CUOTA" property="nroCuota" jdbcType="NUMERIC" />
+
+		<result column="CAN_DIAS_CN" jdbcType="NUMERIC" property="canDiasCn" />
+		<result column="CAN_DIAS_UCI" jdbcType="NUMERIC" property="canDiasUci" />
+		<result column="IMP_CALC_LIQUID" jdbcType="NUMERIC" property="impCalcLiquid" />
+		<result column="CAN_DIAS_HOSPITAL" jdbcType="NUMERIC" property="canDiasHospital" />
+		<result column="EXCEPCION" jdbcType="NVARCHAR" property="excepcion" />
+
+		<result column="NRO_TARJETA" property="nroTarjeta" jdbcType="NVARCHAR" />
+		<result column="TIP_TARJETA" property="tipTarjeta" jdbcType="NVARCHAR" />
+		<result column="COD_SOCIO" jdbcType="NVARCHAR" property="codSocio" />
+		<result column="NRO_PRODUCTO" jdbcType="NVARCHAR" property="nroProducto" />
+		<result column="PLAN_POLIZA" jdbcType="NVARCHAR" property="planPoliza" />
+		<result column="NRO_POLIZA" jdbcType="NVARCHAR" property="nroPoliza" />
+		<result column="NRO_CERTIFICADO" jdbcType="NVARCHAR" property="nroCertificado" />
+		<result column="FEC_INI_VIGENCIA" jdbcType="TIMESTAMP" property="fecIniVigencia" />
+		<result column="FEC_FIN_VIGENCIA" jdbcType="TIMESTAMP" property="fecFinVigencia" />
+		<result column="NOM_PRODUCTO" property="nomProducto" jdbcType="NVARCHAR" />
+		<result column="COD_RAMO" property="codRamo" jdbcType="NVARCHAR" />
+		<result column="NOM_RAMO" property="nomRamo" jdbcType="NVARCHAR" />
+		<result column="COD_PRODUCTO_ACSELE" property="codProductoAcsele" jdbcType="NUMERIC" />
+		<result column="COD_PRODUCTO_SINI" property="codProductoSini" jdbcType="NUMERIC" />
+
+		<result column="NOMBRE_PAIS" property="nomPais" jdbcType="NVARCHAR" />
+		<result column="NOMB_TIP_TRAB_INDEP" property="nombTipoTrabajador" jdbcType="NVARCHAR" />
+		<result column="NOM_TIP_REF_CAFAE" property="nombTipRefCafae" jdbcType="NVARCHAR" />
+		<result column="AUTOSEGURO" property="autoseguro" jdbcType="NVARCHAR" />
+
+	</resultMap>
+
+	<resultMap id="BaseResultMap" type="com.cardif.satelite.model.SiniSiniestro">
+		<!-- WARNING - @mbggenerated This element is automatically generated by MyBatis Generator, do not modify. This element was generated on Thu Jul 31 14:38:07 
+			COT 2014. -->
+		<id column="NRO_SINIESTRO" jdbcType="NVARCHAR" property="nroSiniestro" />
+		<result column="FEC_OCURRENCIA" jdbcType="TIMESTAMP" property="fecOcurrencia" />
+		<result column="FEC_NOTIFICACION" jdbcType="TIMESTAMP" property="fecNotificacion" />
+		<result column="COD_COBERTURA" jdbcType="NVARCHAR" property="codCobertura" />
+		<result column="COD_UBICACION" jdbcType="NVARCHAR" property="codUbicacion" />
+		<result column="COD_ESTADO" jdbcType="NVARCHAR" property="codEstado" />
+		<result column="COD_EST_LEGAJO" jdbcType="NVARCHAR" property="codEstLegajo" />
+		<result column="COD_MOT_RECHAZO_AGR" jdbcType="NVARCHAR" property="codMotRechazoAgr" />
+		<result column="COD_MOT_RECHAZO" jdbcType="NVARCHAR" property="codMotRechazo" />
+		<result column="COD_RESUMEN" jdbcType="NVARCHAR" property="codResumen" />
+		<result column="CIE_10" jdbcType="NVARCHAR" property="cie10" />
+		<result column="DIAGNOSTICO" jdbcType="NVARCHAR" property="diagnostico" />
+		<result column="NRO_CARTA" jdbcType="NVARCHAR" property="nroCarta" />
+		<result column="FEC_APROB_RECHAZO" jdbcType="TIMESTAMP" property="fecAprobRechazo" />
+		<result column="FEC_RECEP_SOCIO" jdbcType="TIMESTAMP" property="fecRecepSocio" />
+		<result column="FEC_ULT_DOCUM" jdbcType="TIMESTAMP" property="fecUltDocum" />
+		<result column="CAN_DIAS_LIQUI_RECHA" jdbcType="NUMERIC" property="canDiasLiquiRecha" />
+		<result column="CAN_DIAS_PENDIENTES" jdbcType="NUMERIC" property="canDiasPendientes" />
+		<result column="VAL_EDAD_INGRESO" jdbcType="NVARCHAR" property="valEdadIngreso" />
+		<result column="VAL_EDAD_PERMANENCIA" jdbcType="NVARCHAR" property="valEdadPermanencia" />
+		<result column="VAL_CARENCIA" jdbcType="NVARCHAR" property="valCarencia" />
+		<result column="CAN_SINIESTRO" jdbcType="NUMERIC" property="canSiniestro" />
+		<result column="OBSERVACIONES" jdbcType="NVARCHAR" property="observaciones" />
+		<result column="FLAG_CARGO_CARTA" jdbcType="NUMERIC" property="flagCargoCarta" />
+		<result column="FEC_ENTREGA" jdbcType="TIMESTAMP" property="fecEntrega" />
+		<result column="COD_MOT_NO_ENT" jdbcType="NVARCHAR" property="codMotNoEnt" />
+		<result column="FEC_SOLIC_NUEVA_DIREC" jdbcType="TIMESTAMP" property="fecSolicNuevaDirec" />
+		<result column="FEC_REENVIO" jdbcType="TIMESTAMP" property="fecReenvio" />
+		<result column="NRO_ENVIOS" jdbcType="NUMERIC" property="nroEnvios" />
+		<result column="NRO_CAJA" jdbcType="NVARCHAR" property="nroCaja" />
+		<result column="TEL_REFERENCIA" jdbcType="NVARCHAR" property="telReferencia" />
+		<result column="CONTACTO" jdbcType="NVARCHAR" property="contacto" />
+		<result column="CORREO" jdbcType="NVARCHAR" property="correo" />
+		<result column="DIR_DOMICILIO" jdbcType="NVARCHAR" property="dirDomicilio" />
+		<result column="COD_DEPARTAMENTO" jdbcType="NVARCHAR" property="codDepartamento" />
+		<result column="COD_PROVINCIA" jdbcType="NVARCHAR" property="codProvincia" />
+		<result column="COD_DISTRITO" jdbcType="NVARCHAR" property="codDistrito" />
+		<result column="COD_TIP_SEGURO" jdbcType="NVARCHAR" property="codTipSeguro" />
+		<result column="RANGOS" jdbcType="NVARCHAR" property="rangos" />
+		<result column="LEY_RESERVA_PENDIENTE" jdbcType="NVARCHAR" property="leyReservaPendiente" />
+		<result column="LEY_RESERVA_PENDIENTE_1" jdbcType="NVARCHAR" property="leyReservaPendiente1" />
+		<result column="NRO_DOCUM_ASEGURADO" jdbcType="NVARCHAR" property="nroDocumAsegurado" />
+		<result column="TIP_DOCUM_ASEGURADO" jdbcType="NVARCHAR" property="tipDocumAsegurado" />
+		<result column="NACIONALIDAD" jdbcType="NVARCHAR" property="nacionalidad" />
+		<result column="COD_GENERO" jdbcType="NVARCHAR" property="codGenero" />
+		<result column="NOM_ASEGURADO" jdbcType="NVARCHAR" property="nomAsegurado" />
+		<result column="APE_PAT_ASEGURADO" jdbcType="NVARCHAR" property="apePatAsegurado" />
+		<result column="APE_MAT_ASEGURADO" jdbcType="NVARCHAR" property="apeMatAsegurado" />
+		<result column="FEC_NACIMIENTO" jdbcType="TIMESTAMP" property="fecNacimiento" />
+		<result column="EDA_FEC_OCURRENCIA" jdbcType="NUMERIC" property="edaFecOcurrencia" />
+		<result column="COD_PAR_ASEGURADO" jdbcType="NVARCHAR" property="codParAsegurado" />
+		<result column="IMP_PAGOS" jdbcType="NUMERIC" property="impPagos" />
+		<result column="IMP_RESERVA" jdbcType="NUMERIC" property="impReserva" />
+		<result column="COD_MONEDA" jdbcType="NVARCHAR" property="codMoneda" />
+		<result column="NRO_PLANILLA" jdbcType="NVARCHAR" property="nroPlanilla" />
+		<result column="FEC_ENTREGA_OP_CONT" jdbcType="TIMESTAMP" property="fecEntregaOpCont" />
+		<result column="FEC_EMI_CHEQUE" jdbcType="TIMESTAMP" property="fecEmiCheque" />
+		<result column="FEC_ENT_CHEQUE" jdbcType="TIMESTAMP" property="fecEntCheque" />
+		<result column="USU_CREACION" jdbcType="NVARCHAR" property="usuCreacion" />
+		<result column="FEC_CREACION" jdbcType="TIMESTAMP" property="fecCreacion" />
+		<result column="USU_MODIFICACION" jdbcType="NVARCHAR" property="usuModificacion" />
+		<result column="FEC_MODIFICACION" jdbcType="TIMESTAMP" property="fecModificacion" />
+		<result column="COD_PAIS" jdbcType="NVARCHAR" property="codPais" />
+		<result column="FEC_ULT_DOCUM_SOCIO" property="fecUltDocumSocio" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<!-- WARNING - @mbggenerated This element is automatically generated by MyBatis Generator, do not modify. This element was generated on Thu Jul 31 14:38:07 
+			COT 2014. -->
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+
+
+
+	<sql id="Update_By_Example_Where_Clause">
+		<!-- WARNING - @mbggenerated This element is automatically generated by MyBatis Generator, do not modify. This element was generated on Thu Jul 31 14:38:07 
+			COT 2014. -->
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		<!-- WARNING - @mbggenerated This element is automatically generated by MyBatis Generator, do not modify. This element was generated on Thu Jul 31 14:38:07 
+			COT 2014. -->
+		NRO_SINIESTRO, FEC_OCURRENCIA, FEC_NOTIFICACION, COD_COBERTURA, COD_UBICACION, COD_ESTADO,
+		COD_EST_LEGAJO, COD_MOT_RECHAZO_AGR, COD_MOT_RECHAZO,
+		COD_RESUMEN, CIE_10, DIAGNOSTICO,
+		NRO_CARTA, FEC_APROB_RECHAZO, FEC_RECEP_SOCIO, FEC_ULT_DOCUM, CAN_DIAS_LIQUI_RECHA,
+		CAN_DIAS_PENDIENTES,
+		VAL_EDAD_INGRESO, VAL_EDAD_PERMANENCIA, VAL_CARENCIA, CAN_SINIESTRO,
+		OBSERVACIONES, FLAG_CARGO_CARTA, FEC_ENTREGA, COD_MOT_NO_ENT,
+		FEC_SOLIC_NUEVA_DIREC,
+		FEC_REENVIO, NRO_ENVIOS, NRO_CAJA, TEL_REFERENCIA, CONTACTO, CORREO, DIR_DOMICILIO,
+		COD_DEPARTAMENTO, COD_PROVINCIA,
+		COD_DISTRITO, COD_TIP_SEGURO, RANGOS, LEY_RESERVA_PENDIENTE,
+		LEY_RESERVA_PENDIENTE_1, NRO_DOCUM_ASEGURADO, TIP_DOCUM_ASEGURADO, NACIONALIDAD,
+		COD_GENERO, NOM_ASEGURADO, APE_PAT_ASEGURADO, APE_MAT_ASEGURADO, FEC_NACIMIENTO,
+		EDA_FEC_OCURRENCIA, COD_PAR_ASEGURADO, IMP_PAGOS, IMP_RESERVA,
+		COD_MONEDA, NRO_PLANILLA,
+		FEC_ENTREGA_OP_CONT, FEC_EMI_CHEQUE, FEC_ENT_CHEQUE, USU_CREACION, FEC_CREACION,
+		USU_MODIFICACION, FEC_MODIFICACION
+	</sql>
+	<select id="selectByExample" parameterType="com.cardif.satelite.model.SiniSiniestroExample" resultMap="BaseResultMap">
+		<!-- WARNING - @mbggenerated This element is automatically generated by MyBatis Generator, do not modify. This element was generated on Thu Jul 31 14:38:07 
+			COT 2014. -->
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from dbo.SINI_SINIESTRO
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		<!-- WARNING - @mbggenerated This element is automatically generated by MyBatis Generator, do not modify. This element was generated on Thu Jul 31 14:38:07 
+			COT 2014. -->
+		select
+		<include refid="Base_Column_List" />
+		from dbo.SINI_SINIESTRO
+		where NRO_SINIESTRO = #{nroSiniestro,jdbcType=NVARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		<!-- WARNING - @mbggenerated This element is automatically generated by MyBatis Generator, do not modify. This element was generated on Thu Jul 31 14:38:07 
+			COT 2014. -->
+		delete from dbo.SINI_SINIESTRO
+		where NRO_SINIESTRO = #{nroSiniestro,jdbcType=NVARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.cardif.satelite.model.SiniSiniestroExample">
+		<!-- WARNING - @mbggenerated This element is automatically generated by MyBatis Generator, do not modify. This element was generated on Thu Jul 31 14:38:07 
+			COT 2014. -->
+		delete from dbo.SINI_SINIESTRO
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.cardif.satelite.model.SiniSiniestro">
+		<!-- WARNING - @mbggenerated This element is automatically generated by MyBatis Generator, do not modify. This element was generated on Thu Jul 31 14:38:07 
+			COT 2014. -->
+		insert into dbo.SINI_SINIESTRO (NRO_SINIESTRO, FEC_OCURRENCIA, FEC_NOTIFICACION,
+		COD_COBERTURA, COD_UBICACION, COD_ESTADO,
+		COD_EST_LEGAJO,
+		COD_MOT_RECHAZO_AGR, COD_MOT_RECHAZO,
+		COD_RESUMEN, CIE_10, DIAGNOSTICO,
+		NRO_CARTA, FEC_APROB_RECHAZO, FEC_RECEP_SOCIO,
+		FEC_ULT_DOCUM,
+		CAN_DIAS_LIQUI_RECHA, CAN_DIAS_PENDIENTES,
+		VAL_EDAD_INGRESO, VAL_EDAD_PERMANENCIA, VAL_CARENCIA,
+		CAN_SINIESTRO, OBSERVACIONES, FLAG_CARGO_CARTA,
+		FEC_ENTREGA, COD_MOT_NO_ENT, FEC_SOLIC_NUEVA_DIREC,
+		FEC_REENVIO, NRO_ENVIOS, NRO_CAJA,
+		TEL_REFERENCIA, CONTACTO, CORREO,
+		DIR_DOMICILIO,
+		COD_DEPARTAMENTO, COD_PROVINCIA,
+		COD_DISTRITO, COD_TIP_SEGURO, RANGOS,
+		LEY_RESERVA_PENDIENTE, LEY_RESERVA_PENDIENTE_1,
+		NRO_DOCUM_ASEGURADO,
+		TIP_DOCUM_ASEGURADO,
+		NACIONALIDAD, COD_GENERO, NOM_ASEGURADO,
+		APE_PAT_ASEGURADO, APE_MAT_ASEGURADO, FEC_NACIMIENTO,
+		EDA_FEC_OCURRENCIA,
+		COD_PAR_ASEGURADO, IMP_PAGOS,
+		IMP_RESERVA, COD_MONEDA, NRO_PLANILLA,
+		FEC_ENTREGA_OP_CONT, FEC_EMI_CHEQUE, FEC_ENT_CHEQUE,
+		USU_CREACION, FEC_CREACION,
+		USU_MODIFICACION,
+		FEC_MODIFICACION,COD_PAIS,FEC_ULT_DOCUM_SOCIO)
+		values (#{nroSiniestro,jdbcType=NVARCHAR}, #{fecOcurrencia,jdbcType=TIMESTAMP},
+		#{fecNotificacion,jdbcType=TIMESTAMP},
+		#{codCobertura,jdbcType=NVARCHAR}, #{codUbicacion,jdbcType=NVARCHAR}, #{codEstado,jdbcType=NVARCHAR},
+		#{codEstLegajo,jdbcType=NVARCHAR}, #{codMotRechazoAgr,jdbcType=NVARCHAR}, #{codMotRechazo,jdbcType=NVARCHAR},
+		#{codResumen,jdbcType=NVARCHAR},
+		#{cie10,jdbcType=NVARCHAR}, #{diagnostico,jdbcType=NVARCHAR},
+		#{nroCarta,jdbcType=NVARCHAR}, #{fecAprobRechazo,jdbcType=TIMESTAMP},
+		#{fecRecepSocio,jdbcType=TIMESTAMP},
+		#{fecUltDocum,jdbcType=TIMESTAMP}, #{canDiasLiquiRecha,jdbcType=NUMERIC}, #{canDiasPendientes,jdbcType=NUMERIC},
+		#{valEdadIngreso,jdbcType=NVARCHAR}, #{valEdadPermanencia,jdbcType=NVARCHAR}, #{valCarencia,jdbcType=NVARCHAR},
+		#{canSiniestro,jdbcType=NUMERIC},
+		#{observaciones,jdbcType=NVARCHAR}, #{flagCargoCarta,jdbcType=NUMERIC},
+		#{fecEntrega,jdbcType=TIMESTAMP}, #{codMotNoEnt,jdbcType=NVARCHAR},
+		#{fecSolicNuevaDirec,jdbcType=TIMESTAMP},
+		#{fecReenvio,jdbcType=TIMESTAMP}, #{nroEnvios,jdbcType=NUMERIC}, #{nroCaja,jdbcType=NVARCHAR},
+		#{telReferencia,jdbcType=NVARCHAR}, #{contacto,jdbcType=NVARCHAR}, #{correo,jdbcType=NVARCHAR},
+		#{dirDomicilio,jdbcType=NVARCHAR},
+		#{codDepartamento,jdbcType=NVARCHAR}, #{codProvincia,jdbcType=NVARCHAR},
+		#{codDistrito,jdbcType=NVARCHAR}, #{codTipSeguro,jdbcType=NVARCHAR},
+		#{rangos,jdbcType=NVARCHAR},
+		#{leyReservaPendiente,jdbcType=NVARCHAR}, #{leyReservaPendiente1,jdbcType=NVARCHAR},
+		#{nroDocumAsegurado,jdbcType=NVARCHAR}, #{tipDocumAsegurado,jdbcType=NVARCHAR},
+		#{nacionalidad,jdbcType=NVARCHAR}, #{codGenero,jdbcType=NVARCHAR},
+		#{nomAsegurado,jdbcType=NVARCHAR},
+		#{apePatAsegurado,jdbcType=NVARCHAR}, #{apeMatAsegurado,jdbcType=NVARCHAR}, #{fecNacimiento,jdbcType=TIMESTAMP},
+		#{edaFecOcurrencia,jdbcType=NUMERIC}, #{codParAsegurado,jdbcType=NVARCHAR}, #{impPagos,jdbcType=NUMERIC},
+		#{impReserva,jdbcType=NUMERIC},
+		#{codMoneda,jdbcType=NVARCHAR}, #{nroPlanilla,jdbcType=NVARCHAR},
+		#{fecEntregaOpCont,jdbcType=TIMESTAMP}, #{fecEmiCheque,jdbcType=TIMESTAMP},
+		#{fecEntCheque,jdbcType=TIMESTAMP},
+		#{usuCreacion,jdbcType=NVARCHAR}, #{fecCreacion,jdbcType=TIMESTAMP}, #{usuModificacion,jdbcType=NVARCHAR},
+		#{fecModificacion,jdbcType=TIMESTAMP},
+		#{codPais,jdbcType=NVARCHAR},
+		#{fecUltDocumSocio,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.cardif.satelite.model.SiniSiniestro">
+		<!-- WARNING - @mbggenerated This element is automatically generated by MyBatis Generator, do not modify. This element was generated on Thu Jul 31 14:38:07 
+			COT 2014. -->
+		insert into dbo.SINI_SINIESTRO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="nroSiniestro != null">
+				NRO_SINIESTRO,
+			</if>
+			<if test="fecOcurrencia != null">
+				FEC_OCURRENCIA,
+			</if>
+			<if test="fecNotificacion != null">
+				FEC_NOTIFICACION,
+			</if>
+			<if test="codCobertura != null">
+				COD_COBERTURA,
+			</if>
+			<if test="codUbicacion != null">
+				COD_UBICACION,
+			</if>
+			<if test="codEstado != null">
+				COD_ESTADO,
+			</if>
+			<if test="codEstLegajo != null">
+				COD_EST_LEGAJO,
+			</if>
+			<if test="codMotRechazoAgr != null">
+				COD_MOT_RECHAZO_AGR,
+			</if>
+			<if test="codMotRechazo != null">
+				COD_MOT_RECHAZO,
+			</if>
+			<if test="codResumen != null">
+				COD_RESUMEN,
+			</if>
+			<if test="cie10 != null">
+				CIE_10,
+			</if>
+			<if test="diagnostico != null">
+				DIAGNOSTICO,
+			</if>
+			<if test="nroCarta != null">
+				NRO_CARTA,
+			</if>
+			<if test="fecAprobRechazo != null">
+				FEC_APROB_RECHAZO,
+			</if>
+			<if test="fecRecepSocio != null">
+				FEC_RECEP_SOCIO,
+			</if>
+			<if test="fecUltDocum != null">
+				FEC_ULT_DOCUM,
+			</if>
+			<if test="canDiasLiquiRecha != null">
+				CAN_DIAS_LIQUI_RECHA,
+			</if>
+			<if test="canDiasPendientes != null">
+				CAN_DIAS_PENDIENTES,
+			</if>
+			<if test="valEdadIngreso != null">
+				VAL_EDAD_INGRESO,
+			</if>
+			<if test="valEdadPermanencia != null">
+				VAL_EDAD_PERMANENCIA,
+			</if>
+			<if test="valCarencia != null">
+				VAL_CARENCIA,
+			</if>
+			<if test="canSiniestro != null">
+				CAN_SINIESTRO,
+			</if>
+			<if test="observaciones != null">
+				OBSERVACIONES,
+			</if>
+			<if test="flagCargoCarta != null">
+				FLAG_CARGO_CARTA,
+			</if>
+			<if test="fecEntrega != null">
+				FEC_ENTREGA,
+			</if>
+			<if test="codMotNoEnt != null">
+				COD_MOT_NO_ENT,
+			</if>
+			<if test="fecSolicNuevaDirec != null">
+				FEC_SOLIC_NUEVA_DIREC,
+			</if>
+			<if test="fecReenvio != null">
+				FEC_REENVIO,
+			</if>
+			<if test="nroEnvios != null">
+				NRO_ENVIOS,
+			</if>
+			<if test="nroCaja != null">
+				NRO_CAJA,
+			</if>
+			<if test="telReferencia != null">
+				TEL_REFERENCIA,
+			</if>
+			<if test="contacto != null">
+				CONTACTO,
+			</if>
+			<if test="correo != null">
+				CORREO,
+			</if>
+			<if test="dirDomicilio != null">
+				DIR_DOMICILIO,
+			</if>
+			<if test="codDepartamento != null">
+				COD_DEPARTAMENTO,
+			</if>
+			<if test="codProvincia != null">
+				COD_PROVINCIA,
+			</if>
+			<if test="codDistrito != null">
+				COD_DISTRITO,
+			</if>
+			<if test="codTipSeguro != null">
+				COD_TIP_SEGURO,
+			</if>
+			<if test="rangos != null">
+				RANGOS,
+			</if>
+			<if test="leyReservaPendiente != null">
+				LEY_RESERVA_PENDIENTE,
+			</if>
+			<if test="leyReservaPendiente1 != null">
+				LEY_RESERVA_PENDIENTE_1,
+			</if>
+			<if test="nroDocumAsegurado != null">
+				NRO_DOCUM_ASEGURADO,
+			</if>
+			<if test="tipDocumAsegurado != null">
+				TIP_DOCUM_ASEGURADO,
+			</if>
+			<if test="nacionalidad != null">
+				NACIONALIDAD,
+			</if>
+			<if test="codGenero != null">
+				COD_GENERO,
+			</if>
+			<if test="nomAsegurado != null">
+				NOM_ASEGURADO,
+			</if>
+			<if test="apePatAsegurado != null">
+				APE_PAT_ASEGURADO,
+			</if>
+			<if test="apeMatAsegurado != null">
+				APE_MAT_ASEGURADO,
+			</if>
+			<if test="fecNacimiento != null">
+				FEC_NACIMIENTO,
+			</if>
+			<if test="edaFecOcurrencia != null">
+				EDA_FEC_OCURRENCIA,
+			</if>
+			<if test="codParAsegurado != null">
+				COD_PAR_ASEGURADO,
+			</if>
+			<if test="impPagos != null">
+				IMP_PAGOS,
+			</if>
+			<if test="impReserva != null">
+				IMP_RESERVA,
+			</if>
+			<if test="codMoneda != null">
+				COD_MONEDA,
+			</if>
+			<if test="nroPlanilla != null">
+				NRO_PLANILLA,
+			</if>
+			<if test="fecEntregaOpCont != null">
+				FEC_ENTREGA_OP_CONT,
+			</if>
+			<if test="fecEmiCheque != null">
+				FEC_EMI_CHEQUE,
+			</if>
+			<if test="fecEntCheque != null">
+				FEC_ENT_CHEQUE,
+			</if>
+			<if test="usuCreacion != null">
+				USU_CREACION,
+			</if>
+			<if test="fecCreacion != null">
+				FEC_CREACION,
+			</if>
+			<if test="usuModificacion != null">
+				USU_MODIFICACION,
+			</if>
+			<if test="fecModificacion != null">
+				FEC_MODIFICACION,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="nroSiniestro != null">
+				#{nroSiniestro,jdbcType=NVARCHAR},
+			</if>
+			<if test="fecOcurrencia != null">
+				#{fecOcurrencia,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fecNotificacion != null">
+				#{fecNotificacion,jdbcType=TIMESTAMP},
+			</if>
+			<if test="codCobertura != null">
+				#{codCobertura,jdbcType=NVARCHAR},
+			</if>
+			<if test="codUbicacion != null">
+				#{codUbicacion,jdbcType=NVARCHAR},
+			</if>
+			<if test="codEstado != null">
+				#{codEstado,jdbcType=NVARCHAR},
+			</if>
+			<if test="codEstLegajo != null">
+				#{codEstLegajo,jdbcType=NVARCHAR},
+			</if>
+			<if test="codMotRechazoAgr != null">
+				#{codMotRechazoAgr,jdbcType=NVARCHAR},
+			</if>
+			<if test="codMotRechazo != null">
+				#{codMotRechazo,jdbcType=NVARCHAR},
+			</if>
+			<if test="codResumen != null">
+				#{codResumen,jdbcType=NVARCHAR},
+			</if>
+			<if test="cie10 != null">
+				#{cie10,jdbcType=NVARCHAR},
+			</if>
+			<if test="diagnostico != null">
+				#{diagnostico,jdbcType=NVARCHAR},
+			</if>
+			<if test="nroCarta != null">
+				#{nroCarta,jdbcType=NVARCHAR},
+			</if>
+			<if test="fecAprobRechazo != null">
+				#{fecAprobRechazo,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fecRecepSocio != null">
+				#{fecRecepSocio,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fecUltDocum != null">
+				#{fecUltDocum,jdbcType=TIMESTAMP},
+			</if>
+			<if test="canDiasLiquiRecha != null">
+				#{canDiasLiquiRecha,jdbcType=NUMERIC},
+			</if>
+			<if test="canDiasPendientes != null">
+				#{canDiasPendientes,jdbcType=NUMERIC},
+			</if>
+			<if test="valEdadIngreso != null">
+				#{valEdadIngreso,jdbcType=NVARCHAR},
+			</if>
+			<if test="valEdadPermanencia != null">
+				#{valEdadPermanencia,jdbcType=NVARCHAR},
+			</if>
+			<if test="valCarencia != null">
+				#{valCarencia,jdbcType=NVARCHAR},
+			</if>
+			<if test="canSiniestro != null">
+				#{canSiniestro,jdbcType=NUMERIC},
+			</if>
+			<if test="observaciones != null">
+				#{observaciones,jdbcType=NVARCHAR},
+			</if>
+			<if test="flagCargoCarta != null">
+				#{flagCargoCarta,jdbcType=NUMERIC},
+			</if>
+			<if test="fecEntrega != null">
+				#{fecEntrega,jdbcType=TIMESTAMP},
+			</if>
+			<if test="codMotNoEnt != null">
+				#{codMotNoEnt,jdbcType=NVARCHAR},
+			</if>
+			<if test="fecSolicNuevaDirec != null">
+				#{fecSolicNuevaDirec,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fecReenvio != null">
+				#{fecReenvio,jdbcType=TIMESTAMP},
+			</if>
+			<if test="nroEnvios != null">
+				#{nroEnvios,jdbcType=NUMERIC},
+			</if>
+			<if test="nroCaja != null">
+				#{nroCaja,jdbcType=NVARCHAR},
+			</if>
+			<if test="telReferencia != null">
+				#{telReferencia,jdbcType=NVARCHAR},
+			</if>
+			<if test="contacto != null">
+				#{contacto,jdbcType=NVARCHAR},
+			</if>
+			<if test="correo != null">
+				#{correo,jdbcType=NVARCHAR},
+			</if>
+			<if test="dirDomicilio != null">
+				#{dirDomicilio,jdbcType=NVARCHAR},
+			</if>
+			<if test="codDepartamento != null">
+				#{codDepartamento,jdbcType=NVARCHAR},
+			</if>
+			<if test="codProvincia != null">
+				#{codProvincia,jdbcType=NVARCHAR},
+			</if>
+			<if test="codDistrito != null">
+				#{codDistrito,jdbcType=NVARCHAR},
+			</if>
+			<if test="codTipSeguro != null">
+				#{codTipSeguro,jdbcType=NVARCHAR},
+			</if>
+			<if test="rangos != null">
+				#{rangos,jdbcType=NVARCHAR},
+			</if>
+			<if test="leyReservaPendiente != null">
+				#{leyReservaPendiente,jdbcType=NVARCHAR},
+			</if>
+			<if test="leyReservaPendiente1 != null">
+				#{leyReservaPendiente1,jdbcType=NVARCHAR},
+			</if>
+			<if test="nroDocumAsegurado != null">
+				#{nroDocumAsegurado,jdbcType=NVARCHAR},
+			</if>
+			<if test="tipDocumAsegurado != null">
+				#{tipDocumAsegurado,jdbcType=NVARCHAR},
+			</if>
+			<if test="nacionalidad != null">
+				#{nacionalidad,jdbcType=NVARCHAR},
+			</if>
+			<if test="codGenero != null">
+				#{codGenero,jdbcType=NVARCHAR},
+			</if>
+			<if test="nomAsegurado != null">
+				#{nomAsegurado,jdbcType=NVARCHAR},
+			</if>
+			<if test="apePatAsegurado != null">
+				#{apePatAsegurado,jdbcType=NVARCHAR},
+			</if>
+			<if test="apeMatAsegurado != null">
+				#{apeMatAsegurado,jdbcType=NVARCHAR},
+			</if>
+			<if test="fecNacimiento != null">
+				#{fecNacimiento,jdbcType=TIMESTAMP},
+			</if>
+			<if test="edaFecOcurrencia != null">
+				#{edaFecOcurrencia,jdbcType=NUMERIC},
+			</if>
+			<if test="codParAsegurado != null">
+				#{codParAsegurado,jdbcType=NVARCHAR},
+			</if>
+			<if test="impPagos != null">
+				#{impPagos,jdbcType=NUMERIC},
+			</if>
+			<if test="impReserva != null">
+				#{impReserva,jdbcType=NUMERIC},
+			</if>
+			<if test="codMoneda != null">
+				#{codMoneda,jdbcType=NVARCHAR},
+			</if>
+			<if test="nroPlanilla != null">
+				#{nroPlanilla,jdbcType=NVARCHAR},
+			</if>
+			<if test="fecEntregaOpCont != null">
+				#{fecEntregaOpCont,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fecEmiCheque != null">
+				#{fecEmiCheque,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fecEntCheque != null">
+				#{fecEntCheque,jdbcType=TIMESTAMP},
+			</if>
+			<if test="usuCreacion != null">
+				#{usuCreacion,jdbcType=NVARCHAR},
+			</if>
+			<if test="fecCreacion != null">
+				#{fecCreacion,jdbcType=TIMESTAMP},
+			</if>
+			<if test="usuModificacion != null">
+				#{usuModificacion,jdbcType=NVARCHAR},
+			</if>
+			<if test="fecModificacion != null">
+				#{fecModificacion,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.cardif.satelite.model.SiniSiniestroExample" resultType="java.lang.Integer">
+		<!-- WARNING - @mbggenerated This element is automatically generated by MyBatis Generator, do not modify. This element was generated on Thu Jul 31 14:38:07 
+			COT 2014. -->
+		select count(*) from dbo.SINI_SINIESTRO
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		<!-- WARNING - @mbggenerated This element is automatically generated by MyBatis Generator, do not modify. This element was generated on Thu Jul 31 14:38:07 
+			COT 2014. -->
+		update dbo.SINI_SINIESTRO
+		<set>
+			<if test="record.nroSiniestro != null">
+				NRO_SINIESTRO = #{record.nroSiniestro,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.fecOcurrencia != null">
+				FEC_OCURRENCIA = #{record.fecOcurrencia,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.fecNotificacion != null">
+				FEC_NOTIFICACION = #{record.fecNotificacion,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.codCobertura != null">
+				COD_COBERTURA = #{record.codCobertura,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.codUbicacion != null">
+				COD_UBICACION = #{record.codUbicacion,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.codEstado != null">
+				COD_ESTADO = #{record.codEstado,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.codEstLegajo != null">
+				COD_EST_LEGAJO = #{record.codEstLegajo,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.codMotRechazoAgr != null">
+				COD_MOT_RECHAZO_AGR = #{record.codMotRechazoAgr,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.codMotRechazo != null">
+				COD_MOT_RECHAZO = #{record.codMotRechazo,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.codResumen != null">
+				COD_RESUMEN = #{record.codResumen,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.cie10 != null">
+				CIE_10 = #{record.cie10,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.diagnostico != null">
+				DIAGNOSTICO = #{record.diagnostico,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.nroCarta != null">
+				NRO_CARTA = #{record.nroCarta,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.fecAprobRechazo != null">
+				FEC_APROB_RECHAZO = #{record.fecAprobRechazo,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.fecRecepSocio != null">
+				FEC_RECEP_SOCIO = #{record.fecRecepSocio,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.fecUltDocum != null">
+				FEC_ULT_DOCUM = #{record.fecUltDocum,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.canDiasLiquiRecha != null">
+				CAN_DIAS_LIQUI_RECHA = #{record.canDiasLiquiRecha,jdbcType=NUMERIC},
+			</if>
+			<if test="record.canDiasPendientes != null">
+				CAN_DIAS_PENDIENTES = #{record.canDiasPendientes,jdbcType=NUMERIC},
+			</if>
+			<if test="record.valEdadIngreso != null">
+				VAL_EDAD_INGRESO = #{record.valEdadIngreso,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.valEdadPermanencia != null">
+				VAL_EDAD_PERMANENCIA = #{record.valEdadPermanencia,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.valCarencia != null">
+				VAL_CARENCIA = #{record.valCarencia,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.canSiniestro != null">
+				CAN_SINIESTRO = #{record.canSiniestro,jdbcType=NUMERIC},
+			</if>
+			<if test="record.observaciones != null">
+				OBSERVACIONES = #{record.observaciones,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.flagCargoCarta != null">
+				FLAG_CARGO_CARTA = #{record.flagCargoCarta,jdbcType=NUMERIC},
+			</if>
+			<if test="record.fecEntrega != null">
+				FEC_ENTREGA = #{record.fecEntrega,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.codMotNoEnt != null">
+				COD_MOT_NO_ENT = #{record.codMotNoEnt,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.fecSolicNuevaDirec != null">
+				FEC_SOLIC_NUEVA_DIREC = #{record.fecSolicNuevaDirec,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.fecReenvio != null">
+				FEC_REENVIO = #{record.fecReenvio,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.nroEnvios != null">
+				NRO_ENVIOS = #{record.nroEnvios,jdbcType=NUMERIC},
+			</if>
+			<if test="record.nroCaja != null">
+				NRO_CAJA = #{record.nroCaja,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.telReferencia != null">
+				TEL_REFERENCIA = #{record.telReferencia,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.contacto != null">
+				CONTACTO = #{record.contacto,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.correo != null">
+				CORREO = #{record.correo,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.dirDomicilio != null">
+				DIR_DOMICILIO = #{record.dirDomicilio,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.codDepartamento != null">
+				COD_DEPARTAMENTO = #{record.codDepartamento,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.codProvincia != null">
+				COD_PROVINCIA = #{record.codProvincia,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.codDistrito != null">
+				COD_DISTRITO = #{record.codDistrito,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.codTipSeguro != null">
+				COD_TIP_SEGURO = #{record.codTipSeguro,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.rangos != null">
+				RANGOS = #{record.rangos,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.leyReservaPendiente != null">
+				LEY_RESERVA_PENDIENTE = #{record.leyReservaPendiente,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.leyReservaPendiente1 != null">
+				LEY_RESERVA_PENDIENTE_1 = #{record.leyReservaPendiente1,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.nroDocumAsegurado != null">
+				NRO_DOCUM_ASEGURADO = #{record.nroDocumAsegurado,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.tipDocumAsegurado != null">
+				TIP_DOCUM_ASEGURADO = #{record.tipDocumAsegurado,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.nacionalidad != null">
+				NACIONALIDAD = #{record.nacionalidad,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.codGenero != null">
+				COD_GENERO = #{record.codGenero,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.nomAsegurado != null">
+				NOM_ASEGURADO = #{record.nomAsegurado,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.apePatAsegurado != null">
+				APE_PAT_ASEGURADO = #{record.apePatAsegurado,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.apeMatAsegurado != null">
+				APE_MAT_ASEGURADO = #{record.apeMatAsegurado,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.fecNacimiento != null">
+				FEC_NACIMIENTO = #{record.fecNacimiento,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.edaFecOcurrencia != null">
+				EDA_FEC_OCURRENCIA = #{record.edaFecOcurrencia,jdbcType=NUMERIC},
+			</if>
+			<if test="record.codParAsegurado != null">
+				COD_PAR_ASEGURADO = #{record.codParAsegurado,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.impPagos != null">
+				IMP_PAGOS = #{record.impPagos,jdbcType=NUMERIC},
+			</if>
+			<if test="record.impReserva != null">
+				IMP_RESERVA = #{record.impReserva,jdbcType=NUMERIC},
+			</if>
+			<if test="record.codMoneda != null">
+				COD_MONEDA = #{record.codMoneda,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.nroPlanilla != null">
+				NRO_PLANILLA = #{record.nroPlanilla,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.fecEntregaOpCont != null">
+				FEC_ENTREGA_OP_CONT = #{record.fecEntregaOpCont,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.fecEmiCheque != null">
+				FEC_EMI_CHEQUE = #{record.fecEmiCheque,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.fecEntCheque != null">
+				FEC_ENT_CHEQUE = #{record.fecEntCheque,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.usuCreacion != null">
+				USU_CREACION = #{record.usuCreacion,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.fecCreacion != null">
+				FEC_CREACION = #{record.fecCreacion,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.usuModificacion != null">
+				USU_MODIFICACION = #{record.usuModificacion,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.fecModificacion != null">
+				FEC_MODIFICACION = #{record.fecModificacion,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		<!-- WARNING - @mbggenerated This element is automatically generated by MyBatis Generator, do not modify. This element was generated on Thu Jul 31 14:38:07 
+			COT 2014. -->
+		update dbo.SINI_SINIESTRO
+		set NRO_SINIESTRO = #{record.nroSiniestro,jdbcType=NVARCHAR},
+		FEC_OCURRENCIA = #{record.fecOcurrencia,jdbcType=TIMESTAMP},
+		FEC_NOTIFICACION = #{record.fecNotificacion,jdbcType=TIMESTAMP},
+		COD_COBERTURA = #{record.codCobertura,jdbcType=NVARCHAR},
+		COD_UBICACION =
+		#{record.codUbicacion,jdbcType=NVARCHAR},
+		COD_ESTADO = #{record.codEstado,jdbcType=NVARCHAR},
+		COD_EST_LEGAJO =
+		#{record.codEstLegajo,jdbcType=NVARCHAR},
+		COD_MOT_RECHAZO_AGR = #{record.codMotRechazoAgr,jdbcType=NVARCHAR},
+		COD_MOT_RECHAZO =
+		#{record.codMotRechazo,jdbcType=NVARCHAR},
+		COD_RESUMEN = #{record.codResumen,jdbcType=NVARCHAR},
+		CIE_10 = #{record.cie10,jdbcType=NVARCHAR},
+		DIAGNOSTICO = #{record.diagnostico,jdbcType=NVARCHAR},
+		NRO_CARTA = #{record.nroCarta,jdbcType=NVARCHAR},
+		FEC_APROB_RECHAZO =
+		#{record.fecAprobRechazo,jdbcType=TIMESTAMP},
+		FEC_RECEP_SOCIO = #{record.fecRecepSocio,jdbcType=TIMESTAMP},
+		FEC_ULT_DOCUM =
+		#{record.fecUltDocum,jdbcType=TIMESTAMP},
+		CAN_DIAS_LIQUI_RECHA = #{record.canDiasLiquiRecha,jdbcType=NUMERIC},
+		CAN_DIAS_PENDIENTES =
+		#{record.canDiasPendientes,jdbcType=NUMERIC},
+		VAL_EDAD_INGRESO = #{record.valEdadIngreso,jdbcType=NVARCHAR},
+		VAL_EDAD_PERMANENCIA =
+		#{record.valEdadPermanencia,jdbcType=NVARCHAR},
+		VAL_CARENCIA = #{record.valCarencia,jdbcType=NVARCHAR},
+		CAN_SINIESTRO =
+		#{record.canSiniestro,jdbcType=NUMERIC},
+		OBSERVACIONES = #{record.observaciones,jdbcType=NVARCHAR},
+		FLAG_CARGO_CARTA =
+		#{record.flagCargoCarta,jdbcType=NUMERIC},
+		FEC_ENTREGA = #{record.fecEntrega,jdbcType=TIMESTAMP},
+		COD_MOT_NO_ENT =
+		#{record.codMotNoEnt,jdbcType=NVARCHAR},
+		FEC_SOLIC_NUEVA_DIREC = #{record.fecSolicNuevaDirec,jdbcType=TIMESTAMP},
+		FEC_REENVIO =
+		#{record.fecReenvio,jdbcType=TIMESTAMP},
+		NRO_ENVIOS = #{record.nroEnvios,jdbcType=NUMERIC},
+		NRO_CAJA = #{record.nroCaja,jdbcType=NVARCHAR},
+		TEL_REFERENCIA = #{record.telReferencia,jdbcType=NVARCHAR},
+		CONTACTO = #{record.contacto,jdbcType=NVARCHAR},
+		CORREO =
+		#{record.correo,jdbcType=NVARCHAR},
+		DIR_DOMICILIO = #{record.dirDomicilio,jdbcType=NVARCHAR},
+		COD_DEPARTAMENTO =
+		#{record.codDepartamento,jdbcType=NVARCHAR},
+		COD_PROVINCIA = #{record.codProvincia,jdbcType=NVARCHAR},
+		COD_DISTRITO =
+		#{record.codDistrito,jdbcType=NVARCHAR},
+		COD_TIP_SEGURO = #{record.codTipSeguro,jdbcType=NVARCHAR},
+		RANGOS = #{record.rangos,jdbcType=NVARCHAR},
+		LEY_RESERVA_PENDIENTE = #{record.leyReservaPendiente,jdbcType=NVARCHAR},
+		LEY_RESERVA_PENDIENTE_1 = #{record.leyReservaPendiente1,jdbcType=NVARCHAR},
+		NRO_DOCUM_ASEGURADO = #{record.nroDocumAsegurado,jdbcType=NVARCHAR},
+		TIP_DOCUM_ASEGURADO = #{record.tipDocumAsegurado,jdbcType=NVARCHAR},
+		NACIONALIDAD = #{record.nacionalidad,jdbcType=NVARCHAR},
+		COD_GENERO = #{record.codGenero,jdbcType=NVARCHAR},
+		NOM_ASEGURADO =
+		#{record.nomAsegurado,jdbcType=NVARCHAR},
+		APE_PAT_ASEGURADO = #{record.apePatAsegurado,jdbcType=NVARCHAR},
+		APE_MAT_ASEGURADO =
+		#{record.apeMatAsegurado,jdbcType=NVARCHAR},
+		FEC_NACIMIENTO = #{record.fecNacimiento,jdbcType=TIMESTAMP},
+		EDA_FEC_OCURRENCIA =
+		#{record.edaFecOcurrencia,jdbcType=NUMERIC},
+		COD_PAR_ASEGURADO = #{record.codParAsegurado,jdbcType=NVARCHAR},
+		IMP_PAGOS =
+		#{record.impPagos,jdbcType=NUMERIC},
+		IMP_RESERVA = #{record.impReserva,jdbcType=NUMERIC},
+		COD_MONEDA = #{record.codMoneda,jdbcType=NVARCHAR},
+		NRO_PLANILLA = #{record.nroPlanilla,jdbcType=NVARCHAR},
+		FEC_ENTREGA_OP_CONT = #{record.fecEntregaOpCont,jdbcType=TIMESTAMP},
+		FEC_EMI_CHEQUE =
+		#{record.fecEmiCheque,jdbcType=TIMESTAMP},
+		FEC_ENT_CHEQUE = #{record.fecEntCheque,jdbcType=TIMESTAMP},
+		USU_CREACION =
+		#{record.usuCreacion,jdbcType=NVARCHAR},
+		FEC_CREACION = #{record.fecCreacion,jdbcType=TIMESTAMP},
+		USU_MODIFICACION =
+		#{record.usuModificacion,jdbcType=NVARCHAR},
+		FEC_MODIFICACION = #{record.fecModificacion,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.cardif.satelite.model.SiniSiniestro">
+		<!-- WARNING - @mbggenerated This element is automatically generated by MyBatis Generator, do not modify. This element was generated on Thu Jul 31 14:38:07 
+			COT 2014. -->
+		update dbo.SINI_SINIESTRO
+		<set>
+			<if test="fecOcurrencia != null">
+				FEC_OCURRENCIA = #{fecOcurrencia,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fecNotificacion != null">
+				FEC_NOTIFICACION = #{fecNotificacion,jdbcType=TIMESTAMP},
+			</if>
+			<if test="codCobertura != null">
+				COD_COBERTURA = #{codCobertura,jdbcType=NVARCHAR},
+			</if>
+			<if test="codUbicacion != null">
+				COD_UBICACION = #{codUbicacion,jdbcType=NVARCHAR},
+			</if>
+			<if test="codEstado != null">
+				COD_ESTADO = #{codEstado,jdbcType=NVARCHAR},
+			</if>
+			<if test="codEstLegajo != null">
+				COD_EST_LEGAJO = #{codEstLegajo,jdbcType=NVARCHAR},
+			</if>
+			<if test="codMotRechazoAgr != null">
+				COD_MOT_RECHAZO_AGR = #{codMotRechazoAgr,jdbcType=NVARCHAR},
+			</if>
+			<if test="codMotRechazo != null">
+				COD_MOT_RECHAZO = #{codMotRechazo,jdbcType=NVARCHAR},
+			</if>
+			<if test="codResumen != null">
+				COD_RESUMEN = #{codResumen,jdbcType=NVARCHAR},
+			</if>
+			<if test="cie10 != null">
+				CIE_10 = #{cie10,jdbcType=NVARCHAR},
+			</if>
+			<if test="diagnostico != null">
+				DIAGNOSTICO = #{diagnostico,jdbcType=NVARCHAR},
+			</if>
+			<if test="nroCarta != null">
+				NRO_CARTA = #{nroCarta,jdbcType=NVARCHAR},
+			</if>
+			<if test="fecAprobRechazo != null">
+				FEC_APROB_RECHAZO = #{fecAprobRechazo,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fecRecepSocio != null">
+				FEC_RECEP_SOCIO = #{fecRecepSocio,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fecUltDocum != null">
+				FEC_ULT_DOCUM = #{fecUltDocum,jdbcType=TIMESTAMP},
+			</if>
+			<if test="canDiasLiquiRecha != null">
+				CAN_DIAS_LIQUI_RECHA = #{canDiasLiquiRecha,jdbcType=NUMERIC},
+			</if>
+			<if test="canDiasPendientes != null">
+				CAN_DIAS_PENDIENTES = #{canDiasPendientes,jdbcType=NUMERIC},
+			</if>
+			<if test="valEdadIngreso != null">
+				VAL_EDAD_INGRESO = #{valEdadIngreso,jdbcType=NVARCHAR},
+			</if>
+			<if test="valEdadPermanencia != null">
+				VAL_EDAD_PERMANENCIA = #{valEdadPermanencia,jdbcType=NVARCHAR},
+			</if>
+			<if test="valCarencia != null">
+				VAL_CARENCIA = #{valCarencia,jdbcType=NVARCHAR},
+			</if>
+			<if test="canSiniestro != null">
+				CAN_SINIESTRO = #{canSiniestro,jdbcType=NUMERIC},
+			</if>
+			<if test="observaciones != null">
+				OBSERVACIONES = #{observaciones,jdbcType=NVARCHAR},
+			</if>
+			<if test="flagCargoCarta != null">
+				FLAG_CARGO_CARTA = #{flagCargoCarta,jdbcType=NUMERIC},
+			</if>
+			<if test="fecEntrega != null">
+				FEC_ENTREGA = #{fecEntrega,jdbcType=TIMESTAMP},
+			</if>
+			<if test="codMotNoEnt != null">
+				COD_MOT_NO_ENT = #{codMotNoEnt,jdbcType=NVARCHAR},
+			</if>
+			<if test="fecSolicNuevaDirec != null">
+				FEC_SOLIC_NUEVA_DIREC = #{fecSolicNuevaDirec,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fecReenvio != null">
+				FEC_REENVIO = #{fecReenvio,jdbcType=TIMESTAMP},
+			</if>
+			<if test="nroEnvios != null">
+				NRO_ENVIOS = #{nroEnvios,jdbcType=NUMERIC},
+			</if>
+			<if test="nroCaja != null">
+				NRO_CAJA = #{nroCaja,jdbcType=NVARCHAR},
+			</if>
+			<if test="telReferencia != null">
+				TEL_REFERENCIA = #{telReferencia,jdbcType=NVARCHAR},
+			</if>
+			<if test="contacto != null">
+				CONTACTO = #{contacto,jdbcType=NVARCHAR},
+			</if>
+			<if test="correo != null">
+				CORREO = #{correo,jdbcType=NVARCHAR},
+			</if>
+			<if test="dirDomicilio != null">
+				DIR_DOMICILIO = #{dirDomicilio,jdbcType=NVARCHAR},
+			</if>
+			<if test="codDepartamento != null">
+				COD_DEPARTAMENTO = #{codDepartamento,jdbcType=NVARCHAR},
+			</if>
+			<if test="codProvincia != null">
+				COD_PROVINCIA = #{codProvincia,jdbcType=NVARCHAR},
+			</if>
+			<if test="codDistrito != null">
+				COD_DISTRITO = #{codDistrito,jdbcType=NVARCHAR},
+			</if>
+			<if test="codTipSeguro != null">
+				COD_TIP_SEGURO = #{codTipSeguro,jdbcType=NVARCHAR},
+			</if>
+			<if test="rangos != null">
+				RANGOS = #{rangos,jdbcType=NVARCHAR},
+			</if>
+			<if test="leyReservaPendiente != null">
+				LEY_RESERVA_PENDIENTE = #{leyReservaPendiente,jdbcType=NVARCHAR},
+			</if>
+			<if test="leyReservaPendiente1 != null">
+				LEY_RESERVA_PENDIENTE_1 = #{leyReservaPendiente1,jdbcType=NVARCHAR},
+			</if>
+			<if test="nroDocumAsegurado != null">
+				NRO_DOCUM_ASEGURADO = #{nroDocumAsegurado,jdbcType=NVARCHAR},
+			</if>
+			<if test="tipDocumAsegurado != null">
+				TIP_DOCUM_ASEGURADO = #{tipDocumAsegurado,jdbcType=NVARCHAR},
+			</if>
+			<if test="nacionalidad != null">
+				NACIONALIDAD = #{nacionalidad,jdbcType=NVARCHAR},
+			</if>
+			<if test="codGenero != null">
+				COD_GENERO = #{codGenero,jdbcType=NVARCHAR},
+			</if>
+			<if test="nomAsegurado != null">
+				NOM_ASEGURADO = #{nomAsegurado,jdbcType=NVARCHAR},
+			</if>
+			<if test="apePatAsegurado != null">
+				APE_PAT_ASEGURADO = #{apePatAsegurado,jdbcType=NVARCHAR},
+			</if>
+			<if test="apeMatAsegurado != null">
+				APE_MAT_ASEGURADO = #{apeMatAsegurado,jdbcType=NVARCHAR},
+			</if>
+			<if test="fecNacimiento != null">
+				FEC_NACIMIENTO = #{fecNacimiento,jdbcType=TIMESTAMP},
+			</if>
+			<if test="edaFecOcurrencia != null">
+				EDA_FEC_OCURRENCIA = #{edaFecOcurrencia,jdbcType=NUMERIC},
+			</if>
+			<if test="codParAsegurado != null">
+				COD_PAR_ASEGURADO = #{codParAsegurado,jdbcType=NVARCHAR},
+			</if>
+			<if test="impPagos != null">
+				IMP_PAGOS = #{impPagos,jdbcType=NUMERIC},
+			</if>
+			<if test="impReserva != null">
+				IMP_RESERVA = #{impReserva,jdbcType=NUMERIC},
+			</if>
+			<if test="codMoneda != null">
+				COD_MONEDA = #{codMoneda,jdbcType=NVARCHAR},
+			</if>
+			<if test="nroPlanilla != null">
+				NRO_PLANILLA = #{nroPlanilla,jdbcType=NVARCHAR},
+			</if>
+			<if test="fecEntregaOpCont != null">
+				FEC_ENTREGA_OP_CONT = #{fecEntregaOpCont,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fecEmiCheque != null">
+				FEC_EMI_CHEQUE = #{fecEmiCheque,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fecEntCheque != null">
+				FEC_ENT_CHEQUE = #{fecEntCheque,jdbcType=TIMESTAMP},
+			</if>
+			<if test="usuCreacion != null">
+				USU_CREACION = #{usuCreacion,jdbcType=NVARCHAR},
+			</if>
+			<if test="fecCreacion != null">
+				FEC_CREACION = #{fecCreacion,jdbcType=TIMESTAMP},
+			</if>
+			<if test="usuModificacion != null">
+				USU_MODIFICACION = #{usuModificacion,jdbcType=NVARCHAR},
+			</if>
+			<if test="fecModificacion != null">
+				FEC_MODIFICACION = #{fecModificacion,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where NRO_SINIESTRO = #{nroSiniestro,jdbcType=NVARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.cardif.satelite.model.SiniSiniestro">
+		<!-- WARNING - @mbggenerated This element is automatically generated by MyBatis Generator, do not modify. This element was generated on Thu Jul 31 14:38:07 
+			COT 2014. -->
+		update dbo.SINI_SINIESTRO
+		set FEC_OCURRENCIA = #{fecOcurrencia,jdbcType=TIMESTAMP},
+		FEC_NOTIFICACION = #{fecNotificacion,jdbcType=TIMESTAMP},
+		COD_COBERTURA = #{codCobertura,jdbcType=NVARCHAR},
+		COD_UBICACION = #{codUbicacion,jdbcType=NVARCHAR},
+		COD_ESTADO = #{codEstado,jdbcType=NVARCHAR},
+		COD_EST_LEGAJO = #{codEstLegajo,jdbcType=NVARCHAR},
+		COD_MOT_RECHAZO_AGR = #{codMotRechazoAgr,jdbcType=NVARCHAR},
+		COD_MOT_RECHAZO =
+		#{codMotRechazo,jdbcType=NVARCHAR},
+		COD_RESUMEN = #{codResumen,jdbcType=NVARCHAR},
+		CIE_10 = #{cie10,jdbcType=NVARCHAR},
+		DIAGNOSTICO =
+		#{diagnostico,jdbcType=NVARCHAR},
+		NRO_CARTA = #{nroCarta,jdbcType=NVARCHAR},
+		FEC_APROB_RECHAZO = #{fecAprobRechazo,jdbcType=TIMESTAMP},
+		FEC_RECEP_SOCIO = #{fecRecepSocio,jdbcType=TIMESTAMP},
+		FEC_ULT_DOCUM = #{fecUltDocum,jdbcType=TIMESTAMP},
+		CAN_DIAS_LIQUI_RECHA =
+		#{canDiasLiquiRecha,jdbcType=NUMERIC},
+		CAN_DIAS_PENDIENTES = #{canDiasPendientes,jdbcType=NUMERIC},
+		VAL_EDAD_INGRESO =
+		#{valEdadIngreso,jdbcType=NVARCHAR},
+		VAL_EDAD_PERMANENCIA = #{valEdadPermanencia,jdbcType=NVARCHAR},
+		VAL_CARENCIA = #{valCarencia,jdbcType=NVARCHAR},
+		CAN_SINIESTRO = #{canSiniestro,jdbcType=NUMERIC},
+		OBSERVACIONES = #{observaciones,jdbcType=NVARCHAR},
+		FLAG_CARGO_CARTA =
+		#{flagCargoCarta,jdbcType=NUMERIC},
+		FEC_ENTREGA = #{fecEntrega,jdbcType=TIMESTAMP},
+		COD_MOT_NO_ENT = #{codMotNoEnt,jdbcType=NVARCHAR},
+		FEC_SOLIC_NUEVA_DIREC = #{fecSolicNuevaDirec,jdbcType=TIMESTAMP},
+		FEC_REENVIO = #{fecReenvio,jdbcType=TIMESTAMP},
+		NRO_ENVIOS =
+		#{nroEnvios,jdbcType=NUMERIC},
+		NRO_CAJA = #{nroCaja,jdbcType=NVARCHAR},
+		TEL_REFERENCIA = #{telReferencia,jdbcType=NVARCHAR},
+		CONTACTO =
+		#{contacto,jdbcType=NVARCHAR},
+		CORREO = #{correo,jdbcType=NVARCHAR},
+		DIR_DOMICILIO = #{dirDomicilio,jdbcType=NVARCHAR},
+		COD_DEPARTAMENTO =
+		#{codDepartamento,jdbcType=NVARCHAR},
+		COD_PROVINCIA = #{codProvincia,jdbcType=NVARCHAR},
+		COD_DISTRITO = #{codDistrito,jdbcType=NVARCHAR},
+		COD_TIP_SEGURO = #{codTipSeguro,jdbcType=NVARCHAR},
+		RANGOS = #{rangos,jdbcType=NVARCHAR},
+		LEY_RESERVA_PENDIENTE =
+		#{leyReservaPendiente,jdbcType=NVARCHAR},
+		LEY_RESERVA_PENDIENTE_1 = #{leyReservaPendiente1,jdbcType=NVARCHAR},
+		NRO_DOCUM_ASEGURADO =
+		#{nroDocumAsegurado,jdbcType=NVARCHAR},
+		TIP_DOCUM_ASEGURADO = #{tipDocumAsegurado,jdbcType=NVARCHAR},
+		NACIONALIDAD =
+		#{nacionalidad,jdbcType=NVARCHAR},
+		COD_GENERO = #{codGenero,jdbcType=NVARCHAR},
+		NOM_ASEGURADO = #{nomAsegurado,jdbcType=NVARCHAR},
+		APE_PAT_ASEGURADO =
+		#{apePatAsegurado,jdbcType=NVARCHAR},
+		APE_MAT_ASEGURADO = #{apeMatAsegurado,jdbcType=NVARCHAR},
+		FEC_NACIMIENTO = #{fecNacimiento,jdbcType=TIMESTAMP},
+		EDA_FEC_OCURRENCIA = #{edaFecOcurrencia,jdbcType=NUMERIC},
+		COD_PAR_ASEGURADO = #{codParAsegurado,jdbcType=NVARCHAR},
+		IMP_PAGOS =
+		#{impPagos,jdbcType=NUMERIC},
+		IMP_RESERVA = #{impReserva,jdbcType=NUMERIC},
+		COD_MONEDA = #{codMoneda,jdbcType=NVARCHAR},
+		NRO_PLANILLA =
+		#{nroPlanilla,jdbcType=NVARCHAR},
+		FEC_ENTREGA_OP_CONT = #{fecEntregaOpCont,jdbcType=TIMESTAMP},
+		FEC_EMI_CHEQUE = #{fecEmiCheque,jdbcType=TIMESTAMP},
+		FEC_ENT_CHEQUE = #{fecEntCheque,jdbcType=TIMESTAMP},
+		USU_CREACION = #{usuCreacion,jdbcType=NVARCHAR},
+		FEC_CREACION =
+		#{fecCreacion,jdbcType=TIMESTAMP},
+		USU_MODIFICACION = #{usuModificacion,jdbcType=NVARCHAR},
+		FEC_MODIFICACION = #{fecModificacion,jdbcType=TIMESTAMP},
+		COD_PAIS = #{codPais,jdbcType=NVARCHAR},
+		FEC_ULT_DOCUM_SOCIO = #{fecUltDocumSocio,jdbcType=TIMESTAMP}
+		where NRO_SINIESTRO = #{nroSiniestro,jdbcType=NVARCHAR}
+	</update>
+</mapper>

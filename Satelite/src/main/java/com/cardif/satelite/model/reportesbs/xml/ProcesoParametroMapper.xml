@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cardif.satelite.reportesbs.dao.ProcesoParametroMapper">
+
+	<resultMap id="BaseResultMapProceso"
+		type="com.cardif.satelite.model.reportesbs.ProcesoParametro">
+		<id column="COD_PROCESO_PARAMETRO" property="codProcesoParametro"
+			jdbcType="NUMERIC" />
+		<result column="COD_SOCIO" property="codSocio" jdbcType="NUMERIC" />
+		<result column="SOCIO" property="socio" jdbcType="NVARCHAR" />
+		<result column="COD_TIPO_CONTRATO" property="codTipoContrato"
+			jdbcType="NVARCHAR" />
+		<result column="TIPO_CONTRATO" property="tipoContrato"
+			jdbcType="NVARCHAR" />
+		<result column="COD_TIPO_SEGURO" property="codTipoSeguro"
+			jdbcType="NVARCHAR" />
+		<result column="TIPO_SEGURO" property="tipoSeguro" jdbcType="NVARCHAR" />
+		<result column="COD_TIPO_REASEGURO" property="codTipoReaseguro"
+			jdbcType="NVARCHAR" />
+		<result column="TIPO_REASEGURO" property="tipoReaseguro"
+			jdbcType="NVARCHAR" />
+		<result column="COD_EMPRESA" property="codEmpresa" jdbcType="NUMERIC" />
+		<result column="EMPRESA" property="empresa" jdbcType="NVARCHAR" />
+		<result column="COD_PRODUCTO" property="codProducto" jdbcType="NUMERIC" />
+		<result column="PRODUCTO" property="producto" jdbcType="NVARCHAR" />
+		<result column="COD_ESTADO" property="codEstado" jdbcType="NVARCHAR" />
+		<result column="ESTADO" property="estadoDesc" jdbcType="NVARCHAR" />
+		<result column="COD_TIPO_MOVIMIENTO" property="codTipoMovimiento"
+			jdbcType="NVARCHAR" />
+		<result column="TIPO_MOVIMIENTO" property="tipoMovimiento"
+			jdbcType="NVARCHAR" />
+		<result column="COD_TIPO_CUENTA" property="codTipoCuenta"
+			jdbcType="NVARCHAR" />
+		<result column="TIPO_CUENTA" property="tipoCuenta" jdbcType="NVARCHAR" />
+		<result column="COD_SBS" property="codSbs" jdbcType="NUMERIC" />
+		<result column="RIESGO" property="riesgo" jdbcType="NVARCHAR" />
+		<result column="DETALLE_CUENTA" property="detalleCuenta"
+			jdbcType="NVARCHAR" />
+		<result column="CUENTA_SALDO_SOLES" property="cuentaSaldoSoles"
+			jdbcType="NUMERIC" />
+		<result column="CUENTA_PRIMA_SOLES" property="cuentaPrimaSoles"
+			jdbcType="NUMERIC" />
+		<result column="CUENTA_DESCUENTO_SOLES" property="cuentaDescuentoSoles"
+			jdbcType="NUMERIC" />
+		<result column="CUENTA_SALDO_DOLARES" property="cuentaSaldoDolares"
+			jdbcType="NUMERIC" />
+		<result column="CUENTA_PRIMA_DOLARES" property="cuentaPrimaDolares"
+			jdbcType="NUMERIC" />
+		<result column="CUENTA_DESCUENTO_DOLARES" property="cuentaDescuentoDolares"
+			jdbcType="NUMERIC" />
+		<result column="USUARIO_CREADOR" property="usuarioCreador"
+			jdbcType="NVARCHAR" />
+		<result column="FECHA_CREADO" property="fechaCreador" jdbcType="TIMESTAMP" />
+
+	</resultMap>
+
+
+	<resultMap id="BaseResultMap2" type="com.cardif.satelite.model.reportesbs.Proceso">
+		<id column="COD_PROCESO_PARAMETRO" property="codProcesoParametro"
+			jdbcType="NUMERIC" />
+		<result column="COD_SOCIO" property="codSocio" jdbcType="NUMERIC" />
+		<result column="COD_TIPO_CONTRATO" property="codTipoContrato"
+			jdbcType="NVARCHAR" />
+		<result column="COD_TIPO_SEGURO" property="codTipoSeguro"
+			jdbcType="NVARCHAR" />
+		<result column="COD_TIPO_REASEGURO" property="codTipoReaseguro"
+			jdbcType="NVARCHAR" />
+		<result column="COD_EMPRESA" property="codEmpresa" jdbcType="NUMERIC" />
+		<result column="COD_PRODUCTO" property="codProducto" jdbcType="NUMERIC" />
+		<result column="COD_ESTADO" property="codEstado" jdbcType="NVARCHAR" />
+		<result column="COD_TIPO_MOVIMIENTO" property="codTipoMovimiento"
+			jdbcType="NVARCHAR" />
+		<result column="COD_TIPO_CUENTA" property="codTipoCuenta"
+			jdbcType="NVARCHAR" />
+		<result column="COD_SBS" property="codSbs" jdbcType="NUMERIC" />
+		<result column="RIESGO" property="riesgo" jdbcType="NVARCHAR" />
+		<result column="DETALLE_CUENTA" property="detalleCuenta"
+			jdbcType="NVARCHAR" />
+		<result column="CUENTA_SALDO_SOLES" property="cuentaSaldoSoles"
+			jdbcType="NVARCHAR" />
+		<result column="CUENTA_PRIMA_SOLES" property="cuentaPrimaSoles"
+			jdbcType="NVARCHAR" />	
+		<result column="CUENTA_DESCUENTO_SOLES" property="cuentaDescuentoSoles"
+			jdbcType="NVARCHAR" />
+		<result column="CUENTA_SALDO_DOLARES" property="cuentaSaldoDolares"
+			jdbcType="NVARCHAR" />
+		<result column="CUENTA_PRIMA_DOLARES" property="cuentaPrimaDolares"
+			jdbcType="NVARCHAR" />
+		<result column="CUENTA_DESCUENTO_DOLARES" property="cuentaDescuentoDolares"
+			jdbcType="NVARCHAR" />
+		<result column="USUARIO_CREADOR" property="usuarioCreador"
+			jdbcType="NVARCHAR" />
+		<result column="FECHA_CREADO" property="fechaCreado" jdbcType="TIMESTAMP" />
+		<result column="USUARIO_MODIFICADO" property="usuarioModificador"
+			jdbcType="NVARCHAR" />
+		<result column="FECHA_MODIFICADA" property="fechaModificador"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<insert id="insertSelective" parameterType="com.cardif.satelite.model.reportesbs.Proceso">
+
+		<selectKey keyProperty="codProcesoParametro" order="BEFORE"
+			resultType="java.lang.Long">
+			SELECT sec_cod_proceso_parametro.nextval FROM DUAL
+		</selectKey>
+		
+		INSERT INTO PROCESO_PARAMETRO(COD_PROCESO_PARAMETRO,
+		COD_SOCIO,
+		COD_TIPO_CONTRATO,
+		COD_TIPO_SEGURO,
+		COD_TIPO_REASEGURO,
+		COD_EMPRESA,
+		COD_PRODUCTO,
+		COD_ESTADO,
+		COD_TIPO_MOVIMIENTO,
+		COD_TIPO_CUENTA,
+		COD_SBS,
+		RIESGO,
+		DETALLE_CUENTA,
+		CUENTA_SALDO_SOLES,
+		CUENTA_PRIMA_SOLES,
+		CUENTA_DESCUENTO_SOLES,
+		CUENTA_SALDO_DOLARES,
+		CUENTA_PRIMA_DOLARES,
+		CUENTA_DESCUENTO_DOLARES,
+		USUARIO_CREADOR,
+		FECHA_CREADO) VALUES(
+		#{codProcesoParametro,jdbcType=NUMERIC},
+		#{codSocio,jdbcType=NUMERIC}, #{codTipoContrato,jdbcType=NVARCHAR},
+		#{codTipoSeguro,jdbcType=NVARCHAR},
+		#{codTipoReaseguro,jdbcType=NVARCHAR},
+		#{codEmpresa,jdbcType=NUMERIC}, #{codProducto,jdbcType=NUMERIC},
+		#{codEstado,jdbcType=NVARCHAR}, #{codTipoMovimiento,jdbcType=NVARCHAR},
+		#{codTipoCuenta,jdbcType=NVARCHAR}, #{codSbs,jdbcType=NUMERIC},
+		#{riesgo,jdbcType=NVARCHAR}, #{detalleCuenta,jdbcType=NVARCHAR},
+		#{cuentaSaldoSoles,jdbcType=NUMERIC},
+		#{cuentaPrimaSoles,jdbcType=NUMERIC},
+		#{cuentaDescuentoSoles,jdbcType=NUMERIC},
+		#{cuentaSaldoDolares,jdbcType=NUMERIC},
+		#{cuentaPrimaDolares,jdbcType=NUMERIC},
+		#{cuentaDescuentoDolares,jdbcType=NUMERIC},
+		#{usuarioCreador,jdbcType=NVARCHAR},
+		#{fechaCreado,jdbcType=TIMESTAMP})
+
+
+	</insert>
+
+	<update id="updateByPrimaryKey" parameterType="com.cardif.satelite.model.reportesbs.Proceso">
+		update PROCESO_PARAMETRO
+		set COD_SOCIO = #{codSocio,jdbcType=NUMERIC},
+		COD_TIPO_CONTRATO = #{codTipoContrato,jdbcType=NVARCHAR},
+		COD_TIPO_SEGURO = #{codTipoSeguro,jdbcType=NVARCHAR},
+		COD_TIPO_REASEGURO = #{codTipoReaseguro,jdbcType=NVARCHAR},
+		COD_EMPRESA = #{codEmpresa,jdbcType=NUMERIC},
+		COD_PRODUCTO = #{codProducto,jdbcType=NUMERIC},
+		COD_ESTADO = #{codEstado,jdbcType=NVARCHAR},
+		COD_TIPO_MOVIMIENTO = #{codTipoMovimiento,jdbcType=NVARCHAR},
+		COD_TIPO_CUENTA = #{codTipoCuenta,jdbcType=NVARCHAR},
+		COD_SBS = #{codSbs,jdbcType=NUMERIC},
+		RIESGO = #{riesgo,jdbcType=NVARCHAR},
+		DETALLE_CUENTA = #{detalleCuenta,jdbcType=NVARCHAR},
+		CUENTA_SALDO_SOLES = #{cuentaSaldoSoles,jdbcType=NUMERIC},
+		CUENTA_PRIMA_SOLES = #{cuentaPrimaSoles,jdbcType=NUMERIC},
+		CUENTA_DESCUENTO_SOLES = #{cuentaDescuentoSoles,jdbcType=NUMERIC},
+		CUENTA_SALDO_DOLARES = #{cuentaSaldoDolares,jdbcType=NUMERIC},
+		CUENTA_PRIMA_DOLARES = #{cuentaPrimaDolares,jdbcType=NUMERIC},
+		CUENTA_DESCUENTO_DOLARES = #{cuentaDescuentoDolares,jdbcType=NUMERIC},
+		USUARIO_CREADOR = #{usuarioCreador,jdbcType=NVARCHAR},
+		FECHA_CREADO = #{fechaCreado,jdbcType=TIMESTAMP},
+		USUARIO_MODIFICADO = #{usuarioModificador,jdbcType=NVARCHAR},
+		FECHA_MODIFICADA = #{fechaModificador,jdbcType=TIMESTAMP}
+		where COD_PROCESO_PARAMETRO = #{codProcesoParametro,jdbcType=NUMERIC}
+	</update>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap2">
+		SELECT
+		COD_EMPRESA,
+		COD_ESTADO,
+		COD_PROCESO_PARAMETRO,
+		COD_PRODUCTO,
+		COD_SBS,
+		COD_SOCIO,
+		COD_TIPO_CONTRATO,
+		COD_TIPO_CUENTA,
+		COD_TIPO_MOVIMIENTO,
+		COD_TIPO_REASEGURO,
+		COD_TIPO_SEGURO,
+		CUENTA_DESCUENTO_DOLARES,
+		CUENTA_DESCUENTO_SOLES,
+		CUENTA_PRIMA_DOLARES,
+		CUENTA_PRIMA_SOLES,
+		CUENTA_SALDO_DOLARES,
+		CUENTA_SALDO_SOLES,
+		DETALLE_CUENTA,
+		FECHA_CREADO,
+		FECHA_MODIFICADA,
+		RIESGO,
+		USUARIO_CREADOR,
+		USUARIO_MODIFICADO
+		FROM PROCESO_PARAMETRO
+		where COD_PROCESO_PARAMETRO =
+		#{COD_PROCESO_PARAMETRO,jdbcType=NUMERIC}
+	</select>
+
+	<insert id="insertProductoSocio" parameterType="com.cardif.satelite.model.reportesbs.ProductoSocio">
+
+		INSERT INTO
+		PRODUCTO_SOCIO(COD_PRODUCTO,
+		COD_SOCIO,
+		ESTADO,
+		USU_CREADOR,
+		FEC_CREACION)
+		VALUES(#{codProducto,jdbcType=NUMERIC},#{codSocio,jdbcType=NUMERIC},#{codEstado,jdbcType=NUMERIC},
+		#{usu_creador,jdbcType=NVARCHAR},#{fec_creacion,jdbcType=TIMESTAMP})
+
+	</insert>
+	
+	
+
+	
+</mapper>
