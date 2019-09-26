@@ -33,7 +33,7 @@ public class HistorialContratoController implements Serializable{
 	private List<SelectItem> listaTipoContrato;
 	private List<HistorialContrato> listaHistorial;
 	private List<SelectItem> listaEstado;
-	Usuario usuario;
+	private Usuario usuario;
 	HistorialContrato historial;
 	HistorialContratoDao historialDao;
 	boolean disableInputs = true;
@@ -45,6 +45,7 @@ public class HistorialContratoController implements Serializable{
 	public void init() {
 		historial = new HistorialContrato();
 		historialDao = new HistorialContratoDao();
+		usuario=new   Usuario();
 		getLstRol();
 		getLstTipoContrato();
 		getLstEstados();
@@ -83,7 +84,7 @@ public class HistorialContratoController implements Serializable{
 	}
 
 	public List<HistorialContrato> getLstHistorial() {
-		listaHistorial = historialDao.listaContratoByUser(usuario.getIdUsuario());
+		listaHistorial = historialDao.listaContratoByUser(getUsuario().getIdUsuario());
 		return listaHistorial;
 	}
 
@@ -91,7 +92,7 @@ public class HistorialContratoController implements Serializable{
 		Usuario usu = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
 		boolean flag = false;
 		if (tipoTransaccion == Constantes.CERO) {
-			usu.setIdUsuario(usuario.getIdUsuario());
+			usu.setIdUsuario(getUsuario().getIdUsuario());
 			this.setUsuario(usu);
 
 			historial.setUsuario(this.getUsuario());
@@ -157,9 +158,16 @@ public class HistorialContratoController implements Serializable{
 	}
 	public void obtenerUsuario(ActionEvent event){
 		setDisableInputs(true);
-		usuario=(Usuario) event.getComponent().getAttributes().get("usuario");
+		setUsuario((Usuario) event.getComponent().getAttributes().get("usuario"));
 		historial=new HistorialContrato();
 		getLstHistorial();
+	}
+	public void selectUsuario(SelectEvent selectEvent) {
+
+		 usuario = (Usuario) selectEvent.getObject();
+		
+		
+
 	}
 
 	/**

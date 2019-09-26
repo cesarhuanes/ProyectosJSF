@@ -137,13 +137,7 @@ public class UsuarioController {
 		lstUsuario();
 		return resultado;
 	}
-	public void selectUsuario(SelectEvent selectEvent) {
-
-		Usuario userSelect = (Usuario) selectEvent.getObject();
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idUsuario", userSelect.getIdUsuario());
-		
-
-	}
+	
 
 	public int getCodigoUsuario() {
 		FacesContext context = FacesContext.getCurrentInstance();
