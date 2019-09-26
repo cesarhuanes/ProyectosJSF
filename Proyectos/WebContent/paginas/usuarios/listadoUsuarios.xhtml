@@ -31,7 +31,7 @@
 						</p:inputText>
 						</p:outputPanel>
 					</f:facet>
-				<p:ajax event="rowSelect"  listener="#{usuarioController.selectUsuario}" oncomplete="PF('historialDialog').show()"/>
+				<p:ajax event="rowSelect"   listener="#{contratoController.selectUsuario}" oncomplete="PF('historialDialog').show()"/>
 				<p:column  filterBy="#{item.idUsuario}" filterMatchMode="contains"  headerText="N°" filterStyle="#{item.idUsuario?'':'display: none; visibility: hidden;'}" style="width:30px"> 
                     <h:outputText value="#{item.idUsuario}"/>
                 </p:column>
