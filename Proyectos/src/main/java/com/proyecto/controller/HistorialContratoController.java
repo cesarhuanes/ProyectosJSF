@@ -134,7 +134,7 @@ public class HistorialContratoController implements Serializable{
 	public String editarHC(ActionEvent event) {
 		setDisableInputs(false);
 		setTipoTransaccion(Constantes.UNO);
-		int codigoHc = (int) event.getComponent().getAttributes().get("codigoHC");
+		int codigoHc = 0;//(int) event.getComponent().getAttributes().get("codigoHC");
 		historial = historialDao.obtenerCliente(codigoHc);
 		montoTotal = calculaMontoTotal(historial);
 		return "";
