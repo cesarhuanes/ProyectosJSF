@@ -162,11 +162,9 @@ public class HistorialContratoController implements Serializable{
 		historial=new HistorialContrato();
 		getLstHistorial();
 	}
-	public void selectUsuario(SelectEvent selectEvent) {
-
-		 usuario = (Usuario) selectEvent.getObject();
-		
-		
+	public void selectUsuario(Usuario selectUsuario) {
+     System.out.println("Usuario :"+ selectUsuario.getApMaterno());
+	   this.usuario=selectUsuario;	
 
 	}
 

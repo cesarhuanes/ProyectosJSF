@@ -13,18 +13,19 @@
               <p:panelGrid id="idPanel">
 				<p:row>
 				<p:column>
-						<p:outputLabel value="Usuario :" />
-						<p:inputText value="#{contratoController.usuario.apPaterno }  #{contratoController.usuario.apMaterno} #{contratoController.usuario.nombres}"  required="true"  style="width:140px;"/>
-					</p:column>
+				<p:outputLabel value=" Usuario :" />
+				   <p:inputText value="#{contratoController.usuario.idUsuario}"  required="true"  style="width:40px;"/>
+				</p:column>
 					<p:column>
 						<p:outputLabel value="Rol :" />
-						<p:selectOneMenu value="#{contratoController.historial.rol.idRol}" required="true">
-											<f:selectItems value="#{contratoController.listaRol}" />	
-												</p:selectOneMenu>
+						<p:selectOneMenu  value="#{contratoController.historial.rol.idRol}" required="true">
+						<f:selectItems  value="#{contratoController.listaRol}"/> 
+						</p:selectOneMenu>
 					</p:column>
 					<p:column >
 						<p:outputLabel value="Tipo Contrato:" />
-						<p:selectOneMenu required="true">
+						<p:selectOneMenu value="#{contratoController.historial.tipoContrato.idTipoContrato}"  required="true">
+						<f:selectItems  value="#{contratoController.listaTipoContrato}"/> 
 						</p:selectOneMenu>
 					</p:column>
 					<p:column>
@@ -52,7 +53,8 @@
 					</p:column>
 					<p:column>
 						<p:outputLabel value="Estado" />
-						<p:selectOneMenu required="true">
+						<p:selectOneMenu  value="#{contratoController.historial.estado.idEstado}"   required="true">
+						<f:selectItems  value="#{contratoController.listaEstado}"/> 
 						</p:selectOneMenu>
 					</p:column>
 				</p:row>

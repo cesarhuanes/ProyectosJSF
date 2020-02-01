@@ -31,7 +31,7 @@
 						</p:inputText>
 						</p:outputPanel>
 					</f:facet>
-				<p:ajax event="rowSelect"   listener="#{contratoController.selectUsuario}" oncomplete="PF('historialDialog').show()"/>
+<!-- 				<p:ajax event="rowSelect"   listener="#{contratoController.selectUsuario}" oncomplete="PF('historialDialog').show()"/> -->
 				<p:column  filterBy="#{item.idUsuario}" filterMatchMode="contains"  headerText="N°" filterStyle="#{item.idUsuario?'':'display: none; visibility: hidden;'}" style="width:30px"> 
                     <h:outputText value="#{item.idUsuario}"/>
                 </p:column>
@@ -54,7 +54,11 @@
                 <p:column filterBy="#{item.estado.descripcion}"  headerText="Estado" filterMatchMode="contains" style="width:40px" filterStyle="#{item.idEstado?'':'display: none; visibility: hidden;'}">  
                     <h:outputText value="#{item.estado.descripcion}"/>
                 </p:column>
-                
+                 <p:column headerText="Asignar Contratro" style="width:50px">
+					<p:commandButton   icon="ui-icon-search"    oncomplete="PF('historialDialog').show()">
+					<f:actionListener value="#{item}"  target="#{contratoController.selectUsuario}"/>
+				   </p:commandButton>
+				</p:column>
                 <p:column headerText="Ver mas" style="width:50px">
 					<p:commandButton   icon="ui-icon-search"  action="#{usuarioController.verMasUsuario}">
 						<f:param name="idUsuario"  value="#{item.idUsuario}" />
@@ -69,12 +73,15 @@
                 
                 </p:dataTable>
 				</p:panel>
+				
 				 <p:dialog id="idDialog" widgetVar="historialDialog"  header="Mantenimiento de Historial de Contrato"  draggable="false" modal="true"  resizable="false"
-                 closeOnEscape="true" showEffect="scale" closable="true" width="870" height="500" >
-   
+                 closeOnEscape="true" showEffect="scale" closable="true" width="870" height="500" rendered="true"  >
+                              
                      	  		<ui:include src="/paginas/usuarios/asignarContrato.xhtml" />
-                  
+                             
                 </p:dialog>
+               
+               
             </h:form>
             </ui:define>
             
