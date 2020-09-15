@@ -41,14 +41,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="com/proyecto/recursos/MenuMapper.xml" />
 		<mapper resource="com/proyecto/recursos/UsuarioMapper.xml" />
 		<mapper resource="com/proyecto/recursos/EstadoMapper.xml" />
-        <mapper resource="com/proyecto/recursos/HistorialContratoMapper.xml" />  
+
 		<mapper resource="com/proyecto/recursos/RolMapper.xml" />
 		<mapper resource="com/proyecto/recursos/PerfilMapper.xml" />
 		<mapper resource="com/proyecto/recursos/TipoContratoMapper.xml" />
 		<mapper resource="com/proyecto/recursos/TipoDocumentoMapper.xml" />
-		<mapper resource="com/proyecto/recursos/TipoTrabajoMapper.xml" />
-		<mapper resource="com/proyecto/recursos/LugarTrabajoMapper.xml" />
-		<mapper resource="com/proyecto/recursos/TipoMonedaMapper.xml" />
-		<mapper resource="com/proyecto/recursos/ProyectoMapper.xml" />
     </mappers>
   </configuration>
